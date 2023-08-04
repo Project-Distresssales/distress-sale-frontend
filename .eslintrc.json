@@ -1,3 +1,36 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["next/core-web-vitals", "airbnb", "airbnb-typescript", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "react/react-in-jsx-scope": 0,
+    "react/jsx-no-constructed-context-values": 0,
+    "react/button-has-type": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "react/require-default-props": 0,
+    "react/no-array-index-key": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "import/no-named-as-default": 0,
+    "@typescript-eslint/no-unused-vars": 0,
+    "react/self-closing-comp": 0,
+    "react/jsx-boolean-value": 0,
+    "import/prefer-default-export": 0
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }
