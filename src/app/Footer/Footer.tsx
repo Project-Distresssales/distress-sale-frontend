@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image';
 import Assets from '@/constants/assets.constant';
 import NewsLetter from '../components/NewsLetter/NewsLetter';
@@ -130,6 +130,14 @@ function Footer() {
         }
     };
 
+    // Scroll TO Top Function
+    const goToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    };
+
     return (
         <div className="bg-[#E7EDFE] w-full h-auto sm:px-[80px] px-5 pt-[130px] pb-[88px] flex flex-col justify-between items-center relative">
             {/* News Letter */}
@@ -141,7 +149,7 @@ function Footer() {
                 <Image src={Assets.logo} alt="Logo" width={150} height={150}/>
                 <div className="flex items-center space-x-2">
                     <p className="text-[#101828] font-[500] text-[1.2vw]">Top</p>
-                    <div className="w-[35px] h-[35px] flex items-center justify-center rounded-full bg-[#415EFF] cursor-pointer">
+                    <div onClick={goToTop} className="w-[35px] h-[35px] flex items-center justify-center rounded-full bg-[#415EFF] cursor-pointer">
                         <Image src={Assets.arrowUp} alt="" width={25} height={25} />
                     </div>
                 </div>

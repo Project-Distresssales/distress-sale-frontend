@@ -21,7 +21,6 @@ export default function Navbar() {
 
     
     return (
-        // <div className="w-full h-[80px] bg-white px-[80px] flex items-center justify-between"
         <div className={
             scrollStyle
                 ? 'sticky top-0 z-50 w-full h-[80px] bg-white px-[80px] flex items-center justify-between animate-fade-in-down'
