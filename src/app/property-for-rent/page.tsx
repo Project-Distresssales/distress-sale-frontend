@@ -5,81 +5,80 @@ import SearchCategory from '../components/SearchCategory/SearchCategory';
 import Footer from '../Footer/Footer';
 import ServiceCard2 from '../components/ServiceCard2/ServiceCard2';
 
-
-export default function PropertyForSale() {
+export default function PropertyForRent() {
     // Searched categories
     const recommendedSearch = [
         {
-            header: "Apartment for Sale",
+            header: "Apartment for Rent",
             items: [
                 {
-                    text: 'Apartment for Sale in UAE',
+                    text: 'Apartment for Rent in UAE',
                     link: '',
                 },
                 {
-                    text: 'Apartment for Sale in Downtown Dubai',
+                    text: 'Apartment for Rent in Downtown Dubai',
                     link: '',
                 },
                 {
-                    text: 'Apartment for Sale in Dubai Land',
+                    text: 'Apartment for Rent in Dubai Land',
                     link: '',
                 },
                 {
-                    text: 'Apartment for Sale in Fujairah',
+                    text: 'Apartment for Rent in Fujairah',
                     link: '',
                 },
                 {
-                    text: 'Apartment for Sale in UAQ',
+                    text: 'Apartment for Rent in UAQ',
                     link: '',
                 },
             ]
         },
         {
-            header: "Hotel Apartment for Sale",
+            header: "Rooms for Rent",
             items: [
                 {
-                    text: 'Hotel Apartment for Sale in Downtown Dubai',
+                    text: 'Rent for Rent in Downtown Dubai',
                     link: '',
                 },
                 {
-                    text: 'Hotel Apartment for Sale in Jumeirah Village',
+                    text: 'Rent for Rent in Jumeirah Village',
                     link: '',
                 },
                 {
-                    text: 'Hotel Apartment for Sale in Abu Dhabi',
+                    text: 'Rent for Rent in Abu Dhabi',
                     link: '',
                 },
                 {
-                    text: 'Hotel Apartment for Sale in Dubai South',
+                    text: 'Rent for Rent in Dubai South',
                     link: '',
                 },
                 {
-                    text: 'Hotel Apartment for Sale in Al Furjan',
+                    text: 'Rent for Rent in Al Furjan',
                     link: '',
                 },
             ]
         },
         {
-            header: "Villa for Sale",
+            header: "Villa for Rent",
             items: [
                 {
-                    text: 'Villa for Sale in Palm Jumeirah',
+                    text: 'Villa for Rent in Palm Jumeirah',
                     link: '',
                 },
                 {
-                    text: 'Villa for Sale in Dubai',
+                    text: 'Villa for Rent in Dubai',
                     link: '',
                 },
                 {
-                    text: 'Villa for Sale in Saadiyat Island',
+                    text: 'Villa for Rent in Saadiyat Island',
                     link: '',
                 },
                 {
-                    text: 'Villa for Sale in Jumeirah Park',
+                    text: 'Villa for Rent in Jumeirah Park',
                     link: '',
                 },
                 {
-                    text: 'Villa for Sale in Downtown Dubai',
+                    text: 'Villa for Rent in Downtown Dubai',
                     link: '',
                 },
             ]
@@ -89,43 +88,43 @@ export default function PropertyForSale() {
     // Popular Categories
     const popularCategoryData = [
         {
-            imagePath: "https://s3-alpha-sig.figma.com/img/f39b/1c9d/aa4c9cbe2b53535572cd23fcd06f561c?Expires=1691971200&Signature=OL2dugPSiEXCT75~qvVMtE3Q~AuFE0zcUQoloQGo2kXfRghDLDJUwiSuUhEW5Ja1rqeMGRqiTfGdn1C2CHt~Uhj1c2fk3JG~cGj6JqnhrygOm5NGgk-w~Ad5BTdbFBmV5cn0K7F~o2Mpujm8w6JQaK5mt8YtYA4QkB3ImJmS3bRH7xGjKHThYhrObt0BNDMbRL4gOK2cwvs4tsUzUTazlqJEft5FHtWzX2~XiuAzvfVHkEXuNSu6SZcc7Sh59LW~ze1lphi9sFrjkaEcTx52-CqqFEh01B7CJA1GBPwAvGy1cZO4eXfeMF7db661lCDW9FToq4iCx0JtNKS4wHeClw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-            header: "Apartment for Sale",
+            imagePath: "https://s3-alpha-sig.figma.com/img/4c9e/8aae/3efb163c3ca7afec33e976166352289f?Expires=1691971200&Signature=LIYwCICl3GvaLGwk6m0N6w~KCHTbVtHhrY1SNEmAG8YC1LxI1oWtkZvS34recBnIpo5TIISKDLvM5VeNRdQbkcn~Su2TqB2OI9NN9NTJ0lthQIDYU3MUdhkN~rKiPOOw9Fylb7mhqjlnl5GQFJWBNN66wqs4VpIvXBa1Ej1K0KJFn9yxXprciCtgxaRJmjgUq5wKi5bVCFLTSk-6OwD9ETUknbwF6U7pDffVaeai5W2nFSGPbqagczer3WNlXCwRrzEGhbuMsJZ47hRxTyyyDL3RJUocwehbVm6zG7Rj~kjvzsYzeHRS8YU0b1UOoAV0Eh12x8idE8pyKyugRmWsgQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            header: "Apartment for Rent",
             description: "",
             feature: "",
             location: ""
         },
         {
-            imagePath: "https://s3-alpha-sig.figma.com/img/ee32/f6c9/f82ba1d9f2ef4c375ff531f15638ce79?Expires=1691971200&Signature=m6dyWv1XRBrlB84L5ev0V73wN0qFgnMotTm09Oza-pKBZLgFqNSz8ixhCh~zD~n9CEYCY-o56RnKHvetidWABcqAI5QGvTdGw5dn3kZS27kMEQyHopDPlH0~pYzfm3~koLsoxWzewhxsOebVm9FfnVn3fInAvJTukyhxwjB-VKal8lJRVYYnyGTUE7umPoESKZY3xAIN8Npqs3LdPrMoHU70itNMRgAmOrobsKbXIfpCQo9t-uKZOn79AkuIak9rYKiJmf5C89YGXLKxIo1UtaNU4IhFIMtH8uXtpsyV15FITIDFFJTxl9i-QdLohvYqyN4lh0bN9MCX77TvxEV6ww__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-            header: "Commercial Building for Sale",
+            imagePath: "https://s3-alpha-sig.figma.com/img/8c6c/84df/3e2cccf630f055bfa05c49363f1253d7?Expires=1691971200&Signature=FxXSqD9KuJoRRYtGjKQb8P3s1LvoEgNiK0O04fpQNZJRrACRLdRqbhGzFvnKIqh3pOMlep79d3ptEAnJzeenQq3B0ZaVqkEsAXF2UDUQ5Ii8BYjcOAHIggoYUFo7LtaaHQc9D-5NJE4fwaI53GGS2aACrw7GqkQlD0eA0LmGwkcrTUOV4AxZ0w1WNBuKyPw~XSaoWJD0dyGWejgu~4ezY60lAYdRUqAdMUHFOvw34rK6zPS1-tNmNOtX0gqtj8qm~XQ3OWljo7FbJalYTtqN~jHg4v891R2Dsgm9a8gZakPSeA5NRfM84JpktCZp3nq2Msysu5MO7Y1fyKBnjLuylA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            header: "Rooms for Rent",
             description: "",
             feature: "",
             location: ""
         },
         {
-            imagePath: "https://s3-alpha-sig.figma.com/img/7ca6/9e0e/085c87ab82fbcc9bb2cdf84d93bfefed?Expires=1691971200&Signature=TenK8DoKSmWzaLEdSdVgdkoIj88~5CFQ0tmnZJecXr9qxNUPUIEs-puH0Law9VS0o9SY2JjCYxyXU-CfkKDnWeNEDJ6nOZvMSyEvHYKmX~p9CjsoghgMx2UMi2SFP5x8K2Kne8IOUQdu~hlNRzhtheZACL90TmeDGbWiXgBrM49J2dHLXTQeTIZd580coWAE~LX9DFSjh1pXjtsVaJGDmc2kMLgWwifGsOm23ZBvpKjZHCk1YfsW5wgzA6x72vpfP9cwzm4jdDIZpLqKPjubQKzVlh1QieexxyfXO4c2~7n5VHyA1ERJ2GF--AR~LfR3eCVovEI-114w-5mMshWrsQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-            header: "Multiple Units for Sale",
+            imagePath: "https://s3-alpha-sig.figma.com/img/b26f/1f21/97cd1da5de31b1db46652b3bc714168b?Expires=1691971200&Signature=XM3ZSJjQM4ZTuMikEF3DGHwAK8DeK~DJ9C-Tmbd8gKdeWZoBx2XMv81yiY1bn7xdZWlUPwXh2QYYPUK2NeAESVcRQekaH3aDbbPgCBuTkXnlRivfdjYCt8giOW2aPA9Oe5IhqO1B2aTrMZhzblsFEV9CjxSwSSjdUGVkmCJ3NvpNi9Po55YxEpQsKSWOVmnh~~VUDTcIQTTxOhor5D8-bUUYHCgFG34cgr6IQrHeNapFEy~O3eCXJXtS0Z83NnSwwIANeKSkqXAwmUuOno6gaU2bs0Ik6xvqf6vOO-YPDqSaH4kW7glok0~ug0E9OK50Dipdf8c-bU7DpOS9op708g__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            header: "Villa for Rent",
             description: "",
             feature: "",
             location: ""
         },
         {
-            imagePath: "https://s3-alpha-sig.figma.com/img/212f/032c/e0106e378d0593de182ac6f3c575395b?Expires=1691971200&Signature=i-HUMR~3q2S8qFC-ECPfmTXPSJrPQ2daYZ6DojsFq413xGbmXvQkgFjQ5YQ1HMv6RMiluV8KX1rR-GRjvbM8MfZTlKNf-1~1djSHWyLpmP-jonrkOXDh4V8uJT9azbH-82NEXys0KkC2jNIVSKZubycANcWnRuDD-6qd9EMmQkosI3iKzIM~PfTG8cSueBvkQARfmHjmq2KkWKxYbUkkQZF9EJceB3SKb0fjnNKbNi1abYYWSUDtpbbldmWv8ZlddiCGfLFa3bh0gUwXy~avWMqFp9R5usolLxCOW1hqxPSkbR3SLXX7oNyA~JrkKw~zPtU1ZD1yDg~dG0OwEAG8jQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-            header: "Land for Sale",
+            imagePath: "https://s3-alpha-sig.figma.com/img/d6ff/3964/22bc849287e1d5faee6632e2fce6abae?Expires=1691971200&Signature=BQIzWDuiRbEEQiarZx-MvuWs2yxwulK8RALmFcZmaiKq1hEzfutWXy3VBsM1DjVZ2qq9b1cqTWxwHuu6QSXGFwuyJHhq27zRG-jXfRvLY2qxQ0uMqoeubEMOadfnwPhbkdBVNrZ4Yp-JgUhLGNlIbpj8yJproqh-tMaBWw31KufD~h1UtDQNoSJhzykBPsumxe65KZ~PfFLYmkzCTfz5DvlJmplhWZHrtki~-MdOpLlNLMhNVh~tgQweCghZ5GKQ0xt-SaX5hfgygw~OJa7fYUlWmEtqxW8rgR4~N9D1hG6YZe-wy8Rywm8VYbATLSu-hRzsZE9BRT0hv4HrgNoNhQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            header: "Monthly Short Term for Rent",
             description: "",
             feature: "",
             location: ""
         },
         {
-            imagePath: "https://s3-alpha-sig.figma.com/img/4b03/9e8f/bccdbd40bbfc3f7921c73fdd955a0d23?Expires=1691971200&Signature=qWpvQ~1DbdNI0IUrnwtP7C-3SrrFKrlrg2vbmJuqYmVQBSLVWsr9Svb79NNTPol0jzwiamabeM6lEdWQsK~7KW9n6~xI8Uwr7Dkja5WAm5nAH7U8ijbrgS3BDIcLcSEA7gtNyO745MgTJx7N3AC7FqE2CQ5nnc84Fs1FMvyEQr8gzDqQYn8UuBi5n~7XDQAt0wTj5XQKy0uFZyt8tjsliqhViNTp3qqA-rSFiwM3hnsmc6kIuItCueHKaSJUGh8nH70qMt9BBDaIVjusd5xI6OIPBH79VcM5qWeimDZJHVkCjVPqazN3s6~-DAoa4DAT84Z~RxJtzXxyBSOu5ZLSNw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-            header: "Residential Building for Sale",
+            imagePath: "https://s3-alpha-sig.figma.com/img/243a/9851/68de06a5ac4b2489abb11f970a35d50b?Expires=1691971200&Signature=VZ8oF764HfWwVhoJKzRD4z0KWagJboB6FRznCca15mwkmCKKUWI0IpXV2BIZGNWm-UVIpilOZW48tlj-6Jk-BZ072~HXC1zyZMHPOYlmdm0-1md-ZLigvKMVBSaJhC-Qg6oEQvDScWXZsVgXsmQHyPLe8BAc6spTMg6A0szXaQ-ZFpZiFjVmFPIHd5WTEtjrg9JwMa-esLJf4Bl~I1iIVBq75xTueZG130jJWwviZ~ygs-2AyZ5rHXCFiVwO97nQB8OHoUEMzqvN~OfG3Fn~eWZ92v9~~ClcppjZ0QKMFOu-ca1riYPpZzBJ6ZN12uIuTaFA6~v3owU8aNH7lHbDrw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            header: "Daily Short Term for Rent",
             description: "",
             feature: "",
             location: ""
         },
         {
-            imagePath: "https://s3-alpha-sig.figma.com/img/0e39/1a60/321687b3a194b0df8a664ee7af438166?Expires=1691971200&Signature=gyi4LWIVyBX3klSfInbkr~blneW6~5w6GjnfIATtU5B7SniZj7-m7KYzuQiT0-KqH-HXrx4Ph843Ee5MI1jddxMbKgzsD2fBigmLt7C~OzGOKko3t4j3tN43LBOh0VfSA-xEwneDXg~3o0pyyvZ0uDKB~VhUXHxYgbtQBUy4J5ka5h1yDZYwynuYPnFcocgheyCeRKBaUkbGV0ApsdNk4n0ZK9GWAlAp4SmeOzjn~SP-kmcA8cl08OZ9G~SNynkIxtDdufwnpb2g1m4k9rug-NMGcKTQSi5nrLVul~O8PazTF6C4r~ps3lLzax0slLqeANsE~61UrMeCgN6G1b3QEg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-            header: "Townhouse for Sale",
+            imagePath: "https://s3-alpha-sig.figma.com/img/a535/e6d5/72c8cf83d8c19e7ce0c0388e2bac17a3?Expires=1691971200&Signature=i6F2KdGOjRYr4W4~gSLCJbD9EErgqnaSw4-okBiM6vbOp8pMtUAIek-A8Wuu4dL8P--voTImyTkC87hAdjy3jdAK3I~-suPOITcz4LBANO3t4he9hFkLqEDGVVZJ7uUE~8b36jNIPozAEpJzhXN6~cVfdU5CsLurpp1IINt8bxrEx5xc3m-mlsW3VcNpXvn3gvi802oNzdip6tkTlLAw0LOcEe3Mamss2DazHx2nNR4VJYYD4b1AV1demXYqWWqETk8lD-GA1qsBURWqcY604FiOJpstI0-DqO9EWfivuf1x~JInkb1G9-H8bq3L8tJlRC140Dg1NAIAOZ1ES2bH6w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            header: "Commercial for Rent",
             description: "",
             feature: "",
             location: ""
@@ -136,14 +135,14 @@ export default function PropertyForSale() {
     // Featured Properties
     const featuredProperties = [
         {
-            imagePath: "https://s3-alpha-sig.figma.com/img/80ff/1c99/5cff561d073dea46d32c17510d8b3d7d?Expires=1691971200&Signature=XmPt61S4s1bRqZKly2AcIgIeaxj3auSC6emfacsV24x~wV7ltPs24O6ZaE0rErOm7zqtFB9GFVlX5kund2zhq3AtuZ6uHikHiy8~ePx3s8pYGHoA7KlVPzRUIP4o54qbQCfNHx6BRv7GerstPe91nZp51MaRbJ8RWe7FX4rkaMhtrOSiH9jsJjcOpir8F6RY9qZCxzXoVzctQI5-VtUHRwFasifuipkeFkNtHbjp2xf9X5k2HLL-xZKGnxSWXaGcRwcqa-yhiyBJUN8VQs~h5UdrAd68-UWOiXjJ5DLdL1OPddHqxtuBDGKDoaFpN8pT1DKJOM7~16ugf1QTvVTWcg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            imagePath: "https://s3-alpha-sig.figma.com/img/4c9e/8aae/3efb163c3ca7afec33e976166352289f?Expires=1691971200&Signature=LIYwCICl3GvaLGwk6m0N6w~KCHTbVtHhrY1SNEmAG8YC1LxI1oWtkZvS34recBnIpo5TIISKDLvM5VeNRdQbkcn~Su2TqB2OI9NN9NTJ0lthQIDYU3MUdhkN~rKiPOOw9Fylb7mhqjlnl5GQFJWBNN66wqs4VpIvXBa1Ej1K0KJFn9yxXprciCtgxaRJmjgUq5wKi5bVCFLTSk-6OwD9ETUknbwF6U7pDffVaeai5W2nFSGPbqagczer3WNlXCwRrzEGhbuMsJZ47hRxTyyyDL3RJUocwehbVm6zG7Rj~kjvzsYzeHRS8YU0b1UOoAV0Eh12x8idE8pyKyugRmWsgQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "AED 190,000",
             description: "Full Commercial Building with Offices & Showrooms",
             feature: "13,650 Sqft",
             location: "Shams Abu Dhabi, Al Reem Island"
         },
         {
-            imagePath: "https://s3-alpha-sig.figma.com/img/ba39/ff28/9b845e64eaed2709e7ae345695887e03?Expires=1691971200&Signature=PBTLZWVxkNVNB8kQNFI6wJMqRNY-vFBinbE9ooKSEzNnejrYCNq-HWGOdm6yX24htQdD7I-PyaisJVtKoapQLWLiepz6d8Nwvj5eUm3NdGW71rQtXEdwwgohlHY31hG-V55kYoosjfMJ~YSLu6itGb3brSlnN2dTeFGNnMFo8YDxgFtmt8MhmvS1gD3W1cpK9Qmx03r~I0JcUxMG73Bn9g6hzp4V8iW5TyKdIeBtgm3kgE95cibQi~FOxEBPchWQ0OG9ri58JwzyW80pkDCMF1AyQbR5Vvpt5Vmrw7FQS4O5sRMgXOQWqHbK3YduUeXKa3LndCFhoXJdFOQ5tQOYnw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            imagePath: "https://s3-alpha-sig.figma.com/img/8c6c/84df/3e2cccf630f055bfa05c49363f1253d7?Expires=1691971200&Signature=FxXSqD9KuJoRRYtGjKQb8P3s1LvoEgNiK0O04fpQNZJRrACRLdRqbhGzFvnKIqh3pOMlep79d3ptEAnJzeenQq3B0ZaVqkEsAXF2UDUQ5Ii8BYjcOAHIggoYUFo7LtaaHQc9D-5NJE4fwaI53GGS2aACrw7GqkQlD0eA0LmGwkcrTUOV4AxZ0w1WNBuKyPw~XSaoWJD0dyGWejgu~4ezY60lAYdRUqAdMUHFOvw34rK6zPS1-tNmNOtX0gqtj8qm~XQ3OWljo7FbJalYTtqN~jHg4v891R2Dsgm9a8gZakPSeA5NRfM84JpktCZp3nq2Msysu5MO7Y1fyKBnjLuylA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "AED 190,000",
             description: "10,000 Sq ft Open Yard Factory + Labor Accommodation",
             feature: "500 KW Power",
@@ -202,7 +201,7 @@ export default function PropertyForSale() {
 
 
     return (
-         <div>
+        <div>
             <div className="w-full h-auto pb-32">
                 <div className="px-8">
                     <div className="w-full rounded-[15px] h-auto py-[96px] hero-image-bg-sale flex justify-center items-center">
