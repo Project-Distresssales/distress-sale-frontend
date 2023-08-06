@@ -1,11 +1,32 @@
-import React from 'react';
+"use client"
+
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Assets from '@/constants/assets.constant';
 import { AppButton } from '../Buttons/Buttons';
 
 export default function Navbar() {
+    // Scroll Animation
+    const [scrollStyle, setScrollStyle] = useState<boolean>(false);
+    useEffect(() => {
+        const changeNavbarStyle = () => {
+            if (window.scrollY >= 150) {
+                setScrollStyle(true);
+            } else {
+                setScrollStyle(false);
+            }
+        };
+        window.addEventListener('scroll', changeNavbarStyle);
+    }, []);
+
+    
     return (
-        <div className="w-full h-[80px] bg-white px-[80px] flex items-center justify-between"
+        // <div className="w-full h-[80px] bg-white px-[80px] flex items-center justify-between"
+        <div className={
+            scrollStyle
+                ? 'sticky top-0 z-50 w-full h-[80px] bg-white px-[80px] flex items-center justify-between animate-fade-in-down'
+                : 'relative w-full h-[80px] bg-white px-[80px] flex items-center justify-between animate-fade-in-up'
+        }
             style={{ boxShadow: "0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08" }}
         >
             <div className="flex items-end space-x-3">
