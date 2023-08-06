@@ -257,11 +257,6 @@ export default function PropertyForSale() {
                     </div>
                 </div>
             </div>
-
-            {/* Footer */}
-            <div>
-                <Footer />
-            </div>
         </div>
     )
 }

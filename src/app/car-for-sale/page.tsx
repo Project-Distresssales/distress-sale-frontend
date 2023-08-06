@@ -290,11 +290,6 @@ export default function carsForSale() {
                     </div>
                 </div>
             </div>
-
-            {/* Footer */}
-            <div>
-                <Footer />
-            </div>
         </div>
     )
 }

@@ -203,11 +203,6 @@ export default function Commercial() {
                     </div>
                 </div>
             </div>
-
-            {/* Footer */}
-            <div>
-                <Footer />
-            </div>
         </div>
     )
 }
