@@ -20,9 +20,15 @@ import facebook from '../app/assets/icons/facebook.svg';
 import linkedin from '../app/assets/icons/linkedin.svg';
 import arrowUp from '../app/assets/icons/arrow-up.svg';
 import copyright from '../app/assets/icons/copyright.svg';
+import video from '../app/assets/icons/video.svg';
+import view from '../app/assets/icons/360.svg';
+import arrowRightStrip from '../app/assets/icons/arrow-right-stripe.svg';
 
 
 const Assets = {
+  arrowRightStrip,
+  view,
+  video,
   copyright,
   arrowUp,
   linkedin,

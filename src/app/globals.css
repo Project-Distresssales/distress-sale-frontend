@@ -37,6 +37,13 @@
     background-repeat: no-repeat;
 }
 
+.hero-image-bg-sale{
+  background: linear-gradient(0deg, rgba(65, 94, 255, 0.39) 0%, rgba(65, 94, 255, 0.39) 100%),
+    url('https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 
 /* Product Image Zoom Effect */
 .aspect-ratio-container {
