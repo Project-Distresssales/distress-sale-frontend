@@ -4,7 +4,7 @@ import Assets from '@/constants/assets.constant';
 
 export function SubButton({ text, icon }: { text: string; icon: any }) {
     return (
-        <div className="flex items-center space-x-2 py-5 px-5 cursor-pointer">
+        <div className="flex items-center space-x-2 py-7 px-5 cursor-pointer">
             <Image src={icon} alt="" width={20} height={20} />
             <p className='text-[#475467] text-[1.1vw] font-[500]'>{text}</p>
         </div>
