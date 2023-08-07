@@ -23,9 +23,11 @@ import copyright from '../app/assets/icons/copyright.svg';
 import video from '../app/assets/icons/video.svg';
 import view from '../app/assets/icons/360.svg';
 import arrowRightStrip from '../app/assets/icons/arrow-right-stripe.svg';
+import searchNormal from '../app/assets/icons/search-normal.svg';
 
 
 const Assets = {
+  searchNormal,
   arrowRightStrip,
   view,
   video,

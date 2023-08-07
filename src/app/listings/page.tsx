@@ -5,6 +5,7 @@ import SearchCategory from '../components/SearchCategory/SearchCategory';
 import Footer from '../Footer/Footer';
 import ServiceCard2 from '../components/ServiceCard2/ServiceCard2';
 import BlueCard from '../components/BlueCard/BlueCard';
+import SearchOnly from '../components/SearchOnly/SearchOnly';
 
 export default function PropertyForSale() {
     // Searched categories
@@ -220,7 +221,7 @@ export default function PropertyForSale() {
                             </div>
 
                             <div className="mt-20">
-                                <SearchAndFilter />
+                                <SearchOnly />
                             </div>
                         </div>
                     </div>
