@@ -9,6 +9,7 @@ import ServiceCard2 from '../components/ServiceCard2/ServiceCard2';
 import BlueCard from '../components/BlueCard/BlueCard';
 import Testimonial from '../components/Testimonial/Testimonial';
 import HeroDropDown from '../HeroDropDown/HeroDropDown';
+import CategoryCard from '../components/CategoryCard/CategoryCard';
 
 export default function CarsForSale() {
     // Searched categories
@@ -95,44 +96,26 @@ export default function CarsForSale() {
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/20de/4b5b/9eb992acd64c51f752d97bd47a5b5ab6?Expires=1691971200&Signature=JbLYtJXNTDWF0W~Znc~ZtaXnN~VKYH6ONjre~HdCZVf3r6uG2PTVz7IeOyk-EikbZ4BHxZwojk6JAvXEHbHNWkhA4WvD-rZOEB4qQLouxWPvccn-Q26WsnmCoGfwgBCkXYBMBGdtummKJGR8PH~YEFVnV4vLjnBUxFf7F-~9owsdpd~oxCzk3wEZGNivOqc6aq0rxrzXucNXl5eY7-yBaQ5En6FG7qbDTwkqsbfDfru-gSo0IXr1j~m3~-6PCKktGYZPAee1vGw4kDNcmivLWelxDUPAJJFDBCLXVLGKm6gY3H52UcxIJw42cdi5vczH5ix~Vw4JZdLbqjFk0YxztA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Used Cars for Sale",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/71bb/38f7/6a32086b0c5ad257c4630c85a502fc6a?Expires=1691971200&Signature=cj7TtOUpsXISZGUBCBFi6HW0JTVwHLNpzJvR2L58ndLpEeUlIE2ZtAor4w8jQdU-DNtwkCwGlpqV0f6nr0P2uEJO6ot5misv3L~MAuydAD~JICXBJlr0gtIlYn8ileVILP~CJyRNwVFleaUPbImuiChUz8rOl6Kdcr0Rn8XP~mff1BysMOcawHfRAaPPLD7OvQ3hzPrDAdsusih~94IMvPTM9f6sJX0owtjpQyChKPJlCWPWhbsjHYFoTp9gMuwBE9joqP8fjwyCUfygQx1UJPrfLfyeJWdEj~clMEl82GEdmE3yJx7QNcVgg9kYP5NJ5OONRXF3fr~cAERdU3yPcg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Car Models",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/c4aa/ca5d/3bf652bf945be50c4876304df83bc3ce?Expires=1691971200&Signature=nm~PDYe01GVkliPyMZ786b~MEqha82SPLEKlSVEIAJIi12cT3MTU2MACLGWZsKluTnHD2yguBeazDLJJZ3jR5zs~syjmwVWiWJozMwm~NV~ZtGmV1ssyHzqNS7cWCaDTX6UtJPFp1QXSQJ93Y76JF5GhDtSD8Somf3znlByeogpJhyNI~nfWyIy~vUHHg0qK5CvEHDfRaxIp8nKzaYF136UYlNRIBjsAoopdc58IUID~eKwWV0PdEmfvHy0p2reiwacK9sH33cv14d-eE-0t2bKV~8AXDZ7R9ReXOz-HMufhiobyLRXIw~Q-JSwXn1DIwg6rAuxWQ6OCT8M3uPtwZw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Motorbikes",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/793d/499a/51d4e57b828a871dc9ef34340df10d87?Expires=1691971200&Signature=mxUUuE~0fA7CbvdXtT3APTkyqzbk5k8uTM1RlDtALRnMO8147t9xda9I4z-Uy9WWvpuQgGdufekGOfI9u-Env1RB77Lf9EGYPMY3iGtJB0gEznJjPkQIwbCRO9FOsSvX6amFnr0EKJ-TvIqjePU9PqPaQvnFUCEnPnsEMSQ66xqxoBVgHtoh0NRbxskCPBIOdyb8~Wwgi5JerQh3RDMBRp65j5XjX9a~BZ7H80cUlO5zSYUbulrWEDJYmLOUlwXvmwNfjxLaS5rt8MCLsDfYRrK7v9WtI~7Nr4JmaMq747YRbXUCHxyqntmS9xjSuQ1Xm-vqGBneIyjjcEym~FbzgA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Car Accessories",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/286b/9d18/2b0bc48ca9d3103f161ab2733fa82adb?Expires=1691971200&Signature=A1mbvluyBBfNxGVAYe1uDnSFZwL9K6Sg8E7Je5DPxgVMCTGWs4~xLcLpHSnKaobBbwlQrf6PQoimWRKmxKBEPyoM6XBci1mMTszIUISiSK~zMv0Hj-NJy3Mf5fHhBTlTRyk3p2GnOr0u81Vmf45ln--ttf0F8aViTNlPTOPUKNgzm5ksqrhBMIib9R55VYqv1cu9Dg5Mf~X~T7q5xtgV3Qgy13FGZBhrUU3hY4ntUffPnEfFJ9WJBa3eBlSQsburR5cBD-ID35XjOjTp-r8ciLjJODjD-TvseKZ5rEzwzdw3j-UiDoF2YgHWQxjq07yfR8GDosPv4IZ2ZA7T04aR5A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Car Parts",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/d8d8/420e/caceded2d13da22f3f74c1b02382a489?Expires=1691971200&Signature=q7Ydh1eHzORo68wyjT7i6UqjdJgqMNBJEmBkd6jxi3xkCzAUBmIX9Slz78ue8OXz1EIUDw1INIAHDzKQkmVsQhGTNylQLnN07~TqWecl48zV5iENX3TWfBVumrMCv3q4UTdQ6uW2QgeAaDdRRKMVVTEzYhDlqcTGWYlCT1YHK0NwcrgoQ2WfkGM~8p4XnZ6UUyPDlzDyGNaDzZ8WdhnzXFYUWMFUXz6SjrBdFlfKfvdhVBKBhDZNYCLcfLkvWskTlCHzthW4DRac8MQmRTn6fEbrKP06WMcHYqGN2-LqZM0BI4kXf04U77frlmDn8mCLfI4HmGBOr-qQBTgvk9KggA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Heavy Vehicles",
-            description: "",
-            feature: "",
-            location: ""
         }
     ];
 
@@ -271,7 +254,7 @@ export default function CarsForSale() {
                                 <h1 className="text-[#101828] text-[2vw] font-[700]">Popular Categories</h1>
                                 <div className='grid grid-cols-3 gap-[20px] mt-14'>
                                     {popularCategoryData?.map((product, i) => (
-                                        <ProductCard key={i} product={product} />
+                                        <CategoryCard key={i} product={product} />
                                     ))}
                                 </div>
                             </div>

@@ -6,6 +6,7 @@ import Footer from '../Footer/Footer';
 import ServiceCard2 from '../components/ServiceCard2/ServiceCard2';
 import BlueCard from '../components/BlueCard/BlueCard';
 import SearchOnly from '../components/SearchOnly/SearchOnly';
+import CategoryCard from '../components/CategoryCard/CategoryCard';
 
 export default function PropertyForSale() {
     // Searched categories
@@ -76,44 +77,26 @@ export default function PropertyForSale() {
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/03ab/7229/0602a44a9c7734fd79f3f3bdeaa00801?Expires=1691971200&Signature=U9mucWXAOcYZPYT5GEnKOBLea8a0Vo9YCc-yJy5rcnjoqSHnKYI1gOkfilEqChEDAHKHIIpzp6kWY9Zm-4xdCdNGAP5CFcGJpHILsjuDWieJIe9qAotjjiNXdpL1dWM2f00Myrt5RR3XXbPFaDlkkwDXvr3TfUnfRpgDG71ZB2IE7du1BKAuvBtqdBN4dIRWCpLUejQ4RazUIPnyrnFF7clxUfA2yes~yXYFyGh3Z196BKeO7rJiR1x4~n0HgRsdap0yyqTaquoUgyJQL80jxxZqRMU1aQ3wTRRMC7g-KKym3gORBIEm6sBRicgcp2~RsLQ22eCsrswab8YrxmW1cQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Furnitures",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/bddb/8bfc/d72e19c8613c7e43d42a6ecf6055dc05?Expires=1691971200&Signature=F~6Jia31TwibrSP5fD7BwijCDCjaCH56Nr9HOS4pGSkJa5Yg206cBWB20lR~RH9NhjhWEhKhNteu1vXwdjikMD-5uOYwjGCWlOUCIRnOrXNzVeQBcrcrmLuaMuYIrq-2b~vX~NlEryOPGjWBIit6hbPLCjaDJpD72ksi1Q4VUMMh9NB~vWRAiwDaq0VxggI2K5nSxed2VfbmuVWbx30BCuZ7z4cFEzXk1gn-Ncii526M-4rbKz0Gawpx-gt1bbMTh~TUhG5BhhCuRZ4Sff8lxe5sP7aB-n-yFjEK4n5tXWeX2hg8COZ5aP4F8aoiFXQhlbHMnV06lLSZOTwhGOfy2A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Computer & Networking",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/5f57/097e/c2a78b4c6fbb39971ecf0fc17e870eb2?Expires=1691971200&Signature=PxaCje2dCQkeUWtdVyWR1gIaFxRA2pYNde2zXSvNkvO6F6iM0X9PEN2Sm2k8tKMd6qGVgQKysgK9J-OWCV~PWDirrk0dqng64n6hvOFBv9KiCuHY86oa0~Rp1Zck5GbfZQ1vcnyRG~-JZGr78Qo0dL~yl9VC~RPSug5bW0GeYrsFWz1QMC4j1jJI~lA1m73503QzJzE8GbolCQXRX5NC76loBIt8rgRR0lyir00McwqVGRvsRX7kdxr~vnoG~Y3MWW2wW5xBgtliBoKmbnLHCGyI5lDlxUDwXUTBHGwrUzgBRV~51nTcZnIKcA7-TD~g1kKyT8c2UCLfR2Q-boCgsw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Businesses for Sale",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/3724/7864/1893399c782b209fc1518f962d99bdeb?Expires=1691971200&Signature=ctxVGjIeMq3ubGqiwu0kvoAOdArECeg13AqCVze~88K6IcIFKqja3yQ0dp20XpIFXmvxn3-kii3ch08ffrCYS5FMFh~igOFwIpBpk4dcsy~u~fvudLjQS94GSLHpxdBTHzRM~rbxrcGkxOJZBtMarOSMLEuamg-a4Uujxj7JvNpY0wCk~Tbr4lQIvkdiwkPSkHkjZDYbwvLhBYA3lFrc-OIgZ8nd-6n-x84DztwE5kCVM2pbVhLbQHnwypFqUIGeGpybB3cOhLsj8pqyx9HE-j0BjNNA0jsE~vUmIae02gaDGmMiz2xiEjt4aW6dqhAdqXjn3ZarheA1anpSga6YxA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Books",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/8ec0/dc05/de8efff8f0a936fab78ab9710708eb0a?Expires=1691971200&Signature=NB8wJJTA4UoionrMIDtvdgsGmUnhDFQg4vmdTWe6uWRf~RmWd3A~SilXYjvaUoujsw6lfBOVc-Rczwvng0VkVNadvrkXkhMHbMMGQF03fqmt47~bshavDATB1qyK-zGqyRq7Biimfe6R2QauUtk-MFS9i1gaPkSIBHtNI92ZOGQQSn6ktdZwPopbzCKNQKpBzvaxvT2UXHJDhHXisr1BZJej6GxutTtRb~HkgS73cErSrq46INcIC1ZGHo1USbmmJff~6AwygvK5U9mJdROcQxC1LxZZPrIi6IwevuQKpeHvA9gJ7pXyAp3~8Jyb4pDOft~UcIG1ckOsWDdbWAg3pg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Home Appliances",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/d661/85f4/617f4223f5cd95f462d55ee408ea018d?Expires=1691971200&Signature=V~o0W-gtegHm3W4Rf0zmOIdaIPF0BBFhEsLAf0VV2ERMSsBE3VfVXv4nVLxW7eHXme8jxU9A~BG048L0VsRqLOBllj559hszZs7W1CSfV49r424iA-iRAD1tAWb4f-Gj9qV3yNuJhtt6winZH63K2ea8bYC-6W1FCBi41qJVGGVvMaUnipnD1NZ3Tdu0SVcjH0SYW3prf2ACUcqBF3ad1WFHVJnliIYFeDVKyp7rSF0VNkupiPUp2Gpmf8ebRPXlFLRSCX2IWby2cEkY-fz-kD0E6YyhNRs2Nh6~6pN-qgG8BzWtCp7ZBW4xDUfvJigUTRhPhNmNTPEc5P6Ger-G4g__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Baby Items",
-            description: "",
-            feature: "",
-            location: ""
         }
     ];
 
@@ -240,7 +223,7 @@ export default function PropertyForSale() {
                                 <h1 className="text-[#101828] text-[2vw] font-[700]">Popular Categories</h1>
                                 <div className='grid grid-cols-3 gap-[20px] mt-14'>
                                     {popularCategoryData?.map((product, i) => (
-                                        <ProductCard key={i} product={product} />
+                                        <CategoryCard key={i} product={product} />
                                     ))}
                                 </div>
                             </div>

@@ -7,6 +7,7 @@ import SearchCategory from '../components/SearchCategory/SearchCategory';
 import Footer from '../Footer/Footer';
 import ServiceCard2 from '../components/ServiceCard2/ServiceCard2';
 import HeroDropDown from '../HeroDropDown/HeroDropDown';
+import CategoryCard from '../components/CategoryCard/CategoryCard';
 
 export default function PropertyForRent() {
     // Searched categories
@@ -93,44 +94,26 @@ export default function PropertyForRent() {
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/4c9e/8aae/3efb163c3ca7afec33e976166352289f?Expires=1691971200&Signature=LIYwCICl3GvaLGwk6m0N6w~KCHTbVtHhrY1SNEmAG8YC1LxI1oWtkZvS34recBnIpo5TIISKDLvM5VeNRdQbkcn~Su2TqB2OI9NN9NTJ0lthQIDYU3MUdhkN~rKiPOOw9Fylb7mhqjlnl5GQFJWBNN66wqs4VpIvXBa1Ej1K0KJFn9yxXprciCtgxaRJmjgUq5wKi5bVCFLTSk-6OwD9ETUknbwF6U7pDffVaeai5W2nFSGPbqagczer3WNlXCwRrzEGhbuMsJZ47hRxTyyyDL3RJUocwehbVm6zG7Rj~kjvzsYzeHRS8YU0b1UOoAV0Eh12x8idE8pyKyugRmWsgQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Apartment for Rent",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/8c6c/84df/3e2cccf630f055bfa05c49363f1253d7?Expires=1691971200&Signature=FxXSqD9KuJoRRYtGjKQb8P3s1LvoEgNiK0O04fpQNZJRrACRLdRqbhGzFvnKIqh3pOMlep79d3ptEAnJzeenQq3B0ZaVqkEsAXF2UDUQ5Ii8BYjcOAHIggoYUFo7LtaaHQc9D-5NJE4fwaI53GGS2aACrw7GqkQlD0eA0LmGwkcrTUOV4AxZ0w1WNBuKyPw~XSaoWJD0dyGWejgu~4ezY60lAYdRUqAdMUHFOvw34rK6zPS1-tNmNOtX0gqtj8qm~XQ3OWljo7FbJalYTtqN~jHg4v891R2Dsgm9a8gZakPSeA5NRfM84JpktCZp3nq2Msysu5MO7Y1fyKBnjLuylA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Rooms for Rent",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/b26f/1f21/97cd1da5de31b1db46652b3bc714168b?Expires=1691971200&Signature=XM3ZSJjQM4ZTuMikEF3DGHwAK8DeK~DJ9C-Tmbd8gKdeWZoBx2XMv81yiY1bn7xdZWlUPwXh2QYYPUK2NeAESVcRQekaH3aDbbPgCBuTkXnlRivfdjYCt8giOW2aPA9Oe5IhqO1B2aTrMZhzblsFEV9CjxSwSSjdUGVkmCJ3NvpNi9Po55YxEpQsKSWOVmnh~~VUDTcIQTTxOhor5D8-bUUYHCgFG34cgr6IQrHeNapFEy~O3eCXJXtS0Z83NnSwwIANeKSkqXAwmUuOno6gaU2bs0Ik6xvqf6vOO-YPDqSaH4kW7glok0~ug0E9OK50Dipdf8c-bU7DpOS9op708g__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Villa for Rent",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/d6ff/3964/22bc849287e1d5faee6632e2fce6abae?Expires=1691971200&Signature=BQIzWDuiRbEEQiarZx-MvuWs2yxwulK8RALmFcZmaiKq1hEzfutWXy3VBsM1DjVZ2qq9b1cqTWxwHuu6QSXGFwuyJHhq27zRG-jXfRvLY2qxQ0uMqoeubEMOadfnwPhbkdBVNrZ4Yp-JgUhLGNlIbpj8yJproqh-tMaBWw31KufD~h1UtDQNoSJhzykBPsumxe65KZ~PfFLYmkzCTfz5DvlJmplhWZHrtki~-MdOpLlNLMhNVh~tgQweCghZ5GKQ0xt-SaX5hfgygw~OJa7fYUlWmEtqxW8rgR4~N9D1hG6YZe-wy8Rywm8VYbATLSu-hRzsZE9BRT0hv4HrgNoNhQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Monthly Short Term for Rent",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/243a/9851/68de06a5ac4b2489abb11f970a35d50b?Expires=1691971200&Signature=VZ8oF764HfWwVhoJKzRD4z0KWagJboB6FRznCca15mwkmCKKUWI0IpXV2BIZGNWm-UVIpilOZW48tlj-6Jk-BZ072~HXC1zyZMHPOYlmdm0-1md-ZLigvKMVBSaJhC-Qg6oEQvDScWXZsVgXsmQHyPLe8BAc6spTMg6A0szXaQ-ZFpZiFjVmFPIHd5WTEtjrg9JwMa-esLJf4Bl~I1iIVBq75xTueZG130jJWwviZ~ygs-2AyZ5rHXCFiVwO97nQB8OHoUEMzqvN~OfG3Fn~eWZ92v9~~ClcppjZ0QKMFOu-ca1riYPpZzBJ6ZN12uIuTaFA6~v3owU8aNH7lHbDrw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Daily Short Term for Rent",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/a535/e6d5/72c8cf83d8c19e7ce0c0388e2bac17a3?Expires=1691971200&Signature=i6F2KdGOjRYr4W4~gSLCJbD9EErgqnaSw4-okBiM6vbOp8pMtUAIek-A8Wuu4dL8P--voTImyTkC87hAdjy3jdAK3I~-suPOITcz4LBANO3t4he9hFkLqEDGVVZJ7uUE~8b36jNIPozAEpJzhXN6~cVfdU5CsLurpp1IINt8bxrEx5xc3m-mlsW3VcNpXvn3gvi802oNzdip6tkTlLAw0LOcEe3Mamss2DazHx2nNR4VJYYD4b1AV1demXYqWWqETk8lD-GA1qsBURWqcY604FiOJpstI0-DqO9EWfivuf1x~JInkb1G9-H8bq3L8tJlRC140Dg1NAIAOZ1ES2bH6w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Commercial for Rent",
-            description: "",
-            feature: "",
-            location: ""
         }
     ];
 
@@ -247,7 +230,7 @@ export default function PropertyForRent() {
                                 <h1 className="text-[#101828] text-[2vw] font-[700]">Popular Categories</h1>
                                 <div className='grid grid-cols-3 gap-[20px] mt-14'>
                                     {popularCategoryData?.map((product, i) => (
-                                        <ProductCard key={i} product={product} />
+                                        <CategoryCard key={i} product={product} />
                                     ))}
                                 </div>
                             </div>

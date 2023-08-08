@@ -7,6 +7,7 @@ import SearchCategory from '../components/SearchCategory/SearchCategory';
 import Footer from '../Footer/Footer';
 import ServiceCard2 from '../components/ServiceCard2/ServiceCard2';
 import HeroDropDown from '../HeroDropDown/HeroDropDown';
+import CategoryCard from '../components/CategoryCard/CategoryCard';
 
 
 export default function PropertyForSale() {
@@ -94,44 +95,26 @@ export default function PropertyForSale() {
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/f39b/1c9d/aa4c9cbe2b53535572cd23fcd06f561c?Expires=1691971200&Signature=OL2dugPSiEXCT75~qvVMtE3Q~AuFE0zcUQoloQGo2kXfRghDLDJUwiSuUhEW5Ja1rqeMGRqiTfGdn1C2CHt~Uhj1c2fk3JG~cGj6JqnhrygOm5NGgk-w~Ad5BTdbFBmV5cn0K7F~o2Mpujm8w6JQaK5mt8YtYA4QkB3ImJmS3bRH7xGjKHThYhrObt0BNDMbRL4gOK2cwvs4tsUzUTazlqJEft5FHtWzX2~XiuAzvfVHkEXuNSu6SZcc7Sh59LW~ze1lphi9sFrjkaEcTx52-CqqFEh01B7CJA1GBPwAvGy1cZO4eXfeMF7db661lCDW9FToq4iCx0JtNKS4wHeClw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Apartment for Sale",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/ee32/f6c9/f82ba1d9f2ef4c375ff531f15638ce79?Expires=1691971200&Signature=m6dyWv1XRBrlB84L5ev0V73wN0qFgnMotTm09Oza-pKBZLgFqNSz8ixhCh~zD~n9CEYCY-o56RnKHvetidWABcqAI5QGvTdGw5dn3kZS27kMEQyHopDPlH0~pYzfm3~koLsoxWzewhxsOebVm9FfnVn3fInAvJTukyhxwjB-VKal8lJRVYYnyGTUE7umPoESKZY3xAIN8Npqs3LdPrMoHU70itNMRgAmOrobsKbXIfpCQo9t-uKZOn79AkuIak9rYKiJmf5C89YGXLKxIo1UtaNU4IhFIMtH8uXtpsyV15FITIDFFJTxl9i-QdLohvYqyN4lh0bN9MCX77TvxEV6ww__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Commercial Building for Sale",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/7ca6/9e0e/085c87ab82fbcc9bb2cdf84d93bfefed?Expires=1691971200&Signature=TenK8DoKSmWzaLEdSdVgdkoIj88~5CFQ0tmnZJecXr9qxNUPUIEs-puH0Law9VS0o9SY2JjCYxyXU-CfkKDnWeNEDJ6nOZvMSyEvHYKmX~p9CjsoghgMx2UMi2SFP5x8K2Kne8IOUQdu~hlNRzhtheZACL90TmeDGbWiXgBrM49J2dHLXTQeTIZd580coWAE~LX9DFSjh1pXjtsVaJGDmc2kMLgWwifGsOm23ZBvpKjZHCk1YfsW5wgzA6x72vpfP9cwzm4jdDIZpLqKPjubQKzVlh1QieexxyfXO4c2~7n5VHyA1ERJ2GF--AR~LfR3eCVovEI-114w-5mMshWrsQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Multiple Units for Sale",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/212f/032c/e0106e378d0593de182ac6f3c575395b?Expires=1691971200&Signature=i-HUMR~3q2S8qFC-ECPfmTXPSJrPQ2daYZ6DojsFq413xGbmXvQkgFjQ5YQ1HMv6RMiluV8KX1rR-GRjvbM8MfZTlKNf-1~1djSHWyLpmP-jonrkOXDh4V8uJT9azbH-82NEXys0KkC2jNIVSKZubycANcWnRuDD-6qd9EMmQkosI3iKzIM~PfTG8cSueBvkQARfmHjmq2KkWKxYbUkkQZF9EJceB3SKb0fjnNKbNi1abYYWSUDtpbbldmWv8ZlddiCGfLFa3bh0gUwXy~avWMqFp9R5usolLxCOW1hqxPSkbR3SLXX7oNyA~JrkKw~zPtU1ZD1yDg~dG0OwEAG8jQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Land for Sale",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/4b03/9e8f/bccdbd40bbfc3f7921c73fdd955a0d23?Expires=1691971200&Signature=qWpvQ~1DbdNI0IUrnwtP7C-3SrrFKrlrg2vbmJuqYmVQBSLVWsr9Svb79NNTPol0jzwiamabeM6lEdWQsK~7KW9n6~xI8Uwr7Dkja5WAm5nAH7U8ijbrgS3BDIcLcSEA7gtNyO745MgTJx7N3AC7FqE2CQ5nnc84Fs1FMvyEQr8gzDqQYn8UuBi5n~7XDQAt0wTj5XQKy0uFZyt8tjsliqhViNTp3qqA-rSFiwM3hnsmc6kIuItCueHKaSJUGh8nH70qMt9BBDaIVjusd5xI6OIPBH79VcM5qWeimDZJHVkCjVPqazN3s6~-DAoa4DAT84Z~RxJtzXxyBSOu5ZLSNw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Residential Building for Sale",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/0e39/1a60/321687b3a194b0df8a664ee7af438166?Expires=1691971200&Signature=gyi4LWIVyBX3klSfInbkr~blneW6~5w6GjnfIATtU5B7SniZj7-m7KYzuQiT0-KqH-HXrx4Ph843Ee5MI1jddxMbKgzsD2fBigmLt7C~OzGOKko3t4j3tN43LBOh0VfSA-xEwneDXg~3o0pyyvZ0uDKB~VhUXHxYgbtQBUy4J5ka5h1yDZYwynuYPnFcocgheyCeRKBaUkbGV0ApsdNk4n0ZK9GWAlAp4SmeOzjn~SP-kmcA8cl08OZ9G~SNynkIxtDdufwnpb2g1m4k9rug-NMGcKTQSi5nrLVul~O8PazTF6C4r~ps3lLzax0slLqeANsE~61UrMeCgN6G1b3QEg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Townhouse for Sale",
-            description: "",
-            feature: "",
-            location: ""
         }
     ];
 
@@ -248,7 +231,7 @@ export default function PropertyForSale() {
                                 <h1 className="text-[#101828] text-[2vw] font-[700]">Popular Categories</h1>
                                 <div className='grid grid-cols-3 gap-[20px] mt-14'>
                                     {popularCategoryData?.map((product, i) => (
-                                        <ProductCard key={i} product={product} />
+                                        <CategoryCard key={i} product={product} />
                                     ))}
                                 </div>
                             </div>

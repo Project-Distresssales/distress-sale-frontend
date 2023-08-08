@@ -26,9 +26,13 @@ import arrowRightStrip from '../app/assets/icons/arrow-right-stripe.svg';
 import searchNormal from '../app/assets/icons/search-normal.svg';
 import dropDownArrow from '../app/assets/icons/drop-down-arrow.svg';
 import locationFill from '../app/assets/icons/location-fill.svg';
+import heartUnchecked from '../app/assets/icons/heart-fav.svg';
+import heartChecked from '../app/assets/icons/heart-red.svg';
 
 
 const Assets = {
+  heartChecked,
+  heartUnchecked,
   locationFill,
   dropDownArrow,
   searchNormal,

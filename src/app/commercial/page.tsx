@@ -7,6 +7,7 @@ import SearchCategory from '../components/SearchCategory/SearchCategory';
 import Footer from '../Footer/Footer';
 import ServiceCard2 from '../components/ServiceCard2/ServiceCard2';
 import HeroDropDown from '../HeroDropDown/HeroDropDown';
+import CategoryCard from '../components/CategoryCard/CategoryCard';
 
 export default function Commercial() {
     // Searched categories
@@ -61,44 +62,26 @@ export default function Commercial() {
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/2366/4fe9/aa7915f115d1a24daf00f89b5a592ce5?Expires=1691971200&Signature=WzPwtPyti1N3-9FI4P2b-euOeOqHfBhQS4oqC2szcPo6tuveqx40e0ZyJbVcQ4xA6xbXa3wWiaXPsPaqYDJioeZ~Mt9~KSp5Y-8DCl6kUxqJVJl6iJwgGfyniBocmFJmA1iNTpVvVbWnoBn~Gh8efJ0pBYus0OWhewbhiEI-JqbjVSd2CfS5ubqSKL1OQ9t85ZzBtPsYV~kC5o5VZws0z7rIO6wBGnWY3LQWN5UAQhi4WTNQAC0G8rdH6xfdV7S6ozlhBpWjOJkbaPHGK2OusSG-38GRgUSDkX~fPUl3IM5rp7SvpPysZwH9M3sKfYbFfydC6QnHXWSEVnIrb1PyRQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Warehouse for Sale",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/7361/0319/878c2d43d0be29430432503f083ff4e8?Expires=1691971200&Signature=MqbMJ1yt44EeaB9xagqLog-cMlElu0W0fFoO5wfqM7OLnYeBvMrUvRdtlAUJ1GwuEZ3B0NAmCMZ6~qvEuAW8q~UzwJArE1P~8re~gg5-E11tbYgjU9vGXhdi5c0FkVJaBJDRIU3-OsMmrSxWzmorauB-U73gfpngMuzU15TlFEN5V-~o8Zt9CfR6OwV0xftD7PEHWP3cXU80qwWeY74OiEZv3xx-~Jpi3vdGVW5YUWZAo5lXx6hVDIqYBAOFekhGDBI-o4H4Z776j0xaiiv6osjLi0aKz5VDLwdCR5nqDYN9aHWY8RjWbS8mxP9kqhIF~Isp676Z3g1nYWQjK-ezXg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Showroom for Sale",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/4062/a426/eda54879348ff780e9b5a6ea9689d439?Expires=1691971200&Signature=gOEBi9YuvGenstcfNlMloF-zm8oEhtrz-G5rosNazhG-H57E3DgZvlZdNJk9e8NfuGg2~M~-CBgkBY1v7bj7HK1EeWpL-rIoyJs-XgmUgVDnPIa-X3I0BEbq9hCkGbeAG53LWAtDSXSqCp60u0PPA404L5NquHwx6fuWlLWuKx~xGFQPJY5BnAZ5IpY1IVN0kiOnHsIztvwt4pDZSD77eQkiw5wvAdGh~lKfdM1woOBwj~8HuKXVm1gfCA7ZdQoesszvY62gxrEOuUUOEBljypEtupa2BePdcJXBqkIM8pQoX4CC9FHE1wbT-tiZwcI42UjY-h2EPYe8p5dGUF1BAA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Shop for Sale",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/19a0/7d7c/0f124b32020863a5736fbd03bbf0b836?Expires=1691971200&Signature=ZuwbfCkjaPI4GNpp2PmVu6eMmbYBpdSjybxdNwawmiGVTl~mciZtoTWt7ljOxR0I4WF3s3dBo600HYUdQx7IGAm9OEpjj1etbXZtbvQCqUEUWM39yLbUZ1vY~zAgHZlv06rXgi5k7FgAB~4N4UlmSljtxHhSlgbTa3MCYuPK58BzprJQhL~vySgXQ18YdfS98ELOzdxoGi5EM-3p0HBC8QTD5Yux6mffXlaEL7A3Pt6Y9vKC-F-9aCB65TyAmRnBAB3YmYTJQbIoO1KvKoVjarz39m0JnEmlW6WSZW6SamuLItSk1VMpvXB6Nk-kFBRBsdF1twYRczXlgco4KvwDgw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Studio for Sale",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/e48a/7f07/0fac0dfad3a5f036fb3c2ad11014e55f?Expires=1691971200&Signature=nNVpDtKSm3y5QKioyz1z5Uc1NLUlYV8KFgeiXDSopaZwt69Ogq-LRmIzPjtYzUQRLZKLuO1M13sqjwDg8wUneupph25jhtJ9SQaPzyjClIYdtDir2zZogM-UizAhWGCFZO1vvJwfTzj6N6257PL5PRgqX3IwcdABKeHmEsocM44bsEP3CPF~fgKvSKRhD2naTlXxfZqUUkSslV6gk12MSOkYusWHlsd2UlQXLpQn0IC6ygk43P7m2M6qpSZNb4YMV755udTWw9QRm6f89t5vwMxuVxSOcd6pCmgQiTq5SGdQeoK5FJxKu9WKZBl7HRPTCCWKg0QTWEia1u~vOn4YBA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Factory for Sale",
-            description: "",
-            feature: "",
-            location: ""
         },
         {
             imagePath: "https://s3-alpha-sig.figma.com/img/0378/a098/567cd754018e0b6db8cfd85bb64342f3?Expires=1691971200&Signature=c1xYsFbsy1lunQklCXum9owQeyPg5DSRC-Cy~UhQ0tQHU2AOBmPwV0lBS-t7-dnXMQrvQ8Kg-9avi~hu9UHzUSN~xoyqCrpB0YVWGqMKWSKxmHhSzEWSUHH6ChfolWeWH3iUpJKsJ0DOrzns1eGU67OPsd69NJAblea4oAYqx5ndbB6~LeM6AHML~3Z0Ejp7B-i8KpEvX7OUfjxno3QokoDNpPUZcbBuU0RPUnGKVUb7pBC-2c3p97tZHvOEKp37Z-B5~RWK9OC10ZSnH3H-sRXUQJKFEnYe~su-l9CX5dxMTGWLzQLjI9Xw6tqNTa-3jEykqNcLmR27mOogJ5Oycg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "Office for Sale",
-            description: "",
-            feature: "",
-            location: ""
         }
     ];
 
@@ -195,7 +178,7 @@ export default function Commercial() {
                                 <h1 className="text-[#101828] text-[2vw] font-[700]">Popular Categories</h1>
                                 <div className='grid grid-cols-3 gap-[20px] mt-14'>
                                     {popularCategoryData?.map((product, i) => (
-                                        <ProductCard key={i} product={product} />
+                                        <CategoryCard key={i} product={product} />
                                     ))}
                                 </div>
                             </div>
