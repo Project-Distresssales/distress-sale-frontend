@@ -28,9 +28,11 @@ import dropDownArrow from '../app/assets/icons/drop-down-arrow.svg';
 import locationFill from '../app/assets/icons/location-fill.svg';
 import heartUnchecked from '../app/assets/icons/heart-fav.svg';
 import heartChecked from '../app/assets/icons/heart-red.svg';
+import world from '../app/assets/icons/world.svg';
 
 
 const Assets = {
+  world,
   heartChecked,
   heartUnchecked,
   locationFill,

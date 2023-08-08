@@ -4,10 +4,10 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Assets from '@/constants/assets.constant'
-import DropDown from '../components/DropDown/DropDown'
-import { AppButton } from '../components/Buttons/Buttons'
-import LocationSearch from '../components/LocationSearch/LocationSearch'
-import TabSwitcher from '../components/TabSwitcher/TabSwitcher'
+import DropDown from '../DropDown/DropDown'
+import { AppButton } from '../Buttons/Buttons'
+import LocationSearch from '../LocationSearch/LocationSearch'
+import TabSwitcher from '../TabSwitcher/TabSwitcher'
 
 export default function HeroDropDown(
   {

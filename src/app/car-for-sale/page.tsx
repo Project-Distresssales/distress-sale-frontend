@@ -4,11 +4,11 @@ import React, { useState } from 'react'
 import ProductCard from '../components/Card/ProductCard';
 import SearchAndFilter from '../components/SearchAndFilter/SearchAndFilter';
 import SearchCategory from '../components/SearchCategory/SearchCategory';
-import Footer from '../Footer/Footer';
+import Footer from '../components/Footer/Footer';
 import ServiceCard2 from '../components/ServiceCard2/ServiceCard2';
 import BlueCard from '../components/BlueCard/BlueCard';
 import Testimonial from '../components/Testimonial/Testimonial';
-import HeroDropDown from '../HeroDropDown/HeroDropDown';
+import HeroDropDown from '../components/HeroDropDown/HeroDropDown';
 import CategoryCard from '../components/CategoryCard/CategoryCard';
 
 export default function CarsForSale() {

@@ -5,7 +5,7 @@ import ServiceCard from './components/ServiceCard/ServiceCard'
 import SearchCategory from './components/SearchCategory/SearchCategory'
 import VerifyUserBadge from './components/VerifyUserBadge/VerifyUserBadge'
 import ProductCard from './components/Card/ProductCard'
-import Footer from './Footer/Footer'
+import Footer from './components/Footer/Footer'
 
 export default function Home() {
 
