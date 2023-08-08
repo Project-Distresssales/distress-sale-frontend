@@ -5,7 +5,7 @@ import { AppButton } from '../Buttons/Buttons'
 
 export default function SearchOnly() {
   return (
-    <div className="flex items-center p-[10px] space-x-4 bg-white rounded-[5px] transform hover:scale-105 transition duration-500"
+    <div className="flex items-center p-[10px] space-x-4 rounded-[5px] transform hover:scale-105 transition duration-500"
       style={{ 
         boxShadow: "0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08)",
         background: "rgba(16, 24, 40, 0.80)"

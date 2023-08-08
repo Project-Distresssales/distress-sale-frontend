@@ -24,9 +24,13 @@ import video from '../app/assets/icons/video.svg';
 import view from '../app/assets/icons/360.svg';
 import arrowRightStrip from '../app/assets/icons/arrow-right-stripe.svg';
 import searchNormal from '../app/assets/icons/search-normal.svg';
+import dropDownArrow from '../app/assets/icons/drop-down-arrow.svg';
+import locationFill from '../app/assets/icons/location-fill.svg';
 
 
 const Assets = {
+  locationFill,
+  dropDownArrow,
   searchNormal,
   arrowRightStrip,
   view,

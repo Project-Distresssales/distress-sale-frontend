@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useState } from 'react'
 import ProductCard from '../components/Card/ProductCard';
 import SearchAndFilter from '../components/SearchAndFilter/SearchAndFilter';
 import SearchCategory from '../components/SearchCategory/SearchCategory';
@@ -6,8 +8,9 @@ import Footer from '../Footer/Footer';
 import ServiceCard2 from '../components/ServiceCard2/ServiceCard2';
 import BlueCard from '../components/BlueCard/BlueCard';
 import Testimonial from '../components/Testimonial/Testimonial';
+import HeroDropDown from '../HeroDropDown/HeroDropDown';
 
-export default function carsForSale() {
+export default function CarsForSale() {
     // Searched categories
     const recommendedSearch = [
         {
@@ -222,6 +225,13 @@ export default function carsForSale() {
     ]
 
 
+    // Tab switcher
+    const [activeTab, setActiveTab] = useState('buy');
+
+    const handleTabClick = (tab: React.SetStateAction<string>) => {
+        setActiveTab(tab);
+    };
+
     return (
         <div>
             <div className="w-full h-auto pb-32">
@@ -233,7 +243,16 @@ export default function carsForSale() {
                             </div>
 
                             <div className="mt-20">
-                                <SearchAndFilter />
+                            <HeroDropDown
+                                    activeTab={activeTab}
+                                    setActiveTab={setActiveTab}
+                                    handleTabClick={handleTabClick}
+                                    defaultOptionState={activeTab === "rent" ? 'Rent' : 'Buy'}
+                                    defaultOptionPropertyType="Residential"
+                                    defaultOptionType="Bed & Baths"
+                                    defaultOptionFeature="Area (sqft)"
+                                    defaultOptionPrice="Price (AED)"
+                                />
                             </div>
                         </div>
                     </div>

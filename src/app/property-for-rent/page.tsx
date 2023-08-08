@@ -1,9 +1,12 @@
-import React from 'react'
+"use client"
+
+import React, { useState } from 'react'
 import ProductCard from '../components/Card/ProductCard';
 import SearchAndFilter from '../components/SearchAndFilter/SearchAndFilter';
 import SearchCategory from '../components/SearchCategory/SearchCategory';
 import Footer from '../Footer/Footer';
 import ServiceCard2 from '../components/ServiceCard2/ServiceCard2';
+import HeroDropDown from '../HeroDropDown/HeroDropDown';
 
 export default function PropertyForRent() {
     // Searched categories
@@ -200,6 +203,13 @@ export default function PropertyForRent() {
     ];
 
 
+    // Tab switcher
+    const [activeTab, setActiveTab] = useState('rent');
+
+    const handleTabClick = (tab: React.SetStateAction<string>) => {
+        setActiveTab(tab);
+    };
+
     return (
         <div>
             <div className="w-full h-auto pb-32">
@@ -211,7 +221,16 @@ export default function PropertyForRent() {
                             </div>
 
                             <div className="mt-20">
-                                <SearchAndFilter />
+                                <HeroDropDown
+                                    activeTab={activeTab}
+                                    setActiveTab={setActiveTab}
+                                    handleTabClick={handleTabClick}
+                                    defaultOptionState={activeTab === "rent" ? 'Rent' : 'Buy'}
+                                    defaultOptionPropertyType="Residential"
+                                    defaultOptionType="Bed & Baths"
+                                    defaultOptionFeature="Area (sqft)"
+                                    defaultOptionPrice="Price (AED)"
+                                />
                             </div>
                         </div>
                     </div>
