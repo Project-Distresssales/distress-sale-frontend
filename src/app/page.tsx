@@ -1,113 +1,429 @@
-import Image from 'next/image'
+import React from 'react'
+import Assets from '@/constants/assets.constant'
+import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter'
+import ServiceCard from './components/ServiceCard/ServiceCard'
+import SearchCategory from './components/SearchCategory/SearchCategory'
+import VerifyUserBadge from './components/VerifyUserBadge/VerifyUserBadge'
+import ProductCard from './components/Card/ProductCard'
+import Footer from './components/Footer/Footer'
 
 export default function Home() {
+
+  const services = [
+    {
+      header: "Listings",
+      text: "Distress Sales allows users post classified ads. You can buy, sell, and advertise properties and products with ease.",
+      buttonText: "Check Market Insights",
+      iconPath: Assets.listingWhite
+    },
+    {
+      header: "Market Insights",
+      text: "Gain valuable market insights by exploring accurate market prices, ensuring informed decision-making and the best deals.",
+      buttonText: "Post Ad",
+      iconPath: Assets.insightWhite
+    },
+    {
+      header: "Diverse Categories",
+      text: "There are wide variety of categories to choose from, offering an extensive selection of exclusive deals to explore.",
+      buttonText: "Explore",
+      iconPath: Assets.categoryWhite
+    },
+  ]
+
+  // Searched categories
+  const popularCategories = [
+    {
+      header: "Properties for Sale in UAE",
+      items: [
+        {
+          text: 'Apartment for Sale',
+          link: '',
+        },
+        {
+          text: 'Land for Sale',
+          link: '',
+        },
+        {
+          text: 'VIlla for Sale',
+          link: '',
+        },
+        {
+          text: 'Penthouse for Sale',
+          link: '',
+        },
+        {
+          text: 'Residential Plot for Sale',
+          link: '',
+        },
+      ]
+    },
+    {
+      header: "Cars in Dubai",
+      items: [
+        {
+          text: 'Used Cars in Dubai',
+          link: '',
+        },
+        {
+          text: 'Motorcycles',
+          link: '',
+        },
+        {
+          text: 'Toyota',
+          link: '',
+        },
+        {
+          text: 'Nissan Patrol',
+          link: '',
+        },
+        {
+          text: 'Chevrolet',
+          link: '',
+        },
+      ]
+    },
+    {
+      header: "Villas in Abu Dhabi",
+      items: [
+        {
+          text: 'Saadiyat Island',
+          link: '',
+        },
+        {
+          text: 'Al Reef',
+          link: '',
+        },
+        {
+          text: 'Khalifa City',
+          link: '',
+        },
+        {
+          text: 'MBZ City',
+          link: '',
+        },
+        {
+          text: 'Al Raha Gardens',
+          link: '',
+        },
+      ]
+    }
+  ];
+
+
+  // Searched categories 2
+  const popularCategories2 = [
+    {
+      header: "Business for Sale in UAE",
+      items: [
+        {
+          text: 'Restaurants',
+          link: '',
+        },
+        {
+          text: 'Salon',
+          link: '',
+        },
+        {
+          text: 'Technology Startups',
+          link: '',
+        },
+        {
+          text: 'Spas',
+          link: '',
+        },
+        {
+          text: 'Health & Fitness',
+          link: '',
+        },
+      ]
+    },
+    {
+      header: "Home Appliances",
+      items: [
+        {
+          text: 'Hair Conditioners',
+          link: '',
+        },
+        {
+          text: 'Refrigerators',
+          link: '',
+        },
+        {
+          text: 'Vacuum Cleaner',
+          link: '',
+        },
+        {
+          text: 'Washing Machine',
+          link: '',
+        },
+        {
+          text: 'Ovens',
+          link: '',
+        },
+      ]
+    },
+    {
+      header: "Others",
+      items: [
+        {
+          text: 'Furnitures',
+          link: '',
+        },
+        {
+          text: 'Tickets & Vouchers',
+          link: '',
+        },
+        {
+          text: 'Collectibles',
+          link: '',
+        },
+        {
+          text: 'Baby Items',
+          link: '',
+        },
+        {
+          text: 'Sports',
+          link: '',
+        },
+      ]
+    }
+  ];
+
+
+  // Popular Properties
+  const popularProperties = [
+    {
+      imagePath: "https://images.pexels.com/photos/261045/pexels-photo-261045.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      header: "AED 190,000",
+      description: "Fully Furnished Apartment with a Serene Pool and Expansive Compound",
+      feature: "4 Beds • 5 Baths",
+      location: "Shams Abu Dhabi, Al Reem Island"
+    },
+    {
+      imagePath: "https://images.pexels.com/photos/1693946/pexels-photo-1693946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      header: "AED 190,000",
+      description: "Elegant 3 Bedroom Apartment with Exquisite Interiors",
+      feature: "4 Beds • 5 Baths",
+      location: "Shams Abu Dhabi, Al Reem Island"
+    },
+    {
+      imagePath: "https://images.pexels.com/photos/3890170/pexels-photo-3890170.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      header: "AED 190,000",
+      description: "Fully Furnished Apartment, An Ideal home for Family",
+      feature: "4 Beds • 5 Baths",
+      location: "Shams Abu Dhabi, Al Reem Island"
+    }
+  ];
+
+
+  // Popular Used cars
+  const popularUsedCars = [
+    {
+      imagePath: "https://images.pexels.com/photos/10566898/pexels-photo-10566898.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      header: "AED 190,000",
+      description: "Used Chevrolet Camaro Coupe ZL1 2021",
+      feature: "Automatic • 40,000 Km",
+      location: "Shams Abu Dhabi, Al Reem Island"
+    },
+    {
+      imagePath: "https://images.pexels.com/photos/2920064/pexels-photo-2920064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      header: "AED 190,000",
+      description: "Used Nissan Patrol 5.6L LE Titanium 2023",
+      feature: "Automatic •  0 Km",
+      location: "Shams Abu Dhabi, Al Reem Island"
+    },
+    {
+      imagePath: "https://images.pexels.com/photos/2365572/pexels-photo-2365572.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      header: "AED 190,000",
+      description: "Used Toyota Corolla 2019",
+      feature: "Automatic •  116,721 Km",
+      location: "Shams Abu Dhabi, Al Reem Island"
+    }
+  ];
+
+
+
+  // Popular Listings
+  const popularListings = [
+    {
+      imagePath: "https://images.pexels.com/photos/8092368/pexels-photo-8092368.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      header: "AED 190,000",
+      description: "MacBook Pro 15 - i9, 512 GB",
+      feature: "Excellent Condition",
+      location: "Shams Abu Dhabi, Al Reem Island"
+    },
+    {
+      imagePath: "https://images.pexels.com/photos/2697608/pexels-photo-2697608.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      header: "AED 190,000",
+      description: "Vintage Jewelry - Bracelet & Earrings",
+      feature: "Flawless",
+      location: "Shams Abu Dhabi, Al Reem Island"
+    },
+    {
+      imagePath: "https://images.pexels.com/photos/2290070/pexels-photo-2290070.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      header: "AED 190,000",
+      description: "Well-Furnished Restaurant - Café Shop Unit",
+      feature: "Business",
+      location: "Shams Abu Dhabi, Al Reem Island"
+    }
+  ];
+
+  // Popular Property for rent
+  const popularRentProperties = [
+    {
+      imagePath: "https://images.pexels.com/photos/6850547/pexels-photo-6850547.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      header: "AED 190,000",
+      description: "Spacious Studio - Fully Furnished - Ready to move",
+      feature: "4 Beds • 5 Baths",
+      location: "Shams Abu Dhabi, Al Reem Island"
+    },
+    {
+      imagePath: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      header: "AED 190,000",
+      description: "Hotel Apartment - Burj & Fountain View - High Floor",
+      feature: "4 Beds • 5 Baths",
+      location: "Shams Abu Dhabi, Al Reem Island"
+    },
+    {
+      imagePath: "https://images.pexels.com/photos/7534294/pexels-photo-7534294.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      header: "AED 190,000",
+      description: "Fully Furnished Apartment - Spacious - Ready to move in",
+      feature: "4 Beds • 5 Baths",
+      location: "Shams Abu Dhabi, Al Reem Island"
+    }
+  ];
+
+
+    // PopularCommercials
+    const popularCommercials = [
+      {
+        imagePath: "https://images.pexels.com/photos/210726/pexels-photo-210726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        header: "AED 190,000",
+        description: "Full Commercial Building with Offices & Showrooms",
+        feature: "13,650 Sqft",
+        location: "Shams Abu Dhabi, Al Reem Island"
+      },
+      {
+        imagePath: "https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        header: "AED 190,000",
+        description: "10,000 Sq ft Open Yard Factory + Labor Accommodation",
+        feature: "500 KW Power",
+        location: "Shams Abu Dhabi, Al Reem Island"
+      },
+      {
+        imagePath: "https://images.pexels.com/photos/3182778/pexels-photo-3182778.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        header: "AED 190,000",
+        description: "Fully Furnished Spacious Office with All Amenities",
+        feature: "250 Sqft",
+        location: "Shams Abu Dhabi, Al Reem Island"
+      }
+    ];
+
+
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div>
+      <div className="w-full h-auto pb-32">
+      <div className="px-8">
+        <div className="w-full rounded-[15px] h-auto py-[96px] hero-image-bg flex justify-center items-center">
+          <div className="h-auto text-center">
+            <div className="w-full">
+              <h1 className="sm:text-[2.5vw] text-white font-[700] sm:leading-[50px]">The Ultimate Affordable Marketplace <br /> for Buying, Renting & Selling</h1>
+              <p className='text-white text-[1.3vw] font-[700] mt-8'>Explore the Best Deals: Discover, Connect, Transact</p>
+            </div>
+
+            <div className="mt-20">
+              <SearchAndFilter />
+            </div>
+          </div>
+        </div>
+
+        <div className="px-[80px] py-[100px]">
+          {/* Services */}
+          <div className="grid grid-cols-3 gap-[30px] mt-16">
+            {services?.map((service: any, i) => (
+              <ServiceCard
+                key={i}
+                header={service.header}
+                text={service.text}
+                buttonText={service.buttonText}
+                icon={service.iconPath}
+              />
+            ))}
+          </div>
+
+          {/* Popular Search category */}
+          <div className="mt-24">
+            <h1 className="text-[#101828] text-[2vw] font-[700]">Popular Search Categories</h1>
+            <div className="mt-14 flex justify-between">
+              {popularCategories?.map((category, i) => (
+                <SearchCategory key={i} header={category.header} item={category.items} />
+              ))}
+            </div>
+            <div className="border-[0.2px] my-14 w-full border-[#EAECF0]" />
+            <div className="flex justify-between">
+              {popularCategories2?.map((category, i) => (
+                <SearchCategory key={i} header={category.header} item={category.items} />
+              ))}
+            </div>
+          </div>
+
+          {/* Verification */}
+          <div className="mt-20">
+            <VerifyUserBadge />
+          </div>
+
+          {/* Popular property sales */}
+          <div className="mt-20 w-full">
+            <div>
+              <h1 className="text-[#101828] text-[2vw] font-[700]">Popular in Property for Sale</h1>
+              <div className='grid grid-cols-3 gap-[20px] mt-14'>
+                {popularProperties?.map((product, i) => (
+                  <ProductCard key={i} product={product} />
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-16">
+              <h1 className="text-[#101828] text-[2vw] font-[700]">Popular in Used Cars for Sale</h1>
+              <div className='grid grid-cols-3 gap-[20px] mt-14'>
+                {popularUsedCars?.map((product, i) => (
+                  <ProductCard key={i} product={product} />
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-16">
+              <h1 className="text-[#101828] text-[2vw] font-[700]">Popular in Listings</h1>
+              <div className='grid grid-cols-3 gap-[20px] mt-14'>
+                {popularListings.map((product, i) => (
+                  <ProductCard key={i} product={product} />
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-16">
+              <h1 className="text-[#101828] text-[2vw] font-[700]">Popular in Property for Rent</h1>
+              <div className='grid grid-cols-3 gap-[20px] mt-14'>
+                {popularRentProperties?.map((product, i) => (
+                  <ProductCard key={i} product={product} />
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-16">
+              <h1 className="text-[#101828] text-[2vw] font-[700]">Popular in Commercial</h1>
+              <div className='grid grid-cols-3 gap-[20px] mt-14'>
+                {popularCommercials?.map((product, i) => (
+                  <ProductCard key={i} product={product} />
+                ))}
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
+    </div>
   )
 }
