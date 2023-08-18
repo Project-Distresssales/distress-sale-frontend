@@ -29,9 +29,35 @@ import locationFill from '../app/assets/icons/location-fill.svg';
 import heartUnchecked from '../app/assets/icons/heart-fav.svg';
 import heartChecked from '../app/assets/icons/heart-red.svg';
 import world from '../app/assets/icons/world.svg';
+import infoIcon from '../app/assets/icons/info-circle.svg';
+import filter from '../app/assets/icons/filter.svg';
+import bed from '../app/assets/icons/bed.svg';
+import bath from '../app/assets/icons/bath.svg';
+import locationFillBig from '../app/assets/icons/location-fill-big.svg';
+import call from '../app/assets/icons/call.svg';
+import sms from '../app/assets/icons/sms.svg';
+import whatsapp from '../app/assets/icons/whatsapp.svg';
+import verify from '../app/assets/icons/verify.svg';
+import building from '../app/assets/icons/heroicons_building-office-2-solid.svg';
+import heartBlue from '../app/assets/icons/heart-blue.svg';
+import share from '../app/assets/icons/share.svg';
+import garden from '../app/assets/icons/guidance_garden.svg';
 
 
 const Assets = {
+  garden,
+  share,
+  heartBlue,
+  building,
+  verify,
+  whatsapp,
+  sms,
+  call,
+  locationFillBig,
+  bed,
+  bath,
+  filter,
+  infoIcon,
   world,
   heartChecked,
   heartUnchecked,

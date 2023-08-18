@@ -4,7 +4,7 @@ import Assets from '@/constants/assets.constant'
 
 export default function LocationSearch() {
   return (
-    <div className="relative w-[88vw]">
+    <div className="relative w-[88vw] border rounded-[5px] border-[#EAECF0]">
                 <input
                     type="text"
                     id="location"
