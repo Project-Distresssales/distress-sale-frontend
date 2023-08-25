@@ -42,9 +42,13 @@ import building from '../app/assets/icons/heroicons_building-office-2-solid.svg'
 import heartBlue from '../app/assets/icons/heart-blue.svg';
 import share from '../app/assets/icons/share.svg';
 import garden from '../app/assets/icons/guidance_garden.svg';
+import facebookAuth from '../app/assets/icons/facebook-auth.svg';
+import googleAuth from '../app/assets/icons/google-auth.svg';
 
 
 const Assets = {
+  googleAuth,
+  facebookAuth,
   garden,
   share,
   heartBlue,
