@@ -4,7 +4,7 @@ export const theme = createTheme({
   components: {
     MuiCircularProgress: {
       defaultProps: {
-        size: 20,
+        size: 30,
         thickness: 9,
       },
       styleOverrides: {

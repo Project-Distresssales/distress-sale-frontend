@@ -58,6 +58,8 @@ const LoginModal = ({
           toast.error(data.message);
         } else if (status === 400) {
           setErrors(data.data);
+        } else if (status === 401) {
+          toast.error(data.message);
         } else {
           toast.error('Something went wrong! Pls try again!', {});
         }
