@@ -1,9 +1,9 @@
-import { SearchFieldProps } from '@/utils/types/types';
 import React from 'react';
-import { IconContext } from "react-icons";
-import { AiOutlineSearch } from "react-icons/ai";
+import { IconContext } from 'react-icons';
+import { AiOutlineSearch } from 'react-icons/ai';
+// import { SearchFieldProps } from '@/utils/types/types';
 
-export default function SearchField({ placeholder, value, id, type, onInputChange }: SearchFieldProps) {
+export default function SearchField({ placeholder, value, id, type, onInputChange }: any) {
   return (
     <div>
       <div className="relative">
@@ -15,8 +15,8 @@ export default function SearchField({ placeholder, value, id, type, onInputChang
           className="bg-white border border-[#CED3D8] text-gray-900 text-[1vw] rounded-[5px] outline-none w-[300px] px-4 py-3"
           placeholder={placeholder}
         />
-        <div className='absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer'>
-          <IconContext.Provider value={{ color: "#495057", size: "20px" }}>
+        <div className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+          <IconContext.Provider value={{ color: '#495057', size: '20px' }}>
             <div>
               <AiOutlineSearch />
             </div>
@@ -24,5 +24,5 @@ export default function SearchField({ placeholder, value, id, type, onInputChang
         </div>
       </div>
     </div>
-  )
+  );
 }

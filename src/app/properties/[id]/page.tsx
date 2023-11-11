@@ -1,6 +1,6 @@
 import React from 'react';
-import Assets from '@/constants/assets.constant';
 import Image from 'next/image';
+import Assets from '@/constants/assets.constant';
 
 export default function Home() {
 

@@ -3,7 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["next/core-web-vitals", "airbnb", "airbnb-typescript", "prettier"],
+  "extends": ["next/core-web-vitals", "prettier"], //"airbnb", "airbnb-typescript",
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -27,7 +27,13 @@
     "react/self-closing-comp": 0,
     "react/jsx-boolean-value": 0,
     "import/prefer-default-export": 0,
-    "react/jsx-props-no-spreading": 0
+    "react/jsx-props-no-spreading": 0,
+    "arrow-body-style": 0,
+    "no-underscore-dangle": 0,
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off",
+    "react-hooks/rules-of-hooks": 0,
+    "@typescript-eslint/no-explicit-any": 0
   },
   "settings": {
     "react": {

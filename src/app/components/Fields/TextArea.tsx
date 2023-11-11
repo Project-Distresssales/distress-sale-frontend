@@ -1,5 +1,5 @@
-import { TextAreaFieldProps } from '@/utils/types/types'
 import React from 'react'
+import { TextAreaFieldProps } from '@/utils/types/types'
 
 export default function TextArea({ label, placeholder, value, require, id, onInputChange, padding }: TextAreaFieldProps) {
     return (
