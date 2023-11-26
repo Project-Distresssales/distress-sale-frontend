@@ -6,6 +6,12 @@ export const API = {
   signup: '/users/signup',
   profile: '/users/profile',
 
+  // reset-pass
+  requestResetPassword: '/users/auth/reset-password/request',
+  resetPass: '/users/auth/reset-password',
+  // verification
+  verifyUser: '/verification/verify',
+
   // admins
   bussiness: '/admins/business/',
 

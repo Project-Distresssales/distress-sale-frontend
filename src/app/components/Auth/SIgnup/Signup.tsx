@@ -43,7 +43,6 @@ const SignupModal = ({
         onClose();
         next();
         // navigate(`/auth/verification?code=${data.code}`);
-
         // setOpenSnackBar(true);
         // setTimeout(() => {
         //   openSnackBar && navigate(`/auth/verification?code=${data.code}`);
@@ -112,26 +111,29 @@ const SignupModal = ({
         </div>
 
         <div className="space-y-5 mt-7 w-full">
-          <TextField
-            id="firstName"
-            type="text"
-            label="First Name *"
-            placeholder="Enter your first name"
-            withBackground={false}
-            error={errors.firstname}
-            {...getFieldProps('firstName')}
-          />
-          <TextField
-            id="lastName"
-            type="text"
-            label="Last Name *"
-            placeholder="Enter your last name"
-            obscured={false}
-            withBackground={false}
-            readOnly={false}
-            error={errors.lastname}
-            {...getFieldProps('lastName')}
-          />
+          <div className="flex gap-3">
+            <TextField
+              id="firstName"
+              type="text"
+              label="First Name *"
+              placeholder="Enter your first name"
+              withBackground={false}
+              error={errors.firstname}
+              {...getFieldProps('firstName')}
+            />
+            <TextField
+              id="lastName"
+              type="text"
+              label="Last Name *"
+              placeholder="Enter your last name"
+              obscured={false}
+              withBackground={false}
+              readOnly={false}
+              error={errors.lastname}
+              {...getFieldProps('lastName')}
+            />
+          </div>
+
           <TextField
             id="email"
             type="email"
