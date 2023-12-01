@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Assets from '@/constants/assets.constant';
-import { CircularProgress } from '@mui/material';
+import { ButtonBase, CircularProgress } from '@mui/material';
 import { VoidCallback } from '@/utils/types';
 
 interface AppButtonProps
@@ -50,15 +50,21 @@ export function OutlinedButton({ text, withIcon }: any) {
   );
 }
 
-export function AuthButton({ text, icon }: any) {
+interface D extends AppButtonProps {
+  icon: any;
+}
+
+export function AuthButton({ text, icon }: D) {
   return (
-    <button
-      className={`
-    rounded-[5px] py-[12px] px-[20px] text-[#415EFF] flex w-full items-center space-x-3 font-[500] 
+    <ButtonBase className="rounded-[5px]">
+      <button
+        className={`rounded-[5px] py-[12px] px-[20px] text-[#415EFF] flex w-full items-center space-x-3 font-[500] 
     text-[1vw] border border-[#415EFF]`}
-    >
-      <Image src={icon} alt="" width={17} height={17} />
-      <p>{text}</p>
-    </button>
+        type="button"
+      >
+        <Image src={icon} alt="" width={17} height={17} />
+        <p>{text}</p>
+      </button>
+    </ButtonBase>
   );
 }
