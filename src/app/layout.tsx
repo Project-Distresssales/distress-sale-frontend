@@ -1,12 +1,10 @@
-import './globals.css';
+import AppProvider from '@/providers/AppProvider';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import Footer from './components/Footer/Footer';
 import Navbar from './components/Navbar/Navbar';
 import SubNavbar from './components/Navbar/SubNavbar';
-import Footer from './components/Footer/Footer';
-import AppProvider from '@/providers/AppProvider';
-
-const inter = Inter({ subsets: ['latin'] });
+import '@/services/firebase/firebase.service';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Distress Sale',

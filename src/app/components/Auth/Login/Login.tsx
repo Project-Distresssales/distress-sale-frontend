@@ -13,6 +13,8 @@ import { useDispatch } from 'react-redux';
 import { AppButton, AuthButton } from '../../Buttons/Buttons';
 import TextField from '../../Fields/TextField';
 import { AppModal } from '../../Modals/Modals';
+import useAuth from '@/services/auth/auth';
+import useLoad from '@/hooks/load';
 
 const LoginModal = ({
   open,
@@ -83,6 +85,47 @@ const LoginModal = ({
 
   const iDisabled = isEmpty(email) || isEmpty(password) || Object.keys(errors).length > 0;
 
+  const { load, stopLoad, loading } = useLoad();
+  const { user, signInWithGoogle } = useAuth();
+
+  const handleGoogleLogin = () => {
+    signInWithGoogle()
+      .then(async (userCredential) => {
+        const user = userCredential.user;
+        const { _tokenResponse } = userCredential as any;
+
+        console.log(userCredential);
+        await makeRequest({
+          url: API.googleLogin,
+          method: 'POST',
+          data: {
+            idToken: await user.getIdToken(),
+          },
+        });
+
+        stopLoad();
+        toast.success(`Successfully Loggedin ${user.displayName?.split(' ')[0] ?? user.displayName}`);
+
+        // setTimeout(() => {
+        //   router.push('/dashboard');
+        // }, 2000);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error, errorCode);
+
+        if (errorCode === 'auth/invalid-login-credentials') {
+          return toast.error('Invalid Login Credentials!');
+        }
+
+        toast.error(errorMessage);
+      });
+    // .finally(() => {
+    //   stopLoad();
+    // });
+  };
+
   return (
     <AppModal
       open={open}
@@ -99,7 +142,12 @@ const LoginModal = ({
         <h1 className="text-[#101828] font-[700] text-[1.4vw] text-center">Log In</h1>
         <div className="w-full flex items-center space-x-7 mt-7">
           <AuthButton text="Continue with Facebook" icon={Assets.facebookAuth} />
-          <AuthButton text="Continue with Google" icon={Assets.googleAuth} />
+          <AuthButton
+            loading={loading}
+            text="Continue with Google"
+            icon={Assets.googleAuth}
+            onClick={handleGoogleLogin}
+          />
         </div>
         <div className="flex items-center my-7">
           <div className="border border-[#EAECF0] w-full" />

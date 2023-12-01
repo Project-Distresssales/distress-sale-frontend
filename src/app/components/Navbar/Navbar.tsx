@@ -20,6 +20,7 @@ import { AxiosError } from 'axios';
 import API from '@/constants/api.constant';
 import toast from 'react-hot-toast';
 import { useFormik } from 'formik';
+import Link from 'next/link';
 
 export default function Navbar() {
   const router = useRouter();
@@ -32,14 +33,14 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const options = [
-    'My Profile',
-    'My Public Profile',
-    'Get Verified',
-    'My Ads',
-    'Favorites',
-    'Searches',
-    'Account Settings',
-    'Sign Out',
+    { title: 'My Profile', to: '/profile' },
+    { title: 'My Public Profile', to: '/profile' },
+    { title: 'Get Verified', to: '/profile' },
+    { title: 'My Ads', to: '/profile' },
+    { title: 'Favorites', to: '/profile' },
+    { title: 'Searches', to: '/profile' },
+    { title: 'Account Settings', to: '/profile' },
+    { title: 'Sign Out', to: '#' },
   ];
 
   const goToHome = () => {
@@ -244,30 +245,38 @@ export default function Navbar() {
             {isAuthenticated ? (
               <Menu id="city-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleCloseSmallModal()}>
                 {options.map((city) => (
-                  <MenuItem key={city} onClick={() => handleCloseSmallModal(city)}>
-                    <div className="flex w-full gap-5">
-                      {city}
+                  <Link key={city.title} href={city.to}>
+                    <MenuItem onClick={() => handleCloseSmallModal(city.title)}>
+                      <div className="flex w-full gap-5">
+                        {city.title}
 
-                      {city === 'Get Verified' && (
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M6.98334 10.0001L8.99167 12.0167L13.0167 7.9834"
-                            stroke="#308652"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M8.95834 2.0416C9.53334 1.54993 10.475 1.54993 11.0583 2.0416L12.375 3.17493C12.625 3.3916 13.0917 3.5666 13.425 3.5666H14.8417C15.725 3.5666 16.45 4.2916 16.45 5.17493V6.5916C16.45 6.9166 16.625 7.3916 16.8417 7.6416L17.975 8.95827C18.4667 9.53327 18.4667 10.4749 17.975 11.0583L16.8417 12.3749C16.625 12.6249 16.45 13.0916 16.45 13.4249V14.8416C16.45 15.7249 15.725 16.4499 14.8417 16.4499H13.425C13.1 16.4499 12.625 16.6249 12.375 16.8416L11.0583 17.9749C10.4833 18.4666 9.54167 18.4666 8.95834 17.9749L7.64167 16.8416C7.39167 16.6249 6.925 16.4499 6.59167 16.4499H5.15C4.26667 16.4499 3.54167 15.7249 3.54167 14.8416V13.4166C3.54167 13.0916 3.36667 12.6249 3.15834 12.3749L2.03334 11.0499C1.55 10.4749 1.55 9.5416 2.03334 8.9666L3.15834 7.6416C3.36667 7.3916 3.54167 6.92494 3.54167 6.59994V5.1666C3.54167 4.28327 4.26667 3.55827 5.15 3.55827H6.59167C6.91667 3.55827 7.39167 3.38327 7.64167 3.1666L8.95834 2.0416Z"
-                            stroke="#308652"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                  </MenuItem>
+                        {city.title === 'Get Verified' && (
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M6.98334 10.0001L8.99167 12.0167L13.0167 7.9834"
+                              stroke="#308652"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M8.95834 2.0416C9.53334 1.54993 10.475 1.54993 11.0583 2.0416L12.375 3.17493C12.625 3.3916 13.0917 3.5666 13.425 3.5666H14.8417C15.725 3.5666 16.45 4.2916 16.45 5.17493V6.5916C16.45 6.9166 16.625 7.3916 16.8417 7.6416L17.975 8.95827C18.4667 9.53327 18.4667 10.4749 17.975 11.0583L16.8417 12.3749C16.625 12.6249 16.45 13.0916 16.45 13.4249V14.8416C16.45 15.7249 15.725 16.4499 14.8417 16.4499H13.425C13.1 16.4499 12.625 16.6249 12.375 16.8416L11.0583 17.9749C10.4833 18.4666 9.54167 18.4666 8.95834 17.9749L7.64167 16.8416C7.39167 16.6249 6.925 16.4499 6.59167 16.4499H5.15C4.26667 16.4499 3.54167 15.7249 3.54167 14.8416V13.4166C3.54167 13.0916 3.36667 12.6249 3.15834 12.3749L2.03334 11.0499C1.55 10.4749 1.55 9.5416 2.03334 8.9666L3.15834 7.6416C3.36667 7.3916 3.54167 6.92494 3.54167 6.59994V5.1666C3.54167 4.28327 4.26667 3.55827 5.15 3.55827H6.59167C6.91667 3.55827 7.39167 3.38327 7.64167 3.1666L8.95834 2.0416Z"
+                              stroke="#308652"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        )}
+                      </div>
+                    </MenuItem>
+                  </Link>
                 ))}
               </Menu>
             ) : (

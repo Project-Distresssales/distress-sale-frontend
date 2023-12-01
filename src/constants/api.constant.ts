@@ -6,6 +6,9 @@ export const API = {
   signup: '/users/signup',
   profile: '/users/profile',
 
+  // google
+  googleLogin: '/users/login/google',
+
   // reset-pass
   requestResetPassword: '/users/auth/reset-password/request',
   resetPass: '/users/auth/reset-password',

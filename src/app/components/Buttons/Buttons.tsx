@@ -54,16 +54,23 @@ interface D extends AppButtonProps {
   icon: any;
 }
 
-export function AuthButton({ text, icon }: D) {
+export function AuthButton({ text, icon, loading, ...others }: D) {
   return (
     <ButtonBase className="rounded-[5px]">
       <button
         className={`rounded-[5px] py-[12px] px-[20px] text-[#415EFF] flex w-full items-center space-x-3 font-[500] 
     text-[1vw] border border-[#415EFF]`}
         type="button"
+        {...others}
       >
-        <Image src={icon} alt="" width={17} height={17} />
-        <p>{text}</p>
+        {loading ? (
+          <CircularProgress size={16} sx={{ color: 'white' }} />
+        ) : (
+          <>
+            <Image src={icon} alt="" width={17} height={17} />
+            <p>{text}</p>
+          </>
+        )}
       </button>
     </ButtonBase>
   );
