@@ -283,8 +283,9 @@ export default function Navbar() {
               authModal()
             )}
           </div>
-
+<Link href={`/post-ad`} >
           <AppButton text="Post Ad" />
+</Link>
         </div>
       </div>
 
