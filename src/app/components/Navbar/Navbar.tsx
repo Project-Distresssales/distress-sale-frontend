@@ -203,11 +203,14 @@ export default function Navbar() {
           <div className="flex items-center space-x-3 ml-5 cursor-pointer relative z-50">
             {isAuthenticated ? (
               <Image
-                src={`https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&rounded=true`}
+                src={
+                  user.profile_pic ||
+                  `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&rounded=true&size=128`
+                }
                 alt={user.firstName + 'photo'}
                 width={30}
                 height={30}
-                className="object-cover"
+                className="object-cover rounded-[50%] w-[38px] h-[38px]"
               />
             ) : (
               <div
@@ -219,6 +222,7 @@ export default function Navbar() {
                 <Image src={Assets.profile} alt="" width={15} height={15} />
               </div>
             )}
+
             {isAuthenticated && <span className="font-medium text-sm">{user.firstName}</span>}
 
             <IconButton size="small" onClick={handleOpenSmallModal}>
@@ -237,7 +241,7 @@ export default function Navbar() {
                   stroke-width="1.5"
                   stroke-miterlimit="10"
                   stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </IconButton>
@@ -263,14 +267,14 @@ export default function Navbar() {
                               stroke="#308652"
                               stroke-width="1.5"
                               stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeLinejoin="round"
                             />
                             <path
                               d="M8.95834 2.0416C9.53334 1.54993 10.475 1.54993 11.0583 2.0416L12.375 3.17493C12.625 3.3916 13.0917 3.5666 13.425 3.5666H14.8417C15.725 3.5666 16.45 4.2916 16.45 5.17493V6.5916C16.45 6.9166 16.625 7.3916 16.8417 7.6416L17.975 8.95827C18.4667 9.53327 18.4667 10.4749 17.975 11.0583L16.8417 12.3749C16.625 12.6249 16.45 13.0916 16.45 13.4249V14.8416C16.45 15.7249 15.725 16.4499 14.8417 16.4499H13.425C13.1 16.4499 12.625 16.6249 12.375 16.8416L11.0583 17.9749C10.4833 18.4666 9.54167 18.4666 8.95834 17.9749L7.64167 16.8416C7.39167 16.6249 6.925 16.4499 6.59167 16.4499H5.15C4.26667 16.4499 3.54167 15.7249 3.54167 14.8416V13.4166C3.54167 13.0916 3.36667 12.6249 3.15834 12.3749L2.03334 11.0499C1.55 10.4749 1.55 9.5416 2.03334 8.9666L3.15834 7.6416C3.36667 7.3916 3.54167 6.92494 3.54167 6.59994V5.1666C3.54167 4.28327 4.26667 3.55827 5.15 3.55827H6.59167C6.91667 3.55827 7.39167 3.38327 7.64167 3.1666L8.95834 2.0416Z"
                               stroke="#308652"
                               stroke-width="1.5"
                               stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeLinejoin="round"
                             />
                           </svg>
                         )}
@@ -468,14 +472,14 @@ const RegistrationCompleteModal = ({ open, onClose }: { open: boolean; onClose: 
                 stroke="#101828"
                 stroke-width="1.5"
                 stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M19.7733 19.7732L12.2267 12.2266"
                 stroke="#101828"
                 stroke-width="1.5"
                 stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinejoin="round"
               />
             </svg>
           </IconButton>
@@ -488,14 +492,14 @@ const RegistrationCompleteModal = ({ open, onClose }: { open: boolean; onClose: 
               stroke="#308652"
               stroke-width="4"
               stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinejoin="round"
             />
             <path
               d="M16.6458 25.0001L22.5416 30.8959L34.3541 19.1042"
               stroke="#308652"
               stroke-width="4"
               stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinejoin="round"
             />
           </svg>
 

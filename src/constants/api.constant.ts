@@ -5,6 +5,7 @@ export const API = {
   login: '/users/login',
   signup: '/users/signup',
   profile: '/users/profile',
+  profilePic: '/users/photo',
 
   // google
   googleLogin: '/users/login/google',

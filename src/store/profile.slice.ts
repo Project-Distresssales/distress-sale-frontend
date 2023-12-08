@@ -22,6 +22,7 @@ export interface ProfileState {
   id: string;
   accessToken: string;
   refreshToken: string;
+  profile_pic: string;
 }
 
 interface IProfileLoginAction {
