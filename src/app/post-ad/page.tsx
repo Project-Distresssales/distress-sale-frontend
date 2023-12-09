@@ -15,20 +15,20 @@ const PostAd = () => {
 
   const steps = ['Select Package', 'List Item', 'Descruibe Ad', 'Choose Ad Category', 'Ad Details', 'Contact Details'];
 
-  const displayStep = (step) => {
-    switch (step) {
+  const displayStep = ({ currentStep, handleClick, steps }) => {
+    switch (currentStep) {
       case 1:
-        return <SelectPackage />;
+        return <SelectPackage handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 2:
-        return <ListItem />;
+        return <ListItem handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 3:
-        return <DescribeAd />;
+        return <DescribeAd handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 4:
-        return <ChooseAdCategory />;
+        return <ChooseAdCategory handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 5:
-        return <AdDetails />;
+        return <AdDetails handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 6:
-        return <ContactDetails />;
+        return <ContactDetails handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       default:
     }
   };
@@ -53,14 +53,20 @@ const PostAd = () => {
           <Stepper steps={steps} currentStep={currentStep} />
 
           <div className="my-10 p-10 ">
-            <UseContextProvider>{displayStep(currentStep)}</UseContextProvider>
+            <UseContextProvider>
+              {displayStep({
+                currentStep,
+                handleClick,
+                steps,
+              })}
+            </UseContextProvider>{' '}
           </div>
         </div>
 
         {/* navigation button */}
-        {currentStep !== steps.length && (
+        {/* {currentStep !== steps.length && (
           <StepperControl handleClick={handleClick} currentStep={currentStep} steps={steps} />
-        )}
+        )} */}
       </div>
     </div>
   );
