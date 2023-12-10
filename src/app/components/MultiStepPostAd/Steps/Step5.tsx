@@ -1,13 +1,13 @@
 import React from 'react';
 import StepperControl from '../StepperControl';
 
-const AdDetails = ({ handleClick, currentStep, steps }) => {
+const Step5 = ({ handleClick, currentStep, steps }) => {
   return (
     <div>
-      AdDetails
+      Step5
       <StepperControl handleClick={handleClick} currentStep={currentStep} steps={steps} />
     </div>
   );
 };
 
-export default AdDetails;
+export default Step5;

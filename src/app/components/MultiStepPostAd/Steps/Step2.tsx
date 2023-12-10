@@ -1,7 +1,7 @@
 import React from 'react';
 import StepperControl from '../StepperControl';
 
-const ListItem = ({ handleClick, currentStep, steps }) => {
+const Step2 = ({ handleClick, currentStep, steps }) => {
   return (
     <div>
       List Item
@@ -12,4 +12,4 @@ const ListItem = ({ handleClick, currentStep, steps }) => {
   );
 };
 
-export default ListItem;
+export default Step2;

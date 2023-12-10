@@ -1,6 +1,7 @@
 import { Disclosure } from '@headlessui/react';
 import { Icon } from '@iconify/react';
 import React, { useState } from 'react';
+import { ArrowDownIcon, ArrowUpIcon } from '../Icons/Icons';
 
 export const FAQDATA = [
   {
@@ -44,28 +45,29 @@ const FAQ = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <div className="flex flex-col w-full gap-10">
+    <div className="flex flex-col w-full gap-2">
       {FAQDATA.map((data, index) => (
         <Disclosure key={index}>
           {({ open }) => (
             <>
-              <div className={`pb-2 border-b-2 border-[#EAECF0]  `}>
+              <div className={` border-b-2 border-[#EAECF0]  `}>
                 <Disclosure.Button
                   className={`
-                  flex items-center  justify-between w-full px-4 py-6 text-left`}
+                  flex items-center  justify-between w-full pr-4 py-3 text-left`}
                 >
-                  <span className="flex-1 flex items-center md:items-start  gap-2 font-medium text-[32px] xl:text-[22px] md:text-sm ">
+                  <span className="flex-1 flex items-center md:items-start  gap-2 font-medium text-sm ">
                     {data.title}
                   </span>
                   <span className="flex justify-center items-center">
                     {open ? (
-                      <Icon className="text-[56px] xl:text-[38px] md:text-[15px] " icon="mingcute:up-line" />
+                      <ArrowUpIcon />
                     ) : (
-                      <Icon className="text-[56px] xl:text-[38px] md:text-[15px] " icon="mingcute:down-line" />
+                      //   <Icon className="text-[56px] xl:text-[38px] md:text-[15px] " icon="mingcute:down-line" />
+                      <ArrowDownIcon />
                     )}
                   </span>
                 </Disclosure.Button>
-                <Disclosure.Panel className="md:leading-relaxed  px-4  flex flex-col py-8 text-xl lg:text-lg md:text-sm ">
+                <Disclosure.Panel className="md:leading-relaxed  px-4  flex flex-col py-3 text-sm ">
                   <p>{data.desc} </p>
                 </Disclosure.Panel>
               </div>

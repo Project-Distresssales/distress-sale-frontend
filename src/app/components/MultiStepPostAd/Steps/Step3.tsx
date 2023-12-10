@@ -1,7 +1,7 @@
 import React from 'react';
 import StepperControl from '../StepperControl';
 
-const DescribeAd = ({ handleClick, currentStep, steps }) => {
+const Step3 = ({ handleClick, currentStep, steps }) => {
   return (
     <div>
         Describe Ad
@@ -12,4 +12,4 @@ const DescribeAd = ({ handleClick, currentStep, steps }) => {
   );
 };
 
-export default DescribeAd;
+export default Step3;

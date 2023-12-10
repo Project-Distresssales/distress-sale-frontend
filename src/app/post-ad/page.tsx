@@ -1,14 +1,13 @@
 'use client';
 import React, { useState } from 'react';
-import ListItem from '../components/MultiStepPostAd/Steps/ListItem';
-import DescribeAd from '../components/MultiStepPostAd/Steps/DescribeAd';
-import ChooseAdCategory from '../components/MultiStepPostAd/Steps/ChooseAdCategory';
-import AdDetails from '../components/MultiStepPostAd/Steps/AdDetails';
-import ContactDetails from '../components/MultiStepPostAd/Steps/ContactDetails';
 import Stepper from '../components/MultiStepPostAd/Stepper';
 import { UseContextProvider } from '@/providers/StepperContext ';
-import StepperControl from '../components/MultiStepPostAd/StepperControl';
 import Step1 from '../components/MultiStepPostAd/Steps/Step1';
+import Step2 from '../components/MultiStepPostAd/Steps/Step2';
+import Step3 from '../components/MultiStepPostAd/Steps/Step3';
+import Step4 from '../components/MultiStepPostAd/Steps/Step4';
+import Step5 from '../components/MultiStepPostAd/Steps/Step5';
+import Step6 from '../components/MultiStepPostAd/Steps/Step6';
 
 const PostAd = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -20,15 +19,15 @@ const PostAd = () => {
       case 1:
         return <Step1 handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 2:
-        return <ListItem handleClick={handleClick} currentStep={currentStep} steps={steps} />;
+        return <Step2 handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 3:
-        return <DescribeAd handleClick={handleClick} currentStep={currentStep} steps={steps} />;
+        return <Step3 handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 4:
-        return <ChooseAdCategory handleClick={handleClick} currentStep={currentStep} steps={steps} />;
+        return <Step4 handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 5:
-        return <AdDetails handleClick={handleClick} currentStep={currentStep} steps={steps} />;
+        return <Step5 handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 6:
-        return <ContactDetails handleClick={handleClick} currentStep={currentStep} steps={steps} />;
+        return <Step6 handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       default:
     }
   };

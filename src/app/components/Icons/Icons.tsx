@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, HTMLAttributes } from 'react';
 
 interface Props {
   width?: number;
@@ -20,6 +20,41 @@ export const TickSvg: FC<Props> = ({ width = 20, height = 20, color = '#667085' 
         stroke={color}
         strokeLinecap="round"
         strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+interface ArrowProps extends HTMLAttributes<SVGElement> {
+  width?: number;
+  height?: number;
+}
+
+export const ArrowDownIcon: FC<ArrowProps> = ({ width = 24, height = 24, ...rest }) => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" {...rest}>
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+        d="m19 9l-7 6l-7-6"
+      />
+    </svg>
+  );
+};
+
+export const ArrowUpIcon: FC<ArrowProps> = ({ width = 24, height = 24, ...rest }) => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" {...rest}>
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+        d="m19 15l-7-6l-7 6"
       />
     </svg>
   );

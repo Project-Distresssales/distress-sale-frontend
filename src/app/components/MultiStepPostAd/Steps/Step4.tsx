@@ -1,9 +1,9 @@
 import React from 'react'
 import StepperControl from '../StepperControl'
 
-const ChooseAdCategory = ({ handleClick, currentStep, steps }) => {
+const Step4 = ({ handleClick, currentStep, steps }) => {
   return (
-    <div>ChooseAdCategory
+    <div>Step4
       {currentStep !== steps.length && (
         <StepperControl handleClick={handleClick} currentStep={currentStep} steps={steps} />
       )}
@@ -11,4 +11,4 @@ const ChooseAdCategory = ({ handleClick, currentStep, steps }) => {
   )
 }
 
-export default ChooseAdCategory
+export default Step4
