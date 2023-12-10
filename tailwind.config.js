@@ -14,6 +14,8 @@ module.exports = {
       colors: {
         distressBlue: "#6F85FF",
         distressGrey300: "#D0D5DD",
+        distressGrey500: "#667085",
+        distressGrey900: "#101828",
         distressGold900: "#F9C590",
         distressGreen900: "#7CC8C7",
       },

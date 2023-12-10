@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import SelectPackage from '../components/MultiStepPostAd/Steps/SelectPackage';
 import ListItem from '../components/MultiStepPostAd/Steps/ListItem';
 import DescribeAd from '../components/MultiStepPostAd/Steps/DescribeAd';
 import ChooseAdCategory from '../components/MultiStepPostAd/Steps/ChooseAdCategory';
@@ -9,6 +8,7 @@ import ContactDetails from '../components/MultiStepPostAd/Steps/ContactDetails';
 import Stepper from '../components/MultiStepPostAd/Stepper';
 import { UseContextProvider } from '@/providers/StepperContext ';
 import StepperControl from '../components/MultiStepPostAd/StepperControl';
+import Step1 from '../components/MultiStepPostAd/Steps/Step1';
 
 const PostAd = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -18,7 +18,7 @@ const PostAd = () => {
   const displayStep = ({ currentStep, handleClick, steps }) => {
     switch (currentStep) {
       case 1:
-        return <SelectPackage handleClick={handleClick} currentStep={currentStep} steps={steps} />;
+        return <Step1 handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 2:
         return <ListItem handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 3:
@@ -47,9 +47,9 @@ const PostAd = () => {
         <h2 className=" text-2xl font-bold  ">Post Ad</h2>
         <p className="font-medium text-[#667085] ">Post an ad in just 6 simple steps</p>
       </div>
-      <div className=" pb-2 w-full ">
+      <div className=" pb-2 w-full mx-auto ">
         {/* Stepper */}
-        <div className="horizontal container mt-5 ">
+        <div className="horizontal mx-auto mt-5 ">
           <Stepper steps={steps} currentStep={currentStep} />
 
           <div className="my-10 p-10 ">
@@ -62,11 +62,6 @@ const PostAd = () => {
             </UseContextProvider>{' '}
           </div>
         </div>
-
-        {/* navigation button */}
-        {/* {currentStep !== steps.length && (
-          <StepperControl handleClick={handleClick} currentStep={currentStep} steps={steps} />
-        )} */}
       </div>
     </div>
   );

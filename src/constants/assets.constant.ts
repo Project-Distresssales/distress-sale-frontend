@@ -44,7 +44,15 @@ import share from '../app/assets/icons/share.svg';
 import garden from '../app/assets/icons/guidance_garden.svg';
 import facebookAuth from '../app/assets/icons/facebook-auth.svg';
 import googleAuth from '../app/assets/icons/google-auth.svg';
-
+import mousePointer from '../app/assets/icons/mouse-pointer.svg';
+import penPaper from '../app/assets/icons/pen-paper.svg';
+import categoryNewEach from '../app/assets/icons/category-new-each.svg';
+import blueFolder from '../app/assets/icons/blue-folder.svg';
+import penPaperAds from '../app/assets/icons/pen-paper-ads.svg';
+import handShareBrowser from '../app/assets/icons/hand-share-browser.svg';
+import seller1 from '../app/assets/icons/seller1.svg';
+import seller2 from '../app/assets/icons/seller2.svg';
+import seller3 from '../app/assets/icons/seller3.svg';
 
 const Assets = {
   googleAuth,
@@ -93,6 +101,15 @@ const Assets = {
   location,
   profile,
   logo,
+  mousePointer,
+  penPaper,
+  categoryNewEach,
+  blueFolder,
+  penPaperAds,
+  handShareBrowser,
+  seller1,
+  seller2,
+  seller3,
 };
 
 export default Assets;
