@@ -4,6 +4,7 @@ import { TickSvg } from '../../Icons/Icons';
 import SelectPackage from '../SelectPackage';
 import HowItWorks from '../HowItWorks';
 import HearFomOurSellers from '../HearFomOurSellers';
+import FAQ from '../../FAQ/FAQ';
 
 interface Step1Props {
   handleClick: () => void;
@@ -34,9 +35,10 @@ const Step1: React.FC<Step1Props> = ({ handleClick, currentStep, steps }) => {
         <h2 className=" text-[#101828] text-2xl font-bold ">Hear from our Sellers</h2>
         <HearFomOurSellers />
       </div>
+        {/* FAQ */}
       <div className="flex flex-col gap-16 justify-center items-center w-full">
         <h2 className=" text-[#101828] text-2xl font-bold ">Frequently Asked Questions</h2>
-        {/* FAQ */}
+        <FAQ />
       </div>
     </div>
   );
