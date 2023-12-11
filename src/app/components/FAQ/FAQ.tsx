@@ -1,5 +1,4 @@
 import { Disclosure } from '@headlessui/react';
-import { Icon } from '@iconify/react';
 import React, { useState } from 'react';
 import { ArrowDownIcon, ArrowUpIcon } from '../Icons/Icons';
 

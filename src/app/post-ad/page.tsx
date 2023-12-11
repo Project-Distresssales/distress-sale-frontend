@@ -36,22 +36,23 @@ const PostAd = () => {
     let newStep = currentStep;
 
     direction === 'next' ? newStep++ : newStep--;
-    // check if steps are within bounds
     newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
   };
 
   return (
-    <div className="flex flex-col items-stretch px-5 py-14 pb-16 max-w-[1200px] mx-auto">
-      <div className="flex flex-col gap-6 w-full justify-center items-center">
+    <div className="flex flex-col items-stretch px-5 py-14 pb-16 max-w-[1440px] mx-auto">
+      <div className="flex flex-col gap-6  w-full justify-center items-center">
         <h2 className=" text-2xl font-bold  ">Post Ad</h2>
         <p className="font-medium text-[#667085] ">Post an ad in just 6 simple steps</p>
       </div>
       <div className=" pb-2 w-full mx-auto ">
         {/* Stepper */}
         <div className="horizontal mx-auto mt-5 ">
-          <Stepper steps={steps} currentStep={currentStep} />
+          <div className="mb-20">
+            <Stepper steps={steps} currentStep={currentStep} />
+          </div>
 
-          <div className="my-10 p-10 ">
+          <div className="my-10 py-10 ">
             <UseContextProvider>
               {displayStep({
                 currentStep,
