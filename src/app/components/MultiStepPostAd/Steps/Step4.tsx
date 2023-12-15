@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import StepperControl from '../StepperControl';
 import { CategoryButton } from './Step2';
 
@@ -16,6 +16,9 @@ const categories = [
 ];
 
 const Step4 = ({ handleClick, currentStep, steps }) => {
+  const [selected, SetSelected] = useState('');
+  const toogleSelected = (title: string) => title && SetSelected(title);
+
   return (
     <div className=" flex flex-col gap-16 ">
       <div className="flex flex-col gap-6 w-full justify-center items-center">
@@ -24,7 +27,12 @@ const Step4 = ({ handleClick, currentStep, steps }) => {
       </div>
       <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4 ">
         {categories.map((category, index) => (
-          <CategoryButton key={index} text={category.text} />
+          <CategoryButton
+            key={index}
+            text={category.text}
+            selected={selected === category.text}
+            onClick={() => toogleSelected(category.text)}
+          />
         ))}
       </div>
       {currentStep !== steps.length && (
