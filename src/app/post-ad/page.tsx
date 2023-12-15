@@ -1,34 +1,33 @@
 'use client';
 import React, { useState } from 'react';
-import SelectPackage from '../components/MultiStepPostAd/Steps/SelectPackage';
-import ListItem from '../components/MultiStepPostAd/Steps/ListItem';
-import DescribeAd from '../components/MultiStepPostAd/Steps/DescribeAd';
-import ChooseAdCategory from '../components/MultiStepPostAd/Steps/ChooseAdCategory';
-import AdDetails from '../components/MultiStepPostAd/Steps/AdDetails';
-import ContactDetails from '../components/MultiStepPostAd/Steps/ContactDetails';
 import Stepper from '../components/MultiStepPostAd/Stepper';
 import { UseContextProvider } from '@/providers/StepperContext ';
-import StepperControl from '../components/MultiStepPostAd/StepperControl';
+import Step1 from '../components/MultiStepPostAd/Steps/Step1';
+import Step2 from '../components/MultiStepPostAd/Steps/Step2';
+import Step3 from '../components/MultiStepPostAd/Steps/Step3';
+import Step4 from '../components/MultiStepPostAd/Steps/Step4';
+import Step5 from '../components/MultiStepPostAd/Steps/Step5';
+import Step6 from '../components/MultiStepPostAd/Steps/Step6';
 
 const PostAd = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const steps = ['Select Package', 'List Item', 'Descruibe Ad', 'Choose Ad Category', 'Ad Details', 'Contact Details'];
 
-  const displayStep = (step) => {
-    switch (step) {
+  const displayStep = ({ currentStep, handleClick, steps }) => {
+    switch (currentStep) {
       case 1:
-        return <SelectPackage />;
+        return <Step1 handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 2:
-        return <ListItem />;
+        return <Step2 handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 3:
-        return <DescribeAd />;
+        return <Step3 handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 4:
-        return <ChooseAdCategory />;
+        return <Step4 handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 5:
-        return <AdDetails />;
+        return <Step5 handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       case 6:
-        return <ContactDetails />;
+        return <Step6 handleClick={handleClick} currentStep={currentStep} steps={steps} />;
       default:
     }
   };
@@ -37,30 +36,32 @@ const PostAd = () => {
     let newStep = currentStep;
 
     direction === 'next' ? newStep++ : newStep--;
-    // check if steps are within bounds
     newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
   };
 
   return (
-    <div className="flex flex-col items-stretch px-5 py-14 pb-16 max-w-[1200px] mx-auto">
-      <div className="flex flex-col gap-6 w-full justify-center items-center">
+    <div className="flex flex-col items-stretch px-5 py-14 pb-16 max-w-[1440px] mx-auto">
+      <div className="flex flex-col gap-6  w-full justify-center items-center">
         <h2 className=" text-2xl font-bold  ">Post Ad</h2>
         <p className="font-medium text-[#667085] ">Post an ad in just 6 simple steps</p>
       </div>
-      <div className=" pb-2 w-full ">
+      <div className=" pb-2 w-full mx-auto ">
         {/* Stepper */}
-        <div className="horizontal container mt-5 ">
-          <Stepper steps={steps} currentStep={currentStep} />
+        <div className="horizontal mx-auto mt-5 ">
+          <div className="mb-20">
+            <Stepper steps={steps} currentStep={currentStep} />
+          </div>
 
-          <div className="my-10 p-10 ">
-            <UseContextProvider>{displayStep(currentStep)}</UseContextProvider>
+          <div className="my-10 py-10 ">
+            <UseContextProvider>
+              {displayStep({
+                currentStep,
+                handleClick,
+                steps,
+              })}
+            </UseContextProvider>{' '}
           </div>
         </div>
-
-        {/* navigation button */}
-        {currentStep !== steps.length && (
-          <StepperControl handleClick={handleClick} currentStep={currentStep} steps={steps} />
-        )}
       </div>
     </div>
   );

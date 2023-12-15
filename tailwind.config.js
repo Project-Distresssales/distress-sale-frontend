@@ -13,6 +13,14 @@ module.exports = {
       },
       colors: {
         distressBlue: "#6F85FF",
+        distressGrey300: "#D0D5DD",
+        distressGrey500: "#667085",
+        distressGrey900: "#101828",
+        distressGold900: "#F9C590",
+        distressGreen900: "#7CC8C7",
+      },
+      boxShadow: {
+        '3xl': '0px 10px 15px -3px rgba(16, 24, 40, 0.10), 0px 4px 6px -4px rgba(16, 24, 40, 0.10)',
       },
     },
 
