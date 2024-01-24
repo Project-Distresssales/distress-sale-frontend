@@ -42,13 +42,6 @@ const LoginModal = ({
 
         dispatch(profileLoginAction(data));
         onClose();
-        // next();
-        // navigate(`/auth/verification?code=${data.code}`);
-
-        // setOpenSnackBar(true);
-        // setTimeout(() => {
-        //   openSnackBar && navigate(`/auth/verification?code=${data.code}`);
-        // }, 3000);
       })
       .catch((error: AxiosError) => {
         const res: any = error?.response;
@@ -97,10 +90,10 @@ const LoginModal = ({
         console.log(userCredential);
         await makeRequest({
           url: API.googleLogin,
-          method: 'POST',
-          data: {
-            idToken: await user.getIdToken(),
-          },
+          method: 'GET',
+          // data: {
+          //   idToken: await user.getIdToken(),
+          // },
         });
 
         stopLoad();

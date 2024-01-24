@@ -1,0 +1,10 @@
+<svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="teenyicons:bath-outline" clip-path="url(#clip0_1019_7744)">
+<path id="Vector" d="M0 8H15M4.5 13H10.5M4.5 13C3.70435 13 2.94129 12.6839 2.37868 12.1213C1.81607 11.5587 1.5 10.7956 1.5 10V4C1.5 3.20435 1.81607 2.44129 2.37868 1.87868C2.94129 1.31607 3.70435 1 4.5 1H6.5V2.5M4.5 13V15.5M10.5 13C11.2956 13 12.0587 12.6839 12.6213 12.1213C13.1839 11.5587 13.5 10.7956 13.5 10V8M10.5 13V15.5M5 4H8" stroke="#101828"/>
+</g>
+<defs>
+<clipPath id="clip0_1019_7744">
+<rect width="15" height="15" fill="white" transform="translate(0 0.5)"/>
+</clipPath>
+</defs>
+</svg>

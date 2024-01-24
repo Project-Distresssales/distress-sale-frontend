@@ -218,8 +218,8 @@ export default function ProfilePage() {
                   src={
                     file
                       ? URL.createObjectURL(file)
-                      : user.profile_pic
-                      ? user.profile_pic
+                      : user.profileImage
+                      ? user.profileImage
                       : `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&size=128&rounded=true`
                   }
                   className="aspect-[1.17] object-contain object-center w-80 h-80 rounded-[50%] overflow-hidden object-cover max-w-full mt-14 max-md:mt-10"
@@ -244,14 +244,14 @@ export default function ProfilePage() {
                     if (file) {
                       setFile(file);
 
-                      const profile_pic = await getFileMetadata(file);
+                      const profileImage = await getFileMetadata(file);
                       dispatch(
                         profileUpdateAction({
-                          profile_pic,
+                          profileImage,
                         })
                       );
 
-                      toast.success('Succesfully Updated profile!');
+                      toast.success('Successfully Updated profile!');
                     }
 
                     // try {

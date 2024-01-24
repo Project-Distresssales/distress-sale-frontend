@@ -14,6 +14,8 @@ import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { FadeIn } from '../../Transitions/Transitions';
+import useSignupController from './controller';
+import { catchAsync } from '@/helpers/api.helper';
 
 const SignupModal = ({
   open,
@@ -26,29 +28,91 @@ const SignupModal = ({
   handleLoginModalOpen: VoidCallback;
   next: VoidCallback;
 }) => {
-  const { makeRequest, isLoading, data } = useRequest();
   const dispatch = useDispatch();
   const router = useRouter();
+  const { isLoading, makeRequest } = useRequest();
+  const [errors, setErrors] = useState<string>('');
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const handleOpenModal = () => {
+      setOpenModal(true);
+  }
+  const handleCloseModal = () => {
+      setOpenModal(false);
+  }
 
-  const onSubmit = async (values) => {
-    makeRequest({
-      url: API.signup,
-      data: values,
-      method: 'POST',
-    })
-      .then((res) => {
-        const { status, data }: any = res.data;
+  // Navigate to Login
+  const goToLogin = () => {
+      router.push('/login');
+  }
+
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [referralCode, setReferralCode] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+
+  const handleFirstNameChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+      setFirstName(event.target.value);
+  };
+  const handleLastNameChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+      setLastName(event.target.value);
+  };
+
+  const handleEmailChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+      setEmail(event.target.value);
+  };
+  const handlePasswordChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+      setPassword(event.target.value);
+  };
+  const handleConfirmPasswordChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+      setConfirmPassword(event.target.value);
+  };
+  const handleReferralCodeChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    setReferralCode(event.target.value);
+};
+  const handlePhoneChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    setPhone(event.target.value);
+};
+
+  // Validation rules for the name and email inputs
+  const isFirstNameValid = firstName.length >= 3;
+  const isLastNameValid = lastName.length >= 3;
+  const isEmailValid = email.length > 5 && email.includes('@');
+  const isPhoneValid = phone.length > 5;
+  const isPassword = password.length > 5;
+  const isConfirmPassword = confirmPassword.length > 5;
+  const isPasswordMatch = password === confirmPassword;
+
+  const payload = {
+    first_name: firstName,
+    last_name: lastName,
+    email: email,
+    password: password,
+    confirm_password: confirmPassword,
+    referral_code: referralCode,
+    phoneNumber: phone,
+  };
+
+  const onSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    catchAsync(
+      async () => {
+        const res = await makeRequest({
+          method: "POST",
+          url: API.signup,
+          data: payload,
+        });
+
+        const { message, data } = res.data;
 
         dispatch(profileLoginAction(data));
         onClose();
         next();
-        // navigate(`/auth/verification?code=${data.code}`);
-        // setOpenSnackBar(true);
-        // setTimeout(() => {
-        //   openSnackBar && navigate(`/auth/verification?code=${data.code}`);
-        // }, 3000);
-      })
-      .catch((error: AxiosError) => {
+
+      },
+      (error: any) => {
         const res: any = error?.response;
 
         const status = res?.status;
@@ -61,29 +125,9 @@ const SignupModal = ({
         } else {
           toast.error('Something went wrong! Pls try again!', {});
         }
-      });
+      }
+    );
   };
-
-  const [form, setForm] = useState({
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phone: '',
-  });
-
-  const { values, handleSubmit, handleChange, errors, setErrors, getFieldProps } = useFormik({
-    initialValues: form,
-    validationSchema: signupValidationSchema,
-    enableReinitialize: true,
-    validateOnChange: true,
-    onSubmit,
-  });
-
-  const { email, password, confirmPassword } = values;
-
-  const iDisabled = isEmpty(email) || isEmpty(password) || isEmpty(confirmPassword) || Object.keys(errors).length > 0;
 
   return (
     <AppModal
@@ -98,7 +142,7 @@ const SignupModal = ({
         width: '600px',
       }}
     >
-      <form className="w-full" onSubmit={handleSubmit}>
+      <form className="w-full" onSubmit={onSubmit}>
         <h1 className="text-[#101828] font-[700] text-[1.4vw] text-center">Create Account</h1>
         <div className="w-full flex items-center space-x-7 mt-7">
           <AuthButton text="Continue with Facebook" icon={Assets.facebookAuth} />
@@ -118,8 +162,9 @@ const SignupModal = ({
               label="First Name *"
               placeholder="Enter your first name"
               withBackground={false}
-              error={errors.firstname}
-              {...getFieldProps('firstName')}
+              error={''}
+              value={firstName}
+              onChange={handleFirstNameChange}
             />
             <TextField
               id="lastName"
@@ -129,8 +174,9 @@ const SignupModal = ({
               obscured={false}
               withBackground={false}
               readOnly={false}
-              error={errors.lastname}
-              {...getFieldProps('lastName')}
+              error={''}
+              value={lastName}
+              onChange={handleLastNameChange}
             />
           </div>
 
@@ -141,8 +187,9 @@ const SignupModal = ({
             placeholder="Enter your email address"
             withBackground={false}
             readOnly={false}
-            error={errors.email}
-            {...getFieldProps('email')}
+            error={''}
+            value={email}
+            onChange={handleEmailChange}
           />
 
           <TextField
@@ -152,8 +199,9 @@ const SignupModal = ({
             placeholder="Enter your phone"
             withBackground={false}
             readOnly={false}
-            error={errors.phone}
-            {...getFieldProps('phone')}
+            error={''}
+            value={phone}
+               onChange={handlePhoneChange}
           />
           <TextField
             id="password"
@@ -163,10 +211,11 @@ const SignupModal = ({
             obscured={true}
             withBackground={false}
             readOnly={false}
-            error={errors.password}
-            {...getFieldProps('password')}
+            error={''}
+            value={password}
+            onChange={handlePasswordChange}
           />
-          {values.password.length > 7 && (
+          {password.length > 7 && (
             <>
               <FadeIn fullWidth={true}>
                 <TextField
@@ -177,15 +226,21 @@ const SignupModal = ({
                   obscured={true}
                   withBackground={false}
                   readOnly={false}
-                  error={errors.confirmPassword}
-                  {...getFieldProps('confirmPassword')}
+                  error={''}
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
                 />
               </FadeIn>
             </>
           )}
 
           <div className="mt-10">
-            <AppButton fullWidth={true} boldText={false} loading={isLoading} disabled={iDisabled} type="submit">
+            <AppButton
+              fullWidth={true}
+              boldText={false}
+              loading={isLoading}
+              disabled={!isFirstNameValid || !isLastNameValid || !isEmailValid || !isPassword || !isConfirmPassword || !isPasswordMatch}
+              type="submit">
               Sign-up
             </AppButton>
           </div>

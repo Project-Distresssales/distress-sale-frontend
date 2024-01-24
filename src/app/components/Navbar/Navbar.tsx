@@ -204,7 +204,7 @@ export default function Navbar() {
             {isAuthenticated ? (
               <Image
                 src={
-                  user.profile_pic ||
+                  user.profileImage ||
                   `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&rounded=true&size=128`
                 }
                 alt={user.firstName + 'photo'}
@@ -287,9 +287,9 @@ export default function Navbar() {
               authModal()
             )}
           </div>
-<Link href={`/post-ad`} >
-          <AppButton text="Post Ad" />
-</Link>
+          <Link href={`/post-ad`} >
+            <AppButton text="Post Ad" />
+          </Link>
         </div>
       </div>
 
@@ -440,7 +440,7 @@ const ForgotPasswordModal = ({
               boldText={false}
               loading={isLoading}
               disabled={iDisabled}
-              onClick={() => {}}
+              onClick={() => { }}
             />
           </div>
         </form>
@@ -456,16 +456,13 @@ const RegistrationCompleteModal = ({ open, onClose }: { open: boolean; onClose: 
       handleClose={onClose}
       style={{
         backgroundColor: '#fff',
-        padding: '10px 20px 30px 20px',
+        padding: '30px 20px 30px 20px',
         position: 'relative',
         height: 'auto',
         width: '400px',
       }}
     >
-      <div className="w-full flex flex-col justify-center items-center ">
-        {/* <Image src={Assets.arrowRight} alt="" width={20} height={20} /> */}
-
-        <div className="flex w-full justify-end">
+        <div className="w-full absolute right-0 top-0">
           <IconButton onClick={onClose}>
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -486,31 +483,31 @@ const RegistrationCompleteModal = ({ open, onClose }: { open: boolean; onClose: 
           </IconButton>
         </div>
 
-        <div className="w-full space-y-6 flex flex-col justify-center items-center">
+        <div className="w-full space-y-4 flex flex-col justify-center items-center">
+          <div>
           <svg width="51" height="50" viewBox="0 0 51 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M25.5 45.8334C36.9584 45.8334 46.3334 36.4584 46.3334 25.0001C46.3334 13.5417 36.9584 4.16675 25.5 4.16675C14.0417 4.16675 4.66669 13.5417 4.66669 25.0001C4.66669 36.4584 14.0417 45.8334 25.5 45.8334Z"
-              stroke="#308652"
-              stroke-width="4"
-              stroke-linecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M16.6458 25.0001L22.5416 30.8959L34.3541 19.1042"
-              stroke="#308652"
-              stroke-width="4"
-              stroke-linecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+              <path
+                d="M25.5 45.8334C36.9584 45.8334 46.3334 36.4584 46.3334 25.0001C46.3334 13.5417 36.9584 4.16675 25.5 4.16675C14.0417 4.16675 4.66669 13.5417 4.66669 25.0001C4.66669 36.4584 14.0417 45.8334 25.5 45.8334Z"
+                stroke="#308652"
+                stroke-width="4"
+                stroke-linecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M16.6458 25.0001L22.5416 30.8959L34.3541 19.1042"
+                stroke="#308652"
+                stroke-width="4"
+                stroke-linecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <h1 className="text-[#101828] font-[700] text-[20px] text-center leading-tight">Email sent, Check your inbox!</h1>
 
-          <h1 className="text-[#101828] font-[700] text-[1.4vw] text-center">Email sent, Check your inbox!</h1>
-
-          <p className="text-center">
+          <p className="text-center text-[14px] font-[500] text-[#101828] px-7">
             Should the email address you provided, you will receive a link to Verify your Email
           </p>
         </div>
-      </div>
     </AppModal>
   );
 };

@@ -1,14 +1,15 @@
-export const API_HOST = process.env.API_URL || 'https://api-distressales.onrender.com/';
+export const API_HOST = process.env.API_URL || 'https://distress-api.onrender.com/';
 
 export const API = {
   // users
-  login: '/users/login',
-  signup: '/users/signup',
+  login: '/api/v1/auth/login',
+  signup: '/api/v1/auth/register',
   profile: '/users/profile',
   profilePic: '/users/photo',
 
   // google
-  googleLogin: '/users/login/google',
+  googleLogin: '/api/v1/auth/external/google/url',
+  facebookLogin: '/api/v1/auth/external/facebook/url',
 
   // reset-pass
   requestResetPassword: '/users/auth/reset-password/request',
