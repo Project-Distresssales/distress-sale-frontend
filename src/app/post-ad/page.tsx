@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Stepper from '../components/MultiStepPostAd/Stepper';
 import { UseContextProvider } from '@/providers/StepperContext ';
 import Step1 from '../components/MultiStepPostAd/Steps/Step1';
@@ -9,11 +9,48 @@ import Step4 from '../components/MultiStepPostAd/Steps/Step4';
 import Step5 from '../components/MultiStepPostAd/Steps/Step5';
 import Step6 from '../components/MultiStepPostAd/Steps/Step6';
 import { FadeInFromRight } from '../components/Transitions/Transitions';
+import useRequest from '@/services/request/request.service';
+import { catchAsync } from '@/helpers/api.helper';
+import API from '@/constants/api.constant';
+import { toast } from 'react-toastify';
 
 const PostAd = () => {
+  const { isLoading, makeRequest } = useRequest();
   const [currentStep, setCurrentStep] = useState(1);
+  const [packages, setPackages] = useState<any[]>([]);
 
-  const steps = ['Select Package', 'List Item', 'Descruibe Ad', 'Choose Ad Category', 'Ad Details', 'Contact Details'];
+  const handleGetPackages = async () => {
+    catchAsync(
+      async () => {
+        const res = await makeRequest({
+          method: "GET",
+          url: API.packages,
+        });
+
+        const { message, data } = res.data;
+        setPackages(data);
+      },
+      (error: any) => {
+        const res: any = error?.response;
+
+        const status = res?.status;
+        const data = res?.data;
+
+        if (status === 406) {
+          toast.error(data.message);
+        } else {
+          toast.error('Something went wrong! Pls try again!', {});
+        }
+      }
+    );
+  };
+
+  useEffect(() => {
+    handleGetPackages();
+  }, []);
+
+
+  const steps = ['Select Package', 'List Item', 'Describe Ad', 'Choose Ad Category', 'Ad Details', 'Contact Details'];
 
   const displayStep = ({ currentStep, handleClick, steps }) => {
     switch (currentStep) {

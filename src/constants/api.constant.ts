@@ -18,7 +18,7 @@ export const API = {
   verifyUser: '/verification/verify',
 
   // admins
-  bussiness: '/admins/business/',
+  packages: '/api/v1/admin/packages',
 
   // uploads
   uploads: '/uploads',

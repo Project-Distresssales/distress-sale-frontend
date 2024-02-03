@@ -1,4 +1,9 @@
-import React, { ReactNode } from 'react';
+"use client"
+import API from '@/constants/api.constant';
+import { catchAsync } from '@/helpers/api.helper';
+import useRequest from '@/services/request/request.service';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { TickSvg } from '../Icons/Icons';
 
 interface PackageCardProps {
@@ -6,157 +11,198 @@ interface PackageCardProps {
   title: string;
   icon: ReactNode;
   bannerText: ReactNode;
-  benefits: { text: ReactNode }[];
+  benefits: any;
   color: string;
-  bgColor?: string;
+  bgColor?: any;
+  handleBenefitClick: any;
+  handleContinueClick: () => void;
 }
 
 const SelectPackage = () => {
+  const { isLoading, makeRequest } = useRequest();
+  const [packages, setPackages] = useState<any[]>([]);
+  const [selectedBenefits, setSelectedBenefits] = useState(Array(packages.length).fill(null));
+
+  const handleBenefitClick = (packageIndex, benefitIndex) => {
+    const updatedSelectedBenefits = [...selectedBenefits];
+    updatedSelectedBenefits[packageIndex] = benefitIndex;
+    setSelectedBenefits(updatedSelectedBenefits);
+  };
+
+  const handleContinueClick = (packageId) => {
+    const selectedBenefit = selectedBenefits[packageId];
+
+    if (selectedBenefit !== null) {
+      console.log(`Selected Benefit ID for Package ${packageId}: ${selectedBenefit}`);
+    } else {
+      toast.error('Please select a benefit before continuing.');
+    }
+  };
+
+  const handleGetPackages = async () => {
+    catchAsync(
+      async () => {
+        const res = await makeRequest({
+          method: "GET",
+          url: API.packages,
+        });
+
+        const { message, data } = res.data;
+        setPackages(data);
+      },
+      (error: any) => {
+        const res: any = error?.response;
+
+        const status = res?.status;
+        const data = res?.data;
+
+        if (status === 406) {
+          toast.error(data.message);
+        } else {
+          toast.error('Something went wrong! Pls try again!', {});
+        }
+      }
+    );
+  };
+
+  useEffect(() => {
+    handleGetPackages();
+  }, []);
+
   return (
     <div className="flex flex-wrap lg:flex-nowrap justify-between w-full gap-8">
-      <PackageCard
-        color="#D0D5DD"
-        tier="BASIC"
-        title="Free"
-        icon={<TickSvg color="#667085" />}
-        bannerText={
-          <div className="absolute mb-6 ml-4 mx-auto text-center text-white ">
-            <p className="text-xl font-black ">FREE</p>
-          </div>
-        }
-        benefits={[
-          {
-            text: (
-              <p className="font-light text-sm text-[#667085] ">
-                Active for <span className="font-bold text-black ">30 Days</span>
-              </p>
-            ),
-          },
-          {
-            text: (
-              <p className="font-light text-sm text-[#667085] ">
-                Up to <span className="font-bold text-black ">5 Photos</span> only
-              </p>
-            ),
-          },
-          { text: <p className="font-light text-sm text-[#667085] ">3 Active Basic Free Ads </p> },
-        ]}
-      />
-
-      <PackageCard
-        color="#F9C590"
-        bgColor="#FFF9F4"
-        tier="SUPER"
-        title="AED 90 + VAT"
-        bannerText={
-          <div className="absolute mb-6 ml-4 mx-auto text-center text-white ">
-            <p className=" text-sm font-black  ">Get</p>
-            <p className="text-xl font-black ">10X</p>
-            <p className="text-sm font-black">more Offer</p>
-          </div>
-        }
-        icon={<TickSvg color="#F9C590" />}
-        benefits={[
-          {
-            text: (
-              <p className="font-light text-sm text-[#667085] ">
-                Active for <span className="font-bold text-black ">60 Days</span>
-              </p>
-            ),
-          },
-          {
-            text: (
-              <p className="font-light text-sm text-[#667085] ">
-                Up to <span className="font-bold text-black ">10 Photos</span> only
-              </p>
-            ),
-          },
-          {
-            text: (
-              <p className="font-light text-sm text-[#667085] ">
-                Up to <span className="font-bold text-black ">10 Videos</span> only
-              </p>
-            ),
-          },
-          {
-            text: (
-              <p className="font-light text-sm text-[#667085] ">
-                Featured for <span className="font-bold text-black ">5 Days</span>
-              </p>
-            ),
-          },
-          {
-            text: (
-              <p className="font-light text-sm text-[#667085] ">
-                Refresh every <span className="font-bold text-black ">15 Days</span>
-              </p>
-            ),
-          },
-        ]}
-      />
-
-      <PackageCard
-        color="#7CC8C7"
-        tier="HYPER"
-        title="AED 200 + VAT"
-        icon={<TickSvg color="#7CC8C7" />}
-        bannerText={
-          <div className="absolute mb-6 ml-4 mx-auto text-center text-white ">
-            <p className=" text-sm font-black  ">Get</p>
-            <p className="text-xl font-black ">50X</p>
-            <p className="text-sm font-black">more Offer</p>
-          </div>
-        }
-        benefits={[
-          {
-            text: (
-              <p className="font-light text-sm text-[#667085] ">
-                Active for <span className="font-bold text-black ">180 Days</span>
-              </p>
-            ),
-          },
-          {
-            text: (
-              <p className="font-light text-sm text-[#667085] ">
-                Up to <span className="font-bold text-black ">50 Photos</span> only
-              </p>
-            ),
-          },
-          {
-            text: (
-              <p className="font-light text-sm text-[#667085] ">
-                Up to <span className="font-bold text-black ">50 Videos</span> only
-              </p>
-            ),
-          },
-          {
-            text: (
-              <p className="font-light text-sm text-[#667085] ">
-                Featured for <span className="font-bold text-black ">15 Days</span>
-              </p>
-            ),
-          },
-          {
-            text: (
-              <p className="font-light text-sm text-[#667085] ">
-                Refresh every <span className="font-bold text-black ">10 Days</span>
-              </p>
-            ),
-          },
-          {
-            text: (
-              <p className="font-light text-sm text-[#667085] ">
-                Active for <span className="font-bold text-black ">180 Days</span>
-              </p>
-            ),
-          },
-        ]}
-      />
+      {packages?.map((item, i) => (
+        <PackageCard
+          key={i}
+          color={item?.name === 'Basic' ? '#D0D5DD' : item?.name === 'Super' ? '#F9C590' : '#7CC8C7'}
+          bgColor={item?.name === 'Super' && '#FFF9F4'}
+          tier={item?.name}
+          title={`AED ${item?.amount} + VAT`}
+          icon={<TickSvg color={item?.name === 'Basic' ? '#667085' : item?.name === 'Super' ? '#F9C590' : '#7CC8C7'} />}
+          handleBenefitClick={(benefitIndex) => handleBenefitClick(item?._id, benefitIndex)}
+          handleContinueClick={() => handleContinueClick(item?._id)}
+          bannerText={item?.name === 'Basic' ? (
+            <div className="absolute mb-6 ml-4 mx-auto text-center text-[#101828]">
+              <p className="text-xl font-[700] leading-tight">Free</p>
+              <p className="text-[12px] font-[500] leading-tight">For</p>
+              <p className="text-[14px] font-[700] leading-tight">{item?.activeFor} Days</p>
+            </div>
+          ) : item?.name === 'Super' ? (
+            <div className="absolute mb-6 ml-4 mx-auto text-center text-[#101828]">
+              <p className="text-[12px] font-[700]">Get</p>
+              <p className="text-xl font-[500]">20X</p>
+              <p className="text-sm font-[700]">more Offer</p>
+            </div>
+          ) : (
+            <div className="absolute mb-6 ml-4 mx-auto text-center text-[#101828]">
+              <p className="text-[12px] font-[700]">Get</p>
+              <p className="text-xl font-[500]">50X</p>
+              <p className="text-sm font-[700]">more Offer</p>
+            </div>
+          )}
+          benefits={item?.name === 'Basic' ? (
+            [
+              {
+                text: (
+                  <p className="font-light text-sm text-[#667085] ">
+                    Free & Active for <span className="font-bold text-black ">{item?.activeFor} Days</span>
+                  </p>
+                ),
+              },
+              {
+                text: (
+                  <p className="font-light text-sm text-[#667085] ">
+                    Up to <span className="font-bold text-black ">{item?.numOfPhotos} Photos</span> only
+                  </p>
+                ),
+              },
+              { text: <p className="font-light text-sm text-[#667085] ">{item?.numOfAds} Active Basic Free Ads </p> },
+            ]
+          ) : item?.name === 'Super' ? (
+            [
+              {
+                text: (
+                  <p className="font-light text-sm text-[#667085] ">
+                    Active for <span className="font-bold text-black ">{item?.activeFor} Days</span>
+                  </p>
+                ),
+              },
+              {
+                text: (
+                  <p className="font-light text-sm text-[#667085] ">
+                    Up to <span className="font-bold text-black ">{item?.numOfPhotos} Photos</span> only
+                  </p>
+                ),
+              },
+              {
+                text: (
+                  <p className="font-light text-sm text-[#667085] ">
+                    Up to <span className="font-bold text-black ">{item?.numOfVideos} Videos</span> only
+                  </p>
+                ),
+              },
+              {
+                text: (
+                  <p className="font-light text-sm text-[#667085] ">
+                    Featured for <span className="font-bold text-black ">5 Days</span>
+                  </p>
+                ),
+              },
+              {
+                text: (
+                  <p className="font-light text-sm text-[#667085] ">
+                    Refresh every <span className="font-bold text-black ">15 Days</span>
+                  </p>
+                ),
+              },
+            ]
+          ) : (
+            [
+              {
+                text: (
+                  <p className="font-light text-sm text-[#667085] ">
+                    Active for <span className="font-bold text-black ">{item?.activeFor} Days</span>
+                  </p>
+                ),
+              },
+              {
+                text: (
+                  <p className="font-light text-sm text-[#667085] ">
+                    Up to <span className="font-bold text-black ">{item?.numOfPhotos} Photos</span> only
+                  </p>
+                ),
+              },
+              {
+                text: (
+                  <p className="font-light text-sm text-[#667085] ">
+                    Up to <span className="font-bold text-black ">{item?.numOfVideos} Videos</span> only
+                  </p>
+                ),
+              },
+              {
+                text: (
+                  <p className="font-light text-sm text-[#667085] ">
+                    Featured for <span className="font-bold text-black ">15 Days</span>
+                  </p>
+                ),
+              },
+              {
+                text: (
+                  <p className="font-light text-sm text-[#667085] ">
+                    Refresh every <span className="font-bold text-black ">10 Days</span>
+                  </p>
+                ),
+              },
+            ]
+          )}
+        />
+      ))}
     </div>
   );
 };
 
-const PackageCard: React.FC<PackageCardProps> = ({ tier, title, bannerText, icon, benefits, color, bgColor }) => {
+const PackageCard: React.FC<PackageCardProps> = ({ tier, title, bannerText, icon, benefits, color, bgColor, handleBenefitClick, handleContinueClick }) => {
+
   return (
     <div
       className="w-full relative h-fit shadow-lg shadow-black/30 rounded-xl"
@@ -194,7 +240,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ tier, title, bannerText, icon
         <div className="flex flex-col gap-4 mt-7 w-full">
           <ul className="list-none flex flex-col gap-4  ">
             {benefits.map((benefit, index) => (
-              <li className=" flex items-center gap-3  " key={index}>
+              <li className=" flex items-center gap-3" onClick={handleBenefitClick} key={index}>
                 {icon} {benefit.text}
               </li>
             ))}
@@ -206,6 +252,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ tier, title, bannerText, icon
             backgroundColor: color,
           }}
           type="button"
+          onClick={handleContinueClick}
         >
           Continue
         </button>
