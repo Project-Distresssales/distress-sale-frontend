@@ -61,7 +61,7 @@ const PostAd = () => {
           </FadeInFromRight>
         );
       case 2:
-        return (
+        return ( 
           <FadeInFromRight>
             <Step2 handleClick={handleClick} currentStep={currentStep} steps={steps} />
           </FadeInFromRight>

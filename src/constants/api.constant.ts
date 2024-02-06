@@ -19,6 +19,8 @@ export const API = {
 
   // admins
   packages: '/api/v1/admin/packages',
+  sections: '/api/v1/admin/sections',
+  categories: '/api/v1/admin/categories',
 
   // uploads
   uploads: '/uploads',

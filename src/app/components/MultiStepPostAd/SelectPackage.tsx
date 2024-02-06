@@ -14,30 +14,34 @@ interface PackageCardProps {
   benefits: any;
   color: string;
   bgColor?: any;
-  handleBenefitClick: any;
   handleContinueClick: () => void;
+  selectedPackageId: any;
+  packageId,
 }
 
 const SelectPackage = () => {
   const { isLoading, makeRequest } = useRequest();
   const [packages, setPackages] = useState<any[]>([]);
-  const [selectedBenefits, setSelectedBenefits] = useState(Array(packages.length).fill(null));
+  const [selectedPackageId, setSelectedPackageId] = useState<string | null>(null);
 
-  const handleBenefitClick = (packageIndex, benefitIndex) => {
-    const updatedSelectedBenefits = [...selectedBenefits];
-    updatedSelectedBenefits[packageIndex] = benefitIndex;
-    setSelectedBenefits(updatedSelectedBenefits);
-  };
+  useEffect(() => {
+    // Retrieve the selectedPackageId from localStorage on component mount
+    const storedPackageId = localStorage.getItem('selectedPackageId');
+    if (storedPackageId) {
+      setSelectedPackageId(storedPackageId);
+    }
+  }, []); // Empty dependency array ensures the effect runs only once on mount
 
   const handleContinueClick = (packageId) => {
-    const selectedBenefit = selectedBenefits[packageId];
-
-    if (selectedBenefit !== null) {
-      console.log(`Selected Benefit ID for Package ${packageId}: ${selectedBenefit}`);
+    if (packageId !== null) {
+      // Update state and store in localStorage
+      setSelectedPackageId(packageId);
+      localStorage.setItem('selectedPackageId', packageId);
     } else {
       toast.error('Please select a benefit before continuing.');
     }
   };
+
 
   const handleGetPackages = async () => {
     catchAsync(
@@ -79,7 +83,6 @@ const SelectPackage = () => {
           tier={item?.name}
           title={`AED ${item?.amount} + VAT`}
           icon={<TickSvg color={item?.name === 'Basic' ? '#667085' : item?.name === 'Super' ? '#F9C590' : '#7CC8C7'} />}
-          handleBenefitClick={(benefitIndex) => handleBenefitClick(item?._id, benefitIndex)}
           handleContinueClick={() => handleContinueClick(item?._id)}
           bannerText={item?.name === 'Basic' ? (
             <div className="absolute mb-6 ml-4 mx-auto text-center text-[#101828]">
@@ -194,22 +197,26 @@ const SelectPackage = () => {
                 ),
               },
             ]
-          )}
+          )} 
+          selectedPackageId={selectedPackageId}
+          packageId={item?._id}
         />
       ))}
     </div>
   );
 };
 
-const PackageCard: React.FC<PackageCardProps> = ({ tier, title, bannerText, icon, benefits, color, bgColor, handleBenefitClick, handleContinueClick }) => {
+const PackageCard: React.FC<PackageCardProps> = ({ tier, title, bannerText, icon, benefits, color, bgColor, handleContinueClick, selectedPackageId, packageId }) => {
 
   return (
     <div
-      className="w-full relative h-fit shadow-lg shadow-black/30 rounded-xl"
+      className="w-full relative h-fit rounded-xl cursor-pointer transform transition-all ease-in-out duration-300"
       style={{
         backgroundColor: bgColor,
-        border: `1px solid ${color}`,
+        border: `2px solid ${selectedPackageId === packageId ? color : 'transparent'}`,
+        boxShadow: '0px 8px 50px -4px rgba(16, 24, 40, 0.01), 0px 20px 50px -4px rgba(16, 24, 40, 0.03), 1px -4px 50px 4px rgba(16, 24, 40, 0.01), 0px -10px 50px 4px rgba(0, 0, 0, 0.03)'
       }}
+      onClick={handleContinueClick}
     >
       {/* Banner Area */}
       <div className="absolute -top-[33px] right-5 ">
@@ -240,21 +247,22 @@ const PackageCard: React.FC<PackageCardProps> = ({ tier, title, bannerText, icon
         <div className="flex flex-col gap-4 mt-7 w-full">
           <ul className="list-none flex flex-col gap-4  ">
             {benefits.map((benefit, index) => (
-              <li className=" flex items-center gap-3" onClick={handleBenefitClick} key={index}>
+              <li className=" flex items-center gap-3" key={index}>
                 {icon} {benefit.text}
               </li>
             ))}
           </ul>
         </div>
         <button
-          className={`w-full py-2.5 mt-36 px-7 text-black  `}
+          className={`w-full py-2.5 mt-36 px-7 rounded-[5px] font-[700] text-black transform transition-all ease-in-out duration-300`}
           style={{
             backgroundColor: color,
+            boxShadow: '0px 10px 15px -3px rgba(16, 24, 40, 0.10), 0px 4px 6px -4px rgba(16, 24, 40, 0.10)',
           }}
           type="button"
           onClick={handleContinueClick}
         >
-          Continue
+          {selectedPackageId === packageId ? 'Selected' : 'Select'}
         </button>
       </div>
     </div>
