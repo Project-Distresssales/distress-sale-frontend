@@ -13,8 +13,8 @@ export default function ServiceCard({ header, text, buttonText, icon }: { header
                 <Image src={icon} alt="" width={30} height={30} />
             </div>
             <div className="space-y-5 text-[#101828] mb-7">
-                <h1 className='text-[1.4vw] font-[700]'>{header}</h1>
-                <p className='text-[1.1vw] font-[500] leading-[25px]'>{text}</p>
+                <h1 className='md:text-[1.4vw] text-[4.5vw] font-[700]'>{header}</h1>
+                <p className='md:text-[1.1vw] text-[3.5vw] font-[500] leading-[25px]'>{text}</p>
             </div>
             <AppButton text={buttonText} fullWidth={true} boldText={false} />
         </div>

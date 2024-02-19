@@ -32,17 +32,17 @@ export default function ProductCard({ product }: any) {
         </div>
         <div className="mt-5">
           <div className="flex justify-between items-center mb-5">
-            <h1 className="text-[#101828] text-[1.2vw] font-[700]">{product.header}</h1>
+            <h1 className="text-[#415EFF] md:text-[1.2vw] text-[4.7vw] font-[700]">{product.header}</h1>
             <div className="">
               <HeartIcon selected={selected} setSelected={handleFavorite} />
             </div>
           </div>
           <div className="">
-            <p className="text-[#101828] text-[1.2vw] font-[500] mt-5'">{product.description}</p>
-            <div className="flex items-center space-x-1 text-[#344054] text-[1vw] mt-3">
+            <p className="text-[#101828] md:text-[1.2vw] text-[4vw] font-[500] mt-5'">{product.description}</p>
+            <div className="flex items-center space-x-1 text-[#344054] md:text-[1vw] text-[3vw] mt-3">
               <p>{product.feature}</p>
             </div>
-            <p className="text-[#101828] text-[1.1vw] font-[500] mt-3">{product.location}</p>
+            <p className="text-[#101828] md:text-[1.1vw] text-[3.5vw] font-[500] mt-3">{product.location}</p>
           </div>
         </div>
 

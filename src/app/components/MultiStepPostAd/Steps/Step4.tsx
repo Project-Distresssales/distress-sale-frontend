@@ -160,38 +160,32 @@ const Step4 = ({ handleClick, currentStep, steps }) => {
   };
 
 
-  const propertyForSaleSection = altCategory.find(section => section?.name === 'Property for sale');
-  const othersSection = altCategory.find(section => section?.name === 'Others');
+  const propertyForSaleSection = altCategory.find(section => section?.name === 'Property for Sale');
+  const propertyForRentSection = altCategory.find(section => section?.name === 'Property for Rent');
 
   return (
     <div className=" flex flex-col gap-16 ">
       <div className="flex flex-col gap-6 w-full justify-center items-center">
         <h2 className=" text-2xl font-bold">Choose the right category for your Ad</h2>
         <div className="flex items-center space-x-3">
-          {storedSectionName === 'Others' ? (
-            <p className="font-medium text-[#415EFF]">Others</p>
-          ) : (
-            <>
-              <Breadcrumbs className="" separator={selectedAltCategoryId !== null && '›'} aria-label="breadcrumb">
-                {[
-                  <p className="font-medium text-[#415EFF] cursor-pointer hover:underline underline-offset-2" onClick={handleRemoveItem}>Property for Sale</p>,
+          <Breadcrumbs className="" separator={selectedAltCategoryId !== null && '›'} aria-label="breadcrumb">
+            {[
+              <p className="font-medium text-[#415EFF] cursor-pointer hover:underline underline-offset-2" onClick={handleRemoveItem}>{storedSectionName}</p>,
+              <>
+                {selectedAltCategoryId !== null && (
                   <>
-                    {selectedAltCategoryId !== null && (
-                      <>
-                        <p className="font-medium text-[#667085]">{selectedAltCategoryName}</p>
-                      </>
-                    )}
-                  </>,
-                ]}
-              </Breadcrumbs>
-            </>
-          )}
+                    <p className="font-medium text-[#667085]">{selectedAltCategoryName}</p>
+                  </>
+                )}
+              </>,
+            ]}
+          </Breadcrumbs>
         </div>
       </div>
 
-      {storedSectionName === 'Others' ? (
+      {storedSectionName === 'Property for Rent' ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4">
-          {othersSection?.categoryIDs?.map((category) => (
+          {propertyForRentSection?.categoryIDs?.map((category) => (
             <CategoryButton
               key={category?._id}
               text={category?.name}
@@ -218,60 +212,26 @@ const Step4 = ({ handleClick, currentStep, steps }) => {
               {(() => {
                 switch (selectedAltCategoryName) {
                   case "Residential for Sale":
-                    return subCategory
-                      ?.filter((subcategory) =>
-                        [
-                          "Apartment for Sale",
-                          "Townhouse for Sale",
-                          "Hotel Apartment",
-                          "Residential Building",
-                          "Residential Villa",
-                          "Residential Floor",
-                          "Penthouse",
-                          "Short Term",
-                          "Villa for Sale",
-                        ].includes(subcategory?.name)
-                      )
-                      .map((subcategory) => (
-                        <CategoryButton
-                          key={subcategory?._id}
-                          text={subcategory?.name}
-                          selected={selectedSubCategoryId === subcategory?._id}
-                          onClick={() => handleSubSelect(subcategory?._id, subcategory?.name)}
-                        />
-                      ));
+                  case "Commercial":
+                    const selectedMainCategory = propertyForSaleSection?.categoryIDs?.find(
+                      (category) => category?._id === selectedAltCategoryId
+                    );
 
-                  case "Commercial for Sale":
-                    return subCategory
-                      ?.filter((subcategory) =>
-                        [
-                          "Office for Sale",
-                          "Shop for Sale",
-                          "Warehouse",
-                          "Commercial Villa",
-                          "Commercial Buildings",
-                          "Commercial Floor",
-                          "Factory",
-                          "Showroom",
-                          "Business for Sale",
-                        ].includes(subcategory?.name)
-                      )
-                      .map((subcategory) => (
-                        <CategoryButton
-                          key={subcategory?._id}
-                          text={subcategory?.name}
-                          selected={selectedSubCategoryId === subcategory?._id}
-                          onClick={() => handleSubSelect(subcategory?._id, subcategory?.name)}
-                        />
-                      ));
-
-                  // Add more cases as needed for other conditions
+                    return selectedMainCategory?.categories?.map((subcategory) => (
+                      <CategoryButton
+                        key={subcategory?._id}
+                        text={subcategory?.name}
+                        selected={selectedSubCategoryId === subcategory?._id}
+                        onClick={() => handleSubSelect(subcategory?._id, subcategory?.name)}
+                      />
+                    ));
                   default:
                     return <p className="text-center w-full">No categories to display</p>;
                 }
               })()}
             </div>
           )}
+
         </>
       )}
 

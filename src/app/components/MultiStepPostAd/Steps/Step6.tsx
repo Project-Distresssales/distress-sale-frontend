@@ -15,7 +15,6 @@ interface Step6Props {
 
 const Step6: FC<Step6Props> = ({ handleClick, currentStep, steps }) => {
   const router = useRouter();
-  const { isLoading, makeRequest } = useRequest();
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
@@ -60,53 +59,7 @@ const Step6: FC<Step6Props> = ({ handleClick, currentStep, steps }) => {
   }, []);
 
 
-  // Create Post Ad
-  const body = {
-    name,
-    packageID: '',
-    sectionID: '',
-    categoryIDs: [''],
-    shortDesc: '',
-    fullDesc: '',
-    location: '',
-    country: '',
-    price: 0,
-    imageURLs: [],
-    videoURLs: [],
-    ownerContact: {
-      name,
-      email,
-      phoneNumber,
-      whatsAppNumber: '',
-    },
-    metadata: {},
-  };
-
-  const handleCreatePost = async () => {
-    catchAsync(
-      async () => {
-        const res = await makeRequest({
-          method: "POST",
-          url: API.sections,
-          data: body,
-        });
-
-        const { message, data } = res.data;
-      },
-      (error: any) => {
-        const res: any = error?.response;
-
-        const status = res?.status;
-        const data = res?.data;
-
-        if (status === 406) {
-          toast.error(data.message);
-        } else {
-          toast.error('Something went wrong! Pls try again!', {});
-        }
-      }
-    );
-  };
+  
 
 
   return (
@@ -144,7 +97,6 @@ const Step6: FC<Step6Props> = ({ handleClick, currentStep, steps }) => {
             withBackground={false}
           />
         </div>
-        {/* <button onClick={saveToLocalStorage} className="rounded-[5px] py-[10px] px-[56px] bg-[#415EFF] text-white w-[200px] mx-auto">Submit</button> */}
       </form>
 
 

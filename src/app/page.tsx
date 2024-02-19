@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import Assets from '@/constants/assets.constant'
 import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter'
@@ -6,9 +8,14 @@ import SearchCategory from './components/SearchCategory/SearchCategory'
 import VerifyUserBadge from './components/VerifyUserBadge/VerifyUserBadge'
 import ProductCard from './components/Card/ProductCard'
 import Footer from './components/Footer/Footer'
+import useAppTheme from '@/hooks/theme.hook'
+import MobileNavbar from './components/Navbar/MovileNavbar'
+import Navbar from './components/Navbar/Navbar'
+import SubNavbar from './components/Navbar/SubNavbar'
+import { FadeIn } from './components/Transitions/Transitions'
 
 export default function Home() {
-
+  const { isMobile } = useAppTheme();
   const services = [
     {
       header: "Listings",
@@ -322,25 +329,37 @@ export default function Home() {
 
 
   return (
-    <div>
+    <FadeIn>
+      <div className="overflow-x-hidden">
+       {!isMobile ? (
+         <>
+          <Navbar />
+          <SubNavbar />
+          </>
+        ) : (
+          <>
+          <MobileNavbar />
+          <SubNavbar />
+          </>
+        )}
       <div className="w-full h-auto pb-32">
-      <div className="px-8">
-        <div className="w-full rounded-[15px] h-auto py-[96px] hero-image-bg flex justify-center items-center">
+      <div className="md:px-8 px-5">
+        <div className="w-full md:rounded-[15px] rounded-[10px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center">
           <div className="h-auto text-center">
             <div className="w-full">
-              <h1 className="sm:text-[2.5vw] text-white font-[700] sm:leading-[50px]">The Ultimate Affordable Marketplace <br /> for Buying, Renting & Selling</h1>
-              <p className='text-white text-[1.3vw] font-[700] mt-8'>Explore the Best Deals: Discover, Connect, Transact</p>
+              <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">The Ultimate Affordable Marketplace <br /> for Buying, Renting & Selling</h1>
+              <p className='text-white md:text-[1.3vw] text-[3vw] font-[700] mt-8'>Explore the Best Deals: Discover, Connect, Transact</p>
             </div>
 
-            <div className="mt-20">
+            <div className="md:mt-20 mt-10">
               <SearchAndFilter />
             </div>
           </div>
         </div>
 
-        <div className="px-[80px] py-[100px]">
+        <div className="md:px-[80px] md:py-[100px] px-0 py-10">
           {/* Services */}
-          <div className="grid grid-cols-3 gap-[30px] mt-16">
+          <div className="grid md:grid-cols-3 grid-cols-1 md:gap-[30px] gap-[50px] mt-16">
             {services?.map((service: any, i) => (
               <ServiceCard
                 key={i}
@@ -354,14 +373,14 @@ export default function Home() {
 
           {/* Popular Search category */}
           <div className="mt-24">
-            <h1 className="text-[#101828] text-[2vw] font-[700]">Popular Search Categories</h1>
-            <div className="mt-14 flex justify-between">
+            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular Search Categories</h1>
+            <div className="md:mt-14 mt-7 md:flex md:justify-between grid grid-cols-2 gap-x-5 gap-y-10">
               {popularCategories?.map((category, i) => (
                 <SearchCategory key={i} header={category.header} item={category.items} />
               ))}
             </div>
             <div className="border-[0.2px] my-14 w-full border-[#EAECF0]" />
-            <div className="flex justify-between">
+            <div className="md:flex md:justify-between grid grid-cols-2 gap-x-5 gap-y-10">
               {popularCategories2?.map((category, i) => (
                 <SearchCategory key={i} header={category.header} item={category.items} />
               ))}
@@ -376,8 +395,8 @@ export default function Home() {
           {/* Popular property sales */}
           <div className="mt-20 w-full">
             <div>
-              <h1 className="text-[#101828] text-[2vw] font-[700]">Popular in Property for Sale</h1>
-              <div className='grid grid-cols-3 gap-[20px] mt-14'>
+              <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Sale</h1>
+              <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
                 {popularProperties?.map((product, i) => (
                   <ProductCard key={i} product={product} />
                 ))}
@@ -385,8 +404,8 @@ export default function Home() {
             </div>
 
             <div className="mt-16">
-              <h1 className="text-[#101828] text-[2vw] font-[700]">Popular in Used Cars for Sale</h1>
-              <div className='grid grid-cols-3 gap-[20px] mt-14'>
+              <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Used Cars for Sale</h1>
+              <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
                 {popularUsedCars?.map((product, i) => (
                   <ProductCard key={i} product={product} />
                 ))}
@@ -394,8 +413,8 @@ export default function Home() {
             </div>
 
             <div className="mt-16">
-              <h1 className="text-[#101828] text-[2vw] font-[700]">Popular in Listings</h1>
-              <div className='grid grid-cols-3 gap-[20px] mt-14'>
+              <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Listings</h1>
+              <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
                 {popularListings.map((product, i) => (
                   <ProductCard key={i} product={product} />
                 ))}
@@ -403,8 +422,8 @@ export default function Home() {
             </div>
 
             <div className="mt-16">
-              <h1 className="text-[#101828] text-[2vw] font-[700]">Popular in Property for Rent</h1>
-              <div className='grid grid-cols-3 gap-[20px] mt-14'>
+              <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Rent</h1>
+              <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
                 {popularRentProperties?.map((product, i) => (
                   <ProductCard key={i} product={product} />
                 ))}
@@ -412,8 +431,8 @@ export default function Home() {
             </div>
 
             <div className="mt-16">
-              <h1 className="text-[#101828] text-[2vw] font-[700]">Popular in Commercial</h1>
-              <div className='grid grid-cols-3 gap-[20px] mt-14'>
+              <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Commercial</h1>
+              <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
                 {popularCommercials?.map((product, i) => (
                   <ProductCard key={i} product={product} />
                 ))}
@@ -425,5 +444,6 @@ export default function Home() {
       </div>
     </div>
     </div>
+    </FadeIn>
   )
 }

@@ -25,10 +25,10 @@ export function AppButton({
   return (
     <button
       className={`
-      flex justify-center items-center rounded-[5px] py-[6px] px-[40px] text-white ${
+      flex justify-center items-center rounded-[5px] py-[6px] md:px-[40px] px-[20px] text-white ${
         boldText ? 'font-[900]' : 'font-[700]'
       } 
-    text-[1vw] button-background h-[37px] ${fullWidth ? 'w-full' : ''}`}
+    md:text-[16px] text-[3.2vw] button-background h-[37px] ${fullWidth ? 'w-full' : ''}`}
       onClick={loading ? () => {} : onClick}
       {...others}
     >

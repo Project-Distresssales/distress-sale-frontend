@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className="max-w-[1450px] mx-auto">
         <AppProvider>
-          <Navbar />
-          <SubNavbar />
+          {/* <Navbar /> */}
+          {/* <SubNavbar /> */}
           {children}
           <Footer />
         </AppProvider>

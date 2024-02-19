@@ -53,8 +53,18 @@ import handShareBrowser from '../app/assets/icons/hand-share-browser.svg';
 import seller1 from '../app/assets/icons/seller1.svg';
 import seller2 from '../app/assets/icons/seller2.svg';
 import seller3 from '../app/assets/icons/seller3.svg';
+import pfs from '../app/assets/icons/pfs.svg';
+import pfr from '../app/assets/icons/pfr.svg';
+import automobile from '../app/assets/icons/automobile.svg';
+import listingBlue from '../app/assets/icons/listing.svg';
+import commercialBlue from '../app/assets/icons/commercial.svg';
 
 const Assets = {
+  pfs,
+  pfr,
+  automobile,
+  commercialBlue,
+  listingBlue,
   googleAuth,
   facebookAuth,
   garden,

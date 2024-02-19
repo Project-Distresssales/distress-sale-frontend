@@ -210,11 +210,11 @@ const PackageCard: React.FC<PackageCardProps> = ({ tier, title, bannerText, icon
 
   return (
     <div
-      className="w-full relative h-fit rounded-xl cursor-pointer transform transition-all ease-in-out duration-300"
+      className="w-full relative h-fit rounded-xl shadow cursor-pointer transform transition-all ease-in-out duration-300"
       style={{
         backgroundColor: bgColor,
         border: `2px solid ${selectedPackageId === packageId ? color : 'transparent'}`,
-        boxShadow: '0px 8px 50px -4px rgba(16, 24, 40, 0.01), 0px 20px 50px -4px rgba(16, 24, 40, 0.03), 1px -4px 50px 4px rgba(16, 24, 40, 0.01), 0px -10px 50px 4px rgba(0, 0, 0, 0.03)'
+        // boxShadow: '0px 8px 50px -4px rgba(16, 24, 40, 0.01), 0px 20px 50px -4px rgba(16, 24, 40, 0.03), 1px -4px 50px 4px rgba(16, 24, 40, 0.01), 0px -10px 50px 4px rgba(0, 0, 0, 0.03)'
       }}
       onClick={handleContinueClick}
     >
