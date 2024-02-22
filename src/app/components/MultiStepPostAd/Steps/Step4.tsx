@@ -170,16 +170,17 @@ const Step4 = ({ handleClick, currentStep, steps }) => {
         <div className="flex items-center space-x-3">
           <Breadcrumbs className="" separator={selectedAltCategoryId !== null && '›'} aria-label="breadcrumb">
             {[
-              <p className="font-medium text-[#415EFF] cursor-pointer hover:underline underline-offset-2" onClick={handleRemoveItem}>{storedSectionName}</p>,
-              <>
-                {selectedAltCategoryId !== null && (
-                  <>
-                    <p className="font-medium text-[#667085]">{selectedAltCategoryName}</p>
-                  </>
-                )}
-              </>,
+              <p key="section" className="font-medium text-[#415EFF] cursor-pointer hover:underline underline-offset-2" onClick={handleRemoveItem}>
+                {storedSectionName}
+              </p>,
+              selectedAltCategoryId !== null && (
+                <p key="altCategory" className="font-medium text-[#667085]">
+                  {selectedAltCategoryName}
+                </p>
+              ),
             ]}
           </Breadcrumbs>
+
         </div>
       </div>
 
