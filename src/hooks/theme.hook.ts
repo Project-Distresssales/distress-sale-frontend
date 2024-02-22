@@ -1,6 +1,6 @@
-import { useMediaQuery } from '@mui/material';
-// import { useAppSelector } from '../store';
-// import { ThemeState } from '../store/theme.slice';
+"use client"
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 const useAppTheme = (): {
   isMobile: boolean;
@@ -11,7 +11,6 @@ const useAppTheme = (): {
   const isMobile = useMediaQuery('(max-width:550px)');
   const isTab = useMediaQuery('(max-width: 800px)');
   const isMiniDesktop = useMediaQuery('(max-width: 1000px)');
-  // const themeMode = useAppSelector((state) => state.theme) as ThemeState;
 
   return {
     isMobile,

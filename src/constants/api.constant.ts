@@ -22,6 +22,8 @@ export const API = {
   sections: '/api/v1/admin/sections',
   categories: '/api/v1/admin/categories',
 
+  createAd: '/api/v1/tag/create',
+
   // uploads
   uploads: '/uploads',
   images: '/images/',

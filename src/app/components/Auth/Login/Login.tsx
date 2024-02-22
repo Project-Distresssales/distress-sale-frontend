@@ -76,7 +76,8 @@ const LoginModal = ({
 
   const { email, password } = values;
 
-  const iDisabled = isEmpty(email) || isEmpty(password) || Object.keys(errors).length > 0;
+  const iDisabled = isEmpty(email) || isEmpty(password) || (errors && Object.keys(errors).length > 0);
+
 
   const { load, stopLoad, loading } = useLoad();
   const { user, signInWithGoogle } = useAuth();

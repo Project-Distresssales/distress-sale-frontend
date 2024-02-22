@@ -69,13 +69,13 @@ const useRequest = ({ useHost }: { useHost: boolean } = { useHost: false }): IUs
 
       const axiosInstance = axios.create({
         baseURL: useHost ? `${location.origin}/api/` : API_HOST,
-        // headers: {
-        //   common: {
-        //     Authorization: token ? `Bearer ${token}` : '',
-        //   },
-        // },
+        headers: {
+          common: {
+            Authorization: token ? `Bearer ${token}` : '',
+          },
+        },
         cancelToken: source.token,
-        // ...config,
+        ...config,
       });
 
       const promise = new Promise<AxiosResponse | AxiosError>((res, rej) => {
@@ -162,14 +162,8 @@ const useRequest = ({ useHost }: { useHost: boolean } = { useHost: false }): IUs
               const authTokenErrors = [401, 403];
               const data = error?.response?.data;
               if (authTokenErrors.includes(error.response?.status) && data?.message === 'token is invalid or expired') {
-                // Intercept the request and then refresh the user...
-                // await refreshUser();
                 logout();
               }
-
-              // else if (authTokenErrors.includes(error.response.status) && data?.message === "invalid signature") {
-              //   logout();
-              // }
               else {
                 rejectErr(error);
               }
