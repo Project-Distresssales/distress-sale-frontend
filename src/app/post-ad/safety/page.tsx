@@ -9,8 +9,8 @@ import axios, { AxiosError } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
-import { Bounce, toast } from 'react-toastify';
 
 export default function Safety() {
     const router = useRouter();
@@ -59,7 +59,7 @@ export default function Safety() {
     const isDataAvailable =
         name && email && phoneNumber && packageId && sectionId && subCategoryId && altCategoryId && shortDesc;
 
-        const body = isDataAvailable
+    const body = isDataAvailable
         ? {
             name,
             packageID: packageId,
@@ -89,43 +89,63 @@ export default function Safety() {
         : null;
 
     // Create Post Ad
+    const clearLocalStorageData = () => {
+        const localStorageKeys = [
+            'name',
+            'email',
+            'phoneNumber',
+            'selectedPackageId',
+            'selectedSectionId',
+            'selectedSectionName',
+            'selectedSubCategoryId',
+            'selectedSubCategoryName',
+            'selectedAltCategoryId',
+            'selectedAltCategoryName',
+            'shortDesc',
+        ];
+
+        localStorageKeys.forEach((key) => {
+            localStorage.removeItem(key);
+        });
+    };
+
     const createAd = async () => {
-        makeRequest({
-          method: 'POST',
-          url: API.createAdNew,
-          data: body,
-        })
-          .then((res) => {
+        try {
+            const res = await makeRequest({
+                method: 'POST',
+                url: API.createAd,
+                data: body,
+            });
+
             const { status, data, message }: any = res.data;
+
+            handleClose();
             toast.success(message, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-                });
-          })
-          .catch((error: AxiosError) => {
+                duration: 5000,
+                position: 'top-center',
+            });
+
+            // Clear localStorage data after success
+            clearLocalStorageData();
+            router.push('/');
+        } catch (error: any) {
             const res: any = error?.response;
-    
+
             const status = res?.status;
             const data = res?.data;
-    
+
             if (status === 406) {
-              toast.error(data.message);
+                toast.error(data.message);
             } else if (status === 400) {
-              ''
+                // Handle specific error condition if needed
             } else if (status === 401) {
-              toast.error(data.message);
+                toast.error(data.message);
             } else {
-              toast.error('Something went wrong! Pls try again!', {});
+                toast.error('Something went wrong! Pls try again!', {});
             }
-          });
-      };
+        }
+    };
+
 
 
     // Rocket Key
@@ -133,9 +153,11 @@ export default function Safety() {
         if (isAgreed) {
             createAd();
         } else {
-            toast.info('Please agree to the terms before creating a post ad.');
+            toast.error('Please agree to the terms before creating a post ad.');
         }
     };
+
+
 
 
     return (
