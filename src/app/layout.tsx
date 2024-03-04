@@ -5,6 +5,8 @@ import Navbar from './components/Navbar/Navbar';
 import SubNavbar from './components/Navbar/SubNavbar';
 import '@/services/firebase/firebase.service';
 import './globals.css';
+import { NextUIProvider } from '@nextui-org/react';
+import 'rsuite/dist/rsuite.min.css';
 
 export const metadata: Metadata = {
   title: 'Distress Sale',
@@ -15,12 +17,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="max-w-[1450px] mx-auto">
-        <AppProvider>
-          {/* <Navbar /> */}
-          {/* <SubNavbar /> */}
-          {children}
-          <Footer />
-        </AppProvider>
+        {/* <NextUIProvider> */}
+          <AppProvider>
+            {/* <Navbar /> */}
+            {/* <SubNavbar /> */}
+            {children}
+            <Footer />
+          </AppProvider>
+        {/* </NextUIProvider> */}
       </body>
     </html>
   );

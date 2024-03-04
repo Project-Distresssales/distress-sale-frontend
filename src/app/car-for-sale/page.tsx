@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCard from '../components/Card/ProductCard';
 import SearchAndFilter from '../components/SearchAndFilter/SearchAndFilter';
 import SearchCategory from '../components/SearchCategory/SearchCategory';
@@ -10,8 +10,16 @@ import BlueCard from '../components/BlueCard/BlueCard';
 import Testimonial from '../components/Testimonial/Testimonial';
 import HeroDropDown from '../components/HeroDropDown/HeroDropDown';
 import CategoryCard from '../components/CategoryCard/CategoryCard';
+import useAppTheme from '@/hooks/theme.hook';
+import Navbar from '../components/Navbar/Navbar';
+import MobileNavbar from '../components/Navbar/MovileNavbar';
+import SubNavbar from '../components/Navbar/SubNavbar';
+import { FadeIn } from '../components/Transitions/Transitions';
+import { algoliaClient } from '@/constants/api.constant';
 
 export default function CarsForSale() {
+    const { isMobile } = useAppTheme();
+
     // Searched categories
     const recommendedSearch = [
         {
@@ -215,7 +223,79 @@ export default function CarsForSale() {
         setActiveTab(tab);
     };
 
+
+         // Agolia Search Result
+  const [query, setQuery] = useState<string | any>('');
+  const [results, setResults] = useState<any>([]);
+  const [fetchResults, setFetchResults] = useState<any>([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+
+  const data = ['Automobile', 'Commercial', 'Property for Sale', 'Property for Rent'].map(
+    item => ({ label: item, value: item })
+  );
+
+
+  // Get All Page Data or ads
+  const handleSearch = async (indexName) => {
+    try {
+      const hitsPerPage = 1000;
+      const algoliaIndex = algoliaClient.initIndex(indexName);
+      const { hits } = await algoliaIndex.search('', { // Empty query
+        hitsPerPage: hitsPerPage,
+      });
+      return { category: indexName, hits };
+    } catch (error) {
+      console.error(`Error searching Algolia for ${indexName}:`, error);
+      return { category: indexName, hits: [] };
+    }
+  };
+
+  useEffect(() => {
+    const searchClients = async () => {
+      const categories = ['categories', 'automobile', 'commercial', 'property_for_sale_ads', 'property_for_rent_ads'];
+      const searchPromises = categories.map((category) => handleSearch(category));
+      
+      try {
+        const results = await Promise.all(searchPromises);
+        setFetchResults(results);
+      } catch (error) {
+        console.error('Error in parallel search:', error);
+      }
+    };
+
+    searchClients();
+  }, []);
+
+
+  // Map specific properties outside of the component
+  const categoriesData = {};
+
+  fetchResults.forEach(({ category, hits }) => {
+    categoriesData[category] = hits || [];
+  });
+
+  // Access individual arrays
+  const propertyForSale = categoriesData['property_for_sale_ads'] || [];
+  const propertyForRent = categoriesData['property_for_rent_ads'] || [];
+  const automobile = categoriesData['automobile'] || [];
+  const commercial = categoriesData['commercial'] || [];
+  const categories = categoriesData['categories'] || [];
+
+
     return (
+      <FadeIn>
+          {!isMobile ? (
+            <>
+              <Navbar />
+              <SubNavbar />
+            </>
+          ) : (
+            <>
+              <MobileNavbar />
+              <SubNavbar />
+            </>
+          )}
         <div>
             <div className="w-full h-auto pb-32">
                 <div className="px-8">
@@ -253,7 +333,7 @@ export default function CarsForSale() {
                             <div>
                                 <h1 className="text-[#101828] text-[2vw] font-[700]">Popular Categories</h1>
                                 <div className='grid grid-cols-3 gap-[20px] mt-14'>
-                                    {popularCategoryData?.map((product, i) => (
+                                    {categories?.map((product, i) => (
                                         <CategoryCard key={i} product={product} />
                                     ))}
                                 </div>
@@ -262,7 +342,7 @@ export default function CarsForSale() {
                             <div className="mt-16">
                                 <h1 className="text-[#101828] text-[2vw] font-[700]">Featured Cars</h1>
                                 <div className='grid grid-cols-3 gap-[20px] mt-14'>
-                                    {featuredProperties?.map((product, i) => (
+                                    {automobile?.map((product, i) => (
                                         <ProductCard key={i} product={product} />
                                     ))}
                                 </div>
@@ -293,5 +373,6 @@ export default function CarsForSale() {
                 </div>
             </div>
         </div>
+      </FadeIn>
     )
 }
