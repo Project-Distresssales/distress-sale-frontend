@@ -44,10 +44,11 @@ export const profileSlice = createSlice({
       return { ...state, ...action.payload };
     },
     profileLogoutAction: (state) => {
-      deleteItem(profileStorageKey);
+      localStorage.clear();
       location.reload();
       return {} as any;
-    },
+  },
+  
     profileUpdateAction: (state, action) => {
       saveItem(profileStorageKey, { ...state, ...action.payload });
       return { ...state, ...action.payload };

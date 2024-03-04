@@ -1,7 +1,12 @@
 "use client"
 import { AppModal } from '@/app/components/Modals/Modals';
+import MobileNavbar from '@/app/components/Navbar/MovileNavbar';
+import Navbar from '@/app/components/Navbar/Navbar';
+import SubNavbar from '@/app/components/Navbar/SubNavbar';
+import { FadeIn } from '@/app/components/Transitions/Transitions';
 import API from '@/constants/api.constant';
 import { catchAsync } from '@/helpers/api.helper';
+import useAppTheme from '@/hooks/theme.hook';
 import useRequest from '@/services/request/request.service';
 import { agreement, safetyMeasure } from '@/utils/data';
 import { ButtonBase } from '@mui/material';
@@ -14,6 +19,7 @@ import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 
 export default function Safety() {
     const router = useRouter();
+    const { isMobile } = useAppTheme();
     const { isLoading, makeRequest } = useRequest();
     const [isAgreed, setIsAgreed] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(false);
@@ -28,17 +34,21 @@ export default function Safety() {
     const [altCategoryId, setAltCategoryId] = useState<string>('');
     const [altCategoryName, setAltCategoryName] = useState<string>('');
     const [shortDesc, setShortDesc] = useState<string>('');
+    const [bathroom, setBathroom] = useState<number>(0);
+    const [bedroom, setBedroom] = useState<number>(0);
+    const [closingFee, setClosingFee] = useState<number>(0);
+    const [communityFee, setCommunityFee] = useState<number>(0);
+    const [fullDesc, setFullDesc] = useState<string>('');
+    const [location, setLocation] = useState<string>('');
+    const [occupancyStatus, setOccupancyStatus] = useState<string>('');
+    const [price, setPrice] = useState<number>();
+    const [readyDate, setReadyDate] = useState<string>('');
+    const [referenceId, setReferenceId] = useState<string>('');
+    const [size, setSize] = useState('');
+    const [title, setTitle] = useState('');
+    const [tourUrl, setTourUrl] = useState('');
+    const [adImageUrl, setAdImageUrl] = useState<string[]>([]);
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleCheckboxChange = (event) => {
-        setIsAgreed(event.target.checked);
-    };
 
     // Get Stored Post Ad data from Local storage
     useEffect(() => {
@@ -53,25 +63,74 @@ export default function Safety() {
         setAltCategoryId(localStorage.getItem('selectedAltCategoryId') || '');
         setAltCategoryName(localStorage.getItem('selectedAltCategoryName') || '');
         setShortDesc(localStorage.getItem('shortDesc') || '');
+        const savedUrls = localStorage.getItem('uploadedImageUrls');
+        if (savedUrls) {
+          setAdImageUrl(JSON.parse(savedUrls));
+        }
+
+        const fetchDataFromLocalStorage = () => {
+            const storedData = localStorage.getItem('pfsFormDataKey');
+        
+            if (storedData) {
+                const parsedData = JSON.parse(storedData);
+                setBathroom(parsedData.bathroom || '');
+                setBedroom(parsedData.bedroom || '');
+                setClosingFee(parseFloat(parsedData.closingFee || ''));
+                setCommunityFee(parsedData.communityFee || '');
+                setFullDesc(parsedData.fullDesc || '');
+                setLocation(parsedData.location || '');
+                setOccupancyStatus(parsedData.occupancyStatus || '');
+                setPrice(parseFloat(parsedData.price || ''));
+                setReadyDate(parsedData.readyDate || '');
+                setReferenceId(parsedData.referenceId || '');
+                setSize(parsedData.size || '');
+                setTitle(parsedData.title || '');
+                setTourUrl(parsedData.tourUrl || '');
+            }
+        };
+        
+        
+        fetchDataFromLocalStorage();
     }, []);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleCheckboxChange = (event) => {
+        setIsAgreed(event.target.checked);
+    };
 
     // Check if all necessary data is available before constructing the body
     const isDataAvailable =
-        name && email && phoneNumber && packageId && sectionId && subCategoryId && altCategoryId && shortDesc;
+        title &&
+        price &&
+        name &&
+        email &&
+        phoneNumber &&
+        packageId &&
+        sectionId &&
+        subCategoryId &&
+        altCategoryId
+        ;
 
     const body = isDataAvailable
         ? {
-            name,
+            name: title,
             packageID: packageId,
             sectionID: sectionId,
             categoryIDs: [altCategoryId, subCategoryId],
-            shortDesc,
-            fullDesc: 'This is a dummy description',
-            location: 'NIGERIA',
-            country: 'NIGERIA',
-            price: 1000,
-            imageURLs: ['https//:image.com'],
-            videoURLs: ['https//:image.com'],
+            shortDesc: shortDesc,
+            fullDesc: fullDesc,
+            location: location,
+            country: 'UNITED ARAB EMIRATE',
+            price: price,
+            closingFee: closingFee,
+            imageURLs: adImageUrl,
+            videoURLs: [tourUrl],
             ownerContact: {
                 name,
                 email,
@@ -80,9 +139,11 @@ export default function Safety() {
             },
             metadata: {
                 purpose: sectionName === 'Property for Sale' ? 'Sale' : 'Rent',
-                isPosterPropertyAgent: false,
+                isPosterPropertyAgent: true,
                 isPosterPropertyLandlord: false,
-                ...(sectionName === 'Property for Rent' ? { bedrooms: 4 } : {})
+                propertyType: altCategoryName,
+                ...(sectionName === 'Property for Rent' ? { bedrooms: 4 } : {}),
+                size: size,
                 // amenities: [],
             },
         }
@@ -102,6 +163,7 @@ export default function Safety() {
             'selectedAltCategoryId',
             'selectedAltCategoryName',
             'shortDesc',
+            'pfsFormDataKey',
         ];
 
         localStorageKeys.forEach((key) => {
@@ -161,7 +223,18 @@ export default function Safety() {
 
 
     return (
-        <>
+        <FadeIn>
+            {!isMobile ? (
+                <>
+                    <Navbar />
+                    <SubNavbar />
+                </>
+            ) : (
+                <>
+                    <MobileNavbar />
+                    <SubNavbar />
+                </>
+            )}
             <div className="h-auto pt-[60px] pb-[250px]">
                 <div className="w-[600px] flex justify-center items-center mx-auto">
                     <div>
@@ -244,6 +317,6 @@ export default function Safety() {
                     </div>
                 </div>
             </AppModal>
-        </>
+        </FadeIn>
     )
 }

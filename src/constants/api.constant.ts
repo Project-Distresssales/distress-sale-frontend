@@ -1,3 +1,5 @@
+import algoliasearch from "algoliasearch/lite";
+
 export const API_HOST = process.env.API_URL || 'https://distress-api.onrender.com/';
 
 export const API = {
@@ -30,3 +32,6 @@ export const API = {
 };
 
 export default API;
+
+
+export const algoliaClient = algoliasearch("AMUOX0S31U", "5688348f4d83f05ca6c360f084fa49bb");

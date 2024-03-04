@@ -179,7 +179,7 @@ export default function Navbar() {
       style={{ boxShadow: '0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08' }}
     >
       <div className="flex items-end space-x-3">
-        <Image src={Assets.logo} alt="Logo" width={150} height={150} onClick={goToHome} />
+        <Link href="/"><Image src={Assets.logo} alt="Logo" width={150} height={150} /></Link>
         <div className="rounded-[5px] flex items-center space-x-1.5 cursor-pointer translate-y-[3px]">
           <Image src={Assets.location} alt="Logo" width={10} height={10} />
           <p className="text-[#344054] text-[0.8vw] font-[500] leading-5">All Cities (UAE)</p>
