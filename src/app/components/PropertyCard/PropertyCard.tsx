@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Assets from '@/constants/assets.constant';
 import HeartIcon from '../HeartIcon/HeartIcon';
 import VerifiedBadge from '../VerifiedBadge/VerifiedBadge';
+import { currencyFormatter } from '@/helpers';
 
 export default function PropertyCard(
     {
@@ -30,13 +31,27 @@ export default function PropertyCard(
         setSelected(!selected);
     }
 
+
+    const handleCall = () => {
+        window.location.href = `tel:${call}`;
+    };
+
+    const handleEmail = () => {
+        window.location.href = `mailto:${email}`;
+    };
+
+    const handleWhatsApp = () => {
+        window.location.href = `https://wa.me/${whatsapp}`;
+    };
+
+
     return (
         <div className="w-[920px] h-auto rounded-[10px] bg-white flex"
             style={{ boxShadow: "0px 8px 50px -4px rgba(16, 24, 40, 0.01), 0px 20px 50px -4px rgba(16, 24, 40, 0.03), 1px -4px 50px 4px rgba(16, 24, 40, 0.01), 0px -10px 50px 4px rgba(0, 0, 0, 0.03)" }}>
             <div className='w-full rounded-r-[15px] h-[370px] relative'>
                 <div className="flex justify-between items-center absolute top-0 left-0 right-0 p-5">
                     <div>
-                        <VerifiedBadge text="Verified" icon={Assets.verify} isVerified={true} />
+                        <VerifiedBadge text={verified ? "Verified" : "Unverified"} icon={Assets.verify} isVerified={true} />
                     </div>
                     {/* <div>
                         <VerifiedBadge text="Verified" icon={Assets.bed} isVerified={true} />
@@ -51,7 +66,7 @@ export default function PropertyCard(
             </div>
             <div className="w-full h-[370px] p-[24px] relative">
                 <div className="flex justify-between items-center">
-                    <h1 className="text-[#101828] font-[700] text-[1.4vw]"><span className='uppercase font-[700] text-[1vw]'>aed</span> 190,000</h1>
+                    <h1 className="text-[#101828] font-[700] text-[22px]">{currencyFormatter(priceTag, 'AED')}</h1>
                     <div className="">
                         <HeartIcon
                             selected={selected}
@@ -72,38 +87,37 @@ export default function PropertyCard(
                             <p className="text-[#344054] font-[700] text-[1vw]">{bedCount}</p>
                         </div>
                     </div>
-                    <p className="text-[#344054] text-[1vw] font-[500]"><span className="font-[700]">Area:</span> {area} sqft</p>
+                    <p className="text-[#344054] text-[1vw] font-[500]"><span className="font-[700]">Area:</span> {area}</p>
                 </div>
 
-                <p className='text-[#415EFF] font-[500] text-[1.1vw] mt-4'>{name}</p>
+                <p className='text-[#415EFF] font-[500] text-[18px] mt-4'>{name}</p>
+                {/* Info */}
+                <div className="flex space-x-3 items-center mt-6">
+                    <Image src={Assets.infoIcon} alt="" width={20} height={20} />
+                    <p className="text-[#101828] font-[600] text-[0.9vw]">{info}</p>
+                </div>
                 <div className="flex items-center space-x-2 mt-4">
                     <Image src={Assets.locationFillBig} alt="" width={20} height={20} />
                     <p className="text-[#344054] font-[700] text-[1vw]">{location}</p>
                 </div>
 
                 {/* Buttons */}
-                <div className="flex justify-between space-x-3 mt-6">
-                    <button className='bg-[#D6DDFF] rounded-[8px] py-3 flex items-center justify-center space-x-2.5 w-full'>
+                <div className="flex justify-between space-x-3 mt-10">
+                    <button className='bg-[#D6DDFF] rounded-[8px] py-3 flex items-center justify-center space-x-2.5 w-full' onClick={handleCall}>
                         <Image src={Assets.call} alt="" width={15} height={15} />
                         <p className="text-[#415EFF] font-[500] text-[1.1vw]">Call</p>
                     </button>
-                    <button className='bg-[#FFDDCF] rounded-[8px] flex items-center space-x-2.5 justify-center w-full'>
+                    <button className='bg-[#FFDDCF] rounded-[8px] flex items-center space-x-2.5 justify-center w-full' onClick={handleEmail}>
                         <Image src={Assets.sms} alt="" width={15} height={15} />
                         <p className="text-[#7A2E0E] font-[500] text-[1.1vw]">Email</p>
                     </button>
-                    <button className='bg-[#EAFFF2] rounded-[8px] flex items-center justify-center w-full'>
+                    <button className='bg-[#EAFFF2] rounded-[8px] flex items-center justify-center w-full' onClick={handleWhatsApp}>
                         <Image src={Assets.whatsapp} alt="" width={22} height={22} />
                     </button>
                 </div>
 
-                {/* Info */}
-                <div className="flex space-x-3 items-center mt-6">
-                    <Image src={Assets.infoIcon} alt="" width={20} height={20} />
-                    <p className="text-[#101828] font-[600] text-[0.9vw]">{info}</p>
-                </div>
-
                 {/* Viewers */}
-                <div className="bg-[#EAECF0] px-[8px] py-2 rounded-tl-[5px] rounded-br-[10px] absolute right-0 bottom-0 flex space-x-2 items-center">
+                {/* <div className="bg-[#EAECF0] px-[8px] py-2 rounded-tl-[5px] rounded-br-[10px] absolute right-0 bottom-0 flex space-x-2 items-center">
                     <div className="flex items-center relative">
                         <div className="w-[20px] h-[20px] rounded-full">
                             <Image
@@ -114,37 +128,10 @@ export default function PropertyCard(
                                 style={{ objectFit: "cover", width: "100%", height: "100%", borderRadius: "100%" }}
                             />
                         </div>
-                        <div className="w-[20px] h-[20px] rounded-full -ml-2">
-                            <Image
-                                src="https://images.pexels.com/photos/1036622/pexels-photo-1036622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                alt=""
-                                width={1000}
-                                height={1000}
-                                style={{ objectFit: "cover", width: "100%", height: "100%", borderRadius: "100%" }}
-                            />
-                        </div>
-                        <div className="w-[20px] h-[20px] rounded-full -ml-2">
-                            <Image
-                                src="https://images.pexels.com/photos/936019/pexels-photo-936019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                alt=""
-                                width={1000}
-                                height={1000}
-                                style={{ objectFit: "cover", width: "100%", height: "100%", borderRadius: "100%" }}
-                            />
-                        </div>
-                        <div className="w-[20px] h-[20px] rounded-full -ml-2">
-                            <Image
-                                src="https://images.pexels.com/photos/936019/pexels-photo-936019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                alt=""
-                                width={1000}
-                                height={1000}
-                                style={{ objectFit: "cover", width: "100%", height: "100%", borderRadius: "100%" }}
-                            />
-                        </div>
                     </div>
                     <p className="text-[#101828] font-[600] text-[0.8vw]">
                         There are <span className="text-[#415EFF] font-[700]">{viewerCount}</span> people viewing this product right now</p>
-                </div>
+                </div> */}
             </div>
         </div>
     )

@@ -23,9 +23,9 @@ export default function SearchAndFilter({ setSearchResult, setQuery, query, data
         case 'Automobile':
           algoliaIndex = algoliaClient.initIndex('automobile');
           break;
-        case 'Commercial':
-          algoliaIndex = algoliaClient.initIndex('commercial');
-          break;
+        // case 'Commercial':
+        //   algoliaIndex = algoliaClient.initIndex('commercial');
+        //   break;
         case 'Property for Sale':
           algoliaIndex = algoliaClient.initIndex('property_for_sale_ads');
           break;
@@ -56,9 +56,9 @@ export default function SearchAndFilter({ setSearchResult, setQuery, query, data
       case 'Automobile':
         setQuery(''); // Clear the query when category changes
         break;
-      case 'Commercial':
-        setQuery(''); // Clear the query when category changes
-        break;
+      // case 'Commercial':
+      //   setQuery(''); // Clear the query when category changes
+      //   break;
       case 'Property for Sale':
         setQuery('');
         break;
@@ -88,7 +88,7 @@ export default function SearchAndFilter({ setSearchResult, setQuery, query, data
         <input
           className="bg-none w-full py-2 outline-none text-[#475467] font-[500] md:text-[16px] text-[3.5vw]"
           type="text"
-          placeholder={`Search ${selectedCategory || 'categories'}...`}
+          placeholder={`Search ${selectedCategory || 'general'}...`}
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -102,7 +102,7 @@ export default function SearchAndFilter({ setSearchResult, setQuery, query, data
             data={data}
             searchable={false}
             style={{ width: 140 }}
-            placeholder="Categories"
+            placeholder="General"
             onChange={handleCategoryChange}
           />
         </div>

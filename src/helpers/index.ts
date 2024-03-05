@@ -18,3 +18,13 @@ export const loginValidationSchema = yup.object().shape({
   email: yup.string().email('Enter a valid email address'),
   password: yup.string().min(8, 'password must be more than 8 characters'),
 });
+
+
+export const currencyFormatter = (value: number | bigint, currencyCode = 'AED', locale = 'en-US') => {
+  const formattedCurrency = new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currencyCode,
+  }).format(value);
+
+  return formattedCurrency;
+};
