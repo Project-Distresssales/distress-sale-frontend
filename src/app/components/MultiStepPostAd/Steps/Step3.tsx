@@ -1,5 +1,6 @@
 "use client"
 import React, { FC, useEffect, useState } from 'react';
+import MyTextField from '../../Fields/MyTextField';
 import StepperControl from '../StepperControl';
 
 interface Step3Props {
@@ -12,7 +13,10 @@ const Step3: FC<Step3Props> = ({ handleClick, currentStep, steps }) => {
   const [shortDesc, setShortDesc] = useState<string>('');
 
   const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setShortDesc(event.target.value);
+    const inputValue = event.target.value;
+    if (inputValue.length <= 50) {
+      setShortDesc(inputValue);
+    }
   };
 
   // Effect to save shortDesc to localStorage whenever it changes
@@ -26,15 +30,21 @@ const Step3: FC<Step3Props> = ({ handleClick, currentStep, steps }) => {
         <h2 className=" text-2xl font-bold">Describe your Ad</h2>
         <p className="font-medium text-[#667085]">Make your description short, informative and attractive</p>
       </div>
-      <div className="w-full flex flex-col gap-8 items-center justify-center ">
-        <input
+      <div className="w-[500px] flex flex-col gap-8 items-center justify-center ">
+        <MyTextField
           id='description'
-          type="text"
-          className=" max-w-[470px] w-full appearance-none rounded-md border border-[#EAECF0] px-5 py-3 text-sm focus:border-distressBlue  focus:outline-none focus:ring-0"
-          placeholder="e.g 10 Bedroom available in Dubai"
+          name='description'
+          label=''
+          placeholder='e.g 10 Bedroom available in Dubai'
           value={shortDesc}
           onChange={handleDescriptionChange}
+          maxLength={50}
+          type='text'
+          error={false}
         />
+        <div className="text-sm text-gray-500">
+          {50 - shortDesc.length} characters remaining
+        </div>
         {currentStep !== steps.length && (
           <StepperControl handleClick={handleClick} currentStep={currentStep} steps={steps} />
         )}

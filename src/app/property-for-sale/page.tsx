@@ -306,7 +306,7 @@ export default function PropertyForSale() {
                         {/* Popular property sales */}
                         <div className="mt-20 w-full">
                             <div>
-                                <h1 className="text-[#101828] text-[2vw] font-[700]">Popular Categories</h1>
+                                <h1 className="text-[#101828] text-[2vw] font-[700]">Popular Sections</h1>
                                 <div className='grid grid-cols-3 gap-[20px] mt-14'>
                                     {categories?.map((product, i) => (
                                         <CategoryCard key={i} product={product} />

@@ -41,161 +41,70 @@ export default function Home() {
   // Searched categories
   const popularCategories = [
     {
-      header: "Properties for Sale in UAE",
+      header: "Property for Sale",
       items: [
         {
-          text: 'Apartment for Sale',
-          link: '',
+          text: 'Residential for Sale',
+          path: '/property-for-sale/residential',
         },
         {
-          text: 'Land for Sale',
-          link: '',
+          text: 'Commercial',
+          path: '/property-for-sale/commercial',
         },
         {
-          text: 'VIlla for Sale',
-          link: '',
+          text: 'Land',
+          path: '',
         },
         {
-          text: 'Penthouse for Sale',
-          link: '',
-        },
-        {
-          text: 'Residential Plot for Sale',
-          link: '',
+          text: 'Multiple Units',
+          path: '',
         },
       ]
     },
     {
-      header: "Cars in Dubai",
+      header: "Property for Rent",
       items: [
         {
-          text: 'Used Cars in Dubai',
-          link: '',
+          text: 'Residential Units for Rent',
+          path: '',
+        },
+        {
+          text: 'Commercial',
+          path: '',
+        },
+        {
+          text: 'Room for Rent',
+          path: '',
+        },
+        {
+          text: 'Short Term',
+          path: '',
+        },
+      ]
+    },
+    {
+      header: "Automobile",
+      items: [
+        {
+          text: 'Cars',
+          path: '',
         },
         {
           text: 'Motorcycles',
-          link: '',
+          path: '',
         },
         {
-          text: 'Toyota',
-          link: '',
+          text: 'Auto Accessories & Parts',
+          path: '',
         },
         {
-          text: 'Nissan Patrol',
-          link: '',
-        },
-        {
-          text: 'Chevrolet',
-          link: '',
+          text: 'Heavy Vehicles',
+          path: '',
         },
       ]
     },
-    {
-      header: "Villas in Abu Dhabi",
-      items: [
-        {
-          text: 'Saadiyat Island',
-          link: '',
-        },
-        {
-          text: 'Al Reef',
-          link: '',
-        },
-        {
-          text: 'Khalifa City',
-          link: '',
-        },
-        {
-          text: 'MBZ City',
-          link: '',
-        },
-        {
-          text: 'Al Raha Gardens',
-          link: '',
-        },
-      ]
-    }
   ];
 
-
-  // Searched categories 2
-  const popularCategories2 = [
-    {
-      header: "Business for Sale in UAE",
-      items: [
-        {
-          text: 'Restaurants',
-          link: '',
-        },
-        {
-          text: 'Salon',
-          link: '',
-        },
-        {
-          text: 'Technology Startups',
-          link: '',
-        },
-        {
-          text: 'Spas',
-          link: '',
-        },
-        {
-          text: 'Health & Fitness',
-          link: '',
-        },
-      ]
-    },
-    {
-      header: "Home Appliances",
-      items: [
-        {
-          text: 'Hair Conditioners',
-          link: '',
-        },
-        {
-          text: 'Refrigerators',
-          link: '',
-        },
-        {
-          text: 'Vacuum Cleaner',
-          link: '',
-        },
-        {
-          text: 'Washing Machine',
-          link: '',
-        },
-        {
-          text: 'Ovens',
-          link: '',
-        },
-      ]
-    },
-    {
-      header: "Others",
-      items: [
-        {
-          text: 'Furnitures',
-          link: '',
-        },
-        {
-          text: 'Tickets & Vouchers',
-          link: '',
-        },
-        {
-          text: 'Collectibles',
-          link: '',
-        },
-        {
-          text: 'Baby Items',
-          link: '',
-        },
-        {
-          text: 'Sports',
-          link: '',
-        },
-      ]
-    }
-  ];
 
 
 
@@ -206,7 +115,7 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
 
-  const data = ['Automobile', 'Commercial', 'Property for Sale', 'Property for Rent'].map(
+  const data = ['General', 'Automobile', 'Property for Sale', 'Property for Rent'].map(
     item => ({ label: item, value: item })
   );
 
@@ -214,7 +123,7 @@ export default function Home() {
   // Get All Page Data or ads
   const handleSearch = async (indexName) => {
     try {
-      const hitsPerPage = 1000;
+      const hitsPerPage = 100;
       const algoliaIndex = algoliaClient.initIndex(indexName);
       const { hits } = await algoliaIndex.search('', { // Empty query
         hitsPerPage: hitsPerPage,
@@ -230,7 +139,7 @@ export default function Home() {
     const searchClients = async () => {
       const categories = ['categories', 'automobile', 'commercial', 'property_for_sale_ads', 'property_for_rent_ads'];
       const searchPromises = categories.map((category) => handleSearch(category));
-      
+
       try {
         const results = await Promise.all(searchPromises);
         setFetchResults(results);
@@ -256,7 +165,6 @@ export default function Home() {
   const automobile = categoriesData['automobile'] || [];
   const commercial = categoriesData['commercial'] || [];
   // const categories = categoriesData['categories'] || [];
-
 
   return (
     <FadeIn>
@@ -331,18 +239,18 @@ export default function Home() {
 
               {/* Popular Search category */}
               <div className="mt-24">
-                <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular Search Categories</h1>
+                <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular Categories</h1>
                 <div className="md:mt-14 mt-7 md:flex md:justify-between grid grid-cols-2 gap-x-5 gap-y-10">
                   {popularCategories?.map((category, i) => (
                     <SearchCategory key={i} header={category.header} item={category.items} />
                   ))}
                 </div>
-                <div className="border-[0.2px] my-14 w-full border-[#EAECF0]" />
+                {/* <div className="border-[0.2px] my-14 w-full border-[#EAECF0]" />
                 <div className="md:flex md:justify-between grid grid-cols-2 gap-x-5 gap-y-10">
                   {popularCategories2?.map((category, i) => (
                     <SearchCategory key={i} header={category.header} item={category.items} />
                   ))}
-                </div>
+                </div> */}
               </div>
 
               {/* Verification */}
@@ -352,23 +260,27 @@ export default function Home() {
 
               {/* Popular property sales */}
               <div className="mt-20 w-full">
-                <div>
-                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Sale</h1>
-                  <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
-                    {propertyForSale?.map((product, i) => (
-                      <ProductCard key={i} product={product} />
-                    ))}
+                {propertyForSale?.length > 0 && (
+                  <div>
+                    <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Sale</h1>
+                    <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
+                      {propertyForSale?.map((product, i) => (
+                        <ProductCard key={i} product={product} />
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
-                <div className="mt-16">
-                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Used Cars for Sale</h1>
-                  <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
-                    {automobile?.map((product, i) => (
-                      <ProductCard key={i} product={product} />
-                    ))}
+                {automobile?.length > 0 && (
+                  <div className="mt-16">
+                    <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Used Cars for Sale</h1>
+                    <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
+                      {automobile?.map((product, i) => (
+                        <ProductCard key={i} product={product} />
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* <div className="mt-16">
                   <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Listings</h1>
@@ -379,23 +291,28 @@ export default function Home() {
                   </div>
                 </div> */}
 
-                <div className="mt-16">
-                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Rent</h1>
-                  <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
-                    {propertyForRent?.map((product, i) => (
-                      <ProductCard key={i} product={product} />
-                    ))}
+                {propertyForRent?.length > 0 && (
+                  <div className="mt-16">
+                    <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Rent</h1>
+                    <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
+                      {propertyForRent?.map((product, i) => (
+                        <ProductCard key={i} product={product} />
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
-                <div className="mt-16">
-                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Commercial</h1>
-                  <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
-                    {commercial?.map((product, i) => (
-                      <ProductCard key={i} product={product} />
-                    ))}
+
+                {commercial?.length > 0 && (
+                  <div className="mt-16">
+                    <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Commercial</h1>
+                    <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
+                      {commercial?.map((product, i) => (
+                        <ProductCard key={i} product={product} />
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
               </div>
             </div>
