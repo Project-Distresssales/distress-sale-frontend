@@ -66,7 +66,6 @@ export default function AddressModal({ onClose, open, formData, handleInputChang
                                     name='state'
                                     label='State'
                                     placeholder='Select state'
-                                    type='text'
                                     value={formData.state}
                                     onChange={handleInputChange}
                                     type='text'
