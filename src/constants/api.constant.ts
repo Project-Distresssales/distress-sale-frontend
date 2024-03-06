@@ -29,6 +29,10 @@ export const API = {
   // uploads
   uploads: '/uploads',
   images: '/images/',
+
+  // user
+  user: '/api/v1/user/me',
+  updateUser: '/api/v1/user/update',
 };
 
 export default API;

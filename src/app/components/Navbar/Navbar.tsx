@@ -208,9 +208,9 @@ export default function Navbar() {
                   `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&rounded=true&size=128`
                 }
                 alt={user.firstName + 'photo'}
-                width={30}
-                height={30}
-                className="object-cover rounded-[50%] w-[38px] h-[38px]"
+                width={1000}
+                height={1000}
+                className="object-cover rounded-[50%] w-[42px] h-[42px]"
               />
             ) : (
               <div
