@@ -12,7 +12,13 @@ export interface ProfileState {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  dob: string | null;
+  address: string | null;
+  nationality: string | null;
+  gender: string;
+  canPostAd: boolean;
+  isBlocked: boolean;
+  phoneNumber: string;
   isAccountVerified: boolean;
   isEmailVerified: boolean;
   role: string;
@@ -23,6 +29,10 @@ export interface ProfileState {
   accessToken: string;
   refreshToken: string;
   profileImage: string;
+  numOfCreatedAds: number;
+  verified: boolean;
+  subscribed: boolean;
+  subscribedTo: string | null;
 }
 
 interface IProfileLoginAction {

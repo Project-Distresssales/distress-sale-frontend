@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import HeartIcon from '../HeartIcon/HeartIcon';
 import Link from 'next/link';
-import { currencyFormatter } from '@/helpers';
+import { currencyFormatter, sliceText } from '@/helpers';
 
 export default function ProductCard({ product }: any) {
   const [selected, setSelected] = useState<boolean>(true);
@@ -57,13 +57,13 @@ export default function ProductCard({ product }: any) {
           </div>
           <div>
             <h1 className="text-[#101828] md:text-[17px] text-[4.5vw] font-[500] mt-5'">{product?.name || '-----'}</h1>
-            <p className="text-[#344054] md:text-[15px] text-[4vw] font-[500] mt-5'">{product?.shortDescription || '----------'}</p>
+            <p className="text-[#344054] md:text-[15px] text-[4vw] font-[500] mt-5'">{sliceText(35, product?.shortDescription)}</p>
             <div className="flex items-center space-x-2 text-[#344054] md:text-[14px] text-[3vw] mt-3 font-[500]">
               <p>4 Beds</p>
               <span>•</span>
               <p>5 Baths</p>
             </div>
-            <p className="text-[#101828] md:text-[16px] text-[3.5vw] font-[500] mt-5">{product.location}</p>
+            <p className="text-[#101828] md:text-[16px] text-[3.5vw] font-[500] mt-5">{sliceText(35, product.location)}</p>
           </div>
         </div>
       </div>
