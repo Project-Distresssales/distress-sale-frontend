@@ -14,9 +14,18 @@ import Navbar from './components/Navbar/Navbar'
 import SubNavbar from './components/Navbar/SubNavbar'
 import { FadeIn } from './components/Transitions/Transitions'
 import { algoliaClient } from '@/constants/api.constant'
+import useGlobalState from '@/hooks/globalstate.hook'
+import LoginModal from './components/Auth/Login/Login'
+import SignupModal from './components/Auth/SIgnup/Signup'
 
 export default function Home() {
   const { isMobile } = useAppTheme();
+  const { logout, isAuthenticated } = useGlobalState();
+  const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
+  const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
+  const [sideBar, setSideBar] = useState<boolean>(false);
+  const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState<boolean>(false);
+
   const services = [
     {
       header: "Listings",
@@ -166,122 +175,197 @@ export default function Home() {
   const commercial = categoriesData['commercial'] || [];
   // const categories = categoriesData['categories'] || [];
 
+
+  // Login Modal
+  const handleLoginModal = () => {
+    setOpenLoginModal(!openLoginModal);
+    setSideBar(false);
+  };
+
+  const handleLoginModalClose = () => {
+    setOpenLoginModal(false);
+  };
+
+  const handleLoginModalOpen = () => {
+    setOpenLoginModal(true);
+    setOpenRegisterModal(false);
+    setSideBar(false);
+  };
+
+  // Register Modal
+  const handleRegisterModal = () => {
+    setOpenRegisterModal(!openRegisterModal);
+    setSideBar(false);
+  };
+
+  const handleRegisterModalClose = () => {
+    setOpenRegisterModal(false);
+  };
+
+  const handleRegisterModalOpen = () => {
+    setOpenLoginModal(false);
+    setOpenRegisterModal(true);
+    setSideBar(false);
+  };
+
+  // Forgot Password Modal
+  const handleForgotPasswordModal = () => {
+    setOpenForgotPasswordModal(true);
+    setOpenLoginModal(false);
+  };
+
+  const handleForgotPasswordModalClose = () => {
+    setOpenForgotPasswordModal(false);
+  };
+
+  const handleForgotPasswordModalOpen = () => {
+    setOpenLoginModal(false);
+    setOpenForgotPasswordModal(true);
+  };
+
+  const [verificationModalOpen, setVerificationModalOpen] = useState(false);
+
+  const handleVerificationModalOpen = () => {
+    setVerificationModalOpen(true);
+  };
+
+  const handleVerificationModalOpenClose = () => {
+    setVerificationModalOpen(false);
+  };
+
+
   return (
     <FadeIn>
-        {!isMobile ? (
-          <>
-            <Navbar />
-            <SubNavbar />
-          </>
-        ) : (
-          <>
-            <MobileNavbar />
-            <SubNavbar />
-          </>
-        )}
-        <div className="w-full h-auto pb-32">
-          <div className="md:px-8 px-5">
-            <div className="w-full md:rounded-[15px] rounded-[10px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center">
-              <div className="h-auto text-center">
-                <div className="w-full">
-                  <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">The Ultimate Affordable Marketplace <br /> for Buying, Renting & Selling</h1>
-                  <p className='text-white md:text-[1.3vw] text-[3vw] font-[700] mt-8'>Explore the Best Deals: Discover, Connect, Transact</p>
-                </div>
-
-                <div className="md:mt-20 mt-10 relative">
-                  <SearchAndFilter
-                    setSearchResult={setResults}
-                    setQuery={setQuery}
-                    query={query}
-                    data={data}
-                    selectedCategory={selectedCategory}
-                    setSelectedCategory={setSelectedCategory}
-                  />
-                  {query.length > 0 && (
-                    <div
-                      className="z-20 mt-2 w-full rounded-[8px] h-[300px] overflow-auto bg-white absolute"
-                      style={{ boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px' }}
-                    >
-                      {results && results?.map((item, i) => (
-                        <div key={i} className="w-full h-[50px] border-b flex justify-between items-center px-5">
-                          <div className="space-y-1">
-                            <p className="font-[500] md:text-[16px]">{item.name}</p>
-                          </div>
-                        </div>
-                      ))}
-
-                      {!results && (
-                        <div className="flex justify-center items-center">
-                          <p className="">No Search Result Found...</p>
-                        </div>
-                      )}
-                    </div>
+      {!isMobile ? (
+        <>
+          <Navbar />
+          <SubNavbar />
+        </>
+      ) : (
+        <>
+            <MobileNavbar sideBar={sideBar} setSideBar={setSideBar} />
+            {/* Drop Down */}
+            {sideBar && (
+              <FadeIn>
+                <div className='md:hidden block w-[60%] h-auto bg-white shadow text-center rounded-[12px] absolute right-5 z-20 space-y-3 p-5 top-16'>
+                  {!isAuthenticated && (
+                    <>
+                      <div onClick={handleLoginModal} className='rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]'>Sign In</div>
+                      <div onClick={handleRegisterModal} className='rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]'>Sign Up</div>
+                    </>
+                  )}
+                  {isAuthenticated && (
+                    <div onClick={logout} className='rounded-[8px] bg-[#FCEEEF] p-4 text-[4.5vw] font-[500] text-[#BA242E]'>Logout</div>
                   )}
                 </div>
+              </FadeIn>
+            )}
+          <SubNavbar />
+        </>
+      )}
+      <div className="w-full h-auto pb-32">
+        <div className="md:px-8 px-5">
+          <div className="w-full md:rounded-[15px] rounded-[10px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center">
+            <div className="h-auto text-center">
+              <div className="w-full">
+                <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">The Ultimate Affordable Marketplace <br /> for Buying, Renting & Selling</h1>
+                <p className='text-white md:text-[1.3vw] text-[3vw] font-[700] mt-8'>Explore the Best Deals: Discover, Connect, Transact</p>
+              </div>
+
+              <div className="md:mt-20 mt-10 relative">
+                <SearchAndFilter
+                  setSearchResult={setResults}
+                  setQuery={setQuery}
+                  query={query}
+                  data={data}
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
+                />
+                {query.length > 0 && (
+                  <div
+                    className="z-20 mt-2 w-full rounded-[8px] h-[300px] overflow-auto bg-white absolute"
+                    style={{ boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px' }}
+                  >
+                    {results && results?.map((item, i) => (
+                      <div key={i} className="w-full h-[50px] border-b flex justify-between items-center px-5">
+                        <div className="space-y-1">
+                          <p className="font-[500] md:text-[16px]">{item.name}</p>
+                        </div>
+                      </div>
+                    ))}
+
+                    {!results && (
+                      <div className="flex justify-center items-center">
+                        <p className="">No Search Result Found...</p>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
+          </div>
 
-            <div className="md:px-[80px] md:py-[100px] px-0 py-10">
-              {/* Services */}
-              <div className="grid md:grid-cols-3 grid-cols-1 md:gap-[30px] gap-[50px] mt-16">
-                {services?.map((service: any, i) => (
-                  <ServiceCard
-                    key={i}
-                    header={service.header}
-                    text={service.text}
-                    buttonText={service.buttonText}
-                    icon={service.iconPath}
-                  />
+          <div className="md:px-[80px] md:py-[100px] px-0 py-10">
+            {/* Services */}
+            <div className="grid md:grid-cols-3 grid-cols-1 md:gap-[30px] gap-[50px] mt-16">
+              {services?.map((service: any, i) => (
+                <ServiceCard
+                  key={i}
+                  header={service.header}
+                  text={service.text}
+                  buttonText={service.buttonText}
+                  icon={service.iconPath}
+                />
+              ))}
+            </div>
+
+
+            {/* Popular Search category */}
+            <div className="mt-24">
+              <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular Categories</h1>
+              <div className="md:mt-14 mt-7 md:flex md:justify-between grid grid-cols-2 gap-x-5 gap-y-10">
+                {popularCategories?.map((category, i) => (
+                  <SearchCategory key={i} header={category.header} item={category.items} />
                 ))}
               </div>
-
-
-              {/* Popular Search category */}
-              <div className="mt-24">
-                <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular Categories</h1>
-                <div className="md:mt-14 mt-7 md:flex md:justify-between grid grid-cols-2 gap-x-5 gap-y-10">
-                  {popularCategories?.map((category, i) => (
-                    <SearchCategory key={i} header={category.header} item={category.items} />
-                  ))}
-                </div>
-                {/* <div className="border-[0.2px] my-14 w-full border-[#EAECF0]" />
+              {/* <div className="border-[0.2px] my-14 w-full border-[#EAECF0]" />
                 <div className="md:flex md:justify-between grid grid-cols-2 gap-x-5 gap-y-10">
                   {popularCategories2?.map((category, i) => (
                     <SearchCategory key={i} header={category.header} item={category.items} />
                   ))}
                 </div> */}
-              </div>
+            </div>
 
-              {/* Verification */}
-              <div className="mt-20">
-                <VerifyUserBadge />
-              </div>
+            {/* Verification */}
+            <div className="mt-20">
+              <VerifyUserBadge />
+            </div>
 
-              {/* Popular property sales */}
-              <div className="mt-20 w-full">
-                {propertyForSale?.length > 0 && (
-                  <div>
-                    <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Sale</h1>
-                    <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
-                      {propertyForSale?.map((product, i) => (
-                        <ProductCard key={i} product={product} />
-                      ))}
-                    </div>
+            {/* Popular property sales */}
+            <div className="mt-20 w-full">
+              {propertyForSale?.length > 0 && (
+                <div>
+                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Sale</h1>
+                  <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
+                    {propertyForSale?.map((product, i) => (
+                      <ProductCard key={i} product={product} />
+                    ))}
                   </div>
-                )}
+                </div>
+              )}
 
-                {automobile?.length > 0 && (
-                  <div className="mt-16">
-                    <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Used Cars for Sale</h1>
-                    <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
-                      {automobile?.map((product, i) => (
-                        <ProductCard key={i} product={product} />
-                      ))}
-                    </div>
+              {automobile?.length > 0 && (
+                <div className="mt-16">
+                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Used Cars for Sale</h1>
+                  <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
+                    {automobile?.map((product, i) => (
+                      <ProductCard key={i} product={product} />
+                    ))}
                   </div>
-                )}
+                </div>
+              )}
 
-                {/* <div className="mt-16">
+              {/* <div className="mt-16">
                   <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Listings</h1>
                   <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
                     {automobile.map((product, i) => (
@@ -290,33 +374,53 @@ export default function Home() {
                   </div>
                 </div> */}
 
-                {propertyForRent?.length > 0 && (
-                  <div className="mt-16">
-                    <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Rent</h1>
-                    <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
-                      {propertyForRent?.map((product, i) => (
-                        <ProductCard key={i} product={product} />
-                      ))}
-                    </div>
+              {propertyForRent?.length > 0 && (
+                <div className="mt-16">
+                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Rent</h1>
+                  <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
+                    {propertyForRent?.map((product, i) => (
+                      <ProductCard key={i} product={product} />
+                    ))}
                   </div>
-                )}
+                </div>
+              )}
 
 
-                {commercial?.length > 0 && (
-                  <div className="mt-16">
-                    <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Commercial</h1>
-                    <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
-                      {commercial?.map((product, i) => (
-                        <ProductCard key={i} product={product} />
-                      ))}
-                    </div>
+              {commercial?.length > 0 && (
+                <div className="mt-16">
+                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Commercial</h1>
+                  <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
+                    {commercial?.map((product, i) => (
+                      <ProductCard key={i} product={product} />
+                    ))}
                   </div>
-                )}
+                </div>
+              )}
 
-              </div>
             </div>
           </div>
         </div>
+      </div>
+
+
+       {/* Auth Signup  */}
+       <SignupModal
+        open={openRegisterModal}
+        onClose={handleRegisterModalClose}
+        handleLoginModalOpen={handleLoginModalOpen}
+        next={() => {
+          handleVerificationModalOpen();
+        }}
+      />
+
+      {/* Auth Login Modal */}
+      <LoginModal
+        open={openLoginModal}
+        onClose={handleLoginModalClose}
+        handleForgotPasswordModal={handleForgotPasswordModal}
+        handleRegisterModalOpen={handleRegisterModalOpen}
+      />
+
     </FadeIn>
   )
 }

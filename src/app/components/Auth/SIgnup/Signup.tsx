@@ -16,6 +16,7 @@ import { useFormik } from 'formik';
 import { FadeIn } from '../../Transitions/Transitions';
 import useSignupController from './controller';
 import { catchAsync } from '@/helpers/api.helper';
+import useAppTheme from '@/hooks/theme.hook';
 
 const SignupModal = ({
   open,
@@ -29,6 +30,7 @@ const SignupModal = ({
   next: VoidCallback;
 }) => {
   const dispatch = useDispatch();
+  const { isMobile } = useAppTheme();
   const router = useRouter();
   const { isLoading, makeRequest } = useRequest();
   const [errors, setErrors] = useState<string>('');
@@ -135,22 +137,22 @@ const SignupModal = ({
       handleClose={onClose}
       style={{
         backgroundColor: '#fff',
-        padding: '40px 50px 30px 50px',
+        padding: !isMobile ? '40px 50px 30px 50px' : '20px 20px 30px 20px',
         position: 'relative',
         height: '80vh',
         overflowY: 'auto',
-        width: '600px',
+        width: !isMobile ? '600px' : '90%',
       }}
     >
       <form className="w-full" onSubmit={onSubmit}>
-        <h1 className="text-[#101828] font-[700] text-[1.4vw] text-center">Create Account</h1>
-        <div className="w-full flex items-center space-x-7 mt-7">
+        <h1 className="text-[#101828] font-[700] md:text-[1.4vw] text-[5vw] text-center">Create Account</h1>
+        <div className="w-full flex flex-col md:flex-row items-center justify-center md:space-x-7 space-y-4 md:space-y-0 mt-7">
           <AuthButton text="Continue with Facebook" icon={Assets.facebookAuth} />
           <AuthButton text="Continue with Google" icon={Assets.googleAuth} />
         </div>
         <div className="flex items-center my-7">
           <div className="border border-[#EAECF0] w-full" />
-          <p className="text-[#98A2B3] text-[1vw] font-[500] px-3">OR</p>
+          <p className="text-[#98A2B3] md:text-[1vw] text-[3.7vw] font-[500] px-3">OR</p>
           <div className="border border-[#EAECF0] w-full" />
         </div>
 
@@ -246,13 +248,13 @@ const SignupModal = ({
           </div>
         </div>
 
-        <p className="mt-10 text-[#101828] font-[700] text-[1vw] text-center">
+        <p className="mt-10 text-[#101828] font-[700] md:text-[1vw] text-[3.2vw] text-center">
           Already have an account?{' '}
           <span className="text-[#415EFF] cursor-pointer" onClick={handleLoginModalOpen}>
             Log In
           </span>
         </p>
-        <p className="mt-10 text-[#667085] font-[500] text-[1vw] text-center">
+        <p className="mt-10 text-[#667085] font-[500] md:text-[1vw] text-[3.2vw] text-center">
           By signing up you agree to the Terms & Conditions and Privacy Policy
         </p>
       </form>

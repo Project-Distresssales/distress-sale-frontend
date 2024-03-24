@@ -15,6 +15,7 @@ import TextField from '../../Fields/TextField';
 import { AppModal } from '../../Modals/Modals';
 import useAuth from '@/services/auth/auth';
 import useLoad from '@/hooks/load';
+import useAppTheme from '@/hooks/theme.hook';
 
 const LoginModal = ({
   open,
@@ -28,6 +29,7 @@ const LoginModal = ({
   handleRegisterModalOpen: VoidCallback;
 }) => {
   const { makeRequest, isLoading, data } = useRequest();
+  const { isMobile } = useAppTheme();
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -126,15 +128,15 @@ const LoginModal = ({
       handleClose={onClose}
       style={{
         backgroundColor: '#fff',
-        padding: '40px 50px 30px 50px',
+        padding: !isMobile ? '40px 50px 30px 50px' : '20px 20px 30px 20px',
         position: 'relative',
         height: 'auto',
-        width: '600px',
+        width: !isMobile ? '600px' : '90%',
       }}
     >
       <form className="w-full" onSubmit={handleSubmit}>
-        <h1 className="text-[#101828] font-[700] text-[1.4vw] text-center">Log In</h1>
-        <div className="w-full flex items-center space-x-7 mt-7">
+        <h1 className="text-[#101828] font-[700] md:text-[1.4vw] text-[5vw] text-center">Log In</h1>
+        <div className="w-full flex flex-col md:flex-row items-center justify-center md:space-x-7 space-y-4 md:space-y-0 mt-7">
           <AuthButton text="Continue with Facebook" icon={Assets.facebookAuth} />
           <AuthButton
             loading={loading}
@@ -145,7 +147,7 @@ const LoginModal = ({
         </div>
         <div className="flex items-center my-7">
           <div className="border border-[#EAECF0] w-full" />
-          <p className="text-[#98A2B3] text-[1vw] font-[500] px-3">OR</p>
+          <p className="text-[#98A2B3] md:text-[1vw] text-[3.7vw] font-[500] px-3">OR</p>
           <div className="border border-[#EAECF0] w-full" />
         </div>
 
@@ -183,19 +185,19 @@ const LoginModal = ({
           </div>
         </div>
         <div className="mt-5 flex justify-between items-center">
-          <p className="text-[#667085] font-[500] text-[1vw]">Remember me</p>
-          <p className="text-[#667085] font-[500] text-[1vw] cursor-pointer" onClick={handleForgotPasswordModal}>
+          <p className="text-[#667085] font-[500] md:text-[1vw] text-[3.5vw]">Remember me</p>
+          <p className="text-[#667085] font-[500] md:text-[1vw] text-[3.5vw] cursor-pointer" onClick={handleForgotPasswordModal}>
             Forgot Password?
           </p>
         </div>
 
-        <p className="mt-10 text-[#101828] font-[700] text-[1vw] text-center">
+        <p className="mt-10 text-[#101828] font-[700] md:text-[1vw] text-[3.2vw] text-center">
           Don&apos;t have an account?{' '}
           <span className="text-[#415EFF] cursor-pointer" onClick={handleRegisterModalOpen}>
             Create One
           </span>
         </p>
-        <p className="mt-10 text-[#667085] font-[500] text-[1vw] text-center">
+        <p className="mt-10 text-[#667085] font-[500] md:text-[1vw] text-[3.2vw] text-center">
           By signing up you agree to the Terms & Conditions and Privacy Policy
         </p>
       </form>

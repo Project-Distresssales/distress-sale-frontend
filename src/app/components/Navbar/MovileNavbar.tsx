@@ -11,10 +11,9 @@ import useGlobalState from '@/hooks/globalstate.hook';
 import { AppButton } from '../Buttons/Buttons';
 
 
-export default function MobileNavbar({ nav, setNav }: any) {
-    const { logout, isAuthenticated } = useGlobalState();
+export default function MobileNavbar({ sideBar, setSideBar }: any) {
     const [scrollStyle, setScrollStyle] = useState<boolean>(false);
-    const [sideBar, setSideBar] = useState<boolean>(false);
+
     useEffect(() => {
         const changeNavbarStyle = () => {
             if (window.scrollY >= 150) {
@@ -50,22 +49,7 @@ export default function MobileNavbar({ nav, setNav }: any) {
                 </IconButton>
             </div>
 
-            {/* Drop Down */}
-            {sideBar && (
-                <FadeIn>
-                    <div className='md:hidden block w-[60%] h-auto bg-white shadow text-center rounded-[12px] absolute right-5 z-20 space-y-3 p-5 top-16'>
-                        {!isAuthenticated && (
-                            <>
-                                <div className='rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]'>Sign In</div>
-                                <div className='rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]'>Sign Up</div>
-                            </>
-                        )}
-                        {isAuthenticated && (
-                            <div onClick={logout} className='rounded-[8px] bg-[#FCEEEF] p-4 text-[4.5vw] font-[500] text-[#BA242E]'>Logout</div>
-                        )}
-                    </div>
-                </FadeIn>
-            )}
+           
         </>
     );
 }
