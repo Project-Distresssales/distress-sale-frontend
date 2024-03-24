@@ -12,7 +12,7 @@ export default function SearchOnly() {
          }}>
       <div className="flex bg-white pl-4 w-full space-x-4 rounded-[5px]">
         <Image src={Assets.searchNormal} alt="" width={20} height={20} />
-        <input className="bg-white w-full py-3 rounded-r-[5px] outline-none text-[#475467] font-[500] text-[1.1vw]" type="text" placeholder="search" />
+        <input className="bg-white w-full py-3 rounded-r-[5px] outline-none text-[#475467] font-[500] md:text-[1.1vw] text-[4vw]" type="text" placeholder="Search..." />
       </div>
     </div>
   )

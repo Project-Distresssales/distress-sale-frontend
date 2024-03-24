@@ -5,16 +5,16 @@ import Assets from '@/constants/assets.constant';
 export default function ServiceCard2() {
     return (
         <div className='w-full h-auto rounded-[15px] relative'>
-           <div className="flex">
+           <div className="flex flex-col md:flex-row">
            <div className='rounded-l-[15px] w-full bg-white h-[200px] p-[30px]'
                 style={{ boxShadow: "0px 8px 50px -4px rgba(16, 24, 40, 0.01), 0px 20px 50px -4px rgba(16, 24, 40, 0.03), 1px -4px 50px 4px rgba(16, 24, 40, 0.01), 0px -10px 50px 4px rgba(0, 0, 0, 0.03)" }}>
                 <div className="space-y-5 text-[#101828] mb-7">
-                    <h1 className='text-[1.4vw] font-[700]'>Explore from Home</h1>
-                    <p className='text-[1.1vw] font-[500] leading-[25px]'>Enjoy searching through properties featuring captivating videos and interactive 360 tours, allowing you explore properties from the comfort and safety of your home.</p>
+                    <h1 className='md:text-[1.4vw] text-[4vw] font-[700]'>Explore from Home</h1>
+                    <p className='md:text-[1.1vw] text-[3.5vw] font-[500] leading-[25px]'>Enjoy searching through properties featuring captivating videos and interactive 360 tours, allowing you explore properties from the comfort and safety of your home.</p>
                 </div>
             </div>
             <div className='w-full rounded-r-[15px] h-[200px]'>
-                <Image src="https://s3-alpha-sig.figma.com/img/dc08/c0a2/dfda36f5db67ec87c3764e4fd9693b3f?Expires=1691971200&Signature=UhCEESXpPBVWAJ6m4iwsq7eU8oqvRARPvi0keZyoLOO7wLeCCZzy0aWoK6nCEafJ~M50FlicHbwuUH2ZWSIuYpUiZCGhtYdBCCjRh3AdnleFf-I5C7znhuSDoVgFzBRKTq7zLnUJEB-xLmLhGMzPU9x-NEseszVqbwBbbydi-MRHw-h72PgCRuXMYFm8AnEGM5z-XAKAy7rk4PszS6z3jqu1fWE4xIcj5GJi2ElU6LQbbn~xzSw5hYpUBiQVGbLKbx9KngPtzM2evt9eN0badJzBlpblpw4ojACMUwMgmM4C821T3y6uD85OBhZOYkgfGJYWTG8SsRCGJZ9Dvkn6bA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4" 
+                <Image src="https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
                 alt="" 
                 width={1000} 
                 height={1000}

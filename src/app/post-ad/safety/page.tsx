@@ -235,21 +235,21 @@ export default function Safety() {
                     <SubNavbar />
                 </>
             )}
-            <div className="h-auto pt-[60px] pb-[250px]">
-                <div className="w-[600px] flex justify-center items-center mx-auto">
+            <div className="h-auto pt-[60px] pb-[250px] mx:px-0 px-5">
+                <div className="md:w-[600px] w-full flex justify-center items-center mx-auto">
                     <div>
                         <div className="text-center space-y-3">
-                            <h1 className="text-[#101828] text-[24px] font-[700]">Prioritize Safety</h1>
-                            <p className="text-[#667085] text-[16px] font-[500]">We thoroughly review all Ads to ensure the safety and satisfaction of our Users.</p>
+                            <h1 className="text-[#101828] md:text-[24px] text-[5vw] font-[700]">Prioritize Safety</h1>
+                            <p className="text-[#667085] md:text-[16px] text-[4vw] text-center font-[500]">We thoroughly review all Ads to ensure the safety and satisfaction of our Users.</p>
                         </div>
                         <div className="mt-16">
-                            <p className="text-[#667085] text-[16px] font-[500]">Your advertisement <span className="text-[#101828]">will not</span> be published if it falls under these categories:</p>
+                            <p className="text-[#667085] md:text-[16px] text-[4vw] font-[500]">Your advertisement <span className="text-[#101828]">will not</span> be published if it falls under these categories:</p>
                             <ul className="mt-7 mb-10 space-y-7">
                                 {safetyMeasure?.map((item, index) => (
-                                    <li className="text-[14px] font-[500]" key={index}>{index + 1}. {item.title}: <span className="text-[#667085]">{item.text}</span></li>
+                                    <li className="md:text-[14px] text-[3.5vw] font-[500]" key={index}>{index + 1}. {item.title}: <span className="text-[#667085]">{item.text}</span></li>
                                 ))}
                             </ul>
-                            <p className="text-[#667085] text-[16px] font-[500]">To access additional details, please refer to our <span className="text-[#415EFF] hover:underline underline-offset-4"><Link href=''>Terms and Conditions.</Link></span></p>
+                            <p className="text-[#667085] md:text-[16px] text-[4vw] font-[500]">To access additional details, please refer to our <span className="text-[#415EFF] hover:underline underline-offset-4"><Link href=''>Terms and Conditions.</Link></span></p>
                             <button onClick={handleOpen} className="rounded-[5px] py-[10px] bg-[#415EFF] text-white w-full mt-20">Continue</button>
                         </div>
                     </div>
@@ -262,10 +262,10 @@ export default function Safety() {
                 handleClose={handleClose}
                 style={{
                     backgroundColor: '#fff',
-                    padding: '40px 50px 50px 50px',
+                    padding: isMobile ? '40px 20px 50px 20px' : '40px 50px 50px 50px',
                     position: 'relative',
                     height: '500px',
-                    width: '700px',
+                    width: isMobile ? '90%' : '700px',
                     overflow: 'auto'
                 }}
             >
@@ -277,7 +277,7 @@ export default function Safety() {
                         </svg>
                     </ButtonBase>
                     <div>
-                        <h1 className="text-[#101828] text-center text-[20px] font-[700]">Indemnity Agreement</h1>
+                        <h1 className="text-[#101828] text-center md:text-[20px] text-[4.5vw] font-[700]">Indemnity Agreement</h1>
                         <div className="mt-10">
                             <p className="text-[#667085] text-[14px] font-[400]">
                                 To continue, please read this agreement carefully before agreeing.

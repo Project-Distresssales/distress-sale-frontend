@@ -44,7 +44,7 @@ const SELLERS: SellersType[] = [
 
 const HearFomOurSellers = () => {
   return (
-    <div className=" grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  ">
+    <div className="grid md:gap-6 gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
       {SELLERS.map((step, index) => (
         <SellerCard key={index} step={step} />
       ))}
@@ -58,12 +58,14 @@ interface SellerCardProps {
 
 const SellerCard: React.FC<SellerCardProps> = ({ step }) => {
   return (
-    <div className=" rounded-2xl relative text-sm bg-white max-w-[389px] w-full  shadow-2xl  flex flex-col gap-4 px-8 py-7 shadow-black/20 border border-white  ">
+    <div className="w-full min-w-[80%] md:min-w-[100%] rounded-[15px] bg-white px-[39px] md:py-[30px] py-5 relative"
+    style={{boxShadow: "0px 8px 50px -4px rgba(16, 24, 40, 0.01), 0px 20px 50px -4px rgba(16, 24, 40, 0.03), 1px -4px 50px 4px rgba(16, 24, 40, 0.01), 0px -10px 50px 4px rgba(0, 0, 0, 0.03)"}}
+    >
       <div className="absolute -bottom-7 bg-black/60 rounded-full right-0 ">
         <Image src={step.img} alt={`${step.name}`} className='object-cover rounded-full aspect-auto object-center ' width={60} height={60} />
       </div>
-      <p className=" italic  text-[#344054] font-medium   ">{step.text}</p>
-      <h2 className=" text-distressGrey900 font-bold  ">{step.name}</h2>
+      <p className="text-[#344054] italic md:text-[1vw] text-[4vw] md:leading-[25px] leading-tight">{step.text}</p>
+      <h2 className="text-[#101828] md:text-[1.3vw] text-[4.5vw] font-[700] mt-3 leading-tight">{step.name}</h2>
     </div>
   );
 };

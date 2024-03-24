@@ -52,9 +52,9 @@ const FAQ = () => {
               <div className={` border-b-2 border-[#EAECF0]  `}>
                 <Disclosure.Button
                   className={`
-                  flex items-center  justify-between w-full pr-4 py-3 text-left`}
+                  flex items-center  justify-between w-full pr-4 py-3 text-left space-x-5`}
                 >
-                  <span className="flex-1 flex items-center md:items-start  gap-2 font-medium text-sm ">
+                  <span className="flex-1 flex items-center md:items-start  gap-2 font-medium md:text-sm text-[3.5vw] ">
                     {data.title}
                   </span>
                   <span className="flex justify-center items-center">

@@ -244,7 +244,7 @@ const CheckboxList: FC<CheckboxListProps> = ({ features }) => {
 
   return (
     <div className="w-full flex flex-row ">
-      <label className="font-medium whitespace-nowrap w-[169px] mr-6 opacity-0">Description</label>
+      <label className="font-medium whitespace-nowrap md:w-[169px] mr-6 opacity-0">Description</label>
       <div className='grid grid-cols-5 gap-5  ' >
         {features.map((feature) => (
           <div key={feature.id} className="flex items-center gap-4">

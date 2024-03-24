@@ -122,12 +122,12 @@ const PostAd = () => {
       )}
       <div className="flex flex-col items-stretch px-5 py-14 pb-16 max-w-[1000px] mx-auto">
         <div className="flex flex-col gap-6  w-full justify-center items-center">
-          <h2 className=" text-2xl font-bold  ">Post Ad</h2>
-          <p className="font-medium text-[#667085] ">Post an ad in just 6 simple steps</p>
+          <h2 className="md:text-2xl text-[5.5vw] font-bold  ">Post Ad</h2>
+          <p className="font-medium text-[#667085] md:text-[16px] text-[4vw]">Post an ad in just 6 simple steps</p>
         </div>
-        <div className=" pb-2 w-full mx-auto ">
+        <div className="pb-2 w-full mx-auto ">
           {/* Stepper */}
-          <div className="horizontal mx-auto mt-5 ">
+          <div className="horizontal mx-auto mt-5">
             <div className="mb-20">
               <Stepper steps={steps} currentStep={currentStep} />
             </div>

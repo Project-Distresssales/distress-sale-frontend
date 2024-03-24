@@ -6,6 +6,7 @@ import { catchAsync } from '@/helpers/api.helper';
 import useRequest from '@/services/request/request.service';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import MyTextField from '../../Fields/MyTextField';
 
 interface Step6Props {
   handleClick: () => void;
@@ -65,36 +66,39 @@ const Step6: FC<Step6Props> = ({ handleClick, currentStep, steps }) => {
   return (
     <div className="flex flex-col gap-16 items-center justify-center w-full ">
       <div className="flex flex-col gap-6 w-full justify-center items-center">
-        <h2 className=" text-2xl font-bold">Contact Details</h2>
-        <p className="font-medium text-[#667085]">Provide your contact details</p>
+        <h2 className="md:text-2xl text-[5vw] font-bold">Contact Details</h2>
+        <p className="font-medium text-[#667085] md:text-[16px] text-[3.5vw] text-center">Provide your contact details</p>
       </div>
 
       {/* FORM */}
-      <form className="w-[555px] flex flex-col space-y-12">
-        <div className="space-y-7">
-          <TextField
-            type='text'
-            label="Name"
+      <form className="md:w-[555px] w-full flex flex-col space-y-12">
+        <div className="md:space-y-7 space-y-2">
+        <MyTextField
+            id='name'
+            name='name'
+            label='Name'
             placeholder='Enter your name'
             value={name}
             onChange={handleNameChange}
-            withBackground={false}
+            type='text'
           />
-          <TextField
-            type='email'
-            label="Email Address"
+           <MyTextField
+            id='email'
+            name='email'
+            label='Email Address'
             placeholder='Enter your email address'
             value={email}
             onChange={handleEmailChange}
-            withBackground={false}
+            type='email'
           />
-          <TextField
-            type='tel'
-            label="Phone Number"
+          <MyTextField
+            id='phone'
+            name='phone'
+            label='Phone Number'
             placeholder='Enter your phone number'
             value={phoneNumber}
             onChange={handlePhoneNumberChange}
-            withBackground={false}
+            type='tel'
           />
         </div>
       </form>

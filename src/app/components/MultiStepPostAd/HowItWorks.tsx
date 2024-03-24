@@ -50,7 +50,7 @@ const HOWITWORKSSTEPS: HowItWorksStep[] = [
 
 const HowItWorks = () => {
   return (
-    <div className=" grid gap-16 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  ">
+    <div className=" grid md:gap-16 gap-7 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  ">
       {HOWITWORKSSTEPS.map((step, index) => (
         <HowItWorksCard key={step.id} step={step} />
       ))}
@@ -65,11 +65,11 @@ interface HowItWorksCardProps {
 const HowItWorksCard: React.FC<HowItWorksCardProps> = ({ step }) => {
   return (
     <div className="bg-white max-w-[286px] w-full rounded-xl shadow-2xl text-center flex flex-col gap-2 items-center justify-center px-10 py-8 shadow-black/20 border border-white ">
-      <h3 className="text-sm font-medium text-[#667085] ">Step {step.id}</h3>
+      <h3 className="md:text-sm text-[3.7vw] font-medium text-[#667085] ">Step {step.id}</h3>
       <Image src={step.img} alt={`Step ${step.id}`} width={50} height={50} />
 
-      <h2 className=" text-lg font-bold text-distressGrey900 ">{step.title}</h2>
-      <p className=" text-sm font-medium text-distressGrey500 ">{step.description}</p>
+      <h2 className="md:text-lg text-[5vw] font-bold text-distressGrey900 ">{step.title}</h2>
+      <p className="md:text-sm text-[3.7vw] font-medium text-distressGrey500 ">{step.description}</p>
     </div>
   );
 };

@@ -80,10 +80,10 @@ const Step2: React.FC<Step2Props> = ({ handleClick, currentStep, steps }) => {
   return (
     <div className=" flex flex-col gap-16 ">
       <div className="flex flex-col gap-6 w-full justify-center items-center">
-        <h2 className=" text-2xl font-bold  ">Hello, what items do you have to list today?</h2>
-        <p className="font-medium text-[#667085] ">Choose the category that best suits your ad</p>
+        <h2 className="md:text-2xl text-[5vw] font-bold leading-tight text-center">Hello, what items do you have to list today?</h2>
+        <p className="font-medium text-[#667085] md:text-[16px] text-[4vw]">Choose the category that best suits your ad</p>
       </div>
-      <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4">
         {sections?.map((category, index) => (
           <CategoryButton
             key={index}
@@ -122,7 +122,7 @@ export const CategoryButton: FC<CategoryButtonProps> = ({ text, icon, selected, 
       {...others}
     >
       {icon && <span className="">{icon}</span>}
-      <span>{text}</span>
+      <span className='md:text-[16px] text-[3.5vw] font-[500]'>{text}</span>
     </button>
   );
 };

@@ -164,17 +164,17 @@ const Step4 = ({ handleClick, currentStep, steps }) => {
   const propertyForRentSection = altCategory.find(section => section?.name === 'Property for Rent');
 
   return (
-    <div className=" flex flex-col gap-16 ">
+    <div className=" flex flex-col gap-16 w-full">
       <div className="flex flex-col gap-6 w-full justify-center items-center">
-        <h2 className=" text-2xl font-bold">Choose the right category for your Ad</h2>
+        <h2 className="md:text-2xl text-[4vw] font-bold">Choose the right category for your Ad</h2>
         <div className="flex items-center space-x-3">
           <Breadcrumbs className="" separator={selectedAltCategoryId !== null && '›'} aria-label="breadcrumb">
             {[
-              <p key="section" className="font-medium text-[#415EFF] cursor-pointer hover:underline underline-offset-2" onClick={handleRemoveItem}>
+              <p key="section" className="font-medium text-[#415EFF] md:text-[16px] text-[3vw] cursor-pointer hover:underline underline-offset-2" onClick={handleRemoveItem}>
                 {storedSectionName}
               </p>,
               selectedAltCategoryId !== null && (
-                <p key="altCategory" className="font-medium text-[#667085]">
+                <p key="altCategory" className="font-medium text-[#667085] md:text-[16px] text-[3vw]">
                   {selectedAltCategoryName}
                 </p>
               ),
