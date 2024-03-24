@@ -100,7 +100,7 @@ export default function PropertyForSale() {
     // Popular Categories
     const popularCategoryData = [
         {
-            imagePath: "https://s3-alpha-sig.figma.com/img/f39b/1c9d/aa4c9cbe2b53535572cd23fcd06f561c?Expires=1691971200&Signature=OL2dugPSiEXCT75~qvVMtE3Q~AuFE0zcUQoloQGo2kXfRghDLDJUwiSuUhEW5Ja1rqeMGRqiTfGdn1C2CHt~Uhj1c2fk3JG~cGj6JqnhrygOm5NGgk-w~Ad5BTdbFBmV5cn0K7F~o2Mpujm8w6JQaK5mt8YtYA4QkB3ImJmS3bRH7xGjKHThYhrObt0BNDMbRL4gOK2cwvs4tsUzUTazlqJEft5FHtWzX2~XiuAzvfVHkEXuNSu6SZcc7Sh59LW~ze1lphi9sFrjkaEcTx52-CqqFEh01B7CJA1GBPwAvGy1cZO4eXfeMF7db661lCDW9FToq4iCx0JtNKS4wHeClw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
             header: "Property for Sale",
         },
         {
@@ -108,15 +108,15 @@ export default function PropertyForSale() {
             header: "Automobile",
         },
         {
-            imagePath: "https://s3-alpha-sig.figma.com/img/7ca6/9e0e/085c87ab82fbcc9bb2cdf84d93bfefed?Expires=1691971200&Signature=TenK8DoKSmWzaLEdSdVgdkoIj88~5CFQ0tmnZJecXr9qxNUPUIEs-puH0Law9VS0o9SY2JjCYxyXU-CfkKDnWeNEDJ6nOZvMSyEvHYKmX~p9CjsoghgMx2UMi2SFP5x8K2Kne8IOUQdu~hlNRzhtheZACL90TmeDGbWiXgBrM49J2dHLXTQeTIZd580coWAE~LX9DFSjh1pXjtsVaJGDmc2kMLgWwifGsOm23ZBvpKjZHCk1YfsW5wgzA6x72vpfP9cwzm4jdDIZpLqKPjubQKzVlh1QieexxyfXO4c2~7n5VHyA1ERJ2GF--AR~LfR3eCVovEI-114w-5mMshWrsQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
             header: "Property for Rent",
         },
         {
-            imagePath: "https://s3-alpha-sig.figma.com/img/212f/032c/e0106e378d0593de182ac6f3c575395b?Expires=1691971200&Signature=i-HUMR~3q2S8qFC-ECPfmTXPSJrPQ2daYZ6DojsFq413xGbmXvQkgFjQ5YQ1HMv6RMiluV8KX1rR-GRjvbM8MfZTlKNf-1~1djSHWyLpmP-jonrkOXDh4V8uJT9azbH-82NEXys0KkC2jNIVSKZubycANcWnRuDD-6qd9EMmQkosI3iKzIM~PfTG8cSueBvkQARfmHjmq2KkWKxYbUkkQZF9EJceB3SKb0fjnNKbNi1abYYWSUDtpbbldmWv8ZlddiCGfLFa3bh0gUwXy~avWMqFp9R5usolLxCOW1hqxPSkbR3SLXX7oNyA~JrkKw~zPtU1ZD1yDg~dG0OwEAG8jQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
             header: "Listings",
         },
         {
-            imagePath: "https://s3-alpha-sig.figma.com/img/4b03/9e8f/bccdbd40bbfc3f7921c73fdd955a0d23?Expires=1691971200&Signature=qWpvQ~1DbdNI0IUrnwtP7C-3SrrFKrlrg2vbmJuqYmVQBSLVWsr9Svb79NNTPol0jzwiamabeM6lEdWQsK~7KW9n6~xI8Uwr7Dkja5WAm5nAH7U8ijbrgS3BDIcLcSEA7gtNyO745MgTJx7N3AC7FqE2CQ5nnc84Fs1FMvyEQr8gzDqQYn8UuBi5n~7XDQAt0wTj5XQKy0uFZyt8tjsliqhViNTp3qqA-rSFiwM3hnsmc6kIuItCueHKaSJUGh8nH70qMt9BBDaIVjusd5xI6OIPBH79VcM5qWeimDZJHVkCjVPqazN3s6~-DAoa4DAT84Z~RxJtzXxyBSOu5ZLSNw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
             header: "Commercial",
         },
     ];
@@ -271,14 +271,14 @@ export default function PropertyForSale() {
         )}
          <div>
             <div className="w-full h-auto pb-32">
-                <div className="px-8">
-                    <div className="w-full rounded-[15px] h-auto py-[96px] hero-image-bg-sale flex justify-center items-center">
+                <div className="md:px-8 px-5">
+                    <div className="w-full md:rounded-[15px] rounded-[10px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center">
                         <div className="h-auto text-center">
                             <div className="w-full">
-                                <h1 className="sm:text-[2.5vw] text-white font-[700] sm:leading-[50px]">Buy or Rent Properties with Distress Sales</h1>
+                                <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">Buy or Rent Properties with Distress Sales</h1>
                             </div>
 
-                            <div className="mt-20">
+                            {/* <div className="mt-20">
                             <HeroDropDown 
                                 activeTab={activeTab} 
                                 setActiveTab={setActiveTab} 
@@ -289,21 +289,21 @@ export default function PropertyForSale() {
                                 defaultOptionFeature="Area (sqft)"
                                 defaultOptionPrice="Price (AED)"
                                  />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
-                    <div className="px-[80px] py-[100px]">
+                    <div className="md:px-[80px] py-[100px]">
                         {/* Services */}
-                        <div className="">
+                        {/* <div className="">
                             <ServiceCard2 />
-                        </div>
+                        </div> */}
 
                         {/* Popular property sales */}
-                        <div className="mt-20 w-full">
+                        <div className="md:mt-20 w-full">
                             <div>
-                                <h1 className="text-[#101828] text-[2vw] font-[700]">Popular Sections</h1>
-                                <div className='grid grid-cols-3 gap-[20px] mt-14'>
+                                <h1 className="text-[#101828] md:text-[2vw] text-[5vw] font-[700]">Popular Sections</h1>
+                                <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-5'>
                                     {popularCategoryData?.map((product, i) => (
                                         <CategoryCard key={i} product={product} />
                                     ))}
@@ -321,8 +321,8 @@ export default function PropertyForSale() {
 
                             {/* Popular Search category */}
                             <div className="mt-24">
-                                <h1 className="text-[#101828] text-[2vw] font-[700]">Recommended Searches</h1>
-                                <div className="mt-14 flex justify-between">
+                                <h1 className="text-[#101828] md:text-[2vw] text-[5vw] font-[700]">Recommended Searches</h1>
+                                <div className="md:mt-14 grid md:grid-cols-3 grid-cols-1 gap-[20px]">
                                     {recommendedSearch?.map((category, i) => (
                                         <SearchCategory key={i} header={category.header} item={category.items} />
                                     ))}

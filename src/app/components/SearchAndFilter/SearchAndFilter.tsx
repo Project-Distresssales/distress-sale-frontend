@@ -81,7 +81,7 @@ export default function SearchAndFilter({ setSearchResult, setQuery, query, data
 
 
   return (
-    <div className="w-full flex relative items-center p-2 md:space-x-4 bg-white rounded-[5px]"
+    <div className="w-full flex flex-col md:flex-row relative items-center p-2 md:space-x-4 bg-white rounded-[5px]"
       style={{ boxShadow: "0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08)" }}>
       <div className="flex bg-none md:pl-4 pl-1 w-full space-x-2 rounded-lg">
         <Image src={Assets.searchNormal} alt="" width={18} height={18} />
@@ -96,7 +96,7 @@ export default function SearchAndFilter({ setSearchResult, setQuery, query, data
           }}
         />
       </div>
-      <div className="flex items-center space-x-3 absolute right-2">
+      {/* <div className="flex items-center space-x-3 absolute right-2">
         <div className="">
           <SelectPicker
             data={data}
@@ -109,7 +109,7 @@ export default function SearchAndFilter({ setSearchResult, setQuery, query, data
         <div>
           <AppButton text="Search" onClick={handleSearch} />
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

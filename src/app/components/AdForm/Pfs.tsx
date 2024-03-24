@@ -85,11 +85,10 @@ const Pfs: React.FC<PfsProps> = ({
   
 
   return (
-    <div className=" flex flex-col gap-16">
+    <div className=" flex flex-col md:gap-16">
       <div className="flex flex-col gap-6 w-full justify-center items-center">
-        <h2 className=" text-2xl font-bold">Ad Details</h2>
-        <p className="font-medium text-[#667085] ">
-          {' '}
+        <h2 className="md:text-2xl text-[5vw] font-bold">Ad Details</h2>
+        <p className="font-medium text-[#667085] md:text-[16px] text-[3.5vw] text-center">
           Provide as much accurate details and pictures as possible, and set the right price!
         </p>
       </div>
@@ -97,15 +96,15 @@ const Pfs: React.FC<PfsProps> = ({
       {breadcrumbs}
     </Breadcrumbs> */}
 
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 mt-7">
         {/* First Row */}
-        <div className=" grid grid-cols-2 gap-6  w-full ">
+        <div className=" grid md:grid-cols-2 grid-cols-1 gap-6  w-full ">
           <div className="w-full flex items-center gap-6">
-            <p className="font-medium">Apartment Information</p>
+            {/* <p className="font-medium">Apartment Information</p> */}
             <MyTextField
               id='title'
               name='title'
-              label=''
+              label='Apartment Information'
               placeholder='Title'
               value={title}
               onChange={(e: { target: { value: any; }; }) => handleChange('title', e.target.value)}
@@ -114,11 +113,11 @@ const Pfs: React.FC<PfsProps> = ({
             />
           </div>
           <div className="w-full flex items-center gap-6">
-            <p className="font-medium">Price</p>
+            {/* <p className="font-medium">Price</p> */}
             <MyTextField
               id='price'
               name='price'
-              label=''
+              label='Price'
               placeholder='What is the Asking Price'
               value={price}
               onChange={(e: { target: { value: number; }; }) => handleChange('price', e.target.value)}
@@ -128,14 +127,14 @@ const Pfs: React.FC<PfsProps> = ({
           </div>
         </div>
         {/* Second Row */}
-        <div className=" grid grid-cols-2 gap-6  w-full">
+        <div className=" grid md:grid-cols-2 grid-cols-1 gap-3  w-full">
           <div className="w-full flex items-center gap-6">
-            <p className="font-medium">360 Tour URL</p>
+            {/* <p className="font-medium">360 Tour URL</p> */}
             <div className="flex w-full flex-col gap-4">
               <MyTextField
                 id='url'
                 name='url'
-                label=''
+                label='360 Tour URL'
                 placeholder='Insert URL'
                 value={tourUrl}
                 onChange={(e: { target: { value: any; }; }) => handleChange('tourUrl', e.target.value)}
@@ -151,11 +150,11 @@ const Pfs: React.FC<PfsProps> = ({
             </div>
           </div>
           <div className="w-full flex items-center gap-6">
-            <p className="font-medium">Size</p>
+            {/* <p className="font-medium">Size</p> */}
             <MyTextField
               id='size'
               name='size'
-              label=''
+              label='Size'
               placeholder='What is the Size of the apartment?'
               value={size}
               onChange={(e: { target: { value: any; }; }) => handleChange('size', e.target.value)}
@@ -168,7 +167,7 @@ const Pfs: React.FC<PfsProps> = ({
       {/* Upload Photos */}
      
       <div
-        className="border cursor-pointer self-center border-[#415EFF] rounded-md gap-2 text-sm font-medium text-[#415EFF]  py-3 max-w-[403px] relative w-full text-center flex items-center justify-center"
+        className="mt-10 border cursor-pointer self-center border-[#415EFF] rounded-md gap-2 text-sm font-medium text-[#415EFF]  py-3 max-w-[403px] relative w-full text-center flex items-center justify-center"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" viewBox="0 0 18 17" fill="none">
           <path
@@ -193,23 +192,23 @@ const Pfs: React.FC<PfsProps> = ({
       />
         Add Gallery
       </div>
-      <button className="border px-7 py-2 rounded-2" onClick={uploadImages}>Upload Image</button>
+      {/* <button className="border px-7 py-2 rounded-2" onClick={uploadImages}>Upload Image</button> */}
 
       {/* Display uploaded images */}
       <div className="grid grid-cols-3 gap-2">
         {urls.map((imageUrl, index) => (
-          <img className="w-[150px] h-[150px] object-cover" key={index} src={imageUrl} alt={`Uploaded Image ${index + 1}`} />
+          <img className="w-[120px] h-[120px] object-cover" key={index} src={imageUrl} alt={`Uploaded Image ${index + 1}`} />
         ))}
       </div>
 
       {/* 4th Row */}
-      <div className="grid grid-cols-2 gap-6  w-full ">
+      <div className="grid grid-cols-2 gap-3  w-full mt-10">
         <div className="w-full flex items-center gap-6">
-          <p className="font-medium">Closing Fee</p>
+          {/* <p className="font-medium">Closing Fee</p> */}
           <MyTextField
             id='closingFee'
             name='closingFee'
-            label=''
+            label='Closing Fee'
             placeholder="What's the Closing Fee?"
             value={closingFee}
             onChange={(e: { target: { value: number; }; }) => handleChange('closingFee', e.target.value)}
@@ -218,11 +217,11 @@ const Pfs: React.FC<PfsProps> = ({
           />
         </div>
         <div className="w-full flex items-center gap-6">
-          <p className="font-medium">Bedroom</p>
+          {/* <p className="font-medium">Bedroom</p> */}
           <MyTextField
             id='bedroom'
             name='bedroom'
-            label=''
+            label='Bedroom'
             placeholder='How many Bedrooms are available'
             value={bedroom}
             onChange={(e: { target: { value: number; }; }) => handleChange('bedroom', e.target.value)}
@@ -233,13 +232,13 @@ const Pfs: React.FC<PfsProps> = ({
       </div>
 
       {/* 5th Row */}
-      <div className=" grid grid-cols-2 gap-6  w-full ">
+      <div className=" grid grid-cols-2 gap-3  w-full mt-3">
         <div className="w-full flex items-center gap-6">
-          <p className="font-medium">Bathroom</p>
+          {/* <p className="font-medium">Bathroom</p> */}
           <MyTextField
             id='bathroom'
             name='bathroom'
-            label=''
+            label='Bathroom'
             placeholder='How many Bathrooms are available'
             value={bathroom}
             onChange={(e: { target: { value: any; }; }) => handleChange('bathroom', e.target.value)}
@@ -248,11 +247,11 @@ const Pfs: React.FC<PfsProps> = ({
           />
         </div>
         <div className="w-full flex items-center gap-6">
-          <p className="font-medium">Ready By</p>
+          {/* <p className="font-medium">Ready By</p> */}
           <MyTextField
             id='readyBy'
             name='readyBy'
-            label=''
+            label='Ready By'
             placeholder=''
             value={readyDate}
             onChange={(e: { target: { value: any; }; }) => handleChange('readyDate', e.target.value)}
@@ -264,13 +263,13 @@ const Pfs: React.FC<PfsProps> = ({
       </div>
 
       {/* 6th Row */}
-      <div className=" grid grid-cols-2 gap-6  w-full ">
+      <div className=" grid grid-cols-2 gap-3  w-full mt-3">
         <div className="w-full flex items-center gap-6">
-          <picture className="font-medium">Property Reference ID</picture>
+          {/* <picture className="font-medium">Property Reference ID</picture> */}
           <MyTextField
             id='referenceId'
             name='referenceId'
-            label=''
+            label='Property Reference ID'
             placeholder='Insert Reference ID'
             value={referenceId}
             onChange={(e: { target: { value: any; }; }) => handleChange('referenceId', e.target.value)}
@@ -279,11 +278,11 @@ const Pfs: React.FC<PfsProps> = ({
           />
         </div>
         <div className="w-full flex items-center gap-6">
-          <p className="font-medium">Community Fee</p>
+          {/* <p className="font-medium">Community Fee</p> */}
           <MyTextField
             id='communityFee'
             name='communityFee'
-            label=''
+            label='Community Fee'
             placeholder='What is the Community Fee?'
             value={communityFee}
             onChange={(e: { target: { value: any; }; }) => handleChange('communityFee', e.target.value)}
@@ -294,13 +293,13 @@ const Pfs: React.FC<PfsProps> = ({
       </div>
 
       {/* 7th Row */}
-      <div className=" grid grid-cols-2 gap-6  w-full ">
+      <div className=" grid grid-cols-2 gap-3  w-full mt-3">
         <div className="w-full flex items-center gap-6">
-          <p className="font-medium">Occupation Status</p>
+          {/* <p className="font-medium">Occupation Status</p> */}
           <MyTextField
             id='occupancyStatus'
             name='occupancyStatus'
-            label=''
+            label='Occupation Status'
             placeholder='Is this Property Vacant or Occupied?'
             type='text'
             error={false}
@@ -316,11 +315,11 @@ const Pfs: React.FC<PfsProps> = ({
           </MyTextField>
         </div>
         <div className="w-full flex items-center gap-6">
-          <p className="font-medium">Property Location</p>
+          {/* <p className="font-medium">Property Location</p> */}
           <MyTextField
             id='location'
             name='location'
-            label=''
+            label='Property Location'
             placeholder='Where is your property located at?'
             value={location}
             onChange={(e: { target: { value: any; }; }) => handleChange('location', e.target.value)}
@@ -331,13 +330,13 @@ const Pfs: React.FC<PfsProps> = ({
       </div>
 
       {/* 8th Row Text-Area */}
-      <div className="flex flex-col gap-6 w-full">
+      <div className="flex flex-col gap-6 w-full mt-3">
         <div className="w-full flex items-center gap-6">
-          <p className="font-medium">Description</p>
+          {/* <p className="font-medium">Description</p> */}
           <MyTextField
             id='fullDesc'
             name='fullDesc'
-            label=''
+            label='Description'
             placeholder="Describe your property"
             value={fullDesc}
             onChange={(e: { target: { value: any; }; }) => handleChange('fullDesc', e.target.value)}

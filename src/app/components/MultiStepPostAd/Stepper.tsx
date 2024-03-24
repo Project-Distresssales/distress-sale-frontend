@@ -68,8 +68,8 @@ const Stepper: React.FC<{ steps: string[]; currentStep: number }> = ({ steps, cu
 
   const stepsDisplay = newStep.map((step, index) => {
     return (
-      <div key={index} className={index !== newStep.length - 1 ? 'w-full flex items-center' : 'flex items-center'}>
-        <div className="relative flex flex-col items-center text-[#98A2B3]">
+      <div key={index} className={index !== newStep.length - 1 ? 'w-full flex items-center justify-between' : 'flex items-center justify-between'}>
+        <div className="relative flex flex-col items-center justify-between text-[#98A2B3]">
           {step.highlighted && (
             <div className="absolute top-0 -mt-5 w-full flex justify-center items-center">
               <svg xmlns="http://www.w3.org/2000/svg" className='' width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -92,7 +92,7 @@ const Stepper: React.FC<{ steps: string[]; currentStep: number }> = ({ steps, cu
             {step.completed ? <span className="text-white font-bold text-xl">&#10003;</span> : index + 1}
           </div>
           <div
-            className={`absolute top-0  text-center mt-16 w-fit whitespace-nowrap text-xs font-medium uppercase ${
+            className={`absolute top-0  text-center mt-16 w-fit whitespace-nowrap text-xs font-medium uppercase md:block hidden ${
               step.highlighted ? 'text-gray-900' : 'text-gray-400'
             }`}
           >

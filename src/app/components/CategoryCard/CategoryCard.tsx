@@ -14,7 +14,7 @@ export default function CategoryCard({ product }: any) {
                     style={{ objectFit: 'cover', width: '100%', height: '100%', borderRadius: '5px' }}
                 />
             </div>
-            <h1 className='text-[#101828] text-[1.2vw] font-[700]'>{product.header}</h1>
+            <h1 className='text-[#101828] md:text-[1.2vw] text-[4.5vw] font-[700]'>{product.header}</h1>
         </div>
     )
 }
