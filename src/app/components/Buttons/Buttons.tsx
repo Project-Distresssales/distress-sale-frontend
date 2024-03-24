@@ -68,7 +68,7 @@ export function AuthButton({ text, icon, loading, ...others }: D) {
         ) : (
           <>
             <Image src={icon} alt="" width={17} height={17} />
-            <p>{text}</p>
+            <p className='md:text-[16px] text-[3.5vw]'>{text}</p>
           </>
         )}
       </button>
