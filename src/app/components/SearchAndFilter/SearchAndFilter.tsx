@@ -96,8 +96,8 @@ export default function SearchAndFilter({ setSearchResult, setQuery, query, data
           }}
         />
       </div>
-      {/* <div className="flex items-center space-x-3 absolute right-2">
-        <div className="">
+      <div className="flex items-center space-x-3 absolute right-2">
+        {/* <div className="">
           <SelectPicker
             data={data}
             searchable={false}
@@ -105,11 +105,11 @@ export default function SearchAndFilter({ setSearchResult, setQuery, query, data
             placeholder="General"
             onChange={handleCategoryChange}
           />
-        </div>
+        </div> */}
         <div>
           <AppButton text="Search" onClick={handleSearch} />
         </div>
-      </div> */}
+      </div>
     </div>
   )
 }

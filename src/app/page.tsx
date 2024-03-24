@@ -168,7 +168,6 @@ export default function Home() {
 
   return (
     <FadeIn>
-      <div className="overflow-x-hidden">
         {!isMobile ? (
           <>
             <Navbar />
@@ -318,7 +317,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
     </FadeIn>
   )
 }
