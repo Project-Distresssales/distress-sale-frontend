@@ -2,6 +2,7 @@ import { MenuItem } from '@mui/material';
 import Link from 'next/link';
 import React, { useState, FC, InputHTMLAttributes, ChangeEvent, useEffect } from 'react';
 import MyTextField from '../Fields/MyTextField';
+import UploadModal from '../Modals/UploadModal';
 
 interface PfsProps {
   title: string;
@@ -40,6 +41,7 @@ const Pfs: React.FC<PfsProps> = ({
   handleChange,
 }) => {
   const propertyStatus = ['Vacant', 'Occupied'];
+  const [isModal, setIsModal] = useState(false)
   const [images, setImages] = useState<any[]>([]);
   const [urls, setUrls] = useState<string[]>([]);
 
@@ -82,6 +84,10 @@ const Pfs: React.FC<PfsProps> = ({
     localStorage.setItem('uploadedImageUrls', JSON.stringify(urls));
   }, [urls]);
   
+
+  const modalHandler = () => {
+    setIsModal(!isModal)
+  }
   
 
   return (
@@ -167,6 +173,7 @@ const Pfs: React.FC<PfsProps> = ({
       {/* Upload Photos */}
      
       <div
+      onClick={modalHandler}
         className="mt-10 border cursor-pointer self-center border-[#415EFF] rounded-md gap-2 text-sm font-medium text-[#415EFF]  py-3 max-w-[403px] relative w-full text-center flex items-center justify-center"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" viewBox="0 0 18 17" fill="none">
@@ -181,15 +188,6 @@ const Pfs: React.FC<PfsProps> = ({
           />
           <path d="M14.6854 6.83301H13.8867" stroke="#415EFF" stroke-width="1.25" stroke-linecap="round" />
         </svg>
-        <input
-        type="file"
-        id="image_uploads"
-        className=" absolute cursor-pointer -z-0 opacity-0 "
-        name="image_uploads"
-        accept=".jpg, .jpeg, .png"
-        multiple
-        onChange={handleImageChange}
-      />
         Add Gallery
       </div>
       {/* <button className="border px-7 py-2 rounded-2" onClick={uploadImages}>Upload Image</button> */}
@@ -346,6 +344,8 @@ const Pfs: React.FC<PfsProps> = ({
           />
         </div>
       </div>
+
+      <UploadModal showmodal={isModal} setIsModal={setIsModal} />
 
       {/* Checkbox features */}
       {/* <div>
