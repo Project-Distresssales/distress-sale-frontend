@@ -33,6 +33,8 @@ export const API = {
   // user
   user: '/api/v1/user/me',
   updateUser: '/api/v1/user/update',
+
+  getProduct: '/api/v1/tag/property-for-sale',
 };
 
 export default API;

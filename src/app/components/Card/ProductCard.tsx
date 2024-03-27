@@ -5,17 +5,24 @@ import Image from 'next/image';
 import HeartIcon from '../HeartIcon/HeartIcon';
 import Link from 'next/link';
 import { currencyFormatter, sliceText } from '@/helpers';
+import { useRouter } from 'next/navigation';
 
 export default function ProductCard({ product }: any) {
+  const router = useRouter();
   const [selected, setSelected] = useState<boolean>(true);
 
   const handleFavorite = () => {
     setSelected(!selected);
   };
 
+  const goToProduct = () => {
+    router.push(`product/${product?.objectID}`)
+  }
+
   return (
     <div>
       <div
+        onClick={goToProduct}
         className="bg-white w-full h-auto p-5 rounded-[10px] cursor-pointer relative"
         style={{
           boxShadow:
