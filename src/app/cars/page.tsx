@@ -4,6 +4,7 @@ import { AppButton, OutlinedButton } from "../components/Buttons/Buttons";
 import LocationSearch from "../components/LocationSearch/LocationSearch";
 import PropertyCard from "../components/PropertyCard/PropertyCard";
 import SearchCategory from "../components/SearchCategory/SearchCategory";
+import Image from "next/image";
 
 
 export default function Cars() {
