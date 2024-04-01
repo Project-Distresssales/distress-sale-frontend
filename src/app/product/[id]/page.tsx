@@ -4,13 +4,18 @@ import MobileNavbar from '@/app/components/Navbar/MovileNavbar';
 import Navbar from '@/app/components/Navbar/Navbar';
 import SubNavbar from '@/app/components/Navbar/SubNavbar';
 import API from '@/constants/api.constant';
-import { sliceText } from '@/helpers';
+import { currencyFormatter, sliceText } from '@/helpers';
 import useAppTheme from '@/hooks/theme.hook';
 import useRequest from '@/services/request/request.service';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { FadeIn } from '@/app/components/Transitions/Transitions';
+import Image from 'next/image';
+import Assets from '@/constants/assets.constant';
+import VerifiedBadge from '@/app/components/VerifiedBadge/VerifiedBadge';
+import ShareProduct from '@/app/components/ShareProduct/ShareProduct';
+import { InfinitySpin, RotatingTriangles } from 'react-loader-spinner';
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -19,9 +24,18 @@ export default function ProductPage() {
 
   const { isLoading, makeRequest } = useRequest();
 
+  const [openShare, setOpenShare] = useState(false);
+  const handleShareOpen = () => {
+    setOpenShare(!openShare);
+  };
+
+  const handleShareClose = () => {
+    setOpenShare(false);
+  };
+
   useEffect(() => {
     id && getProductDetails();
-  }, [id]); // Add id to the dependency array
+  }, [id]);
 
   const getProductDetails = async () => {
     try {
@@ -42,12 +56,48 @@ export default function ProductPage() {
   };
 
 
-  // Image Thumbnail
-  const [selectedImage, setSelectedImage] = useState<any>(product && product?.imageURLs && product?.imageURLs[0] || '');
+// Image Thumbnail
+const [selectedImage, setSelectedImage] = useState<string>('');
 
-  const handleThumbnailClick = (imageURL) => {
-    setSelectedImage(imageURL);
-  };
+// Set the selected image when the component mounts
+useEffect(() => {
+  if (product && product.imageURLs && product.imageURLs.length > 0) {
+    setSelectedImage(product.imageURLs[0]);
+  }
+}, [product]);
+
+const handleThumbnailClick = (imageURL: string) => {
+  setSelectedImage(imageURL);
+};
+
+  // Contact
+  const ownersContact = [
+    {
+      icon: Assets.call,
+      title: 'Call',
+      link: `tel:${product?.ownerContact?.phoneNumber}`,
+      bgColor: '#D6DDFF',
+      textColor: '#415EFF'
+    },
+    {
+      icon: Assets.sms,
+      title: 'Email',
+      link: `mailto:${product?.ownerContact?.email}`,
+      bgColor: '#FFDDCF',
+      textColor: '#7A2E0E'
+    },
+    {
+      icon: Assets.whatsapp,
+      title: 'Whatsapp',
+      link: `https://wa.me/${product?.ownerContact?.whatsAppNumber}`,
+      bgColor: '#EAFFF2',
+      textColor: ''
+    },
+  ];
+
+  
+
+
 
   return (
     <FadeIn>
@@ -61,74 +111,81 @@ export default function ProductPage() {
           <MobileNavbar />
         </>
       )}
-      <div className="bg-white flex flex-col items-stretch pb-12 md:px-8 w-full">
+      
+      {isLoading ? (
+        <div className='w-full h-[500px] flex justify-center items-center'>
+          {/* @ts-ignore */}
+  <InfinitySpin
+  visible={true}
+  width="200"
+  color="#6F85FF"
+  ariaLabel="infinity-spin-loading"
+  />
+        </div>
+      ) : (
+        <>
+        <div className="bg-white flex flex-col items-stretch pb-12 md:px-8 w-full">
         <div className="bg-gray-200 min-h-[1px] w-full" />
-        <div className="self-center flex flex-col md:flex-row w-full  items-stretch md:justify-between gap-5 mt-7 px-5 md:max-w-full">
-          {/* <div className="flex items-start justify-between gap-1.5 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
-            <div className="text-blue-600 text-sm font-bold leading-7 tracking-normal self-stretch whitespace-nowrap">
-              Back to Search
-            </div>
-            <div className="text-blue-600 text-sm leading-7 tracking-normal self-stretch">Abu Dhabi</div>
-            <img
-              loading="lazy"
-              src="https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              className="aspect-square object-contain object-center w-2.5 justify-center items-center overflow-hidden self-center shrink-0 max-w-full my-auto"
-            />
-            <div className="text-blue-600 text-sm leading-7 tracking-normal self-center my-auto">Villa</div>
-            <img
-              loading="lazy"
-              src="https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              className="aspect-square object-contain object-center w-2.5 justify-center items-center overflow-hidden self-center shrink-0 max-w-full my-auto"
-            />
-            <div className="text-slate-600 text-sm font-medium leading-7 tracking-normal self-center whitespace-nowrap my-auto">
-              Distress Sale - LUK-N5-9YH-99.0-MIL
-            </div>
-          </div> */}
-          <div className="text-gray-900 text-sm leading-7 whitespace-nowrap">
+
+        <div className="flex w-full items-center justify-between px-7 mb-5 mt-7">
+          <h1 className="text-distressBlue text-[22px] font-[700] leading-tight">{product && product?.name}</h1>
+          <div className="text-gray-900 text-sm font-[500] leading-tight whitespace-nowrap">
             Date Uploaded: {product && product.createdAt ? format(new Date(product.createdAt), "do MMMM',' yyyy") : ''}
           </div>
         </div>
-        <div className="w-full mt-6 mb-32 md:max-w-full max-md:mb-10 flex">
 
+
+        <div className="w-full mb-32 md:max-w-full max-md:mb-10 flex">
           <div className="flex flex-col md:w-full">
             <div className="flex grow flex-col px-5 max-md:max-w-full max-md:mt-8">
-              <div className="flex-col overflow-hidden self-stretch relative rounded-[12px] flex h-[520px] w-full pl-4 pr-20 py-4 items-start max-md:max-w-full max-md:pr-5">
+              <div className="flex-col overflow-hidden self-stretch relative rounded-[12px] flex h-[520px] w-full pl-4 pr-20 py-4 items-start max-md:max-w-full max-md:pr-5 relative">
+                <div className="top-5 left-5 absolute z-10">
+                  <VerifiedBadge text={product && product?.verified ? "Verified" : "Unverified"} icon={Assets.verify} isVerified={product?.verified} />
+                </div>
+                <div className="top-5 right-5 absolute z-10">
+                  <ShareProduct 
+                  handleShareOpen={handleShareOpen}
+                  handleShareClose={handleShareClose}
+                  openShare={openShare}
+                  title='Share'
+                  icon={Assets.share} 
+                  />
+                </div>
                 <img
                   loading="lazy"
                   src={selectedImage}
                   className="absolute h-full w-full object-cover object-center inset-0 rounded-[12px]"
                 />
+              </div>
 
-                {/* <div className="relative items-stretch bg-white flex w-[125px] max-w-full flex-col justify-center rounded-md">
-                    <div className="justify-between items-stretch border border-[color:var(--grey-100,#EAECF0)] bg-white flex gap-4 px-4 py-1 rounded-xl border-solid">
-                      <div className="text-gray-900 text-base leading-7 tracking-normal grow whitespace-nowrap">
-                        Verified
-                      </div>
-                      <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/577ff1e772d1f510079b7acceeddbbc4a21a534f812a9efd63d3daeb3010fad2?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                        className="aspect-square object-contain object-center w-5 justify-center items-center overflow-hidden self-center shrink-0 max-w-full my-auto"
-                      />
-                    </div>
-                  </div>
-                  <div className="relative items-stretch bg-white flex w-[125px] max-w-full flex-col justify-center mt-[655px] rounded-md max-md:mt-10">
-                    <div className="text-gray-900 text-base font-medium leading-7 tracking-normal whitespace-nowrap justify-center items-stretch border border-[color:var(--grey-100,#EAECF0)] bg-white px-2.5 py-1 rounded-xl border-solid">
-                      Request Video
-                    </div>
-                  </div> */}
+              <div className="flex justify-between items-center">
+                <div className='flex space-x-2 mt-2'>
+                  {product && product?.imageURLs && product?.imageURLs.map((imageURL, index) => (
+                    <img
+                      key={index}
+                      src={imageURL}
+                      alt={`Thumbnail ${index + 1}`}
+                      className="w-[100px] h-[100px] rounded-[12px] border-2 border-distressBlue"
+                      onClick={() => handleThumbnailClick(imageURL)}
+                    />
+                  ))}
+                </div>
+                {/* Buttons */}
+                <div className="flex space-x-3">
+                  {ownersContact.map((item, i) => (
+                    <button key={i} className={`bg-[${item.bgColor}] rounded-[8px] py-3 flex items-center justify-center space-x-2.5 px-7`}
+                      onClick={() => {
+                        window.location.href = item.link;
+                      }}
+                    >
+                      <Image src={item.icon} alt="" width={20} height={20} />
+                      <span className={`text-[${item.textColor}] font-[500] text-[14px]`}>{item.title}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className='flex space-x-2 mt-2'>
-                {product && product?.imageURLs && product?.imageURLs.map((imageURL, index) => (
-                  <img
-                    key={index}
-                    src={imageURL}
-                    alt={`Thumbnail ${index + 1}`}
-                    className="w-[100px] h-[100px] rounded-[12px] border-2 border-distressBlue"
-                    onClick={() => handleThumbnailClick(imageURL)}
-                  />
-                ))}
-              </div>
-              <div className="flex items-stretch gap-2 mt-10">
+
+              {/* <div className="flex items-stretch gap-2 mt-10">
                 <div className="justify-between items-center border border-[color:var(--primary-100,#D6DDFF)] bg-violet-200 flex gap-2.5 px-5 py-2 rounded-xl border-solid">
                   <img
                     loading="lazy"
@@ -149,7 +206,7 @@ export default function ProductPage() {
                     Share
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* <div className="self-stretch mt-10 max-md:max-w-full">
                   <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
@@ -228,51 +285,47 @@ export default function ProductPage() {
                     </div>
                   </div>
                 </div> */}
-              <p className="text-gray-900 text-justify md:text-base text-[3.5vw] leading-7 tracking-normal self-stretch mt-10 max-md:max-w-full">
+
+                {/* Pricing and Details */}
+                <div className='mt-7'>
+                <h1 className="text-[#415EFF] md:text-[25px] text-[4.7vw] font-[700]">
+              {currencyFormatter(product?.price, 'AED')}
+            </h1>
+            <div className="flex items-center space-x-2 text-[#344054] md:text-[14px] text-[3vw] mt-2 font-[500]">
+              <p>4 Beds</p>
+              <span>•</span>
+              <p>5 Baths</p>
+              <span>•</span>
+              <p>5 Sqft</p>
+            </div>
+            <p className='text-[#344054] mt-2 text-sm font-[500] leading-tight whitespace-nowrap'>{product?.location}</p>
+                </div>
+
+<div className='md:w-[600px] mt-10'>
+<p className="text-gray-900 text-justify md:text-base text-[3.5vw] leading-7 tracking-normal md:max-w-full">
                 {product?.fullDescription}
               </p>
-              <div className="text-gray-900 md:text-lg text-[4.5vw] font-medium leading-8 tracking-normal self-stretch whitespace-nowrap mt-6 max-md:max-w-full">
-                Notable Features:
-              </div>
-              <div className="text-gray-900 text-justify md:text-base text-[3.5vw] leading-7 tracking-normal self-stretch mt-4 max-md:max-w-full">
-                <ul>
-                  <li>6 Elegant Bedrooms</li>
-                  <li>Master suite with a spacious private bathroom and terrace</li>
-                  <li>5 Bathrooms</li>
-                  <li>Private Garden</li>
-                  <li>Spacious Living Area and Kitchen</li>
-                  <li>Laundry Room</li>
-                </ul>
-              </div>
-              <div className="text-gray-900 md:text-lg text-[4.5vw] font-medium leading-8 tracking-normal self-stretch whitespace-nowrap mt-6 max-md:max-w-full">
-                Amenities:
-              </div>
-              <div className="text-gray-900 text-justify md:text-base text-[3.5vw] leading-7 tracking-normal self-stretch mt-4 max-md:max-w-full">
-                <ul>
-                  <li>Beautiful Green Parks</li>
-                  <li>Premier Golf Course</li>
-                  <li>Tennis Court</li>
-                  <li>Swimming Pool</li>
-                  <li>Variety of Dining, Shopping, and Entertainment Options</li>
-                </ul>
-              </div>
-              <div className="text-gray-900 md:text-3xl text-[5.5vw] font-bold leading-10 tracking-normal self-stretch whitespace-nowrap mt-14 max-md:max-w-full max-md:mt-10">
+
+              <div className="bg-gray-200 self-stretch shrink-0 h-px my-7 max-md:max-w-full" />
+
+              {/* Property Info */}
+              <div className="text-gray-900 md:text-3xl text-[5.5vw] font-bold  whitespace-nowrap mt-14 max-md:max-w-full md:mt-10">
                 Property Information
               </div>
               <div className="self-stretch flex w-full items-stretch justify-between gap-5 mt-6 pr-20 max-md:max-w-full max-md:flex-wrap max-md:pr-5">
                 <div className="items-stretch flex justify-between gap-2 rounded-md">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
                     Type:
                   </div>
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
-                    For Sale
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
+                    {product?.adType}
                   </div>
                 </div>
                 <div className="items-stretch flex justify-between gap-2 rounded-md">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
                     Furnishing:
                   </div>
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
                     Unfurnished
                   </div>
                 </div>
@@ -280,20 +333,20 @@ export default function ProductPage() {
               <div className="bg-gray-200 self-stretch shrink-0 h-px mt-2 max-md:max-w-full" />
               <div className="self-stretch flex w-full items-stretch justify-between gap-5 mt-2.5 pr-20 max-md:max-w-full max-md:flex-wrap max-md:pr-5">
                 <div className="items-stretch flex justify-between gap-2 rounded-md">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
                     Purpose:
                   </div>
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
                     Villa
                   </div>
                 </div>
                 <div className="items-stretch flex justify-between gap-2 rounded-md">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal grow whitespace-nowrap">
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-medium leading-7 tracking-normal grow whitespace-nowrap">
                     Verified On:
                   </div>
                   <div className="items-stretch flex justify-between gap-2.5">
-                    <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal grow whitespace-nowrap">
-                      9th August, 2023
+                    <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-bold leading-7 tracking-normal grow whitespace-nowrap">
+                      {product && product.createdAt ? format(new Date(product.createdAt), "do MMMM',' yyyy") : ''}
                     </div>
                     <img
                       loading="lazy"
@@ -306,19 +359,19 @@ export default function ProductPage() {
               <div className="bg-gray-200 self-stretch shrink-0 h-px mt-2 max-md:max-w-full" />
               <div className="self-stretch flex w-full items-stretch justify-between gap-5 mt-2.5 max-md:max-w-full max-md:flex-wrap">
                 <div className="items-stretch flex justify-between gap-2 rounded-md max-md:max-w-full max-md:flex-wrap">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
                     Reference No.
                   </div>
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
                     {sliceText(20, "Distress Sale - LUK-N5-9YH-99.0-MIL")}
                   </div>
                 </div>
                 <div className="items-stretch flex justify-between gap-2 rounded-md">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal grow whitespace-nowrap">
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-medium leading-7 tracking-normal grow whitespace-nowrap">
                     Average Rent:
                   </div>
                   <div className="items-stretch flex justify-between gap-2.5 px-0.5">
-                    <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal grow whitespace-nowrap">
+                    <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-bold leading-7 tracking-normal grow whitespace-nowrap">
                       Not Available
                     </div>
                     <img
@@ -332,153 +385,53 @@ export default function ProductPage() {
               <div className="bg-gray-200 self-stretch shrink-0 h-px mt-2 max-md:max-w-full" />
               <div className="self-stretch flex w-full items-stretch justify-between gap-5 mt-2.5 pr-20 max-md:max-w-full max-md:flex-wrap max-md:pr-5">
                 <div className="items-stretch flex justify-between gap-2 rounded-md">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
                     Completion:
                   </div>
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
                     Ready
                   </div>
                 </div>
                 <div className="items-stretch flex justify-between gap-2 rounded-md">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
                     Added On:
                   </div>
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
-                    31st July, 2023
+                  <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
+                    {product && product.createdAt ? format(new Date(product.createdAt), "do MMMM',' yyyy") : ''}
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-200 self-stretch shrink-0 h-px mt-2 max-md:max-w-full" />
-              <div className="items-stretch flex gap-2 mt-12 rounded-md self-start max-md:mt-10">
-                <div className="text-gray-900 md:text-3xl text-[5.5vw] font-bold leading-10 tracking-normal grow whitespace-nowrap">
-                  Validated Information
-                </div>
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/23cb5f1db1d67859716e7a71d5bb6aaf65a32f38bc60e0797c7e1add19748e0a?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                  className="aspect-square object-contain object-center w-[30px] justify-center items-center overflow-hidden self-center shrink-0 max-w-full my-auto"
-                />
-              </div>
-              <div className="self-stretch flex w-full items-stretch justify-between gap-5 mt-6 max-md:max-w-full max-md:flex-wrap">
-                <div className="items-stretch flex justify-between gap-2 rounded-md max-md:max-w-full max-md:flex-wrap">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
-                    Developer
-                  </div>
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
-                    {sliceText(20, "Distress Sale - LUK-N5-9YH-99.0-MIL")}
-                  </div>
-                </div>
-                <div className="items-stretch flex justify-between gap-2 rounded-md">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
-                    Plot Area:
-                  </div>
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
-                    4,896
-                  </div>
-                </div>
-              </div>
-              <div className="bg-gray-200 self-stretch shrink-0 h-px mt-2 max-md:max-w-full" />
-              <div className="self-stretch flex w-full items-stretch justify-between gap-5 mt-2.5 pr-20 max-md:max-w-full max-md:flex-wrap max-md:pr-5">
-                <div className="items-stretch flex justify-between gap-2 rounded-md">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
-                    Ownership:
-                  </div>
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
-                    Freehold
-                  </div>
-                </div>
-                <div className="items-stretch flex justify-between gap-2 rounded-md">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
-                    Built-Up Area:
-                  </div>
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
-                    4,300
-                  </div>
-                </div>
-              </div>
-              <div className="bg-gray-200 self-stretch shrink-0 h-px mt-2 max-md:max-w-full" />
-              <div className="text-gray-900 md:text-3xl text-[5.5vw] font-bold leading-10 tracking-normal self-stretch whitespace-nowrap mt-14 max-md:max-w-full max-md:mt-10">
-                Property History
-              </div>
-              <div className="items-stretch border border-[color:var(--grey-100,#EAECF0)] self-stretch flex flex-col mt-6 p-6 border-solid max-md:max-w-full max-md:px-5">
-                <div className="items-stretch flex w-full justify-between gap-5 pr-20 max-md:max-w-full max-md:flex-wrap max-md:pr-5">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal grow whitespace-nowrap">
-                    Date{' '}
-                  </div>
-                  <div className="items-stretch flex justify-between gap-5">
-                    <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
-                      Transaction Type
-                    </div>
-                    <div className="text-slate-600 md:text-base text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
-                      Price
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-gray-200 shrink-0 h-px mt-4 max-md:max-w-full" />
-                <div className="items-stretch flex w-full justify-between gap-5 mt-4 pr-20 md:max-w-full md:flex-wrap md:pr-5">
-                  <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal grow whitespace-nowrap">
-                    31st July, 2023
-                  </div>
-                  <div className="items-stretch flex justify-between gap-5 max-md:max-w-full max-md:flex-wrap">
-                    <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
-                      Sale
-                    </div>
-                    <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
-                      AED 3,190,000
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-gray-50 shrink-0 h-px mt-4 max-md:max-w-full" />
-              </div>
+
+                        
+              <div className="bg-gray-200 self-stretch shrink-0 h-px mt-10 max-md:max-w-full" />
+             
+             {product && product?.amenities?.length > 0 && (
+              <>
               <div className="text-gray-900 md:text-3xl text-[5.5vw] font-bold leading-10 tracking-normal self-stretch whitespace-nowrap mt-14 max-md:max-w-full max-md:mt-10">
                 Features / Amenities
               </div>
-              <div className="self-stretch md:flex grid grid-cols-2 items-stretch justify-between gap-3.5 mt-6 px-px max-md:max-w-full max-md:flex-wrap max-md:justify-center">
-                <div className="justify-center items-center bg-gray-200 flex flex-col w-full h-[150px] px-10 rounded-md max-md:px-5">
+              <div className="md:flex grid grid-cols-2 gap-3.5 mt-6 md:max-w-full mmd:flex-wrap md:justify-center">
+                {product?.amenities?.map((item, i) => {
+                  <div key={i} className="justify-center items-center bg-gray-200 flex flex-col w-full h-[150px] px-10 rounded-md max-md:px-5">
                   <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/6ce7c4f2a10ac0b2a2b9c3352e912febf62ad74177b7514213853d5922526b9c?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
                     className="aspect-square object-contain object-center w-[30px] overflow-hidden max-w-full mt-1.5"
                   />
                   <div className="text-gray-900 md:text-base text-[3.5vw] font-medium leading-7">
-                    Garden
+                    {item?.name}
                   </div>
                 </div>
-                <div className="justify-center items-center bg-gray-200 flex flex-col w-full h-[150px] px-10 rounded-md max-md:px-5">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/e3dd5f5bb6b3fa6a7cba9fa034d1cb4a0478141559dc792312261285be939b0f?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                    className="aspect-square object-contain object-center w-[30px] overflow-hidden max-w-full mt-1.5"
-                  />
-                  <div className="text-gray-900 md:text-base text-[3.5vw] font-medium leading-7">
-                    Security
-                  </div>
-                </div>
-                <div className="justify-center items-center bg-gray-200 flex flex-col w-full h-[150px] px-10 rounded-md max-md:px-5">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/90dd913a1504d783b17498bc20d765fc4be54960d6dfcb65c210ebad8dead2c4?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                    className="aspect-[1.17] object-contain object-center w-[35px] justify-center items-center overflow-hidden mt-1.5"
-                  />
-                  <div className="text-gray-900 md:text-base text-[3.5vw] font-medium leading-7">
-                    Gym
-                  </div>
-                </div>
-                <div className="bg-gray-200 flex flex-col justify-center items-center w-full h-[150px] px-10 rounded-md max-md:px-5">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/ed97b79335546a80bab93c57ad982341d2ee4b20c537fccd61ec6cf7c3bae85a?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                    className="aspect-square object-contain object-center w-[30px] overflow-hidden max-w-full mt-1.5"
-                  />
-                  <div className="text-gray-900 md:text-base text-[3.5vw] font-medium leading-7">
-                    Security
-                  </div>
-                </div>
-                {/* <div className="text-gray-900 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal justify-center items-center border-[color:var(--grey-100,#EAECF0)] w-[177px] h-[177px] px-12 py-3 rounded-md border-2 border-solid max-md:px-5">
-                    +20 more amenities
-                  </div> */}
+                })}
               </div>
-              <div className="text-gray-900 md:text-3xl text-[5vw] font-bold leading-10 tracking-normal self-stretch whitespace-nowrap mt-14 max-md:max-w-full max-md:mt-10">
+              </>
+             )}
+</div>
+              
+             
+              
+
+              {/* <div className="text-gray-900 md:text-3xl text-[5vw] font-bold leading-10 tracking-normal self-stretch whitespace-nowrap mt-14 max-md:max-w-full max-md:mt-10">
                 Market Intelligence Insight
               </div>
               <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal self-stretch mt-6 max-md:max-w-full">
@@ -506,8 +459,8 @@ export default function ProductPage() {
                     <li>Estimated Market Price: AED 3,750,000</li>
                   </ul>
                 </div>
-              </div>{' '}
-              <div className="self-stretch flex items-center justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
+              </div>{' '} */}
+              {/* <div className="self-stretch flex items-center justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
                 <div className="text-gray-900 text-xl font-bold leading-8 tracking-normal grow whitespace-nowrap my-auto">
                   Price Comparison Chart
                 </div>{' '}
@@ -561,198 +514,11 @@ export default function ProductPage() {
                     </div>
                   </div>
                 </div>
-              </div>{' '}
-              <div className="text-gray-900 text-3xl font-bold leading-10 tracking-normal self-stretch whitespace-nowrap mt-20 max-md:max-w-full max-md:mt-10">
+              </div>{' '} */}
+              {/* <div className="text-gray-900 text-3xl font-bold leading-10 tracking-normal self-stretch whitespace-nowrap mt-20 max-md:max-w-full max-md:mt-10">
                 Recommended for you
-              </div>{' '}
-              <div className="self-stretch mt-6 max-md:max-w-full">
-                <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-                  <div className="flex flex-col items-stretch w-[33%] max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch shadow-xl bg-white flex w-full grow flex-col mx-auto px-4 py-2.5 rounded-xl max-md:mt-4">
-                      <img
-                        loading="lazy"
-                        srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/7a36afa90b9dad5579f01590afaec9d2ba1f1ce010df357bb24b9acbb0e06ddb?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a36afa90b9dad5579f01590afaec9d2ba1f1ce010df357bb24b9acbb0e06ddb?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a36afa90b9dad5579f01590afaec9d2ba1f1ce010df357bb24b9acbb0e06ddb?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a36afa90b9dad5579f01590afaec9d2ba1f1ce010df357bb24b9acbb0e06ddb?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a36afa90b9dad5579f01590afaec9d2ba1f1ce010df357bb24b9acbb0e06ddb?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a36afa90b9dad5579f01590afaec9d2ba1f1ce010df357bb24b9acbb0e06ddb?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a36afa90b9dad5579f01590afaec9d2ba1f1ce010df357bb24b9acbb0e06ddb?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a36afa90b9dad5579f01590afaec9d2ba1f1ce010df357bb24b9acbb0e06ddb?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                        className="aspect-[1.61] object-contain object-center w-full overflow-hidden"
-                      />{' '}
-                      <div className="items-stretch flex justify-between gap-2 mt-1 rounded-md">
-                        <div className="text-gray-900 text-lg font-bold leading-8 tracking-normal w-[255px]">
-                          AED 190,000
-                        </div>{' '}
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d9ea30ddf9a3d855bc64020c097865ffcae2730d828cfd99f3cf2324c79133e?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                          className="aspect-square object-contain object-center w-[15px] justify-center items-center overflow-hidden self-center shrink-0 max-w-full my-auto"
-                        />
-                      </div>{' '}
-                      <div className="text-slate-600 text-lg font-medium leading-8 tracking-normal whitespace-nowrap mt-2">
-                        Shams Abu Dhabi, Al Reem Island
-                      </div>{' '}
-                      <div className="items-start flex gap-2.5 mt-2 pr-14 max-md:pr-5">
-                        <div className="items-center self-stretch flex justify-between gap-1.5">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/bfcad89411b9c2f7003b73839163a073326e3c9ceabc2fedcaa1d3c0ad31a672?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                            className="aspect-square object-contain object-center w-[15px] overflow-hidden shrink-0 max-w-full my-auto"
-                          />{' '}
-                          <div className="text-slate-600 text-sm font-medium leading-7 tracking-normal self-stretch grow whitespace-nowrap">
-                            6
-                          </div>
-                        </div>{' '}
-                        <div className="bg-gray-200 self-center w-px shrink-0 h-[18px] my-auto" />{' '}
-                        <div className="items-center self-stretch flex justify-between gap-1.5">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/57456ceca47a70b1c1f8f9d5f14791101e7bb36ec9b464ff9664a1785bc4c9c5?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                            className="aspect-square object-contain object-center w-[15px] overflow-hidden shrink-0 max-w-full my-auto"
-                          />{' '}
-                          <div className="text-slate-600 text-sm font-medium leading-7 tracking-normal self-stretch grow whitespace-nowrap">
-                            6
-                          </div>
-                        </div>{' '}
-                        <div className="text-slate-600 text-sm font-medium leading-7 tracking-normal whitespace-nowrap items-stretch self-stretch grow justify-center pl-2.5">
-                          Area: 4.896 sqft
-                        </div>
-                      </div>{' '}
-                      <div className="text-gray-900 text-sm font-medium leading-7 tracking-normal whitespace-nowrap">
-                        Elegance Tower
-                      </div>
-                    </div>
-                  </div>{' '}
-                  <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch shadow-xl bg-white flex w-full grow flex-col mx-auto px-4 py-2.5 rounded-xl max-md:mt-4">
-                      <div className="flex-col overflow-hidden relative flex aspect-[1.6149068322981366] w-full pl-2.5 pr-20 py-3 items-start max-md:pr-5">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/5ac49da5b5a58c3592e5f602363477c62e5be612c487cdb9f9f67d2b1d0ce458?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/5ac49da5b5a58c3592e5f602363477c62e5be612c487cdb9f9f67d2b1d0ce458?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/5ac49da5b5a58c3592e5f602363477c62e5be612c487cdb9f9f67d2b1d0ce458?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/5ac49da5b5a58c3592e5f602363477c62e5be612c487cdb9f9f67d2b1d0ce458?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/5ac49da5b5a58c3592e5f602363477c62e5be612c487cdb9f9f67d2b1d0ce458?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/5ac49da5b5a58c3592e5f602363477c62e5be612c487cdb9f9f67d2b1d0ce458?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/5ac49da5b5a58c3592e5f602363477c62e5be612c487cdb9f9f67d2b1d0ce458?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/5ac49da5b5a58c3592e5f602363477c62e5be612c487cdb9f9f67d2b1d0ce458?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                          className="absolute h-full w-full object-cover object-center inset-0"
-                        />{' '}
-                        <div className="relative items-stretch bg-white flex w-36 max-w-full flex-col justify-center rounded-3xl">
-                          <div className="justify-between items-stretch border border-[color:var(--grey-100,#EAECF0)] bg-white flex gap-2 pl-2 pr-7 py-1 rounded-xl border-solid max-md:pr-5">
-                            <div className="text-gray-900 text-sm leading-7 tracking-normal grow whitespace-nowrap">
-                              Verified
-                            </div>{' '}
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/5d284bc98c0d98c330fcd791640790c25ddd958a3bb3f71d42678a694bf00893?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                              className="aspect-square object-contain object-center w-5 justify-center items-center overflow-hidden self-center shrink-0 max-w-full my-auto"
-                            />
-                          </div>
-                        </div>{' '}
-                        <div className="relative justify-center items-start self-center flex w-[47px] max-w-full gap-1 mt-24 max-md:mt-10">
-                          <div className="flex shrink-0 h-[7px] flex-col flex-1 rounded-[50%]" />{' '}
-                          <div className="flex shrink-0 h-[5px] flex-col flex-1 rounded-[50%]" />{' '}
-                          <div className="flex shrink-0 h-[5px] flex-col flex-1 rounded-[50%]" />{' '}
-                          <div className="flex shrink-0 h-[5px] flex-col flex-1 rounded-[50%]" />{' '}
-                          <div className="flex shrink-0 h-[5px] flex-col flex-1 rounded-[50%]" />{' '}
-                          <div className="flex shrink-0 h-[5px] flex-col flex-1 rounded-[50%]" />
-                        </div>
-                      </div>{' '}
-                      <div className="items-stretch flex justify-between gap-2 mt-1 rounded-md">
-                        <div className="text-gray-900 text-lg font-bold leading-8 tracking-normal w-[255px]">
-                          AED 190,000
-                        </div>{' '}
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d9ea30ddf9a3d855bc64020c097865ffcae2730d828cfd99f3cf2324c79133e?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                          className="aspect-square object-contain object-center w-[15px] justify-center items-center overflow-hidden self-center shrink-0 max-w-full my-auto"
-                        />
-                      </div>{' '}
-                      <div className="text-slate-600 text-lg font-medium leading-8 tracking-normal whitespace-nowrap mt-2">
-                        Shams Abu Dhabi, Al Reem Island
-                      </div>{' '}
-                      <div className="items-start flex gap-2.5 mt-2 pr-14 max-md:pr-5">
-                        <div className="items-center self-stretch flex justify-between gap-1.5">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/bfcad89411b9c2f7003b73839163a073326e3c9ceabc2fedcaa1d3c0ad31a672?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                            className="aspect-square object-contain object-center w-[15px] overflow-hidden shrink-0 max-w-full my-auto"
-                          />{' '}
-                          <div className="text-slate-600 text-sm font-medium leading-7 tracking-normal self-stretch grow whitespace-nowrap">
-                            6
-                          </div>
-                        </div>{' '}
-                        <div className="bg-gray-200 self-center w-px shrink-0 h-[18px] my-auto" />{' '}
-                        <div className="items-center self-stretch flex justify-between gap-1.5">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0ca712b4fd31ef02a2bde76b08b5314f6206257306be2be904b2442f0d21133?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                            className="aspect-square object-contain object-center w-[15px] overflow-hidden shrink-0 max-w-full my-auto"
-                          />{' '}
-                          <div className="text-slate-600 text-sm font-medium leading-7 tracking-normal self-stretch grow whitespace-nowrap">
-                            6
-                          </div>
-                        </div>{' '}
-                        <div className="text-slate-600 text-sm font-medium leading-7 tracking-normal whitespace-nowrap items-stretch self-stretch grow justify-center pl-2.5">
-                          Area: 4.896 sqft
-                        </div>
-                      </div>{' '}
-                      <div className="text-gray-900 text-sm font-medium leading-7 tracking-normal whitespace-nowrap">
-                        Elegance Tower
-                      </div>
-                    </div>
-                  </div>{' '}
-                  <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
-                    <div className="justify-center shadow-xl bg-white flex w-full grow flex-col mx-auto pl-4 py-2.5 rounded-xl items-start max-md:mt-4">
-                      <div className="flex items-stretch gap-0">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/def578e291aaed93962c1e9ab686891dbd1286e2c4d9b4a45647030e21836d6f?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/def578e291aaed93962c1e9ab686891dbd1286e2c4d9b4a45647030e21836d6f?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/def578e291aaed93962c1e9ab686891dbd1286e2c4d9b4a45647030e21836d6f?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/def578e291aaed93962c1e9ab686891dbd1286e2c4d9b4a45647030e21836d6f?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/def578e291aaed93962c1e9ab686891dbd1286e2c4d9b4a45647030e21836d6f?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/def578e291aaed93962c1e9ab686891dbd1286e2c4d9b4a45647030e21836d6f?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/def578e291aaed93962c1e9ab686891dbd1286e2c4d9b4a45647030e21836d6f?apiKey=e18e06edddf74ddfbd2e9594d51fef98&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/def578e291aaed93962c1e9ab686891dbd1286e2c4d9b4a45647030e21836d6f?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                          className="aspect-[1.61] object-contain object-center w-full overflow-hidden grow basis-[0%]"
-                        />{' '}
-                        <div className="items-center shadow-lg bg-white flex aspect-square flex-col justify-center w-10 h-10 mt-32 px-2.5 rounded-3xl self-start max-md:mt-10">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/439d76d65d054fb899107f9031e326328254d288d85393b61611a4315606f4ba?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                            className="aspect-square object-contain object-center w-full justify-center items-center overflow-hidden"
-                          />
-                        </div>
-                      </div>{' '}
-                      <div className="items-stretch flex gap-2 mt-1 px-px rounded-md">
-                        <div className="text-gray-900 text-lg font-bold leading-8 tracking-normal w-[255px]">
-                          AED 190,000
-                        </div>{' '}
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d9ea30ddf9a3d855bc64020c097865ffcae2730d828cfd99f3cf2324c79133e?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                          className="aspect-square object-contain object-center w-[15px] justify-center items-center overflow-hidden self-center shrink-0 max-w-full my-auto"
-                        />
-                      </div>{' '}
-                      <div className="text-slate-600 text-lg font-medium leading-8 tracking-normal whitespace-nowrap mt-2">
-                        Shams Abu Dhabi, Al Reem Island
-                      </div>{' '}
-                      <div className="items-start flex w-full gap-2.5 mt-2 pr-20 max-md:pr-5">
-                        <div className="items-center self-stretch flex justify-between gap-1.5">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/bfcad89411b9c2f7003b73839163a073326e3c9ceabc2fedcaa1d3c0ad31a672?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                            className="aspect-square object-contain object-center w-[15px] overflow-hidden shrink-0 max-w-full my-auto"
-                          />{' '}
-                          <div className="text-slate-600 text-sm font-medium leading-7 tracking-normal self-stretch grow whitespace-nowrap">
-                            6
-                          </div>
-                        </div>{' '}
-                        <div className="bg-gray-200 self-center w-px shrink-0 h-[18px] my-auto" />{' '}
-                        <div className="items-center self-stretch flex justify-between gap-1.5">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/82f13e70c8fab8d5490becfde2cde79413142992713bb52420aab829291fd360?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                            className="aspect-square object-contain object-center w-[15px] overflow-hidden shrink-0 max-w-full my-auto"
-                          />{' '}
-                          <div className="text-slate-600 text-sm font-medium leading-7 tracking-normal self-stretch grow whitespace-nowrap">
-                            6
-                          </div>
-                        </div>{' '}
-                        <div className="text-slate-600 text-sm font-medium leading-7 tracking-normal whitespace-nowrap items-stretch self-stretch grow justify-center pl-2.5">
-                          Area: 4.896 sqft
-                        </div>
-                      </div>{' '}
-                      <div className="text-gray-900 text-sm font-medium leading-7 tracking-normal whitespace-nowrap">
-                        Elegance Tower
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </div>{' '} */}
+
             </div>
           </div>
 
@@ -898,11 +664,10 @@ export default function ProductPage() {
               </div>
             </div>
           </div>
-
-
-
         </div>
       </div>
+        </>
+      )}
     </FadeIn>
   );
 }
