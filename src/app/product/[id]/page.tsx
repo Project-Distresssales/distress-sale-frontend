@@ -114,8 +114,9 @@ const handleThumbnailClick = (imageURL: string) => {
       
       {isLoading ? (
         <div className='w-full h-[500px] flex justify-center items-center'>
-          {/* @ts-ignore */}
+ 
   <InfinitySpin
+           /* @ts-ignore */
   visible={true}
   width="200"
   color="#6F85FF"
