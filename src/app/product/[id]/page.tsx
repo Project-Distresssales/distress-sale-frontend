@@ -122,9 +122,9 @@ export default function ProductPage() {
           <div className="bg-white flex flex-col items-stretch pb-12 md:px-8 w-full">
             <div className="bg-gray-200 min-h-[1px] w-full" />
 
-            <div className="flex w-full items-center justify-between px-7 mb-5 mt-7">
-              <h1 className="text-distressBlue text-[22px] font-[700] leading-tight">{product && product?.name}</h1>
-              <div className="text-gray-900 text-sm font-[500] leading-tight whitespace-nowrap">
+            <div className="flex md:flex-row flex-col w-full items-center justify-between md:px-7 px-5 mb-5 mt-7">
+              <h1 className="text-distressBlue md:text-[22px] text-center text-[5vw] font-[700] leading-tight">{product && product?.name}</h1>
+              <div className="text-gray-900 md:text-sm text-[3.3vw] mt-7 md:mt-0 font-[500] leading-tight whitespace-nowrap">
                 Date Uploaded:{' '}
                 {product && product.createdAt ? format(new Date(product.createdAt), "do MMMM',' yyyy") : ''}
               </div>
@@ -133,7 +133,7 @@ export default function ProductPage() {
             <div className="w-full mb-32 md:max-w-full max-md:mb-10 flex">
               <div className="flex flex-col md:w-full">
                 <div className="flex grow flex-col px-5 max-md:max-w-full max-md:mt-8">
-                  <div className="flex-col overflow-hidden self-stretch relative rounded-[12px] flex h-[520px] w-full pl-4 pr-20 py-4 items-start max-md:max-w-full max-md:pr-5 relative">
+                  <div className="flex-col overflow-hidden self-stretch relative rounded-[12px] flex md:h-[520px] h-[300px] w-full pl-4 pr-20 py-4 items-start max-md:max-w-full max-md:pr-5 relative">
                     <div className="top-5 left-5 absolute z-10">
                       <VerifiedBadge
                         text={product && product?.verified ? 'Verified' : 'Unverified'}
@@ -157,8 +157,8 @@ export default function ProductPage() {
                     />
                   </div>
 
-                  <div className="flex justify-between items-center">
-                    <div className="flex space-x-2 mt-2">
+                  <div className="flex md:flex-row flex-col justify-between items-center md:items-start">
+                    <div className="flex flex-wrap gap-2 mt-2">
                       {product &&
                         product?.imageURLs &&
                         product?.imageURLs.map((imageURL, index) => (
@@ -166,13 +166,13 @@ export default function ProductPage() {
                             key={index}
                             src={imageURL}
                             alt={`Thumbnail ${index + 1}`}
-                            className="w-[100px] h-[100px] rounded-[12px] border-2 border-distressBlue"
+                            className="md:w-[100px] md:h-[100px] w-[70px] h-[70px] rounded-[8px] border-2 border-distressBlue"
                             onClick={() => handleThumbnailClick(imageURL)}
                           />
                         ))}
                     </div>
                     {/* Buttons */}
-                    <div className="flex space-x-3">
+                    <div className="flex space-x-3 mt-10 md:mt-2">
                       {ownersContact.map((item, i) => (
                         <button
                           key={i}
@@ -291,17 +291,17 @@ export default function ProductPage() {
 
                   {/* Pricing and Details */}
                   <div className="mt-7">
-                    <h1 className="text-[#415EFF] md:text-[25px] text-[4.7vw] font-[700]">
+                    <h1 className="text-[#415EFF] md:text-[25px] text-[5.5vw] font-[700]">
                       {currencyFormatter(product?.price, 'AED')}
                     </h1>
-                    <div className="flex items-center space-x-2 text-[#344054] md:text-[14px] text-[3vw] mt-2 font-[500]">
+                    <div className="flex items-center space-x-2 text-[#344054] md:text-[14px] text-[3.5vw] mt-2 font-[500]">
                       <p>4 Beds</p>
                       <span>•</span>
                       <p>5 Baths</p>
                       <span>•</span>
                       <p>5 Sqft</p>
                     </div>
-                    <p className="text-[#344054] mt-2 text-sm font-[500] leading-tight whitespace-nowrap">
+                    <p className="text-[#344054] mt-2 md:text-sm text-[3.2vw] font-[500] leading-tight whitespace-nowrap">
                       {product?.location}
                     </p>
                   </div>
@@ -314,7 +314,7 @@ export default function ProductPage() {
                     <div className="bg-gray-200 self-stretch shrink-0 h-px my-7 max-md:max-w-full" />
 
                     {/* Property Info */}
-                    <div className="text-gray-900 md:text-3xl text-[5.5vw] font-bold  whitespace-nowrap mt-14 max-md:max-w-full md:mt-10">
+                    <div className="text-gray-900 md:text-3xl text-[5vw] font-bold  whitespace-nowrap mt-14 max-md:max-w-full md:mt-10">
                       Property Information
                     </div>
                     <div className="self-stretch flex w-full items-stretch justify-between gap-5 mt-6 pr-20 max-md:max-w-full max-md:flex-wrap max-md:pr-5">

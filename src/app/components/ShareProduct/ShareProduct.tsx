@@ -61,7 +61,7 @@ const BITLY_GUID = 'Bo41dWhwGdD'
   return (
     <>
     <div className='bg-white px-[16px] py-[5px] rounded-[20px] flex space-x-3 items-center cursor-pointer' onClick={handleShareOpen}>
-        <p className='text-[#101828] font-[500] text-[1.1vw]'>{title}</p>
+        <p className='text-[#101828] font-[500] md:text-[15px] text-[3.2vw]'>{title}</p>
         <Image src={icon} alt="" width={20} height={20} />
     </div>
 
@@ -78,7 +78,7 @@ const BITLY_GUID = 'Bo41dWhwGdD'
       }}
     >
 
-      <div className="flex justify-between gap-5 min-w-full">
+      <div className="flex flex-wrap justify-between gap-5 w-full">
       <ShareButton platform="whatsapp" url={shortenedUrl} hashtag={undefined} quote={undefined} />
 <ShareButton platform="telegram" url={shortenedUrl} hashtag={undefined} quote={undefined} />
 <ShareButton platform="facebook" url={shortenedUrl} quote="Check out this product!" hashtag={undefined} />
@@ -99,7 +99,7 @@ const BITLY_GUID = 'Bo41dWhwGdD'
         readOnly
       />
       <button
-        className="rounded-[8px] min-h-full px-7 py-3 text-[15px] font-[500] text-white bg-distressBlue"
+        className="rounded-[8px] min-h-full px-7 py-3 md:text-[15px] text-[3.5vw] font-[500] text-white bg-distressBlue"
         onClick={handleCopyClick}
       >
         {isCopied ? 'Copied!' : 'Copy'}
