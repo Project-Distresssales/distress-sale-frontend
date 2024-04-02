@@ -99,7 +99,7 @@ const BITLY_GUID = 'Bo41dWhwGdD'
         readOnly
       />
       <button
-        className="rounded-[8px] min-h-full px-7 text-[15px] font-[500] text-white bg-distressBlue"
+        className="rounded-[8px] min-h-full px-7 py-3 text-[15px] font-[500] text-white bg-distressBlue"
         onClick={handleCopyClick}
       >
         {isCopied ? 'Copied!' : 'Copy'}
