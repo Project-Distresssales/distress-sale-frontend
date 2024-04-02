@@ -1,10 +1,11 @@
-"use client"
+'use client';
 import API from '@/constants/api.constant';
 import { catchAsync } from '@/helpers/api.helper';
 import useRequest from '@/services/request/request.service';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { TickSvg } from '../Icons/Icons';
+import { InfinitySpin } from 'react-loader-spinner';
 
 interface PackageCardProps {
   tier: string;
@@ -16,7 +17,7 @@ interface PackageCardProps {
   bgColor?: any;
   handleContinueClick: () => void;
   selectedPackageId: any;
-  packageId,
+  packageId;
 }
 
 const SelectPackage = () => {
@@ -42,12 +43,11 @@ const SelectPackage = () => {
     }
   };
 
-
   const handleGetPackages = async () => {
     catchAsync(
       async () => {
         const res = await makeRequest({
-          method: "GET",
+          method: 'GET',
           url: API.packages,
         });
 
@@ -74,140 +74,174 @@ const SelectPackage = () => {
   }, []);
 
   return (
-    <div className="flex flex-wrap lg:flex-nowrap justify-between w-full md:gap-8 gap-14">
-      {packages?.map((item, i) => (
-        <PackageCard
-          key={i}
-          color={item?.name === 'Basic' ? '#D0D5DD' : item?.name === 'Super' ? '#F9C590' : '#7CC8C7'}
-          bgColor={item?.name === 'Super' && '#FFF9F4'}
-          tier={item?.name}
-          title={`AED ${item?.amount} + VAT`}
-          icon={<TickSvg color={item?.name === 'Basic' ? '#667085' : item?.name === 'Super' ? '#F9C590' : '#7CC8C7'} />}
-          handleContinueClick={() => handleContinueClick(item?._id)}
-          bannerText={item?.name === 'Basic' ? (
-            <div className="absolute mb-6 ml-4 mx-auto text-center text-[#101828]">
-              <p className="md:text-xl text-[5vw] font-[700] leading-tight">Free</p>
-              <p className="md:text-[12px] text-[3.2vw] font-[500] leading-tight">For</p>
-              <p className="md:text-[14px] text-[3.5vw] font-[700] leading-tight">{item?.activeFor} Days</p>
-            </div>
-          ) : item?.name === 'Super' ? (
-            <div className="absolute mb-6 ml-4 mx-auto text-center text-[#101828]">
-              <p className="md:text-[12px] text-[3.2vw] font-[700]">Get</p>
-              <p className="md:text-xl text-[5vw] font-[500]">20X</p>
-              <p className="md:text-[14px] text-[3.5vw] font-[700]">more Offer</p>
-            </div>
-          ) : (
-            <div className="absolute mb-6 ml-4 mx-auto text-center text-[#101828]">
-              <p className="md:text-[12px] text-[3.2vw] font-[700]">Get</p>
-              <p className="md:text-xl text-[5vw] font-[500]">50X</p>
-              <p className="md:text-[14px] text-[3.5vw] font-[700]">more Offer</p>
-            </div>
-          )}
-          benefits={item?.name === 'Basic' ? (
-            [
-              {
-                text: (
-                  <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
-                    Free & Active for <span className="font-bold text-black ">{item?.activeFor} Days</span>
-                  </p>
-                ),
-              },
-              {
-                text: (
-                  <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
-                    Up to <span className="font-bold text-black ">{item?.numOfPhotos} Photos</span> only
-                  </p>
-                ),
-              },
-              { text: <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">{item?.numOfAds} Active Basic Free Ads </p> },
-            ]
-          ) : item?.name === 'Super' ? (
-            [
-              {
-                text: (
-                  <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
-                    Active for <span className="font-bold text-black ">{item?.activeFor} Days</span>
-                  </p>
-                ),
-              },
-              {
-                text: (
-                  <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
-                    Up to <span className="font-bold text-black ">{item?.numOfPhotos} Photos</span> only
-                  </p>
-                ),
-              },
-              {
-                text: (
-                  <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
-                    Up to <span className="font-bold text-black ">{item?.numOfVideos} Videos</span> only
-                  </p>
-                ),
-              },
-              {
-                text: (
-                  <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
-                    Featured for <span className="font-bold text-black ">5 Days</span>
-                  </p>
-                ),
-              },
-              {
-                text: (
-                  <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
-                    Refresh every <span className="font-bold text-black ">15 Days</span>
-                  </p>
-                ),
-              },
-            ]
-          ) : (
-            [
-              {
-                text: (
-                  <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
-                    Active for <span className="font-bold text-black ">{item?.activeFor} Days</span>
-                  </p>
-                ),
-              },
-              {
-                text: (
-                  <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
-                    Up to <span className="font-bold text-black ">{item?.numOfPhotos} Photos</span> only
-                  </p>
-                ),
-              },
-              {
-                text: (
-                  <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
-                    Up to <span className="font-bold text-black ">{item?.numOfVideos} Videos</span> only
-                  </p>
-                ),
-              },
-              {
-                text: (
-                  <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
-                    Featured for <span className="font-bold text-black ">15 Days</span>
-                  </p>
-                ),
-              },
-              {
-                text: (
-                  <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
-                    Refresh every <span className="font-bold text-black ">10 Days</span>
-                  </p>
-                ),
-              },
-            ]
-          )} 
-          selectedPackageId={selectedPackageId}
-          packageId={item?._id}
-        />
-      ))}
-    </div>
+    <>
+      {isLoading ? (
+        <div className="flex justify-center items-center h-[300px]">
+          <InfinitySpin
+            /* @ts-ignore */
+            visible={true}
+            width="200"
+            color="#6F85FF"
+            ariaLabel="infinity-spin-loading"
+          />
+        </div>
+      ) : (
+        <div className="flex flex-wrap lg:flex-nowrap justify-between w-full md:gap-8 gap-14">
+          {packages?.map((item, i) => (
+            <PackageCard
+              key={i}
+              color={item?.name === 'Basic' ? '#D0D5DD' : item?.name === 'Super' ? '#F9C590' : '#7CC8C7'}
+              bgColor={item?.name === 'Super' && '#FFF9F4'}
+              tier={item?.name}
+              title={`AED ${item?.amount} + VAT`}
+              icon={
+                <TickSvg color={item?.name === 'Basic' ? '#667085' : item?.name === 'Super' ? '#F9C590' : '#7CC8C7'} />
+              }
+              handleContinueClick={() => handleContinueClick(item?._id)}
+              bannerText={
+                item?.name === 'Basic' ? (
+                  <div className="absolute mb-6 ml-4 mx-auto text-center text-[#101828]">
+                    <p className="md:text-xl text-[5vw] font-[700] leading-tight">Free</p>
+                    <p className="md:text-[12px] text-[3.2vw] font-[500] leading-tight">For</p>
+                    <p className="md:text-[14px] text-[3.5vw] font-[700] leading-tight">{item?.activeFor} Days</p>
+                  </div>
+                ) : item?.name === 'Super' ? (
+                  <div className="absolute mb-6 ml-4 mx-auto text-center text-[#101828]">
+                    <p className="md:text-[12px] text-[3.2vw] font-[700]">Get</p>
+                    <p className="md:text-xl text-[5vw] font-[500]">20X</p>
+                    <p className="md:text-[14px] text-[3.5vw] font-[700]">more Offer</p>
+                  </div>
+                ) : (
+                  <div className="absolute mb-6 ml-4 mx-auto text-center text-[#101828]">
+                    <p className="md:text-[12px] text-[3.2vw] font-[700]">Get</p>
+                    <p className="md:text-xl text-[5vw] font-[500]">50X</p>
+                    <p className="md:text-[14px] text-[3.5vw] font-[700]">more Offer</p>
+                  </div>
+                )
+              }
+              benefits={
+                item?.name === 'Basic'
+                  ? [
+                      {
+                        text: (
+                          <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
+                            Free & Active for <span className="font-bold text-black ">{item?.activeFor} Days</span>
+                          </p>
+                        ),
+                      },
+                      {
+                        text: (
+                          <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
+                            Up to <span className="font-bold text-black ">{item?.numOfPhotos} Photos</span> only
+                          </p>
+                        ),
+                      },
+                      {
+                        text: (
+                          <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
+                            {item?.numOfAds} Active Basic Free Ads{' '}
+                          </p>
+                        ),
+                      },
+                    ]
+                  : item?.name === 'Super'
+                  ? [
+                      {
+                        text: (
+                          <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
+                            Active for <span className="font-bold text-black ">{item?.activeFor} Days</span>
+                          </p>
+                        ),
+                      },
+                      {
+                        text: (
+                          <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
+                            Up to <span className="font-bold text-black ">{item?.numOfPhotos} Photos</span> only
+                          </p>
+                        ),
+                      },
+                      {
+                        text: (
+                          <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
+                            Up to <span className="font-bold text-black ">{item?.numOfVideos} Videos</span> only
+                          </p>
+                        ),
+                      },
+                      {
+                        text: (
+                          <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
+                            Featured for <span className="font-bold text-black ">5 Days</span>
+                          </p>
+                        ),
+                      },
+                      {
+                        text: (
+                          <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
+                            Refresh every <span className="font-bold text-black ">15 Days</span>
+                          </p>
+                        ),
+                      },
+                    ]
+                  : [
+                      {
+                        text: (
+                          <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
+                            Active for <span className="font-bold text-black ">{item?.activeFor} Days</span>
+                          </p>
+                        ),
+                      },
+                      {
+                        text: (
+                          <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
+                            Up to <span className="font-bold text-black ">{item?.numOfPhotos} Photos</span> only
+                          </p>
+                        ),
+                      },
+                      {
+                        text: (
+                          <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
+                            Up to <span className="font-bold text-black ">{item?.numOfVideos} Videos</span> only
+                          </p>
+                        ),
+                      },
+                      {
+                        text: (
+                          <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
+                            Featured for <span className="font-bold text-black ">15 Days</span>
+                          </p>
+                        ),
+                      },
+                      {
+                        text: (
+                          <p className="font-light md:text-sm text-[3.5vw] text-[#667085] ">
+                            Refresh every <span className="font-bold text-black ">10 Days</span>
+                          </p>
+                        ),
+                      },
+                    ]
+              }
+              selectedPackageId={selectedPackageId}
+              packageId={item?._id}
+            />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 
-const PackageCard: React.FC<PackageCardProps> = ({ tier, title, bannerText, icon, benefits, color, bgColor, handleContinueClick, selectedPackageId, packageId }) => {
-
+const PackageCard: React.FC<PackageCardProps> = ({
+  tier,
+  title,
+  bannerText,
+  icon,
+  benefits,
+  color,
+  bgColor,
+  handleContinueClick,
+  selectedPackageId,
+  packageId,
+}) => {
   return (
     <div
       className="w-full relative h-fit rounded-xl shadow cursor-pointer transform transition-all ease-in-out duration-300"

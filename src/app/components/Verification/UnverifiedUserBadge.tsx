@@ -3,9 +3,11 @@ import Image from 'next/image';
 import Assets from '@/constants/assets.constant';
 import { AppButton } from '../Buttons/Buttons';
 import useAppTheme from '@/hooks/theme.hook';
+import { useRouter } from 'next/navigation';
 
-export default function VerifyUserBadge() {
+export default function UnverifiedUserBadge() {
     const {isMobile} = useAppTheme();
+    const router = useRouter();
     return (
         <div className="w-full md:h-[100px] h-auto rounded-[10px] flex"
             style={{ boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)" }}>
@@ -17,7 +19,7 @@ export default function VerifyUserBadge() {
                     <p className="text-[#415EFF] md:text-[1.2vw] text-[3.5vw] font-[700]">Become a Verified User</p>
                     <p className='text-[#6F85FF] md:text-[1.1vw] text-[2.8vw] font-[500]'>Increase your online presence and reach a wider audience</p>
                 </div>
-                <AppButton text="Get started" fullWidth={false} boldText={false} />
+                <AppButton onClick={() => router.push('/profile')} text="Get started" fullWidth={false} boldText={false} />
             </div>
         </div>
     )

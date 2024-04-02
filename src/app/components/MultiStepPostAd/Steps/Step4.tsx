@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import API from '@/constants/api.constant';
 import { catchAsync } from '@/helpers/api.helper';
 import useRequest from '@/services/request/request.service';
@@ -8,13 +8,13 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import StepperControl from '../StepperControl';
 import { CategoryButton } from './Step2';
+import { InfinitySpin } from 'react-loader-spinner';
 
 interface Step2Props {
   handleClick: () => void;
   currentStep: number;
   steps: any[]; // Replace 'any[]' with the actual type for steps
 }
-
 
 const Step4 = ({ handleClick, currentStep, steps }) => {
   const { isLoading, makeRequest } = useRequest();
@@ -69,7 +69,6 @@ const Step4 = ({ handleClick, currentStep, steps }) => {
     }
   };
 
-
   const handleSubSelect = (subCategoryId, subCategoryName) => {
     if (subCategoryId !== null) {
       setSelectedSubCategoryId(subCategoryId);
@@ -91,13 +90,11 @@ const Step4 = ({ handleClick, currentStep, steps }) => {
     }
   }, []);
 
-
-
   const handleGetSections = async () => {
     catchAsync(
       async () => {
         const res = await makeRequest({
-          method: "GET",
+          method: 'GET',
           url: API.sections,
         });
 
@@ -123,7 +120,7 @@ const Step4 = ({ handleClick, currentStep, steps }) => {
     catchAsync(
       async () => {
         const res = await makeRequest({
-          method: "GET",
+          method: 'GET',
           url: API.categories,
         });
 
@@ -159,9 +156,8 @@ const Step4 = ({ handleClick, currentStep, steps }) => {
     setSelectedAltCategoryId(null);
   };
 
-
-  const propertyForSaleSection = altCategory.find(section => section?.name === 'Property for Sale');
-  const propertyForRentSection = altCategory.find(section => section?.name === 'Property for Rent');
+  const propertyForSaleSection = altCategory.find((section) => section?.name === 'Property for Sale');
+  const propertyForRentSection = altCategory.find((section) => section?.name === 'Property for Rent');
 
   return (
     <div className=" flex flex-col gap-16 w-full">
@@ -170,7 +166,11 @@ const Step4 = ({ handleClick, currentStep, steps }) => {
         <div className="flex items-center space-x-3">
           <Breadcrumbs className="" separator={selectedAltCategoryId !== null && '›'} aria-label="breadcrumb">
             {[
-              <p key="section" className="font-medium text-[#415EFF] md:text-[16px] text-[3vw] cursor-pointer hover:underline underline-offset-2" onClick={handleRemoveItem}>
+              <p
+                key="section"
+                className="font-medium text-[#415EFF] md:text-[16px] text-[3vw] cursor-pointer hover:underline underline-offset-2"
+                onClick={handleRemoveItem}
+              >
                 {storedSectionName}
               </p>,
               selectedAltCategoryId !== null && (
@@ -180,59 +180,71 @@ const Step4 = ({ handleClick, currentStep, steps }) => {
               ),
             ]}
           </Breadcrumbs>
-
         </div>
       </div>
 
-      {storedSectionName === 'Property for Rent' ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4">
-          {propertyForRentSection?.categoryIDs?.map((category) => (
-            <CategoryButton
-              key={category?._id}
-              text={category?.name}
-              selected={selectedOthersCategoryId === category?._id}
-              onClick={() => handleOthersSelect(category?._id, category?.name)}
-            />
-          ))}
+      {isLoading ? (
+        <div className="flex justify-center items-center h-[200px]">
+          <InfinitySpin
+            /* @ts-ignore */
+            visible={true}
+            width="200"
+            color="#6F85FF"
+            ariaLabel="infinity-spin-loading"
+          />
         </div>
       ) : (
         <>
-          {selectedAltCategoryId === null ? (
+          {storedSectionName === 'Property for Rent' ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4">
-              {propertyForSaleSection?.categoryIDs?.map((category) => (
+              {propertyForRentSection?.categoryIDs?.map((category) => (
                 <CategoryButton
                   key={category?._id}
                   text={category?.name}
-                  selected={selectedAltCategoryId === category?._id}
-                  onClick={() => handleSelect(category?._id, category?.name)}
+                  selected={selectedOthersCategoryId === category?._id}
+                  onClick={() => handleOthersSelect(category?._id, category?.name)}
                 />
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4">
-              {(() => {
-                switch (selectedAltCategoryName) {
-                  case "Residential for Sale":
-                  case "Commercial":
-                    const selectedMainCategory = propertyForSaleSection?.categoryIDs?.find(
-                      (category) => category?._id === selectedAltCategoryId
-                    );
+            <>
+              {selectedAltCategoryId === null ? (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4">
+                  {propertyForSaleSection?.categoryIDs?.map((category) => (
+                    <CategoryButton
+                      key={category?._id}
+                      text={category?.name}
+                      selected={selectedAltCategoryId === category?._id}
+                      onClick={() => handleSelect(category?._id, category?.name)}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4">
+                  {(() => {
+                    switch (selectedAltCategoryName) {
+                      case 'Residential for Sale':
+                      case 'Commercial':
+                        const selectedMainCategory = propertyForSaleSection?.categoryIDs?.find(
+                          (category) => category?._id === selectedAltCategoryId
+                        );
 
-                    return selectedMainCategory?.categories?.map((subcategory) => (
-                      <CategoryButton
-                        key={subcategory?._id}
-                        text={subcategory?.name}
-                        selected={selectedSubCategoryId === subcategory?._id}
-                        onClick={() => handleSubSelect(subcategory?._id, subcategory?.name)}
-                      />
-                    ));
-                  default:
-                    return <p className="text-center w-full">No categories to display</p>;
-                }
-              })()}
-            </div>
+                        return selectedMainCategory?.categories?.map((subcategory) => (
+                          <CategoryButton
+                            key={subcategory?._id}
+                            text={subcategory?.name}
+                            selected={selectedSubCategoryId === subcategory?._id}
+                            onClick={() => handleSubSelect(subcategory?._id, subcategory?.name)}
+                          />
+                        ));
+                      default:
+                        return <p className="text-center w-full">No categories to display</p>;
+                    }
+                  })()}
+                </div>
+              )}
+            </>
           )}
-
         </>
       )}
 

@@ -42,12 +42,14 @@ export default function Safety() {
     const [location, setLocation] = useState<string>('');
     const [occupancyStatus, setOccupancyStatus] = useState<string>('');
     const [price, setPrice] = useState<number>();
+    const [openMarketPrice, setOpenMarketPrice] = useState<number>();
     const [readyDate, setReadyDate] = useState<string>('');
     const [referenceId, setReferenceId] = useState<string>('');
     const [size, setSize] = useState('');
     const [title, setTitle] = useState('');
     const [tourUrl, setTourUrl] = useState('');
     const [adImageUrl, setAdImageUrl] = useState<string[]>([]);
+    const [adDocumentUrl, setAdDocumentUrl] = useState<string[]>([]);
 
 
     // Get Stored Post Ad data from Local storage
@@ -64,9 +66,13 @@ export default function Safety() {
         setAltCategoryName(localStorage.getItem('selectedAltCategoryName') || '');
         setShortDesc(localStorage.getItem('shortDesc') || '');
         const savedUrls = localStorage.getItem('uploadedImageUrls');
+        const savedDocumentUrls = localStorage.getItem('uploadedDocumentUrls');
         if (savedUrls) {
           setAdImageUrl(JSON.parse(savedUrls));
         }
+        if (savedDocumentUrls) {
+            setAdDocumentUrl(JSON.parse(savedDocumentUrls));
+          }
 
         const fetchDataFromLocalStorage = () => {
             const storedData = localStorage.getItem('pfsFormDataKey');
@@ -81,6 +87,7 @@ export default function Safety() {
                 setLocation(parsedData.location || '');
                 setOccupancyStatus(parsedData.occupancyStatus || '');
                 setPrice(parseFloat(parsedData.price || ''));
+                setOpenMarketPrice(parseFloat(parsedData.openMarketPrice || ''));
                 setReadyDate(parsedData.readyDate || '');
                 setReferenceId(parsedData.referenceId || '');
                 setSize(parsedData.size || '');
@@ -108,6 +115,7 @@ export default function Safety() {
     const isDataAvailable =
         title &&
         price &&
+        openMarketPrice &&
         name &&
         email &&
         phoneNumber &&
@@ -128,8 +136,10 @@ export default function Safety() {
             location: location,
             country: 'UNITED ARAB EMIRATE',
             price: price,
+            openMarketPrice: openMarketPrice,
             closingFee: closingFee,
             imageURLs: adImageUrl,
+            adDocuments: adDocumentUrl,
             videoURLs: [tourUrl],
             ownerContact: {
                 name,
@@ -191,20 +201,7 @@ export default function Safety() {
             clearLocalStorageData();
             router.push('/');
         } catch (error: any) {
-            const res: any = error?.response;
-
-            const status = res?.status;
-            const data = res?.data;
-
-            if (status === 406) {
-                toast.error(data.message);
-            } else if (status === 400) {
-                // Handle specific error condition if needed
-            } else if (status === 401) {
-                toast.error(data.message);
-            } else {
-                toast.error('Something went wrong! Pls try again!', {});
-            }
+            toast.error(error?.response?.data?.message);
         }
     };
 

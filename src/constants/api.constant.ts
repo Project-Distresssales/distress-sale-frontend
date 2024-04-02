@@ -17,7 +17,7 @@ export const API = {
   requestResetPassword: '/users/auth/reset-password/request',
   resetPass: '/users/auth/reset-password',
   // verification
-  verifyUser: '/verification/verify',
+  // verifyUser: '/verification/verify',
 
   // admins
   packages: '/api/v1/admin/packages',
@@ -33,6 +33,7 @@ export const API = {
   // user
   user: '/api/v1/user/me',
   updateUser: '/api/v1/user/update',
+  verifyUser: '/api/v1/user/verify-me',
 
   getProduct: '/api/v1/tag/property-for-sale',
 };

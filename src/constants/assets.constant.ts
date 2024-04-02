@@ -58,8 +58,10 @@ import pfr from '../app/assets/icons/pfr.svg';
 import automobile from '../app/assets/icons/automobile.svg';
 import listingBlue from '../app/assets/icons/listing.svg';
 import commercialBlue from '../app/assets/icons/commercial.svg';
+import pdfLogo from '../app/assets/images/pdf-logo.png';
 
 const Assets = {
+  pdfLogo,
   pfs,
   pfr,
   automobile,

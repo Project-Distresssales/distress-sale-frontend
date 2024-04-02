@@ -115,18 +115,7 @@ const SignupModal = ({
 
       },
       (error: any) => {
-        const res: any = error?.response;
-
-        const status = res?.status;
-        const data = res?.data;
-
-        if (status === 406) {
-          toast.error(data.message);
-        } else if (status === 400) {
-          setErrors(data.data);
-        } else {
-          toast.error('Something went wrong! Pls try again!', {});
-        }
+        toast.error(error?.response?.data?.message);
       }
     );
   };

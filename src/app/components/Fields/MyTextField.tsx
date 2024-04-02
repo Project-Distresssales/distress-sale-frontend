@@ -154,6 +154,10 @@ const MyTextField = ({
           // Adjust the following based on your requirements
           startAdornment: leadingIcon ? renderPrefix() : null,
           endAdornment: isObscured ? renderVisibilityIcons() : suffixIcon ? renderSuffix() : null,
+          style: {
+            WebkitAppearance: 'none', // Remove default arrows
+            margin: 0 // Ensure no extra margin is added
+          }
         }}
         type={!obscured ? 'text' : type}
         inputProps={others}

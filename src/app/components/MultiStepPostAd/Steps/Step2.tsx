@@ -5,6 +5,7 @@ import API from '@/constants/api.constant';
 import { catchAsync } from '@/helpers/api.helper';
 import useRequest from '@/services/request/request.service';
 import { toast } from 'react-toastify';
+import { InfinitySpin } from 'react-loader-spinner';
 
 interface Step2Props {
   handleClick: () => void;
@@ -46,12 +47,11 @@ const Step2: React.FC<Step2Props> = ({ handleClick, currentStep, steps }) => {
     }
   };
 
-
   const handleGetSections = async () => {
     catchAsync(
       async () => {
         const res = await makeRequest({
-          method: "GET",
+          method: 'GET',
           url: API.sections,
         });
 
@@ -80,24 +80,46 @@ const Step2: React.FC<Step2Props> = ({ handleClick, currentStep, steps }) => {
   return (
     <div className=" flex flex-col gap-16 ">
       <div className="flex flex-col gap-6 w-full justify-center items-center">
-        <h2 className="md:text-2xl text-[5vw] font-bold leading-tight text-center">Hello, what items do you have to list today?</h2>
-        <p className="font-medium text-[#667085] md:text-[16px] text-[4vw]">Choose the category that best suits your ad</p>
+        <h2 className="md:text-2xl text-[5vw] font-bold leading-tight text-center">
+          Hello, what items do you have to list today?
+        </h2>
+        <p className="font-medium text-[#667085] md:text-[16px] text-[4vw]">
+          Choose the category that best suits your ad
+        </p>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4">
-        {sections?.map((category, index) => (
-          <CategoryButton
-            key={index}
-            text={category?.name}
-            icon={category?.name === 'Property for sale' ? <HouseIcon /> :
-              category?.name === 'Automobile' ? <CarIcon /> :
-                category?.name === 'Listings' ? <BusinessBagIcon /> :
-                  <TreeListIcon />
-            }
-            selected={selectedSectionId === category?._id}
-            onClick={() => handleSelect(category?._id, category?.name)}
+      {isLoading ? (
+        <div className="flex justify-center items-center h-[200px]">
+          <InfinitySpin
+            /* @ts-ignore */
+            visible={true}
+            width="200"
+            color="#6F85FF"
+            ariaLabel="infinity-spin-loading"
           />
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4">
+          {sections?.map((category, index) => (
+            <CategoryButton
+              key={index}
+              text={category?.name}
+              icon={
+                category?.name === 'Property for sale' ? (
+                  <HouseIcon />
+                ) : category?.name === 'Automobile' ? (
+                  <CarIcon />
+                ) : category?.name === 'Listings' ? (
+                  <BusinessBagIcon />
+                ) : (
+                  <TreeListIcon />
+                )
+              }
+              selected={selectedSectionId === category?._id}
+              onClick={() => handleSelect(category?._id, category?.name)}
+            />
+          ))}
+        </div>
+      )}
       {currentStep !== steps.length && (
         <StepperControl handleClick={handleClick} currentStep={currentStep} steps={steps} />
       )}
@@ -115,14 +137,15 @@ interface CategoryButtonProps {
 export const CategoryButton: FC<CategoryButtonProps> = ({ text, icon, selected, ...others }) => {
   return (
     <button
-      className={`px-4 w-fit py-3 rounded-[10px] ${selected ? 'border-[#415EFF]' : 'border-[#EAECF0]'
-        } transition-all duration-500 border-2 flex items-center gap-2.5 justify-self-center `}
+      className={`px-4 w-fit py-3 rounded-[10px] ${
+        selected ? 'border-[#415EFF]' : 'border-[#EAECF0]'
+      } transition-all duration-500 border-2 flex items-center gap-2.5 justify-self-center `}
       type="button"
       style={{ boxShadow: '0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08)' }}
       {...others}
     >
       {icon && <span className="">{icon}</span>}
-      <span className='md:text-[16px] text-[3.5vw] font-[500]'>{text}</span>
+      <span className="md:text-[16px] text-[3.5vw] font-[500]">{text}</span>
     </button>
   );
 };

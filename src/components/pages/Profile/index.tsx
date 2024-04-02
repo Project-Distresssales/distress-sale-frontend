@@ -20,14 +20,16 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
+import { RotatingLines } from 'react-loader-spinner'
 
 export default function ProfilePage() {
   const { profile: user } = useGlobalState();
   const { isMobile } = useAppTheme();
   const dispatch = useDispatch();
   const { makeRequest, isLoading } = useRequest();
+  const { makeRequest: makeVerificationRequest, isLoading: isVerificationLoading } = useRequest();
   const { makeRequest: makeUserRequest, isLoading: loadingUser } = useRequest();
-  const [userState, setUserState] = React.useState<any>([])
+  const [userState, setUserState] = React.useState<any>([]);
   const [loadingImage, setLoadingImage] = React.useState<boolean>(false);
   const [gender, setGender] = React.useState<string>('');
   const [location, setLocation] = React.useState<string>('');
@@ -235,6 +237,23 @@ export default function ProfilePage() {
   }, []);
 
 
+  // Verify User
+  const verifyUser = async () => {
+    try {
+        const res = await makeVerificationRequest({
+            method: 'GET',
+            url: API.verifyUser,
+        });
+
+        const { status, data, message }: any = res.data;
+
+        toast.success(message);
+
+    } catch (error: any) {
+        toast.error(error?.response?.data?.message);
+    }
+};
+
 
   return (
     <FadeIn>
@@ -272,8 +291,42 @@ export default function ProfilePage() {
                   </div>
 
                   <div className="flex justify-end">
-                    <button className="justify-center text-gray-900 text-center text-sm font-medium leading-tight tracking-normal items-center border border-[color:var(--grey-300,#D0D5DD)] flex gap-2 px-20 py-1.5 rounded-md border-solid self-end max-md:px-5">
-                      <span>
+                    {userState?.verified ? (
+                      <div className="border border-[#0ecf75] space-x-3 rounded-[8px] font-[500] text-[15px] px-5 py-5 flex justify-center items-center">
+                        <span className="text-[#0ecf75]">Verified</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M6.98242 9.99909L8.99076 12.0158L13.0158 7.98242"
+                          stroke="#0ecf75"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M8.95742 2.04258C9.53242 1.55091 10.4741 1.55091 11.0574 2.04258L12.3741 3.17591C12.6241 3.39258 13.0908 3.56758 13.4241 3.56758H14.8408C15.7241 3.56758 16.4491 4.29258 16.4491 5.17591V6.59258C16.4491 6.91758 16.6241 7.39258 16.8408 7.64258L17.9741 8.95925C18.4658 9.53425 18.4658 10.4759 17.9741 11.0592L16.8408 12.3759C16.6241 12.6259 16.4491 13.0926 16.4491 13.4259V14.8426C16.4491 15.7259 15.7241 16.4509 14.8408 16.4509H13.4241C13.0991 16.4509 12.6241 16.6259 12.3741 16.8426L11.0574 17.9759C10.4824 18.4676 9.54075 18.4676 8.95742 17.9759L7.64076 16.8426C7.39076 16.6259 6.92409 16.4509 6.59075 16.4509H5.14909C4.26575 16.4509 3.54076 15.7259 3.54076 14.8426V13.4176C3.54076 13.0926 3.36576 12.6259 3.15742 12.3759L2.03242 11.0509C1.54909 10.4759 1.54909 9.54258 2.03242 8.96758L3.15742 7.64258C3.36576 7.39258 3.54076 6.92591 3.54076 6.60091V5.16758C3.54076 4.28424 4.26575 3.55924 5.14909 3.55924H6.59075C6.91575 3.55924 7.39076 3.38424 7.64076 3.16758L8.95742 2.04258Z"
+                          stroke="#0ecf75"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                        </div>
+                    ) : (
+                      <>
+                      <button onClick={verifyUser} className="justify-center text-gray-900 text-center text-sm font-medium leading-tight tracking-normal items-center border border-[color:var(--grey-300,#D0D5DD)] flex gap-2 px-20 py-1.5 rounded-md border-solid self-end max-md:px-5">
+                      {isVerificationLoading ? (
+                        <RotatingLines
+                        /* @ts-ignore */
+                        visible={true}
+                        width="30"
+                        strokeColor="green"
+                        strokeWidth="3"
+                        animationDuration="0.75"
+                        ariaLabel="rotating-lines-loading"
+                        />
+                      ) : (
+                        <>
+                        <span>
                         Verify your account{' '}
                       </span>
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -292,7 +345,11 @@ export default function ProfilePage() {
                           strokeLinejoin="round"
                         />
                       </svg>
+                        </>
+                      )}
                     </button>
+                      </>
+                    )}
                   </div>
 
                   <div className="flex justify-between w-full">

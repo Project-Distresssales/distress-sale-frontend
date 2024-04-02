@@ -45,21 +45,8 @@ const LoginModal = ({
         dispatch(profileLoginAction(data));
         onClose();
       })
-      .catch((error: AxiosError) => {
-        const res: any = error?.response;
-
-        const status = res?.status;
-        const data = res?.data;
-
-        if (status === 406) {
-          toast.error(data.message);
-        } else if (status === 400) {
-          setErrors(data.data);
-        } else if (status === 401) {
-          toast.error(data.message);
-        } else {
-          toast.error('Something went wrong! Pls try again!', {});
-        }
+      .catch((error: any) => {
+        toast.error(error?.response?.data?.message);
       });
   };
 
@@ -107,15 +94,7 @@ const LoginModal = ({
         // }, 2000);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(error, errorCode);
-
-        if (errorCode === 'auth/invalid-login-credentials') {
-          return toast.error('Invalid Login Credentials!');
-        }
-
-        toast.error(errorMessage);
+        toast.error(error?.response?.data?.message);
       });
     // .finally(() => {
     //   stopLoad();
@@ -159,7 +138,7 @@ const LoginModal = ({
             placeholder="Enter your email address"
             withBackground={false}
             readOnly={false}
-            error={errors.email}
+            error={errors?.email}
             {...getFieldProps('email')}
           />
           <TextField
@@ -170,7 +149,7 @@ const LoginModal = ({
             obscured={true}
             withBackground={false}
             readOnly={false}
-            error={errors.password}
+            error={errors?.password}
             {...getFieldProps('password')}
           />
           <div className="mt-10">

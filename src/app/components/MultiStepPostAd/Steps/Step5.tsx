@@ -39,13 +39,14 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
   const [title, setTitle] = useState<string>('');
   const [tourUrl, setTourUrl] = useState<string>('');
   const [price, setPrice] = useState<number | null>();
+  const [openMarketPrice, setOpenMarketPrice] = useState<number | null>();
   const [closingFee, setClosingFee] = useState<number | null>();
   const [communityFee, setCommunityFee] = useState<number | null>();
   const [bedroom, setBedroom] = useState<number | null>();
   const [bathroom, setBathroom] = useState<number | null>();
   const [size, setSize] = useState<string>('');
   const [readyDate, setReadyDate] = useState<string>('');
-  const [referenceId, setReferenceId] = useState<string>('');
+  // const [referenceId, setReferenceId] = useState<string>('');
   const [occupancyStatus, setOccupancyStatus] = useState<string>('');
   const [location, setLocation] = useState<string>('');
   const [shortDesc, setShortDesc] = useState<string>('');
@@ -61,6 +62,9 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
         break;
       case 'price':
         setPrice(value as number | null);
+        break;
+        case 'openMarketPrice':
+        setOpenMarketPrice(value as number | null);
         break;
       case 'closingFee':
         setClosingFee(value as number | null);
@@ -80,9 +84,9 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
       case 'readyDate':
         setReadyDate(value as string);
         break;
-      case 'referenceId':
-        setReferenceId(value as string);
-        break;
+      // case 'referenceId':
+      //   setReferenceId(value as string);
+      //   break;
       case 'occupancyStatus':
         setOccupancyStatus(value as string);
         break;
@@ -108,13 +112,14 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
       title,
       tourUrl,
       price,
+      openMarketPrice,
       closingFee,
       communityFee,
       bedroom,
       bathroom,
       size,
       readyDate,
-      referenceId,
+      // referenceId,
       occupancyStatus,
       location,
       shortDesc,
@@ -122,7 +127,7 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
     };
 
     localStorage.setItem('pfsFormDataKey', JSON.stringify(dataToSave));
-  }, [title, tourUrl, price, closingFee, communityFee, bedroom, bathroom, size, readyDate, referenceId, occupancyStatus, location, shortDesc, fullDesc]);
+  }, [title, tourUrl, price, openMarketPrice, closingFee, communityFee, bedroom, bathroom, size, readyDate, occupancyStatus, location, shortDesc, fullDesc]);
 
   useEffect(() => {
     setShortDesc(localStorage.getItem('shortDesc') || '');
@@ -132,16 +137,17 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
     
         if (storedData) {
             const parsedData = JSON.parse(storedData);
-            setBathroom(parsedData.bathroom || 0);
-            setBedroom(parsedData.bedroom || 0);
-            setClosingFee(parseFloat(parsedData.closingFee || 0));
-            setCommunityFee(parsedData.communityFee || 0);
+            setBathroom(parsedData.bathroom);
+            setBedroom(parsedData.bedroom);
+            setClosingFee(parseFloat(parsedData.closingFee));
+            setOpenMarketPrice(parseFloat(parsedData.openMarketPrice));
+            setCommunityFee(parsedData.communityFee);
             setFullDesc(parsedData.fullDesc || '');
             setLocation(parsedData.location || '');
             setOccupancyStatus(parsedData.occupancyStatus || '');
-            setPrice(parseFloat(parsedData.price || 0));
+            setPrice(parseFloat(parsedData.price));
             setReadyDate(parsedData.readyDate || '');
-            setReferenceId(parsedData.referenceId || '');
+            // setReferenceId(parsedData.referenceId || '');
             setSize(parsedData.size || '');
             setTitle(parsedData.title || '');
             setTourUrl(parsedData.tourUrl || '');
@@ -179,13 +185,14 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
             title={title}
             tourUrl={tourUrl}
             price={price}
+            openMarketPrice={openMarketPrice}
             closingFee={closingFee}
             communityFee={communityFee}
             bedroom={bedroom}
             bathroom={bathroom}
             size={size}
             readyDate={readyDate}
-            referenceId={referenceId}
+            referenceId={''}
             occupancyStatus={occupancyStatus}
             location={location}
             shortDesc={shortDesc}

@@ -1,56 +1,59 @@
-"use client"
+'use client';
 
-import React, { useEffect, useState } from 'react'
-import Assets from '@/constants/assets.constant'
-import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter'
-import ServiceCard from './components/ServiceCard/ServiceCard'
-import SearchCategory from './components/SearchCategory/SearchCategory'
-import VerifyUserBadge from './components/VerifyUserBadge/VerifyUserBadge'
-import ProductCard from './components/Card/ProductCard'
-import Footer from './components/Footer/Footer'
-import useAppTheme from '@/hooks/theme.hook'
-import MobileNavbar from './components/Navbar/MovileNavbar'
-import Navbar from './components/Navbar/Navbar'
-import SubNavbar from './components/Navbar/SubNavbar'
-import { FadeIn } from './components/Transitions/Transitions'
-import { algoliaClient } from '@/constants/api.constant'
-import useGlobalState from '@/hooks/globalstate.hook'
-import LoginModal from './components/Auth/Login/Login'
-import SignupModal from './components/Auth/SIgnup/Signup'
+import React, { useEffect, useState } from 'react';
+import Assets from '@/constants/assets.constant';
+import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter';
+import ServiceCard from './components/ServiceCard/ServiceCard';
+import SearchCategory from './components/SearchCategory/SearchCategory';
+import ProductCard from './components/Card/ProductCard';
+import useAppTheme from '@/hooks/theme.hook';
+import MobileNavbar from './components/Navbar/MovileNavbar';
+import Navbar from './components/Navbar/Navbar';
+import SubNavbar from './components/Navbar/SubNavbar';
+import { FadeIn } from './components/Transitions/Transitions';
+import API, { algoliaClient } from '@/constants/api.constant';
+import useGlobalState from '@/hooks/globalstate.hook';
+import LoginModal from './components/Auth/Login/Login';
+import SignupModal from './components/Auth/SIgnup/Signup';
+import useRequest from '@/services/request/request.service';
+import UnverifiedUserBadge from './components/Verification/UnverifiedUserBadge';
+import VerifiedUserBadge from './components/Verification/VerifiedUserBadge';
 
 export default function Home() {
   const { isMobile } = useAppTheme();
   const { logout, isAuthenticated } = useGlobalState();
+  const { makeRequest: makeUserRequest, isLoading: isLoadingUser } = useRequest();
   const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
   const [sideBar, setSideBar] = useState<boolean>(false);
+  const [userState, setUserState] = React.useState<any>([]);
   const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState<boolean>(false);
 
   const services = [
     {
-      header: "Listings",
-      text: "Distress Sales allows users post classified ads. You can buy, sell, and advertise properties and products with ease.",
-      buttonText: "Check Market Insights",
-      iconPath: Assets.listingWhite
+      header: 'Listings',
+      text: 'Distress Sales allows users post classified ads. You can buy, sell, and advertise properties and products with ease.',
+      buttonText: 'Check Market Insights',
+      iconPath: Assets.listingWhite,
     },
     {
-      header: "Market Insights",
-      text: "Gain valuable market insights by exploring accurate market prices, ensuring informed decision-making and the best deals.",
-      buttonText: "Post Ad",
-      iconPath: Assets.insightWhite
+      header: 'Market Insights',
+      text: 'Gain valuable market insights by exploring accurate market prices, ensuring informed decision-making and the best deals.',
+      buttonText: 'Post Ad',
+      iconPath: Assets.insightWhite,
     },
     {
-      header: "Diverse Categories",
-      text: "There are wide variety of categories to choose from, offering an extensive selection of exclusive deals to explore.",
-      buttonText: "Explore",
-      iconPath: Assets.categoryWhite
+      header: 'Diverse Categories',
+      text: 'There are wide variety of categories to choose from, offering an extensive selection of exclusive deals to explore.',
+      buttonText: 'Explore',
+      iconPath: Assets.categoryWhite,
     },
-  ]
+  ];
 
   // Searched categories
   const popularCategories = [
     {
-      header: "Property for Sale",
+      header: 'Property for Sale',
       items: [
         {
           text: 'Residential for Sale',
@@ -68,10 +71,10 @@ export default function Home() {
           text: 'Multiple Units',
           path: '',
         },
-      ]
+      ],
     },
     {
-      header: "Property for Rent",
+      header: 'Property for Rent',
       items: [
         {
           text: 'Residential Units for Rent',
@@ -89,10 +92,10 @@ export default function Home() {
           text: 'Short Term',
           path: '',
         },
-      ]
+      ],
     },
     {
-      header: "Automobile",
+      header: 'Automobile',
       items: [
         {
           text: 'Cars',
@@ -110,12 +113,9 @@ export default function Home() {
           text: 'Heavy Vehicles',
           path: '',
         },
-      ]
+      ],
     },
   ];
-
-
-
 
   // Agolia Search Result
   const [query, setQuery] = useState<string | any>('');
@@ -123,18 +123,18 @@ export default function Home() {
   const [fetchResults, setFetchResults] = useState<any>([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-
-  const data = ['General', 'Automobile', 'Property for Sale', 'Property for Rent'].map(
-    item => ({ label: item, value: item })
-  );
-
+  const data = ['General', 'Automobile', 'Property for Sale', 'Property for Rent'].map((item) => ({
+    label: item,
+    value: item,
+  }));
 
   // Get All Page Data or ads
   const handleSearch = async (indexName) => {
     try {
       const hitsPerPage = 100;
       const algoliaIndex = algoliaClient.initIndex(indexName);
-      const { hits } = await algoliaIndex.search('', { // Empty query
+      const { hits } = await algoliaIndex.search('', {
+        // Empty query
         hitsPerPage: hitsPerPage,
       });
       return { category: indexName, hits };
@@ -160,7 +160,6 @@ export default function Home() {
     searchClients();
   }, []);
 
-
   // Map specific properties outside of the component
   const categoriesData = {};
 
@@ -174,7 +173,6 @@ export default function Home() {
   const automobile = categoriesData['automobile'] || [];
   const commercial = categoriesData['commercial'] || [];
   // const categories = categoriesData['categories'] || [];
-
 
   // Login Modal
   const handleLoginModal = () => {
@@ -233,6 +231,23 @@ export default function Home() {
     setVerificationModalOpen(false);
   };
 
+  // Get user details
+  const fetchUser = async () => {
+    try {
+      const res = await makeUserRequest({
+        url: API.user,
+        method: 'GET',
+      });
+      const { data } = res.data;
+      setUserState(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <FadeIn>
@@ -243,23 +258,35 @@ export default function Home() {
         </>
       ) : (
         <>
-            <MobileNavbar sideBar={sideBar} setSideBar={setSideBar} />
-            {/* Drop Down */}
-            {sideBar && (
-              <FadeIn>
-                <div className='md:hidden block w-[60%] h-auto bg-white shadow text-center rounded-[12px] absolute right-5 z-20 space-y-3 p-5 top-16'>
-                  {!isAuthenticated && (
-                    <>
-                      <div onClick={handleLoginModal} className='rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]'>Sign In</div>
-                      <div onClick={handleRegisterModal} className='rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]'>Sign Up</div>
-                    </>
-                  )}
-                  {isAuthenticated && (
-                    <div onClick={logout} className='rounded-[8px] bg-[#FCEEEF] p-4 text-[4.5vw] font-[500] text-[#BA242E]'>Logout</div>
-                  )}
-                </div>
-              </FadeIn>
-            )}
+          <MobileNavbar sideBar={sideBar} setSideBar={setSideBar} />
+          {/* Drop Down */}
+          {sideBar && (
+            <FadeIn>
+              <div className="md:hidden block w-[60%] h-auto bg-white shadow text-center rounded-[12px] absolute right-5 z-20 space-y-3 p-5 top-16">
+                {!isAuthenticated && (
+                  <>
+                    <div onClick={handleLoginModal} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                      Sign In
+                    </div>
+                    <div
+                      onClick={handleRegisterModal}
+                      className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]"
+                    >
+                      Sign Up
+                    </div>
+                  </>
+                )}
+                {isAuthenticated && (
+                  <div
+                    onClick={logout}
+                    className="rounded-[8px] bg-[#FCEEEF] p-4 text-[4.5vw] font-[500] text-[#BA242E]"
+                  >
+                    Logout
+                  </div>
+                )}
+              </div>
+            </FadeIn>
+          )}
           <SubNavbar />
         </>
       )}
@@ -268,8 +295,12 @@ export default function Home() {
           <div className="w-full md:rounded-[15px] rounded-[10px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center">
             <div className="h-auto text-center">
               <div className="w-full">
-                <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">The Ultimate Affordable Marketplace <br /> for Buying, Renting & Selling</h1>
-                <p className='text-white md:text-[1.3vw] text-[3vw] font-[700] mt-8'>Explore the Best Deals: Discover, Connect, Transact</p>
+                <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">
+                  The Ultimate Affordable Marketplace <br /> for Buying, Renting & Selling
+                </h1>
+                <p className="text-white md:text-[1.3vw] text-[3vw] font-[700] mt-8">
+                  Explore the Best Deals: Discover, Connect, Transact
+                </p>
               </div>
 
               <div className="md:mt-20 mt-10 relative">
@@ -286,13 +317,14 @@ export default function Home() {
                     className="z-20 mt-2 w-full rounded-[8px] h-[300px] overflow-auto bg-white absolute"
                     style={{ boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px' }}
                   >
-                    {results && results?.map((item, i) => (
-                      <div key={i} className="w-full h-[50px] border-b flex justify-between items-center px-5">
-                        <div className="space-y-1">
-                          <p className="font-[500] md:text-[16px]">{item.name}</p>
+                    {results &&
+                      results?.map((item, i) => (
+                        <div key={i} className="w-full h-[50px] border-b flex justify-between items-center px-5">
+                          <div className="space-y-1">
+                            <p className="font-[500] md:text-[16px]">{item.name}</p>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
 
                     {!results && (
                       <div className="flex justify-center items-center">
@@ -319,7 +351,6 @@ export default function Home() {
               ))}
             </div>
 
-
             {/* Popular Search category */}
             <div className="mt-24">
               <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular Categories</h1>
@@ -337,16 +368,14 @@ export default function Home() {
             </div>
 
             {/* Verification */}
-            <div className="mt-20">
-              <VerifyUserBadge />
-            </div>
+            <div className="mt-20">{userState && userState?.verified ? <VerifiedUserBadge /> : <UnverifiedUserBadge />}</div>
 
             {/* Popular property sales */}
             <div className="mt-20 w-full">
               {propertyForSale?.length > 0 && (
                 <div>
                   <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Sale</h1>
-                  <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
+                  <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
                     {propertyForSale?.map((product, i) => (
                       <ProductCard key={i} product={product} />
                     ))}
@@ -356,8 +385,10 @@ export default function Home() {
 
               {automobile?.length > 0 && (
                 <div className="mt-16">
-                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Used Cars for Sale</h1>
-                  <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
+                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">
+                    Popular in Used Cars for Sale
+                  </h1>
+                  <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
                     {automobile?.map((product, i) => (
                       <ProductCard key={i} product={product} />
                     ))}
@@ -377,7 +408,7 @@ export default function Home() {
               {propertyForRent?.length > 0 && (
                 <div className="mt-16">
                   <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Rent</h1>
-                  <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
+                  <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
                     {propertyForRent?.map((product, i) => (
                       <ProductCard key={i} product={product} />
                     ))}
@@ -385,26 +416,23 @@ export default function Home() {
                 </div>
               )}
 
-
               {commercial?.length > 0 && (
                 <div className="mt-16">
                   <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Commercial</h1>
-                  <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
+                  <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
                     {commercial?.map((product, i) => (
                       <ProductCard key={i} product={product} />
                     ))}
                   </div>
                 </div>
               )}
-
             </div>
           </div>
         </div>
       </div>
 
-
-       {/* Auth Signup  */}
-       <SignupModal
+      {/* Auth Signup  */}
+      <SignupModal
         open={openRegisterModal}
         onClose={handleRegisterModalClose}
         handleLoginModalOpen={handleLoginModalOpen}
@@ -420,7 +448,6 @@ export default function Home() {
         handleForgotPasswordModal={handleForgotPasswordModal}
         handleRegisterModalOpen={handleRegisterModalOpen}
       />
-
     </FadeIn>
-  )
+  );
 }
