@@ -21,9 +21,12 @@ import API from '@/constants/api.constant';
 import toast from 'react-hot-toast';
 import { useFormik } from 'formik';
 import Link from 'next/link';
+import { MdClose } from 'react-icons/md';
+import { HiOutlineMenuAlt3 } from 'react-icons/hi';
 
 export default function Navbar() {
   const router = useRouter();
+  const [nav, setNav] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
   const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState<boolean>(false);
@@ -179,7 +182,9 @@ export default function Navbar() {
       style={{ boxShadow: '0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08' }}
     >
       <div className="flex items-end space-x-3">
-        <Link href="/"><Image src={Assets.logo} alt="Logo" width={150} height={150} /></Link>
+        <Link href="/">
+          <Image src={Assets.logo} alt="Logo" width={150} height={150} />
+        </Link>
         <div className="rounded-[5px] flex items-center space-x-1.5 cursor-pointer translate-y-[3px]">
           <Image src={Assets.location} alt="Logo" width={10} height={10} />
           <p className="text-[#344054] text-[0.8vw] font-[500] leading-5">All Cities (UAE)</p>
@@ -287,11 +292,35 @@ export default function Navbar() {
               authModal()
             )}
           </div>
-          <Link href={`/post-ad`} >
+          <Link href={`/post-ad`}>
             <AppButton text="Post Ad" />
           </Link>
         </div>
       </div>
+
+      <IconButton onClick={() => setNav(!nav)}>
+        {nav ? (
+          <MdClose size={25} style={{ color: '#000' }} />
+        ) : (
+          <HiOutlineMenuAlt3 size={25} style={{ color: '#000' }} />
+        )}
+      </IconButton>
+
+      {/* Mobile nav */}
+      {nav && (
+        <ul className="flex flex-col justify-center items-center absolute z-10 top-0 left-0 w-full h-screen bg-white text-odi">
+          <div>Hiii</div>
+          {isAuthenticated && (
+            <button
+              onClick={logout}
+              type="button"
+              className="text-white bg-[#D77F81] font-medium rounded-[4px] leading-tight w-[60%] mt-7 text-[4vw] px-12 py-4 transform transition-all duration-300 ease-in-out"
+            >
+              <span>Logout</span>
+            </button>
+          )}
+        </ul>
+      )}
 
       {/* Auth Signup  */}
       <SignupModal
@@ -440,7 +469,7 @@ const ForgotPasswordModal = ({
               boldText={false}
               loading={isLoading}
               disabled={iDisabled}
-              onClick={() => { }}
+              onClick={() => {}}
             />
           </div>
         </form>
@@ -462,52 +491,54 @@ const RegistrationCompleteModal = ({ open, onClose }: { open: boolean; onClose: 
         width: '400px',
       }}
     >
-        <div className="w-full absolute right-0 top-0">
-          <IconButton onClick={onClose}>
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12.2267 19.7732L19.7733 12.2266"
-                stroke="#101828"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M19.7733 19.7732L12.2267 12.2266"
-                stroke="#101828"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </IconButton>
-        </div>
+      <div className="w-full absolute right-0 top-0">
+        <IconButton onClick={onClose}>
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12.2267 19.7732L19.7733 12.2266"
+              stroke="#101828"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M19.7733 19.7732L12.2267 12.2266"
+              stroke="#101828"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </IconButton>
+      </div>
 
-        <div className="w-full space-y-4 flex flex-col justify-center items-center">
-          <div>
+      <div className="w-full space-y-4 flex flex-col justify-center items-center">
+        <div>
           <svg width="51" height="50" viewBox="0 0 51 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M25.5 45.8334C36.9584 45.8334 46.3334 36.4584 46.3334 25.0001C46.3334 13.5417 36.9584 4.16675 25.5 4.16675C14.0417 4.16675 4.66669 13.5417 4.66669 25.0001C4.66669 36.4584 14.0417 45.8334 25.5 45.8334Z"
-                stroke="#308652"
-                stroke-width="4"
-                stroke-linecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M16.6458 25.0001L22.5416 30.8959L34.3541 19.1042"
-                stroke="#308652"
-                stroke-width="4"
-                stroke-linecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-          <h1 className="text-[#101828] font-[700] text-[20px] text-center leading-tight">Email sent, Check your inbox!</h1>
-
-          <p className="text-center text-[14px] font-[500] text-[#101828] px-7">
-            Should the email address you provided, you will receive a link to Verify your Email
-          </p>
+            <path
+              d="M25.5 45.8334C36.9584 45.8334 46.3334 36.4584 46.3334 25.0001C46.3334 13.5417 36.9584 4.16675 25.5 4.16675C14.0417 4.16675 4.66669 13.5417 4.66669 25.0001C4.66669 36.4584 14.0417 45.8334 25.5 45.8334Z"
+              stroke="#308652"
+              stroke-width="4"
+              stroke-linecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M16.6458 25.0001L22.5416 30.8959L34.3541 19.1042"
+              stroke="#308652"
+              stroke-width="4"
+              stroke-linecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
+        <h1 className="text-[#101828] font-[700] text-[20px] text-center leading-tight">
+          Email sent, Check your inbox!
+        </h1>
+
+        <p className="text-center text-[14px] font-[500] text-[#101828] px-7">
+          Should the email address you provided, you will receive a link to Verify your Email
+        </p>
+      </div>
     </AppModal>
   );
 };
