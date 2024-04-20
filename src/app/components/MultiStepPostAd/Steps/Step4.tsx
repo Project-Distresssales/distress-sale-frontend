@@ -168,7 +168,7 @@ const Step4 = ({ handleClick, currentStep, steps }) => {
             {[
               <p
                 key="section"
-                className="font-medium text-[#415EFF] md:text-[16px] text-[3vw] cursor-pointer hover:underline underline-offset-2"
+                className="font-medium text-primary md:text-[16px] text-[3vw] cursor-pointer hover:underline underline-offset-2"
                 onClick={handleRemoveItem}
               >
                 {storedSectionName}
@@ -189,7 +189,7 @@ const Step4 = ({ handleClick, currentStep, steps }) => {
             /* @ts-ignore */
             visible={true}
             width="200"
-            color="#6F85FF"
+            color="#f4ad0e"
             ariaLabel="infinity-spin-loading"
           />
         </div>

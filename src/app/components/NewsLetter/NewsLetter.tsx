@@ -13,7 +13,7 @@ export default function NewsLetter() {
                 placeholder="Enter your email address"
                 required
             />
-            <button type="submit" className="md:px-[26px] py-[26px] px-[20px] rounded-r-[10px] bg-[#415EFF] text-white font-[700] md:text-[1vw] text-[3vw]">
+            <button type="submit" className="md:px-[26px] py-[26px] px-[20px] rounded-r-[10px] bg-secondary text-white font-[700] md:text-[1vw] text-[3vw]">
                 {!isMobile ? 'Subscribe to our Newsletter' : 'Subscribe'}
             </button>
         </div>

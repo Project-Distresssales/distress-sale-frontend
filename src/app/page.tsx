@@ -292,13 +292,25 @@ export default function Home() {
       )}
       <div className="w-full h-auto pb-32">
         <div className="md:px-8 px-5">
-          <div className="w-full md:rounded-[15px] rounded-[10px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center">
-            <div className="h-auto text-center">
+          <div className="w-full rounded-[30px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center px-5">
+            <img
+              src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover rounded-[30px]"
+            />
+
+            <div className="h-auto text-center z-10">
               <div className="w-full">
-                <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">
-                  The Ultimate Affordable Marketplace <br /> for Buying, Renting & Selling
-                </h1>
-                <p className="text-white md:text-[1.3vw] text-[3vw] font-[700] mt-8">
+                {!isMobile ? (
+                  <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">
+                    The Ultimate Affordable Marketplace <br /> for Buying, Renting & Selling
+                  </h1>
+                ) : (
+                  <h1 className="text-[4.5vw] text-white font-[700] leading-tight">
+                    The Ultimate Affordable Marketplace for Buying, Renting & Selling
+                  </h1>
+                )}
+                <p className="text-white md:text-[1.3vw] text-[3.5vw] w-[80%] md:w-full mx-auto font-[700] mt-8">
                   Explore the Best Deals: Discover, Connect, Transact
                 </p>
               </div>
@@ -368,7 +380,9 @@ export default function Home() {
             </div>
 
             {/* Verification */}
-            <div className="mt-20">{userState && userState?.verified ? <VerifiedUserBadge /> : <UnverifiedUserBadge />}</div>
+            <div className="mt-20">
+              {userState && userState?.verified ? <VerifiedUserBadge /> : <UnverifiedUserBadge />}
+            </div>
 
             {/* Popular property sales */}
             <div className="mt-20 w-full">

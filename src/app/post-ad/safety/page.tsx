@@ -246,8 +246,8 @@ export default function Safety() {
                                     <li className="md:text-[14px] text-[3.5vw] font-[500]" key={index}>{index + 1}. {item.title}: <span className="text-[#667085]">{item.text}</span></li>
                                 ))}
                             </ul>
-                            <p className="text-[#667085] md:text-[16px] text-[4vw] font-[500]">To access additional details, please refer to our <span className="text-[#415EFF] hover:underline underline-offset-4"><Link href=''>Terms and Conditions.</Link></span></p>
-                            <button onClick={handleOpen} className="rounded-[5px] py-[10px] bg-[#415EFF] text-white w-full mt-20">Continue</button>
+                            <p className="text-[#667085] md:text-[16px] text-[4vw] font-[500]">To access additional details, please refer to our <span className="hover:underline underline-offset-4"><Link href='' className='text-[#33a665] hover:text-[#33a665]  '>Terms and Conditions.</Link></span></p>
+                            <button onClick={handleOpen} className="rounded-[8px] py-[15px] bg-secondary text-white w-full mt-20 font-[500]">Continue</button>
                         </div>
                     </div>
                 </div>
@@ -263,7 +263,13 @@ export default function Safety() {
                     position: 'relative',
                     height: '500px',
                     width: isMobile ? '90%' : '700px',
-                    overflow: 'auto'
+                    overflow: 'auto',
+                    /* Hide the scrollbar */
+  scrollbarWidth: 'none', /* Firefox */
+  '-ms-overflow-style': 'none', /* IE and Edge */
+  '&::-webkit-scrollbar': {
+    display: 'none' /* WebKit */
+  }
                 }}
             >
                 <div className="w-full">
@@ -305,7 +311,7 @@ export default function Safety() {
                             </div>
                             <button
                                 onClick={handleCreatePost}
-                                className={`rounded-[5px] py-[10px] bg-[#415EFF] transition-all duration-500 transform ease-in-out text-white w-full mt-20 ${!isAgreed && 'cursor-not-allowed bg-[#B4B4B8]'}`}
+                                className={`rounded-[8px] font-[500] py-[15px] bg-secondary transition-all duration-500 transform ease-in-out text-white w-full mt-20 ${!isAgreed && 'cursor-not-allowed bg-[#B4B4B8]'}`}
                                 disabled={!isAgreed}
                             >
                                 {!isLoading ? 'Create Post Ad' : 'Loading...'}

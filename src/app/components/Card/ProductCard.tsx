@@ -54,7 +54,7 @@ export default function ProductCard({ product }: any) {
 
         <div className="mt-5">
           <div className="flex justify-between items-center mb-3">
-            <h1 className="text-[#415EFF] md:text-[20px] text-[4.7vw] font-[700]">
+            <h1 className="text-[#f4ad0e] md:text-[20px] text-[4.7vw] font-[700]">
               {currencyFormatter(product.price, 'AED')}
             </h1>
 

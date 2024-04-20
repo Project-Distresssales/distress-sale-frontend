@@ -12,7 +12,7 @@ export default function StepperControl({ handleClick, currentStep, steps }) {
 
       <button
         onClick={() => handleClick('next')}
-        className="cursor-pointer rounded-[6px] bg-distressBlue py-2 px-4 font-semibold text-white transition duration-300 ease-in-out hover:bg-slate-700 hover:text-white"
+        className="cursor-pointer rounded-[6px] bg-secondary py-2 px-4 font-semibold text-white transition duration-300 ease-in-out hover:bg-slate-700 hover:text-white"
       >
         {currentStep === steps.length ? 'Confirm' : 'Next'}
       </button>

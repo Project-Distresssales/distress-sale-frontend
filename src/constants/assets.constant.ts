@@ -59,8 +59,12 @@ import automobile from '../app/assets/icons/automobile.svg';
 import listingBlue from '../app/assets/icons/listing.svg';
 import commercialBlue from '../app/assets/icons/commercial.svg';
 import pdfLogo from '../app/assets/images/pdf-logo.png';
+import distressLogo from '../app/assets/images/distresssales-trimed.png';
+import distressLogo2 from '../app/assets/images/distresssales2-trimed.png';
 
 const Assets = {
+  distressLogo2,
+  distressLogo,
   pdfLogo,
   pfs,
   pfr,
