@@ -24,11 +24,11 @@ const StyledTextField = styled(TextField)({
       borderColor: '#E3E3E3',
     },
     '&:hover fieldset': {
-      borderColor: alpha('#6F85FF', 0.6),
+      borderColor: alpha('#f4ad0e', 0.6),
     },
     '&.Mui-focused fieldset': {
       border: '1px solid',
-      borderColor: '#6F85FF',
+      borderColor: '#f4ad0e',
     },
   },
   '&:placeholder': {
@@ -54,11 +54,11 @@ export const StyledTextFieldMobile = styled(TextField)({
       borderColor: '#E3E3E3',
     },
     '&:hover fieldset': {
-      borderColor: alpha('#6F85FF', 0.6),
+      borderColor: alpha('#f4ad0e', 0.6),
     },
     '&.Mui-focused fieldset': {
       border: '1px solid',
-      borderColor: '#6F85FF',
+      borderColor: '#f4ad0e',
     },
   },
   '&:placeholder': {

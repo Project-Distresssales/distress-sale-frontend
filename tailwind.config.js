@@ -21,6 +21,8 @@ module.exports = {
         distressGrey900: "#101828",
         distressGold900: "#F9C590",
         distressGreen900: "#7CC8C7",
+        primary: "#f4ad0e",
+        secondary: "#00134d",
       },
       boxShadow: {
         '3xl': '0px 10px 15px -3px rgba(16, 24, 40, 0.10), 0px 4px 6px -4px rgba(16, 24, 40, 0.10)',

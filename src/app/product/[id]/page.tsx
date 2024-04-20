@@ -113,7 +113,7 @@ export default function ProductPage() {
             /* @ts-ignore */
             visible={true}
             width="200"
-            color="#6F85FF"
+            color="#f4ad0e"
             ariaLabel="infinity-spin-loading"
           />
         </div>
@@ -123,7 +123,7 @@ export default function ProductPage() {
             <div className="bg-gray-200 min-h-[1px] w-full" />
 
             <div className="flex md:flex-row flex-col w-full items-center justify-between md:px-7 px-5 mb-5 mt-7">
-              <h1 className="text-distressBlue md:text-[22px] text-center text-[5vw] font-[700] leading-tight">{product && product?.name}</h1>
+              <h1 className="text-primary md:text-[22px] text-center text-[5vw] font-[700] leading-tight">{product && product?.name}</h1>
               <div className="text-gray-900 md:text-sm text-[3.3vw] mt-7 md:mt-0 font-[500] leading-tight whitespace-nowrap">
                 Date Uploaded:{' '}
                 {product && product.createdAt ? format(new Date(product.createdAt), "do MMMM',' yyyy") : ''}
@@ -291,7 +291,7 @@ export default function ProductPage() {
 
                   {/* Pricing and Details */}
                   <div className="mt-7">
-                    <h1 className="text-[#415EFF] md:text-[25px] text-[5.5vw] font-[700]">
+                    <h1 className="text-primary md:text-[25px] text-[5.5vw] font-[700]">
                       {currencyFormatter(product?.price, 'AED')}
                     </h1>
                     <div className="flex items-center space-x-2 text-[#344054] md:text-[14px] text-[3.5vw] mt-2 font-[500]">

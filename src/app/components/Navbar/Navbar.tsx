@@ -10,7 +10,7 @@ import TextField from '../Fields/TextField';
 import LoginModal from '../Auth/Login/Login';
 import { VoidCallback } from '@/utils/types';
 import SignupModal from '../Auth/SIgnup/Signup';
-import { ClickAwayListener, IconButton, Menu, MenuItem, Popper } from '@mui/material';
+import { CircularProgress, ClickAwayListener, IconButton, Menu, MenuItem, Popper } from '@mui/material';
 import useGlobalState from '@/hooks/globalstate.hook';
 import DropDown from '../DropDown/DropDown';
 import useRequest from '@/services/request/request.service';
@@ -23,8 +23,11 @@ import { useFormik } from 'formik';
 import Link from 'next/link';
 import { MdClose } from 'react-icons/md';
 import { HiOutlineMenuAlt3 } from 'react-icons/hi';
+import useAppTheme from '@/hooks/theme.hook';
+import { IoReturnUpBack } from "react-icons/io5";
+import { AiOutlineUser } from "react-icons/ai";
 
-export default function Navbar() {
+  export default function Navbar() {
   const router = useRouter();
   const [nav, setNav] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
@@ -181,19 +184,19 @@ export default function Navbar() {
       }
       style={{ boxShadow: '0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08' }}
     >
-      <div className="flex items-end space-x-3">
+      <div className="flex items-center space-x-3">
         <Link href="/">
-          <Image src={Assets.logo} alt="Logo" width={150} height={150} />
+          <Image src={Assets.distressLogo2} alt="Logo" width={200} height={200} />
         </Link>
-        <div className="rounded-[5px] flex items-center space-x-1.5 cursor-pointer translate-y-[3px]">
+        {/* <div className="rounded-[5px] flex items-center space-x-1.5 cursor-pointer translate-y-[3px]">
           <Image src={Assets.location} alt="Logo" width={10} height={10} />
           <p className="text-[#344054] text-[0.8vw] font-[500] leading-5">All Cities (UAE)</p>
           <Image src={Assets.arrowDown} alt="" width={10} height={10} />
-        </div>
+        </div> */}
       </div>
 
       <div className="flex items-center">
-        <div className="flex items-center space-x-7 border-r border-[#D6DDFF] py-2 px-5">
+        {/* <div className="flex items-center space-x-7 border-r border-[#D6DDFF] py-2 px-5">
           <div className="flex items-center space-x-2">
             <Image src={Assets.heart} alt="" width={15} height={15} />
             <p className="text-[#475467] text-[1vw] font-[500]">Favorites</p>
@@ -202,7 +205,7 @@ export default function Navbar() {
             <Image src={Assets.bookSaved} alt="" width={15} height={15} />
             <p className="text-[#475467] text-[1vw] font-[500]">Saved Searches</p>
           </div>
-        </div>
+        </div> */}
 
         <div className="flex items-center space-x-7">
           <div className="flex items-center space-x-3 ml-5 cursor-pointer relative z-50">
@@ -219,12 +222,13 @@ export default function Navbar() {
               />
             ) : (
               <div
-                className="rounded-full p-[5px] flex justify0-center items-center border"
+                className="rounded-full p-[5px] flex justify-center items-center border"
                 style={{
                   boxShadow: '0px 1px 5px -2px rgba(16, 24, 40, 0.05), 0px -1px 5px -4px rgba(16, 24, 40, 0.05',
                 }}
               >
-                <Image src={Assets.profile} alt="" width={15} height={15} />
+                <AiOutlineUser style={{fontSize: '20px'}} />
+                {/* <Image src={Assets.profile} alt="" width={30} height={30} /> */}
               </div>
             )}
 
@@ -292,12 +296,19 @@ export default function Navbar() {
               authModal()
             )}
           </div>
-          <Link href={`/post-ad`}>
-            <AppButton text="Post Ad" />
-          </Link>
+
+          <button
+          onClick={() => router.push('/post-ad')}
+            className={`
+      flex justify-center items-center rounded-full py-3 px-10 text-primary font-[700] 
+    md:text-[15px] text-[3.2vw] bg-secondary w-full`}
+          >
+            Post Ad
+          </button>
         </div>
       </div>
 
+      <div className="flex items-center md:hidden">
       <IconButton onClick={() => setNav(!nav)}>
         {nav ? (
           <MdClose size={25} style={{ color: '#000' }} />
@@ -305,6 +316,7 @@ export default function Navbar() {
           <HiOutlineMenuAlt3 size={25} style={{ color: '#000' }} />
         )}
       </IconButton>
+      </div>
 
       {/* Mobile nav */}
       {nav && (
@@ -362,6 +374,7 @@ const ForgotPasswordModal = ({
   onClose: () => void;
   handleLoginModalOpen: VoidCallback;
 }) => {
+  const { isMobile } = useAppTheme();
   const { makeRequest, isLoading, data } = useRequest();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -420,42 +433,36 @@ const ForgotPasswordModal = ({
       handleClose={onClose}
       style={{
         backgroundColor: '#fff',
-        padding: '40px 50px 30px 50px',
+        padding: !isMobile ? '30px' : '20px',
         position: 'relative',
         height: 'auto',
         width: '400px',
       }}
     >
-      <div className="w-full">
-        {/* <Image src={Assets.arrowRight} alt="" width={20} height={20} /> */}
-        <div className="items-center">
-          <IconButton
+      <IconButton
             onClick={() => {
               onClose();
               handleLoginModalOpen();
             }}
+            className="absolute top-2 left-2"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="18" viewBox="0 0 9 18" fill="none">
-              <path
-                d="M7.99984 16.92L1.47984 10.4C0.709844 9.63002 0.709844 8.37002 1.47984 7.60002L7.99984 1.08002"
-                stroke="#101828"
-                strokeWidth="1.5"
-                strokeMiterlimit="10"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <IoReturnUpBack style={{fontSize: '20px', fontWeight: '700'}} />
           </IconButton>
 
+      <div className="w-full">
+        {/* <Image src={Assets.arrowRight} alt="" width={20} height={20} /> */}
+        <div className="items-center">
+          
+
           <div className="flex justify-center w-full">
-            <h1 className="text-[#101828] font-[700] text-[1.4vw] text-center">Forgot Password</h1>
+            <h1 className="text-[#101828] font-[700] md:text-[22px] text-[5vw] text-center leading-tight">Forgot Password</h1>
           </div>
         </div>
-        <form className="space-y-5 mt-7" onSubmit={handleSubmit}>
+        <form className="mt-7" onSubmit={handleSubmit}>
           <TextField
             id="email"
             type="email"
-            label="Email*"
+            label="Email"
             placeholder="Enter your email address"
             obscured={false}
             withBackground={false}
@@ -463,14 +470,15 @@ const ForgotPasswordModal = ({
             {...getFieldProps('email')}
           />
           <div className="mt-10">
-            <AppButton
-              text="Send"
-              fullWidth={true}
-              boldText={false}
-              loading={isLoading}
-              disabled={iDisabled}
-              onClick={() => {}}
-            />
+          <button
+            className={`
+      flex justify-center items-center rounded-[8px] py-3.5 text-white font-[500] 
+    md:text-[16px] text-[3.2vw] bg-secondary w-full`}
+            type="submit"
+            disabled={iDisabled}
+          >
+            {isLoading ? <CircularProgress size={16} sx={{ color: 'white' }} /> : 'Proceed'}
+          </button>
           </div>
         </form>
       </div>

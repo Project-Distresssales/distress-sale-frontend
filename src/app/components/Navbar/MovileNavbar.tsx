@@ -9,9 +9,11 @@ import { IconButton } from '@mui/material';
 import { FadeIn } from '../Transitions/Transitions';
 import useGlobalState from '@/hooks/globalstate.hook';
 import { AppButton } from '../Buttons/Buttons';
+import { useRouter } from 'next/navigation';
 
 
 export default function MobileNavbar({ sideBar, setSideBar }: any) {
+    const router = useRouter();
     const [scrollStyle, setScrollStyle] = useState<boolean>(false);
 
     useEffect(() => {
@@ -35,12 +37,16 @@ export default function MobileNavbar({ sideBar, setSideBar }: any) {
                         : 'relative w-full bg-[#fff] px-5 py-[16px] flex items-center justify-between border-b border-[#F0F0F0] animate-fade-in-up'
                 }>
                 <Link href='/'>
-                    <Image src={Assets.logo} alt="Logo" width={100} height={100} />
+                    <Image src={Assets.distressLogo2} alt="Logo" width={150} height={150} />
                 </Link>
 
-                <Link href={`/post-ad`} >
-            <AppButton text="Post Ad" />
-          </Link>
+                <button
+          onClick={() => router.push('/post-ad')}
+            className={`
+      flex justify-center items-center rounded-full py-3 px-5 text-primary font-[700] text-[3.2vw] bg-secondary`}
+          >
+            Post Ad
+          </button>
 
                 <IconButton
                     onClick={() => setSideBar(!sideBar)}

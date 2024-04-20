@@ -34,7 +34,7 @@ export default function TextField({
   return (
     <div className="w-full">
       {label && (
-        <label htmlFor={id} className="block mb-2 md:text-[1vw] text-[3.7vw] font-medium text-gray-900 w-full">
+        <label htmlFor={id} className="md:text-[14px] text-[3.7vw] font-medium text-gray-900 w-full">
           {label}
         </label>
       )}
@@ -46,7 +46,7 @@ export default function TextField({
           onChange={onChange}
           className={`${
             withBackground ? 'bg-white' : 'bg-transparent'
-          } border border-[#DDE2E5] text-gray-900 md:text-[1vw] text-[3.7vw] rounded-[5px] outline-none w-full px-4 py-3 `}
+          } border border-[#DDE2E5] text-gray-900 md:text-[14px] font-medium text-[3.7vw] rounded-[8px] outline-none w-full px-4 py-3 `}
           placeholder={placeholder}
           {...others}
         />
@@ -63,7 +63,7 @@ export default function TextField({
         )}
       </div>
       {error ? (
-        <span className="pl-6 text-left md:text-xs text-[3vw] text-red-500 max-sm:pl-3">{error}</span>
+        <span className="text-left md:text-xs text-[3vw] text-red-500">{error}</span>
       ) : null}
     </div>
   );

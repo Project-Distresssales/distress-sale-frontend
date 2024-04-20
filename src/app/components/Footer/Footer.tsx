@@ -152,10 +152,10 @@ function Footer() {
             </div>
 
             <div className='flex justify-between items-center w-full'>
-                <Image src={Assets.logo} alt="Logo" width={150} height={150} />
+                <Image src={Assets.distressLogo2} alt="Logo" width={200} height={200} />
                 <div className="flex items-center space-x-2">
                     <p className="text-[#101828] font-[500] md:text-[1.2vw] text-[4vw]">Top</p>
-                    <div onClick={goToTop} className="w-[35px] h-[35px] flex items-center justify-center rounded-full bg-[#415EFF] cursor-pointer">
+                    <div onClick={goToTop} className="w-[35px] h-[35px] flex items-center justify-center rounded-full bg-secondary cursor-pointer">
                         <Image src={Assets.arrowUp} alt="" width={25} height={25} />
                     </div>
                 </div>
@@ -238,9 +238,7 @@ function Footer() {
 
             <div className="border-t border-[#D6DDFF] w-full flex md:flex-row flex-col justify-between items-center mt-14 pt-10 space-y-5 md:space-y-0">
                 <div className="flex space-x-2 items-center text-[#101828] md:text-[0.9vw] text-[3vw] font-[700]">
-                    <p>DistressSale.com 2023.</p>
-                    <Image src={Assets.copyright} alt="" width={15} height={15} />
-                    <p>All Rights Reserved.</p>
+                    <p>www.distresssales.io</p>
                 </div>
 
                 <div className="relative">

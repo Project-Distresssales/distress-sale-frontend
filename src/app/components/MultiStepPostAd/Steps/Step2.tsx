@@ -93,7 +93,7 @@ const Step2: React.FC<Step2Props> = ({ handleClick, currentStep, steps }) => {
             /* @ts-ignore */
             visible={true}
             width="200"
-            color="#6F85FF"
+            color="#f4ad0e"
             ariaLabel="infinity-spin-loading"
           />
         </div>
@@ -138,7 +138,7 @@ export const CategoryButton: FC<CategoryButtonProps> = ({ text, icon, selected, 
   return (
     <button
       className={`px-4 w-fit py-3 rounded-[10px] ${
-        selected ? 'border-[#415EFF]' : 'border-[#EAECF0]'
+        selected ? 'border-primary' : 'border-[#EAECF0]'
       } transition-all duration-500 border-2 flex items-center gap-2.5 justify-self-center `}
       type="button"
       style={{ boxShadow: '0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08)' }}

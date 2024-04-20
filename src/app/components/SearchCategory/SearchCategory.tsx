@@ -18,7 +18,7 @@ export default function SearchCategory({header, item}: any) {
           )
         ))}
         </div>
-        <div className="flex space-x-2 items-center text-[#415EFF]">
+        <div className="flex space-x-2 items-center text-primary">
             <p className='font-[700] md:text-[1.1vw] text-[3vw]'>View All</p>
             <Image src={Assets.arrowRight} alt="" width={17} height={17} />
         </div>
