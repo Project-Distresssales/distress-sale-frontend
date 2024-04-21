@@ -16,8 +16,8 @@ export default function UnverifiedUserBadge() {
             </div>
             <div className="w-full bg-[#00134d] px-5 flex md:flex-row flex-col justify-between md:items-center items-start space-y-5 md:space-y-0 rounded-r-[16px] py-5">
                 <div className='space-y-2'>
-                    <p className="text-[#f4ad0e] md:text-[1.2vw] text-[3.5vw] font-[700]">Become a Verified User</p>
-                    <p className='text-[#f4ad0e] md:text-[1.1vw] text-[2.8vw] font-[500]'>Increase your online presence and reach a wider audience</p>
+                    <p className="text-white md:text-[1.2vw] text-[3.5vw] font-[700]">Become a Verified User</p>
+                    <p className='text-white md:text-[1.1vw] text-[2.8vw] font-[500]'>Increase your online presence and reach a wider audience</p>
                 </div>
                 <button
             className={`
