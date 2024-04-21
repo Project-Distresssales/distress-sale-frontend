@@ -109,13 +109,7 @@ export default function ProductPage() {
 
       {isLoading ? (
         <div className="w-full h-[500px] flex justify-center items-center">
-          <InfinitySpin
-            /* @ts-ignore */
-            visible={true}
-            width="200"
-            color="#f4ad0e"
-            ariaLabel="infinity-spin-loading"
-          />
+          <Image src={Assets.paymentProcessing} alt="" width={100} height={100} />
         </div>
       ) : (
         <>
