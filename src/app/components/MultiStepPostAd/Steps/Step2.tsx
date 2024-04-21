@@ -6,6 +6,8 @@ import { catchAsync } from '@/helpers/api.helper';
 import useRequest from '@/services/request/request.service';
 import { toast } from 'react-toastify';
 import { InfinitySpin } from 'react-loader-spinner';
+import Image from 'next/image';
+import Assets from '@/constants/assets.constant';
 
 interface Step2Props {
   handleClick: () => void;
@@ -89,13 +91,14 @@ const Step2: React.FC<Step2Props> = ({ handleClick, currentStep, steps }) => {
       </div>
       {isLoading ? (
         <div className="flex justify-center items-center h-[200px]">
-          <InfinitySpin
-            /* @ts-ignore */
+          {/* <InfinitySpin
+            /* @ts-ignore *
             visible={true}
             width="200"
             color="#f4ad0e"
             ariaLabel="infinity-spin-loading"
-          />
+          /> */}
+           <Image src={Assets.paymentProcessing} alt="" width={100} height={100} />
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4">

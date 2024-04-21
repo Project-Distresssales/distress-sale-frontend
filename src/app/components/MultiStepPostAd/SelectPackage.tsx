@@ -6,6 +6,8 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { TickSvg } from '../Icons/Icons';
 import { InfinitySpin } from 'react-loader-spinner';
+import Image from 'next/image';
+import Assets from '@/constants/assets.constant';
 
 interface PackageCardProps {
   tier: string;
@@ -77,13 +79,14 @@ const SelectPackage = () => {
     <>
       {isLoading ? (
         <div className="flex justify-center items-center h-[300px]">
-          <InfinitySpin
-            /* @ts-ignore */
+          {/* <InfinitySpin
+            /* @ts-ignore *
             visible={true}
             width="200"
             color="#f4ad0e"
             ariaLabel="infinity-spin-loading"
-          />
+          /> */}
+          <Image src={Assets.paymentProcessing} alt="" width={100} height={100} />
         </div>
       ) : (
         <div className="flex flex-wrap lg:flex-nowrap justify-between w-full md:gap-8 gap-14">

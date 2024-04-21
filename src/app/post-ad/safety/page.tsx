@@ -203,7 +203,7 @@ export default function Safety() {
             }
     
             // Clear localStorage data after success
-            clearLocalStorageData();
+            // clearLocalStorageData();
             // router.push('/');
         } catch (error: any) {
             toast.error(error?.response?.data?.message);
