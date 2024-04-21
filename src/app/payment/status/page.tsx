@@ -5,10 +5,10 @@ import API from '@/constants/api.constant';
 import Assets from '@/constants/assets.constant';
 import useRequest from '@/services/request/request.service';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-export default function PaymentStatus() {
+export default function FlutterWavePaymentStatus() {
   const searchParams = useSearchParams();
   const [paymentMessage, setPaymentMessage] = useState<string>('');
 
