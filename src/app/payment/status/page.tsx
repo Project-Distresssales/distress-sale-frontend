@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 export default function PaymentStatus() {
-    const searchParams = useSearchParams();
+    // const searchParams = useSearchParams();
     const [paymentMessage, setPaymentMessage] = useState<string>('');
   
     const { isLoading, makeRequest } = useRequest();
