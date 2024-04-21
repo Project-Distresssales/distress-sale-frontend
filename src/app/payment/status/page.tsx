@@ -18,12 +18,12 @@ export default function FlutterWavePaymentStatus() {
     paymentChecker();
   }, []);
 
-  const paymentChecker = async () => {
-    // Extract query parameters
-    const status = searchParams.get('status');
-    const tx_ref = searchParams.get('tx_ref');
-    const transaction_id = searchParams.get('transaction_id');
+      // Extract query parameters
+      const status = searchParams.get('status');
+      const tx_ref = searchParams.get('tx_ref');
+      const transaction_id = searchParams.get('transaction_id');
 
+  const paymentChecker = async () => {
     try {
       if (status && tx_ref && transaction_id) {
         const res = await makeRequest({
