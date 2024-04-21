@@ -10,7 +10,6 @@ import React, { useEffect, useState } from 'react';
 
 export default function PaymentStatus() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const [paymentMessage, setPaymentMessage] = useState<string>('');
 
   const { isLoading, makeRequest } = useRequest();
@@ -43,7 +42,6 @@ export default function PaymentStatus() {
   };
 
   return (
-    <>
         <div>
           {!isLoading && paymentMessage === 'Your payment has been processed successfully' ? (
             <PaymentSuccess />
@@ -56,6 +54,5 @@ export default function PaymentStatus() {
             </div>
           )}
         </div>
-    </>
   );
 }
