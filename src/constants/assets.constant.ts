@@ -61,8 +61,10 @@ import commercialBlue from '../app/assets/icons/commercial.svg';
 import pdfLogo from '../app/assets/images/pdf-logo.png';
 import distressLogo from '../app/assets/images/distresssales-trimed.png';
 import distressLogo2 from '../app/assets/images/distresssales2-trimed.png';
+import paymentSuccess from '../app/assets/images/payment-success.png';
 
 const Assets = {
+  paymentSuccess,
   distressLogo2,
   distressLogo,
   pdfLogo,

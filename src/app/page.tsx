@@ -249,6 +249,8 @@ export default function Home() {
     fetchUser();
   }, []);
 
+
+
   return (
     <FadeIn>
       {!isMobile ? (

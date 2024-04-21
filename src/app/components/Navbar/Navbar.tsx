@@ -210,14 +210,12 @@ import { AiOutlineUser } from "react-icons/ai";
         <div className="flex items-center space-x-7">
           <div className="flex items-center space-x-3 ml-5 cursor-pointer relative z-50">
             {isAuthenticated ? (
-              <Image
+              <img
                 src={
                   user.profileImage ||
                   `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&rounded=true&size=128`
                 }
                 alt={user.firstName + 'photo'}
-                width={1000}
-                height={1000}
                 className="object-cover rounded-[50%] w-[42px] h-[42px]"
               />
             ) : (

@@ -81,7 +81,7 @@ const SelectPackage = () => {
             /* @ts-ignore */
             visible={true}
             width="200"
-            color="#6F85FF"
+            color="#f4ad0e"
             ariaLabel="infinity-spin-loading"
           />
         </div>
@@ -93,7 +93,7 @@ const SelectPackage = () => {
               color={item?.name === 'Basic' ? '#D0D5DD' : item?.name === 'Super' ? '#F9C590' : '#7CC8C7'}
               bgColor={item?.name === 'Super' && '#FFF9F4'}
               tier={item?.name}
-              title={`AED ${item?.amount} + VAT`}
+              title={`${item?.amount.toLocaleString()} ${item?.currencyCode}`}
               icon={
                 <TickSvg color={item?.name === 'Basic' ? '#667085' : item?.name === 'Super' ? '#F9C590' : '#7CC8C7'} />
               }

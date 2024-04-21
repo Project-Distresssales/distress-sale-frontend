@@ -188,23 +188,28 @@ export default function Safety() {
                 url: API.createAd,
                 data: body,
             });
-
+    
             const { status, data, message }: any = res.data;
-
+    
             handleClose();
             toast.success(message, {
                 duration: 5000,
                 position: 'top-center',
             });
-
+    
+            // Open payment link in a new tab if available
+            if (status && data?.paymentLink) {
+                window.open(data?.paymentLink, '_blank');
+            }
+    
             // Clear localStorage data after success
-            clearLocalStorageData();
-            router.push('/');
+            // clearLocalStorageData();
+            // router.push('/');
         } catch (error: any) {
             toast.error(error?.response?.data?.message);
         }
     };
-
+    
 
 
     // Rocket Key
