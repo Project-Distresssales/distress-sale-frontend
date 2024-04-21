@@ -15,10 +15,10 @@ export default function PaymentStatus() {
     //   paymentChecker();
     // }, []);
   
-        // Extract query parameters
-        const status = searchParams.get('status');
-        const tx_ref = searchParams.get('tx_ref');
-        const transaction_id = searchParams.get('transaction_id');
+        // // Extract query parameters
+        // const status = searchParams.get('status');
+        // const tx_ref = searchParams.get('tx_ref');
+        // const transaction_id = searchParams.get('transaction_id');
   
     // const paymentChecker = async () => {
     //   try {
