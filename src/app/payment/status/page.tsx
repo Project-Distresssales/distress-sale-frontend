@@ -11,32 +11,32 @@ export default function PaymentStatus() {
   
     const { isLoading, makeRequest } = useRequest();
   
-    useEffect(() => {
-      paymentChecker();
-    }, []);
+    // useEffect(() => {
+    //   paymentChecker();
+    // }, []);
   
         // Extract query parameters
         const status = searchParams.get('status');
         const tx_ref = searchParams.get('tx_ref');
         const transaction_id = searchParams.get('transaction_id');
   
-    const paymentChecker = async () => {
-      try {
-        if (status && tx_ref && transaction_id) {
-          const res = await makeRequest({
-            method: 'GET',
-            url: `${API.confirmPayment}?status=${status}&tx_ref=${tx_ref}&transaction_id=${transaction_id}`,
-          });
+    // const paymentChecker = async () => {
+    //   try {
+    //     if (status && tx_ref && transaction_id) {
+    //       const res = await makeRequest({
+    //         method: 'GET',
+    //         url: `${API.confirmPayment}?status=${status}&tx_ref=${tx_ref}&transaction_id=${transaction_id}`,
+    //       });
   
-          const { message } = res?.data;
-          setPaymentMessage(message);
-        } else {
-          console.error('Some or all query parameters are missing.');
-        }
-      } catch (error: any) {
-        setPaymentMessage(error?.response?.data?.message);
-      }
-    };
+    //       const { message } = res?.data;
+    //       setPaymentMessage(message);
+    //     } else {
+    //       console.error('Some or all query parameters are missing.');
+    //     }
+    //   } catch (error: any) {
+    //     setPaymentMessage(error?.response?.data?.message);
+    //   }
+    // };
   return (
     <div>page</div>
   )
