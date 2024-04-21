@@ -9,6 +9,9 @@ import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 export default function FlutterWavePaymentStatus() {
+    const [paymentMessage, setPaymentMessage] = useState<string>('');
+    const { isLoading, makeRequest } = useRequest();
+    
     if (typeof window !== 'undefined') {
         const searchParams = useSearchParams();
     
@@ -40,9 +43,6 @@ export default function FlutterWavePaymentStatus() {
           };
         
       }
-  const [paymentMessage, setPaymentMessage] = useState<string>('');
-
-  const { isLoading, makeRequest } = useRequest();
 
   
   return (
