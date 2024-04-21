@@ -15,7 +15,7 @@ import useGlobalState from '@/hooks/globalstate.hook';
 import DropDown from '../DropDown/DropDown';
 import useRequest from '@/services/request/request.service';
 import { useDispatch } from 'react-redux';
-import { isEmpty } from '@/helpers';
+import { formatJoinDate, isEmpty } from '@/helpers';
 import { AxiosError } from 'axios';
 import API from '@/constants/api.constant';
 import toast from 'react-hot-toast';
@@ -24,10 +24,10 @@ import Link from 'next/link';
 import { MdClose } from 'react-icons/md';
 import { HiOutlineMenuAlt3 } from 'react-icons/hi';
 import useAppTheme from '@/hooks/theme.hook';
-import { IoReturnUpBack } from "react-icons/io5";
-import { AiOutlineUser } from "react-icons/ai";
+import { IoReturnUpBack } from 'react-icons/io5';
+import { AiOutlineUser } from 'react-icons/ai';
 
-  export default function Navbar() {
+export default function Navbar() {
   const router = useRouter();
   const [nav, setNav] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
@@ -207,60 +207,89 @@ import { AiOutlineUser } from "react-icons/ai";
           </div>
         </div> */}
 
-        <div className="flex items-center space-x-7">
-          <div className="flex items-center space-x-3 ml-5 cursor-pointer relative z-50">
-            {isAuthenticated ? (
-              <Image
+        {isAuthenticated ? (
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="h-10 w-10">
+              <img
+                className="h-full w-full rounded-full object-cover object-center"
                 src={
                   user.profileImage ||
                   `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&rounded=true&size=128`
                 }
-                alt={user.firstName + 'photo'}
-                width={1000}
-                height={1000}
-                className="object-cover rounded-[50%] w-[42px] h-[42px]"
+                alt=""
               />
-            ) : (
-              <div
-                className="rounded-full p-[5px] flex justify-center items-center border"
-                style={{
-                  boxShadow: '0px 1px 5px -2px rgba(16, 24, 40, 0.05), 0px -1px 5px -4px rgba(16, 24, 40, 0.05',
-                }}
-              >
-                <AiOutlineUser style={{fontSize: '20px'}} />
-                {/* <Image src={Assets.profile} alt="" width={30} height={30} /> */}
-              </div>
-            )}
+            </div>
+            <div>
+              <div className="text-sm font-medium">{user.firstName + ' ' + user.lastName}</div>
+              <div className="text-xs">{formatJoinDate(user.createdAt)}</div>
+            </div>
+            <div>
+              <IconButton size="small" onClick={handleOpenSmallModal}>
+                <svg
+                  className={`transition duration-300 ${openMenuModal ? 'rotate-180' : ''}`}
+                  width="15"
+                  height="16"
+                  viewBox="0 0 15 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12.45 9.90615L8.37499 5.83115C7.89374 5.3499 7.10624 5.3499 6.62499 5.83115L2.54999 9.90615"
+                    stroke="#101828"
+                    stroke-width="1.5"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </IconButton>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <div
+              className="rounded-full p-[5px] flex justify-center items-center border"
+              style={{
+                boxShadow: '0px 1px 5px -2px rgba(16, 24, 40, 0.05), 0px -1px 5px -4px rgba(16, 24, 40, 0.05',
+              }}
+            >
+              <AiOutlineUser style={{ fontSize: '20px' }} />
+            </div>
 
-            {isAuthenticated && <span className="font-medium text-sm">{user.firstName}</span>}
+            <div>
+              <IconButton size="small" onClick={handleOpenSmallModal}>
+                <svg
+                  className={`transition duration-300 ${openMenuModal ? 'rotate-180' : ''}`}
+                  width="15"
+                  height="16"
+                  viewBox="0 0 15 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12.45 9.90615L8.37499 5.83115C7.89374 5.3499 7.10624 5.3499 6.62499 5.83115L2.54999 9.90615"
+                    stroke="#101828"
+                    stroke-width="1.5"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </IconButton>
+            </div>
+          </div>
+        )}
 
-            <IconButton size="small" onClick={handleOpenSmallModal}>
-              {/* <Image src={Assets.arrowDown} alt="arrow" width={10} height={10} /> */}
-              <svg
-                className={`transition duration-300 ${openMenuModal ? 'rotate-180' : ''}`}
-                width="15"
-                height="16"
-                viewBox="0 0 15 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12.45 9.90615L8.37499 5.83115C7.89374 5.3499 7.10624 5.3499 6.62499 5.83115L2.54999 9.90615"
-                  stroke="#101828"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </IconButton>
+        <div className="flex items-center space-x-7">
+          <div className="flex items-center space-x-3 ml-5 cursor-pointer relative z-50">
+            
 
             {isAuthenticated ? (
               <Menu id="city-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleCloseSmallModal()}>
                 {options.map((city) => (
-                  <Link key={city.title} href={city.to}>
+                  <Link key={city.title} href={city.to} className='text-secondary hover:text-secondary underline-none'>
                     <MenuItem onClick={() => handleCloseSmallModal(city.title)}>
-                      <div className="flex w-full gap-5">
+                      <div className="flex w-full gap-5 text-[14px] font-[500] underline-none">
                         {city.title}
 
                         {city.title === 'Get Verified' && (
@@ -298,7 +327,7 @@ import { AiOutlineUser } from "react-icons/ai";
           </div>
 
           <button
-          onClick={() => router.push('/post-ad')}
+            onClick={() => router.push('/post-ad')}
             className={`
       flex justify-center items-center rounded-full py-3 px-10 text-primary font-[700] 
     md:text-[15px] text-[3.2vw] bg-secondary w-full`}
@@ -309,13 +338,13 @@ import { AiOutlineUser } from "react-icons/ai";
       </div>
 
       <div className="flex items-center md:hidden">
-      <IconButton onClick={() => setNav(!nav)}>
-        {nav ? (
-          <MdClose size={25} style={{ color: '#000' }} />
-        ) : (
-          <HiOutlineMenuAlt3 size={25} style={{ color: '#000' }} />
-        )}
-      </IconButton>
+        <IconButton onClick={() => setNav(!nav)}>
+          {nav ? (
+            <MdClose size={25} style={{ color: '#000' }} />
+          ) : (
+            <HiOutlineMenuAlt3 size={25} style={{ color: '#000' }} />
+          )}
+        </IconButton>
       </div>
 
       {/* Mobile nav */}
@@ -440,22 +469,22 @@ const ForgotPasswordModal = ({
       }}
     >
       <IconButton
-            onClick={() => {
-              onClose();
-              handleLoginModalOpen();
-            }}
-            className="absolute top-2 left-2"
-          >
-            <IoReturnUpBack style={{fontSize: '20px', fontWeight: '700'}} />
-          </IconButton>
+        onClick={() => {
+          onClose();
+          handleLoginModalOpen();
+        }}
+        className="absolute top-2 left-2"
+      >
+        <IoReturnUpBack style={{ fontSize: '20px', fontWeight: '700' }} />
+      </IconButton>
 
       <div className="w-full">
         {/* <Image src={Assets.arrowRight} alt="" width={20} height={20} /> */}
         <div className="items-center">
-          
-
           <div className="flex justify-center w-full">
-            <h1 className="text-[#101828] font-[700] md:text-[22px] text-[5vw] text-center leading-tight">Forgot Password</h1>
+            <h1 className="text-[#101828] font-[700] md:text-[22px] text-[5vw] text-center leading-tight">
+              Forgot Password
+            </h1>
           </div>
         </div>
         <form className="mt-7" onSubmit={handleSubmit}>
@@ -470,15 +499,15 @@ const ForgotPasswordModal = ({
             {...getFieldProps('email')}
           />
           <div className="mt-10">
-          <button
-            className={`
+            <button
+              className={`
       flex justify-center items-center rounded-[8px] py-3.5 text-white font-[500] 
     md:text-[16px] text-[3.2vw] bg-secondary w-full`}
-            type="submit"
-            disabled={iDisabled}
-          >
-            {isLoading ? <CircularProgress size={16} sx={{ color: 'white' }} /> : 'Proceed'}
-          </button>
+              type="submit"
+              disabled={iDisabled}
+            >
+              {isLoading ? <CircularProgress size={16} sx={{ color: 'white' }} /> : 'Proceed'}
+            </button>
           </div>
         </form>
       </div>

@@ -37,3 +37,19 @@ export const sliceText = (number: number, text: any) => {
     return ''; // Return an empty string if text is undefined or null
   }
 };
+
+export const formatJoinDate = (createdAt) => {
+  const date = new Date(createdAt);
+
+  // Define month names
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  // Extract month and year
+  const month = monthNames[date.getMonth()];
+  const year = date.getFullYear();
+
+  // Format into desired string
+  return `Joined in ${month} ${year}`;
+};
