@@ -62,8 +62,12 @@ import pdfLogo from '../app/assets/images/pdf-logo.png';
 import distressLogo from '../app/assets/images/distresssales-trimed.png';
 import distressLogo2 from '../app/assets/images/distresssales2-trimed.png';
 import paymentSuccess from '../app/assets/images/payment-success.png';
+import paymentError from '../app/assets/images/bonbon-pink-lettering-oops.png';
+import paymentProcessing from '../app/assets/images/flame-concentrated-area.gif';
 
 const Assets = {
+  paymentError,
+  paymentProcessing,
   paymentSuccess,
   distressLogo2,
   distressLogo,

@@ -36,6 +36,7 @@ export const API = {
   verifyUser: '/api/v1/user/verify-me',
 
   getProduct: '/api/v1/tag/property-for-sale',
+  confirmPayment: '/api/v1/tag/confirm-payment',
 };
 
 export default API;

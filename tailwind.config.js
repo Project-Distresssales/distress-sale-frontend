@@ -24,6 +24,7 @@ module.exports = {
         primary: "#f4ad0e",
         secondary: "#00134d",
         successGreen: '#2ecc71',
+        errorRed: '#D32F2F',
       },
       boxShadow: {
         '3xl': '0px 10px 15px -3px rgba(16, 24, 40, 0.10), 0px 4px 6px -4px rgba(16, 24, 40, 0.10)',
