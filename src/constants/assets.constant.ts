@@ -63,9 +63,11 @@ import distressLogo from '../app/assets/images/distresssales-trimed.png';
 import distressLogo2 from '../app/assets/images/distresssales2-trimed.png';
 import paymentSuccess from '../app/assets/images/payment-success.png';
 import paymentError from '../app/assets/images/bonbon-pink-lettering-oops.png';
+import apartmentFS from '../app/assets/images/apartment-fs.jpeg';
 import paymentProcessing from '../app/assets/images/flame-concentrated-area.gif';
 
 const Assets = {
+  apartmentFS,
   paymentError,
   paymentProcessing,
   paymentSuccess,

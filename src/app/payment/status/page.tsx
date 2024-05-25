@@ -29,7 +29,7 @@ export default function FlutterWavePaymentStatus() {
               if (status && tx_ref && transaction_id) {
                 const res = await makeRequest({
                   method: 'GET',
-                  url: `${API.confirmPayment}?status=${status}&tx_ref=${tx_ref}&transaction_id=${transaction_id}`,
+                  url: `${API.confirmPayment}?status=${status}& tx_ref=${tx_ref}&transaction_id=${transaction_id}`,
                 });
         
                 const { message } = res?.data;
