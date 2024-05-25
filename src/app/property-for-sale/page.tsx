@@ -14,6 +14,7 @@ import { FadeIn } from '../components/Transitions/Transitions';
 import useAppTheme from '@/hooks/theme.hook';
 import Navbar from '../components/Navbar/Navbar';
 import { algoliaClient } from '@/constants/api.constant';
+import Assets from '@/constants/assets.constant';
 
 
 export default function PropertyForSale() {
@@ -100,24 +101,24 @@ export default function PropertyForSale() {
     // Popular Categories
     const popularCategoryData = [
         {
-            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            header: "Property for Sale",
+            imagePath: Assets.apartmentFS,
+            header: "Apartment for Sale",
         },
         {
-            imagePath: "https://superiorrental.ae/wp-content/uploads/2023/12/A730107.jpg",
-            header: "Automobile",
-        },
-        {
-            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            header: "Property for Rent",
+            imagePath: "https://images.pexels.com/photos/7031407/pexels-photo-7031407.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            header: "Villa for Sale",
         },
         {
             imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            header: "Listings",
+            header: "Commercial for Sale",
         },
         {
             imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            header: "Commercial",
+            header: "Multiple Units for Sale",
+        },
+        {
+            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            header: "Land for Sale",
         },
     ];
 
@@ -142,7 +143,7 @@ export default function PropertyForSale() {
             imagePath: "https://s3-alpha-sig.figma.com/img/6acc/e143/171d5294d1c0f74f9fb6311f07c3ae64?Expires=1691971200&Signature=fEYOmn-uMKfaTtz2CRT9HcLF4B5I5jKLoXhKmUlxJLmfXuXR79v4AcsEIe1gNxA23nJIHZlKyfcG2lSEDWbwXRJNLIwLdPyS1d9I52C4d5qSwZLcEpwQPCs5n8kPew5~fAy-Gt3hCSHbzYJ9t38EnhRq3N4xIt0ezeB9jlquAcRy3j-NsBW3F1q8I23lYOZA4VQ5eMKiaHS5v6yW4aJakIoLHsBDgEfY6j3u2VgCSb5l8eeqMjuGTgwtlcB66sHjHF-oZc0WehzVHxQbeMVDw2U5wJ1LvoWo0eJMwdqQkbFtUgZbjZOt88zawIYCncxPfTwzd1ZERbDt9hOH~JJyyg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
             header: "AED 190,000",
             description: "Fully Furnished Spacious Office with All Amenities",
-            feature: "250 Sqft",
+            feature: "250 Sqft", 
             location: "Shams Abu Dhabi, Al Reem Island"
         },
         {
@@ -272,7 +273,12 @@ export default function PropertyForSale() {
          <div>
             <div className="w-full h-auto pb-32">
                 <div className="md:px-8 px-5">
-                    <div className="w-full md:rounded-[15px] rounded-[10px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center">
+                    <div className="w-full rounded-[30px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center px-5">
+                    <img
+              src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover rounded-[30px]"
+            />
                         <div className="h-auto text-center">
                             <div className="w-full">
                                 <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">Buy or Rent Properties with Distress Sales</h1>
