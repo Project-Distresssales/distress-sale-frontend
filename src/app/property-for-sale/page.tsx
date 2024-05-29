@@ -105,19 +105,19 @@ export default function PropertyForSale() {
             header: "Apartment for Sale",
         },
         {
-            imagePath: "https://images.pexels.com/photos/7031407/pexels-photo-7031407.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            imagePath: Assets.villaFS,
             header: "Villa for Sale",
         },
         {
-            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            imagePath: Assets.commercialFS,
             header: "Commercial for Sale",
         },
         {
-            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            imagePath: Assets.multiFS,
             header: "Multiple Units for Sale",
         },
         {
-            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            imagePath: Assets.landFS,
             header: "Land for Sale",
         },
     ];
@@ -199,24 +199,24 @@ export default function PropertyForSale() {
      };
 
 
-     // Agolia Search Result
+    // Agolia Search Result
   const [query, setQuery] = useState<string | any>('');
   const [results, setResults] = useState<any>([]);
   const [fetchResults, setFetchResults] = useState<any>([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-
-  const data = ['Automobile', 'Commercial', 'Property for Sale', 'Property for Rent'].map(
-    item => ({ label: item, value: item })
-  );
-
+  const data = ['General', 'Automobile', 'Property for Sale', 'Property for Rent'].map((item) => ({
+    label: item,
+    value: item,
+  }));
 
   // Get All Page Data or ads
   const handleSearch = async (indexName) => {
     try {
-      const hitsPerPage = 1000;
+      const hitsPerPage = 100;
       const algoliaIndex = algoliaClient.initIndex(indexName);
-      const { hits } = await algoliaIndex.search('', { // Empty query
+      const { hits } = await algoliaIndex.search('', {
+        // Empty query
         hitsPerPage: hitsPerPage,
       });
       return { category: indexName, hits };
@@ -230,7 +230,7 @@ export default function PropertyForSale() {
     const searchClients = async () => {
       const categories = ['categories', 'automobile', 'commercial', 'property_for_sale_ads', 'property_for_rent_ads'];
       const searchPromises = categories.map((category) => handleSearch(category));
-      
+
       try {
         const results = await Promise.all(searchPromises);
         setFetchResults(results);
@@ -241,7 +241,6 @@ export default function PropertyForSale() {
 
     searchClients();
   }, []);
-
 
   // Map specific properties outside of the component
   const categoriesData = {};
@@ -255,7 +254,9 @@ export default function PropertyForSale() {
   const propertyForRent = categoriesData['property_for_rent_ads'] || [];
   const automobile = categoriesData['automobile'] || [];
   const commercial = categoriesData['commercial'] || [];
-  const categories = categoriesData['categories'] || [];
+  // const categories = categoriesData['categories'] || [];
+
+
 
     return (
    <FadeIn>
@@ -275,28 +276,58 @@ export default function PropertyForSale() {
                 <div className="md:px-8 px-5">
                     <div className="w-full rounded-[30px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center px-5">
                     <img
-              src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="https://w0.peakpx.com/wallpaper/338/365/HD-wallpaper-dubai-beautiful-city-ultra-architecture-city-modern-design-tower-buildings-glass-skyscrapers-steel-tall-contemporary.jpg"
               alt=""
               className="absolute inset-0 w-full h-full object-cover rounded-[30px]"
             />
-                        <div className="h-auto text-center">
-                            <div className="w-full">
-                                <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">Buy or Rent Properties with Distress Sales</h1>
-                            </div>
+                                <div className="h-auto text-center z-10">
+              <div className="w-full">
+                {!isMobile ? (
+                  <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">
+                    The Ultimate Affordable Marketplace <br /> for Buying, Renting & Selling
+                  </h1>
+                ) : (
+                  <h1 className="text-[4.5vw] text-white font-[700] leading-tight">
+                    The Ultimate Affordable Marketplace for Buying, Renting & Selling
+                  </h1>
+                )}
+                <p className="text-white md:text-[1.3vw] text-[3.5vw] w-[80%] md:w-full mx-auto font-[700] mt-8">
+                  Explore the Best Deals: Discover, Connect, Transact
+                </p>
+              </div>
 
-                            {/* <div className="mt-20">
-                            <HeroDropDown 
-                                activeTab={activeTab} 
-                                setActiveTab={setActiveTab} 
-                                handleTabClick={handleTabClick}
-                                defaultOptionState={activeTab === "rent" ? 'Rent' : 'Buy'}
-                                defaultOptionPropertyType="Residential"
-                                defaultOptionType="Bed & Baths"
-                                defaultOptionFeature="Area (sqft)"
-                                defaultOptionPrice="Price (AED)"
-                                 />
-                            </div> */}
+              <div className="md:mt-20 mt-10 relative">
+                <SearchAndFilter
+                  setSearchResult={setResults}
+                  setQuery={setQuery}
+                  query={query}
+                  data={data}
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
+                />
+                {query.length > 0 && (
+                  <div
+                    className="z-20 mt-2 w-full rounded-[8px] h-[300px] overflow-auto bg-white absolute"
+                    style={{ boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px' }}
+                  >
+                    {results &&
+                      results?.map((item, i) => (
+                        <div key={i} className="w-full h-[50px] border-b flex justify-between items-center px-5">
+                          <div className="space-y-1">
+                            <p className="font-[500] md:text-[16px]">{item.name}</p>
+                          </div>
                         </div>
+                      ))}
+
+                    {!results && (
+                      <div className="flex justify-center items-center">
+                        <p className="">No Search Result Found...</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
                     </div>
 
                     <div className="md:px-[80px] py-[100px]">
