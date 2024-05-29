@@ -18,6 +18,7 @@ import SignupModal from './components/Auth/SIgnup/Signup';
 import useRequest from '@/services/request/request.service';
 import UnverifiedUserBadge from './components/Verification/UnverifiedUserBadge';
 import VerifiedUserBadge from './components/Verification/VerifiedUserBadge';
+import Image from 'next/image';
 
 export default function Home() {
   const { isMobile } = useAppTheme();
@@ -295,8 +296,8 @@ export default function Home() {
       <div className="w-full h-auto pb-32">
         <div className="md:px-8 px-5">
           <div className="w-full rounded-[30px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center px-5">
-            <img
-              src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            <Image
+              src={Assets.homeHero}
               alt=""
               className="absolute inset-0 w-full h-full object-cover rounded-[30px]"
             />

@@ -20,8 +20,8 @@ export const API = {
   // verifyUser: '/verification/verify',
 
   // admins
-  packages: '/api/v1/admin/packages',
-  sections: '/api/v1/admin/sections',
+  packages: '/api/v1/misc/sections/get',
+  sections: '/api/v1/misc/sections/get',
   categories: '/api/v1/admin/categories',
 
   createAd: '/api/v1/tag/create',

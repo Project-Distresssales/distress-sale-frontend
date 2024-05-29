@@ -64,9 +64,19 @@ import distressLogo2 from '../app/assets/images/distresssales2-trimed.png';
 import paymentSuccess from '../app/assets/images/payment-success.png';
 import paymentError from '../app/assets/images/bonbon-pink-lettering-oops.png';
 import apartmentFS from '../app/assets/images/apartment-fs.jpeg';
+import commercialFS from '../app/assets/images/commercial-fs.jpeg';
+import homeHero from '../app/assets/images/home-hero.jpeg';
+import landFS from '../app/assets/images/land-fs.jpeg';
+import villaFS from '../app/assets/images/villa-fs.webp';
+import multiFS from '../app/assets/images/multi-fs.webp';
 import paymentProcessing from '../app/assets/images/flame-concentrated-area.gif';
 
 const Assets = {
+  homeHero,
+  landFS,
+  multiFS,
+  commercialFS,
+  villaFS,
   apartmentFS,
   paymentError,
   paymentProcessing,
