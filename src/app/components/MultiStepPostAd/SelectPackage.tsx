@@ -96,7 +96,7 @@ const SelectPackage = () => {
               color={item?.name === 'Basic' ? '#D0D5DD' : item?.name === 'Super' ? '#F9C590' : '#7CC8C7'}
               bgColor={item?.name === 'Super' && '#FFF9F4'}
               tier={item?.name}
-              title={`${item?.amount.toLocaleString()} ${item?.currencyCode}`}
+              title={`${item?.amount && item?.amount?.toLocaleString()} ${item?.currencyCode}`}
               icon={
                 <TickSvg color={item?.name === 'Basic' ? '#667085' : item?.name === 'Super' ? '#F9C590' : '#7CC8C7'} />
               }

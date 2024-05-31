@@ -178,20 +178,28 @@ export default function CarsForSale() {
     // Blue card
     const blueCardData = [
         {
-            title: "Cars for Sale",
-            data: 60000,
+            title: "Cars",
+            data: 0,
+        },
+        {
+            title: "Number Plates",
+            data: 0,
         },
         {
             title: "Auto Accessories & Parts",
-            data: 60000,
+            data: 0,
         },
         {
-            title: "Car Models",
-            data: 60000,
+            title: "Motorcycles",
+            data: 0,
         },
         {
-            title: "Vehicle Types",
-            data: 60000,
+            title: "Boats",
+            data: 0,
+        },
+        {
+            title: "Heavy Vehicles",
+            data: 0,
         },
     ];
 
@@ -200,7 +208,7 @@ export default function CarsForSale() {
     const testimonies = [
         {
             image: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            title: "“Distress Sale has been my go-to platform for a while now, and I can't get enough of it. Buying and selling cars here is addictive! The variety and deals are unbeatable, and it's like a treasure hunt every time I log on. Planning my next car purchase has never been more thrilling!”",
+            title: "I found myself in need of a quick car sale due to a sudden move for work. SwiftCarDeals made it so easy. Their online system was user-friendly, and within hours of submitting my information, I had an offer. The next day, they picked up my car and handed me a check. The whole experience was efficient and stress-free, exactly what I needed during a hectic time. Highly recommend for anyone needing to sell fast.",
             name: 'Rachel Gray'
         },
         {
@@ -223,25 +231,24 @@ export default function CarsForSale() {
         setActiveTab(tab);
     };
 
-
-         // Agolia Search Result
+  // Agolia Search Result
   const [query, setQuery] = useState<string | any>('');
   const [results, setResults] = useState<any>([]);
   const [fetchResults, setFetchResults] = useState<any>([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-
-  const data = ['Automobile', 'Commercial', 'Property for Sale', 'Property for Rent'].map(
-    item => ({ label: item, value: item })
-  );
-
+  const data = ['General', 'Automobile', 'Property for Sale', 'Property for Rent'].map((item) => ({
+    label: item,
+    value: item,
+  }));
 
   // Get All Page Data or ads
   const handleSearch = async (indexName) => {
     try {
-      const hitsPerPage = 1000;
+      const hitsPerPage = 100;
       const algoliaIndex = algoliaClient.initIndex(indexName);
-      const { hits } = await algoliaIndex.search('', { // Empty query
+      const { hits } = await algoliaIndex.search('', {
+        // Empty query
         hitsPerPage: hitsPerPage,
       });
       return { category: indexName, hits };
@@ -255,7 +262,7 @@ export default function CarsForSale() {
     const searchClients = async () => {
       const categories = ['categories', 'automobile', 'commercial', 'property_for_sale_ads', 'property_for_rent_ads'];
       const searchPromises = categories.map((category) => handleSearch(category));
-      
+
       try {
         const results = await Promise.all(searchPromises);
         setFetchResults(results);
@@ -266,7 +273,6 @@ export default function CarsForSale() {
 
     searchClients();
   }, []);
-
 
   // Map specific properties outside of the component
   const categoriesData = {};
@@ -280,7 +286,7 @@ export default function CarsForSale() {
   const propertyForRent = categoriesData['property_for_rent_ads'] || [];
   const automobile = categoriesData['automobile'] || [];
   const commercial = categoriesData['commercial'] || [];
-  const categories = categoriesData['categories'] || [];
+  // const categories = categoriesData['categories'] || [];
 
 
     return (
@@ -299,30 +305,63 @@ export default function CarsForSale() {
         <div>
             <div className="w-full h-auto pb-32">
                 <div className="md:px-8 px-5">
-                    <div className="w-full rounded-[15px] h-auto md:py-[96px] py-10 hero-image-bg-sale flex justify-center items-center">
-                        <div className="h-auto text-center">
-                            <div className="w-full">
-                                <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">Your one-stop marketplace for buying and <br /> selling high-quality vehicles.</h1>
+                <div className="w-full rounded-[30px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center px-5">
+              <img
+                src="https://i0.wp.com/www.theluxeinsider.com/wp-content/uploads/2023/09/luxury-car-dubai-rental-3.jpg?fit=1207%2C800&ssl=1"
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover rounded-[30px]"
+              />
+              <div className="h-auto text-center z-10">
+                <div className="w-full">
+                  {!isMobile ? (
+                    <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">
+                      Your one-stop marketplace for buying and <br /> selling high-quality vehicles.
+                    </h1>
+                  ) : (
+                    <h1 className="text-[4.5vw] text-white font-[700] leading-tight">
+                      Your one-stop marketplace for buying and selling high-quality vehicles.
+                    </h1>
+                  )}
+                </div>
+
+                <div className="md:mt-20 mt-10 relative">
+                  <SearchAndFilter
+                    setSearchResult={setResults}
+                    setQuery={setQuery}
+                    query={query}
+                    data={data}
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                  />
+                  {query.length > 0 && (
+                    <div
+                      className="z-20 mt-2 w-full rounded-[8px] h-[300px] overflow-auto bg-white absolute"
+                      style={{ boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px' }}
+                    >
+                      {results &&
+                        results?.map((item, i) => (
+                          <div key={i} className="w-full h-[50px] border-b flex justify-between items-center px-5">
+                            <div className="space-y-1">
+                              <p className="font-[500] md:text-[16px]">{item.name}</p>
                             </div>
+                          </div>
+                        ))}
 
-                            {/* <div className="mt-20">
-                            <HeroDropDown
-                                    activeTab={activeTab}
-                                    setActiveTab={setActiveTab}
-                                    handleTabClick={handleTabClick}
-                                    defaultOptionState={activeTab === "rent" ? 'Rent' : 'Buy'}
-                                    defaultOptionPropertyType="Residential"
-                                    defaultOptionType="Bed & Baths"
-                                    defaultOptionFeature="Area (sqft)"
-                                    defaultOptionPrice="Price (AED)"
-                                />
-                            </div> */}
+                      {!results && (
+                        <div className="flex justify-center items-center">
+                          <p className="">No Search Result Found...</p>
                         </div>
+                      )}
                     </div>
+                  )}
+                </div>
+              </div>
+            </div>
 
-                    <div className="md:px-[80px] md:py-[100px] py-[70px]">
+
+                    <div className="md:py-[100px] py-[70px]">
                         {/* Services card */}
-                        <div className="flex space-x-3 overflow-x-auto">
+                        <div className="flex space-x-2">
                             {blueCardData.map((item, i) => (
                             <BlueCard key={i} item={item} />
                             ))}
@@ -330,38 +369,38 @@ export default function CarsForSale() {
 
                         {/* Popular property sales */}
                         <div className="mt-20 w-full">
-                        <div>
+                        {/* <div>
                                 <h1 className="text-[#101828] md:text-[2vw] text-[5vw] font-[700]">Popular Sections</h1>
                                 <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-5'>
                                     {popularCategoryData?.map((product, i) => (
                                         <CategoryCard key={i} product={product} />
                                     ))}
                                 </div>
-                            </div>
+                            </div> */}
 
-                            <div className="mt-16">
+                            {/* <div className="mt-16">
                                 <h1 className="text-[#101828] md:text-[2vw] text-[5vw] font-[700]">Featured Cars</h1>
                                 <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-5'>
                                     {featuredProperties?.map((product, i) => (
                                         <ProductCard key={i} product={product} />
                                     ))}
                                 </div>
-                            </div>
+                            </div> */}
 
                             {/* Popular Search category */}
-                            <div className="mt-24">
+                            {/* <div className="mt-24">
                                 <h1 className="text-[#101828] md:text-[2vw] text-[5vw] font-[700]">Recommended Searches</h1>
                                 <div className="md:mt-14 grid md:grid-cols-3 grid-cols-1 gap-[20px]">
                                     {recommendedSearch?.map((category, i) => (
                                         <SearchCategory key={i} header={category.header} item={category.items} />
                                     ))}
                                 </div>
-                            </div>
+                            </div> */}
 
                             {/* Testimonials */}
                             <div className="mt-24">
                                 <h1 className="text-[#101828] md:text-[2vw] text-[5vw] font-[700]">Testimonials</h1>
-                                <div className="md:mt-14 flex space-x-5 overflow-x-auto bg-white">
+                                <div className="md:mt-14 flex space-x-5 bg-white">
                                     {testimonies?.map((testimony, i) => (
                                         <Testimonial key={i} testimony={testimony} />
                                     ))}

@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function Testimonial({testimony}: any) {
   return (
-    <div className='w-full min-w-[80%] md:min-w-[100%] rounded-[15px] bg-white px-[39px] md:py-[30px] py-5 relative'
+    <div className='w-full rounded-[15px] bg-white px-[39px] md:py-[30px] py-5 relative'
     style={{boxShadow: "0px 8px 50px -4px rgba(16, 24, 40, 0.01), 0px 20px 50px -4px rgba(16, 24, 40, 0.03), 1px -4px 50px 4px rgba(16, 24, 40, 0.01), 0px -10px 50px 4px rgba(0, 0, 0, 0.03)"}}
     >
         <p className="text-[#344054] italic md:text-[1vw] text-[4vw] md:leading-[25px] leading-tight">{testimony.title}</p>
