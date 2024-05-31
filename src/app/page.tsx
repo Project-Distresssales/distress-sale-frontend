@@ -296,8 +296,8 @@ export default function Home() {
       <div className="w-full h-auto pb-32">
         <div className="md:px-8 px-5">
           <div className="w-full rounded-[30px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center px-5">
-            <Image
-              src={Assets.homeHero}
+            <img
+              src='https://thumbs.wbm.im/pw/small/bf59350a1ef942353cea5b17691045b1.jpg'
               alt=""
               className="absolute inset-0 w-full h-full object-cover rounded-[30px]"
             />

@@ -20,7 +20,7 @@ export const API = {
   // verifyUser: '/verification/verify',
 
   // admins
-  packages: '/api/v1/misc/sections/get',
+  packages: '/api/v1/misc/packages/get',
   sections: '/api/v1/misc/sections/get',
   categories: '/api/v1/admin/categories',
 

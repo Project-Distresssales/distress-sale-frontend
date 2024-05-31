@@ -38,26 +38,26 @@ export default function SubNavbar() {
             icon: Assets.pfs,
             link: '/property-for-sale'
         },
-        {
-            title: 'Automobile',
-            icon: Assets.automobile,
-            link: '/car-for-sale'
-        },
-         {
-            title: 'Listings',
-            icon: Assets.listingBlue,
-            link: '/listings'
-        },
+        //  {
+        //     title: 'Listings',
+        //     icon: Assets.listingBlue,
+        //     link: '/listings'
+        // },
          {
             title: 'Property for Rent',
             icon: Assets.pfr,
             link: '/property-for-rent'
         },
         {
-            title: 'Commercial',
-            icon: Assets.commercialBlue,
-            link: '/commercial'
+            title: 'Automobile',
+            icon: Assets.automobile,
+            link: '/car-for-sale'
         },
+        // {
+        //     title: 'Commercial',
+        //     icon: Assets.commercialBlue,
+        //     link: '/commercial'
+        // },
     ]
 
     return (

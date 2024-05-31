@@ -109,7 +109,7 @@ export default function SearchAndFilter({ setSearchResult, setQuery, query, data
         <div>
         <button
             className={`
-      flex justify-center items-center rounded-full py-3.5 md:px-7 px-5 text-primary font-[500] 
+      flex justify-center items-center rounded-full py-3.5 md:px-7 px-5 text-white font-[500] 
     md:text-[16px] text-[3.2vw] bg-secondary w-full`}
 onClick={handleSearch}
           >

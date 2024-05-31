@@ -329,7 +329,7 @@ export default function Navbar() {
           <button
             onClick={() => router.push('/post-ad')}
             className={`
-      flex justify-center items-center rounded-full py-3 px-10 text-primary font-[700] 
+      flex justify-center items-center rounded-full py-3 px-10 text-white font-[700] 
     md:text-[15px] text-[3.2vw] bg-secondary w-full`}
           >
             Post Ad
