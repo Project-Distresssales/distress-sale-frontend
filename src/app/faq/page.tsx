@@ -72,19 +72,19 @@ export default function Faq() {
             )}
             <div className="w-full h-auto pb-[200px] mt-10">
                 <div className="md:px-8 px-5">
-                    <h1 className='text-center font-[700] text-[32px]'>Frequently Ask Question</h1>
-                    <div className="mt-7 w-[600px] mx-auto">
+                    <h1 className='text-center font-[700] md:text-[32px] text-[5.5vw]'>Frequently Ask Question</h1>
+                    <div className="mt-7 md:w-[600px] w-full mx-auto">
                         {faq.map((item, i) => (
                             <Accordion key={i}>
                                 <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1-content"
                                     id="panel1-header"
-                                    sx={{fontSize: '15px', fontWeight: 500}}
+                                    sx={{fontSize: !isMobile ? '15px' : '3.2vw', fontWeight: 500}}
                                 >
                                     {item.header}
                                 </AccordionSummary>
-                                <AccordionDetails sx={{fontSize: '15px', fontWeight: 500}}>
+                                <AccordionDetails sx={{fontSize: !isMobile ? '15px' : '3.2vw', fontWeight: 500}}>
                                     {item.content}
                                 </AccordionDetails>
                             </Accordion>
