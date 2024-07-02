@@ -62,12 +62,12 @@ export default function Faq() {
             {!isMobile ? (
                 <>
                     <Navbar />
-                    <SubNavbar />
+                    {/* <SubNavbar /> */}
                 </>
             ) : (
                 <>
                     <MobileNavbar />
-                    <SubNavbar />
+                    {/* <SubNavbar /> */}
                 </>
             )}
             <div className="w-full h-auto pb-[200px] mt-10">
