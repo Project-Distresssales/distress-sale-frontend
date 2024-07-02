@@ -444,6 +444,21 @@ export default function Home() {
                 </div>
               )}
             </div>
+
+            <section className="bg-gray-100 rounded-[16px] mt-24">
+              <div className="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
+                  <div className="max-w-lg">
+                    <h2 className="text-[5.5vw] font-extrabold text-gray-900 md:text-4xl">About Us</h2>
+                    <p className="mt-4 text-gray-600 md:text-lg text-[3.5vw]">An online market place where people who need to quickly sell their properties, cars, businesses, Jewelries and other assets within 48 hours finds buyers who are looking for opportunities to buy properties, cars, businesses, Jewelries and other assets at a
+                      very cheap price that is below the open market prices.</p>
+                  </div>
+                  <div className="mt-12 md:mt-0">
+                    <img src="https://images.unsplash.com/photo-1531973576160-7125cd663d86" alt="About Us Image" className="object-cover rounded-lg shadow-md" />
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </div>

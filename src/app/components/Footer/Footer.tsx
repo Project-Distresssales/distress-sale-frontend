@@ -9,10 +9,6 @@ import NewsLetter from '../NewsLetter/NewsLetter';
 // Company
 const company = [
     {
-        title: 'About Us',
-        link: '/about',
-    },
-    {
         title: 'Advertise with Us',
         link: '',
     },
@@ -23,6 +19,14 @@ const company = [
     {
         title: 'Privacy Policy',
         link: '',
+    },
+    {
+        title: 'Benefits',
+        link: '/benefits',
+    },
+    {
+        title: 'FAQ',
+        link: '/faq',
     },
 ];
 
