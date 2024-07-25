@@ -149,7 +149,7 @@ function Footer() {
     };
 
     return (
-        <div className="bg-[#E7EDFE] w-full h-auto md:px-[80px] px-5 pt-[130px] pb-[88px] flex flex-col justify-between items-center relative">
+        <div className="bg-[#E7EDFE] w-full h-auto md:px-[80px] px-5 pt-[100px] pb-[88px] flex flex-col justify-between items-center relative">
             {/* News Letter */}
             {/* <div className="absolute -top-7 left-0 right-0 md:mx-auto min-w-full flex justify-center items-center">
                 <NewsLetter />

@@ -27,10 +27,10 @@ const PrivacyPolicy = () => {
 
       <div className="w-full h-auto">
         {/* Main */}
-        <div className="w-full h-auto sm:px-20 px-5 sm:pt-12 sm:pb-[200px]">
-          <div className="w-full sm:h-[130px] h-[100px] bg-[#101828] rounded-[16px] flex flex-col justify-center items-center sm:px-14 px-7 py-7">
-            <h1 className="text-[#fff] sm:text-[30px] text-[5vw] font-[600]">Data Protection And Privacy Policy</h1>
-            <p className="text-white text-[16px] font-[500]">Effective Date – 1 June 2024</p>
+        <div className="w-full h-auto sm:px-20 px-5 pt-12 pb-[200px]">
+          <div className="w-full sm:h-[130px] h-auto bg-[#101828] rounded-[16px] flex flex-col justify-center items-center sm:px-14 px-5 py-7">
+            <h1 className="text-[#fff] sm:text-[30px] text-[4vw] text-center font-[600] leading-none">Data Protection And Privacy Policy</h1>
+            <p className="text-white sm:text-[16px] text-[3.2vw] font-[500] mt-3">Effective Date – 1 June 2024</p>
           </div>
 
           <div className="flex flex-col justify-center items-center space-y-10 mx-auto py-10">
@@ -135,104 +135,50 @@ const PrivacyPolicy = () => {
             </div>
           </div>
 
-          <div className="relative grid grid-cols-3 h-auto flex-col justify-center gap-7 overflow-hidden bg-gray-50 rounded-[12px] sm:p-12">
-            <div
-            onClick={() => window.open('/Distress Sales CarsVEHICLE INSPECTION TERMS AND CO_240712_121147 (4).pdf', '_blank')}
-              className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 policy-card transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto w-full sm:rounded-lg sm:px-10">
-              <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-[#00134d] transition-all duration-300 group-hover:scale-[10]"></span>
-              <div className="relative z-10 mx-auto max-w-md">
-                <span className="grid h-20 w-20 place-items-center rounded-full bg-[#00134d] transition-all duration-300 group-hover:bg-[#2b385d]">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="h-10 w-10 text-white transition-all">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-                  </svg>
-                </span>
-                <div
-                  className="space-y-6 pt-5 text-base leading-7 font-medium text-gray-600 transition-all duration-300 group-hover:text-white/90">
-                  <p>VEHICLE INSPECTION TERMS AND CONDITIONS</p>
-                </div>
-                <div className="pt-5 text-base font-semibold leading-7">
-                  <p>
-                    <p className="text-[#00134d] transition-all duration-300 group-hover:text-white">Read More
-                      &rarr;
+          <div className="relative grid sm:grid-cols-3 grid-cols-1 h-auto flex-col justify-center gap-7 overflow-hidden sm:bg-gray-50 rounded-[12px] p-0 sm:p-12">
+            {[
+              {
+                title: "VEHICLE INSPECTION TERMS AND CONDITIONS",
+                url: "/Distress Sales CarsVEHICLE INSPECTION TERMS AND CO_240712_121147 (4).pdf",
+              },
+              {
+                title: "WHAT DOES THIS PRIVACY POLICY COVER?",
+                url: "/DISTRESS SALES PRIVACY POLICY.pdf",
+              },
+              {
+                title: "BY USING THE PLATFORM, YOU ACCEPT THESE TERMS OF USE",
+                url: "/DISTRESS SALES TERMS OF USE JULY 2024.pdf",
+              },
+              {
+                title: "VEHICLE AUCTION TERMS & CONDITIONS",
+                url: "/DISTRESS SALES VEHICLE AUCTION TERMS & CONDITIONS_240712_121425 (1).pdf",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                onClick={() => window.open(item.url, '_blank')}
+                className="group relative cursor-pointer overflow-hidden sm:bg-white bg-[#00134d] px-6 pt-10 pb-8 sm:policy-card policy-card-mobile transition-all duration-300 hover:-translate-y-1 sm:mx-auto w-full rounded-[12px] sm:px-10"
+              >
+                <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-[#00134d] transition-all duration-300 group-hover:scale-[10]"></span>
+                <div className="relative z-10 mx-auto max-w-md">
+                  <span className="grid h-20 w-20 place-items-center rounded-full sm:bg-[#00134d] bg-[#2b385d] transition-all duration-300 group-hover:bg-[#2b385d]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-10 w-10 text-white transition-all">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                    </svg>
+                  </span>
+                  <div className="space-y-6 pt-5 text-base leading-7 font-medium sm:text-gray-600 text-white transition-all duration-300 group-hover:text-white/90">
+                    <p>{item.title}</p>
+                  </div>
+                  <div className="pt-5 text-base font-semibold leading-7">
+                    <p className="sm:text-[#00134d] text-white transition-all duration-300 group-hover:text-white">
+                      Read More &rarr;
                     </p>
-                  </p>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div
-            onClick={() => window.open('/DISTRESS SALES PRIVACY POLICY.pdf', '_blank')}
-              className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 policy-card transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto w-full sm:rounded-lg sm:px-10">
-              <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-[#00134d] transition-all duration-300 group-hover:scale-[10]"></span>
-              <div className="relative z-10 mx-auto max-w-md">
-                <span className="grid h-20 w-20 place-items-center rounded-full bg-[#00134d] transition-all duration-300 group-hover:bg-[#2b385d]">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="h-10 w-10 text-white transition-all">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-                  </svg>
-                </span>
-                <div
-                  className="space-y-6 pt-5 text-base font-medium leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
-                  <p>WHAT DOES THIS PRIVACY POLICY COVER?</p>
-                </div>
-                <div className="pt-5 text-base font-semibold leading-7">
-                  <p>
-                    <p className="text-[#00134d] transition-all duration-300 group-hover:text-white">Read More
-                      &rarr;
-                    </p>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-            onClick={() => window.open('/DISTRESS SALES TERMS OF USE JULY 2024.pdf', '_blank')}
-              className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 policy-card transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto w-full sm:rounded-lg sm:px-10">
-              <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-[#00134d] transition-all duration-300 group-hover:scale-[10]"></span>
-              <div className="relative z-10 mx-auto max-w-md">
-                <span className="grid h-20 w-20 place-items-center rounded-full bg-[#00134d] transition-all duration-300 group-hover:bg-[#2b385d]">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="h-10 w-10 text-white transition-all">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-                  </svg>
-                </span>
-                <div
-                  className="space-y-6 pt-5 text-base font-medium leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
-                  <p>BY USING THE PLATFORM, YOU ACCEPT THESE TERMS OF USE</p>
-                </div>
-                <div className="pt-5 text-base font-semibold leading-7">
-                  <p>
-                    <p className="text-[#00134d] transition-all duration-300 group-hover:text-white">Read More
-                      &rarr;
-                    </p>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-            onClick={() => window.open('/DISTRESS SALES VEHICLE AUCTION TERMS & CONDITIONS_240712_121425 (1).pdf', '_blank')}
-              className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 policy-card transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto w-full sm:rounded-lg sm:px-10">
-              <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-[#00134d] transition-all duration-300 group-hover:scale-[10]"></span>
-              <div className="relative z-10 mx-auto max-w-md">
-                <span className="grid h-20 w-20 place-items-center rounded-full bg-[#00134d] transition-all duration-300 group-hover:bg-[#2b385d]">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="h-10 w-10 text-white transition-all">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-                  </svg>
-                </span>
-                <div
-                  className="space-y-6 pt-5 text-base font-medium leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
-                  <p>VEHICLE AUCTION TERMS & CONDITIONS</p>
-                </div>
-                <div className="pt-5 text-base font-semibold leading-7">
-                  <p>
-                    <p className="text-[#00134d] transition-all duration-300 group-hover:text-white">Read More
-                      &rarr;
-                    </p>
-                  </p>
-                </div>
-              </div>
-            </div>
-
+            ))}
           </div>
+
         </div>
 
       </div>
