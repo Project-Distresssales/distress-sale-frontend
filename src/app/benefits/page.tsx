@@ -1,15 +1,9 @@
 "use client"
 
 import React from 'react'
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
 import { FadeIn } from '../components/Transitions/Transitions';
 import useAppTheme from '@/hooks/theme.hook';
 import Navbar from '../components/Navbar/Navbar';
-import SubNavbar from '../components/Navbar/SubNavbar';
 import MobileNavbar from '../components/Navbar/MovileNavbar';
 
 export default function Benefits() {

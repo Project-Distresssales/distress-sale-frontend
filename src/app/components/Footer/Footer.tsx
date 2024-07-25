@@ -8,17 +8,17 @@ import NewsLetter from '../NewsLetter/NewsLetter';
 
 // Company
 const company = [
-    {
-        title: 'Advertise with Us',
-        link: '',
-    },
+    // {
+    //     title: 'Advertise with Us',
+    //     link: '',
+    // },
     {
         title: 'Terms of Use',
-        link: '',
+        link: '/privacy-policy',
     },
     {
         title: 'Privacy Policy',
-        link: '',
+        link: '/privacy-policy',
     },
     {
         title: 'Benefits',
@@ -31,36 +31,36 @@ const company = [
 ];
 
 // UAE
-const uae = [
-    {
-        title: 'Abu Dhabi',
-        link: '',
-    },
-    {
-        title: 'Dubai',
-        link: '',
-    },
-    {
-        title: 'Sharjah',
-        link: '',
-    },
-    {
-        title: 'Ajman',
-        link: '',
-    },
-    {
-        title: 'UAQ',
-        link: '',
-    },
-    {
-        title: 'Ras Al-Khaimah',
-        link: '',
-    },
-    {
-        title: 'Fujairah',
-        link: '',
-    },
-];
+// const uae = [
+//     {
+//         title: 'Abu Dhabi',
+//         link: '',
+//     },
+//     {
+//         title: 'Dubai',
+//         link: '',
+//     },
+//     {
+//         title: 'Sharjah',
+//         link: '',
+//     },
+//     {
+//         title: 'Ajman',
+//         link: '',
+//     },
+//     {
+//         title: 'UAQ',
+//         link: '',
+//     },
+//     {
+//         title: 'Ras Al-Khaimah',
+//         link: '',
+//     },
+//     {
+//         title: 'Fujairah',
+//         link: '',
+//     },
+// ];
 
 // Other countries
 const otherCountries = [
@@ -151,9 +151,9 @@ function Footer() {
     return (
         <div className="bg-[#E7EDFE] w-full h-auto md:px-[80px] px-5 pt-[130px] pb-[88px] flex flex-col justify-between items-center relative">
             {/* News Letter */}
-            <div className="absolute -top-7 left-0 right-0 md:mx-auto min-w-full flex justify-center items-center">
+            {/* <div className="absolute -top-7 left-0 right-0 md:mx-auto min-w-full flex justify-center items-center">
                 <NewsLetter />
-            </div>
+            </div> */}
 
             <div className='flex justify-between items-center w-full'>
                 <Image src={Assets.distressLogo2} alt="Logo" width={200} height={200} />
@@ -182,7 +182,7 @@ function Footer() {
                 </div>
 
                 {/* UAE */}
-                <div className="space-y-5 text-[#101828]">
+                {/* <div className="space-y-5 text-[#101828]">
                     <h1 className="font-[700] sm:text-[1.3vw] text-[5vw]">UAE</h1>
                     <ul className="space-y-3">
                         {uae.map((item, index) => (
@@ -195,10 +195,10 @@ function Footer() {
                             </li>
                         ))}
                     </ul>
-                </div>
+                </div> */}
 
                 {/* Other Countries */}
-                <div className="space-y-5 text-[#101828]">
+                {/* <div className="space-y-5 text-[#101828]">
                     <h1 className="font-[700] sm:text-[1.3vw] text-[5vw]">Other Countries</h1>
                     <ul className="space-y-3">
                         {otherCountries.map((item, index) => (
@@ -211,7 +211,7 @@ function Footer() {
                             </li>
                         ))}
                     </ul>
-                </div>
+                </div> */}
 
                 {/* Support */}
                 <div className="space-y-5 text-[#101828]">
