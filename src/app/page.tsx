@@ -337,6 +337,56 @@ export default function Home() {
         {userState && userState?.verified ? <VerifiedUserBadge /> : <UnverifiedUserBadge />}
       </div>
 
+      <div className='mt-20 w-full px-24'>
+        {propertyForSale?.length > 0 && (
+          <div>
+            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Sale</h1>
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:mt-10 mt-7">
+              {propertyForSale?.map((product, i) => (
+                <ProductCard key={i} product={product} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {automobile?.length > 0 && (
+          <div className="mt-16">
+            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">
+              Popular in Used Cars for Sale
+            </h1>
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
+              {automobile?.map((product, i) => (
+                <ProductCard key={i} product={product} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {propertyForRent?.length > 0 && (
+          <div className="mt-16">
+            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Rent</h1>
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
+              {propertyForRent?.map((product, i) => (
+                <ProductCard key={i} product={product} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {commercial?.length > 0 && (
+          <div className="mt-16">
+            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Commercial</h1>
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
+              {commercial?.map((product, i) => (
+                <ProductCard key={i} product={product} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className='my-20'/>
+
       {/* Auth Signup  */}
       <SignupModal
         open={openRegisterModal}
