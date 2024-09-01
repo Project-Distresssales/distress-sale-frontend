@@ -34,23 +34,25 @@ export default function Home() {
 
   const services = [
     {
-      header: 'Listings',
-      text: 'Distress Sales allows users post classified ads. You can buy, sell, and advertise properties and products with ease.',
-      buttonText: 'Check Market Insights',
-      iconPath: Assets.listingWhite,
+      header: '90 Days Return',
+      text: 'If goods have problems, Lorem Ipsum is dummy text',
+      iconPath: '/icons/truck-2.svg',
     },
     {
-      header: 'Market Insights',
-      text: 'Gain valuable market insights by exploring accurate market prices, ensuring informed decision-making and the best deals.',
-      buttonText: 'Post Ad',
-      iconPath: Assets.insightWhite,
+      header: 'Free Returns',
+      text: 'For all orders over $50, Lorem Ipsum is dummy text',
+      iconPath: '/icons/offer.svg',
     },
     {
-      header: 'Diverse Categories',
-      text: 'There are wide variety of categories to choose from, offering an extensive selection of exclusive deals to explore.',
-      buttonText: 'Explore',
-      iconPath: Assets.categoryWhite,
+      header: 'Secured payment',
+      text: '100% secure payment, Lorem Ipsum is dummy text',
+      iconPath: '/icons/payment.svg',
     },
+    {
+      header: 'Customer Support',
+      text: '24x7 customer support, Lorem Ipsum is dummy text',
+      iconPath: '/icons/support.svg',
+    }
   ];
 
   // Searched categories
@@ -311,6 +313,21 @@ export default function Home() {
             <div className='bg-[#f2f5fe] w-[350px] h-full rounded-full'>
               <img src='/images/hero-new.png' className='w-full h-full bg-cover bg-no-repeat' />
             </div>
+          </div>
+        </div>
+
+        {/* Services */}
+        <div className='px-32 -mt-[70px]'>
+          <div className='w-full h-auto rounded-[22px] service-glass-bg grid grid-cols-4 divide-x py-10'>
+            {services.map(({ header, text, iconPath }, index) => (
+              <div key={index} className='w-full h-auto py-5 px-7 flex flex-col justify-center items-center text-center'>
+                <div className='w-[40px] h-[40px] rounded-[12px] bg-[#D4DEFF] mb-5 flex justify-center items-center'>
+                  <img src={iconPath} width={20} height={20} />
+                </div>
+                <h1 className='text-[#00134D] font-[600] text-[18px] leading-tight mb-2'>{header}</h1>
+                <p className='text-[#898384] font-normal text-[16px] leading-tight'>{text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

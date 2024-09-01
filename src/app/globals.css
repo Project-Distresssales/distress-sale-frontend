@@ -254,3 +254,12 @@ label {
 .nunito {
   font-family: "Nunito", sans-serif;
 }
+
+.service-glass-bg {
+  /* From https://css.glass */
+background: rgba(255, 255, 255, 0.5);
+backdrop-filter: blur(7.2px);
+-webkit-backdrop-filter: blur(7.2px);
+box-shadow: 0 8px 50px rgba(212, 222, 254, 0.2);
+
+}
