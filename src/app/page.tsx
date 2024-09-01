@@ -332,6 +332,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Verification */}
+      <div className="mt-10 px-32">
+        {userState && userState?.verified ? <VerifiedUserBadge /> : <UnverifiedUserBadge />}
+      </div>
+
       {/* Auth Signup  */}
       <SignupModal
         open={openRegisterModal}
