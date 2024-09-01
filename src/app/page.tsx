@@ -41,7 +41,7 @@ export default function Home() {
     {
       header: 'Free Returns',
       text: 'For all orders over $50, Lorem Ipsum is dummy text',
-      iconPath: '/icons/offer.svg',
+      iconPath: '/icons/return-2.svg',
     },
     {
       header: 'Secured payment',
