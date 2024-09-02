@@ -268,6 +268,8 @@ export default function Home() {
       ) : (
         <>
           <MobileNavbar sideBar={sideBar} setSideBar={setSideBar} />
+          <AltNavbar />
+          
           {/* Drop Down */}
           {sideBar && (
             <FadeIn>
@@ -302,30 +304,30 @@ export default function Home() {
 
       {/* Hero */}
       <section>
-        <div className="mx-auto pl-24 pr-36 pb-14 lg:flex gap-5">
+        <div className="mx-auto sm:pl-24 sm:pr-36 pr-5 pl-5 sm:pb-14 lg:flex gap-5">
           <div className="text-center lg:text-left w-full mt-10">
-            <h1 className="text-[#00134D] font-[700] text-[60px] leading-tight nunito">The Ultimate Affordable Marketplace for Buying, Renting & Selling
+            <h1 className="text-[#00134D] font-[700] sm:text-[60px] text-[7vw] leading-tight nunito">The Ultimate Affordable Marketplace for Buying, Renting & Selling
             </h1>
-            <p className="text-[18px] font-normal text-[#898384] mt-2">Explore the Best Deals: Discover, Connect, Transact.</p>
+            <p className="sm:text-[18px] text-[4vw] font-normal text-[#898384] mt-2">Explore the Best Deals: Discover, Connect, Transact.</p>
             <button type="button" className="py-4 px-12 bg-secondary rounded-[12px] text-white mt-10">Explore</button>
           </div>
-          <div className='relative'>
-            <div className='bg-[#f2f5fe] w-[350px] h-full rounded-full'>
-              <img src='/images/hero-new.png' className='w-full h-full bg-cover bg-no-repeat' />
+          <div className='relative mt-14 sm:mt-0 flex justify-center items-center'>
+            <div className='bg-[#f2f5fe] sm:w-[350px] sm:h-full rounded-full'>
+              <img src='/images/hero-new.png' className='sm:w-full sm:h-full bg-cover bg-no-repeat' />
             </div>
           </div>
         </div>
 
         {/* Services */}
-        <div className='px-32 -mt-[70px]'>
-          <div className='w-full h-auto rounded-[22px] service-glass-bg grid grid-cols-4 divide-x py-10'>
+        <div className='sm:px-32 px-5 sm:-mt-[70px] -mt-[20px]'>
+          <div className='w-full h-auto rounded-[22px] service-glass-bg grid sm:grid-cols-4 grid-cols-1 sm:divide-x sm:divide-y-0 divide-y sm:py-10 py-7 px-7 sm:px-0 overflow-auto'>
             {services.map(({ header, text, iconPath }, index) => (
-              <div key={index} className='w-full h-auto py-5 px-7 flex flex-col justify-center items-center text-center'>
+              <div key={index} className='w-full h-auto sm:py-5 py-7 px-7 flex flex-col justify-center items-center text-center'>
                 <div className='w-[40px] h-[40px] rounded-[12px] bg-[#D4DEFF] mb-5 flex justify-center items-center'>
                   <img src={iconPath} width={20} height={20} />
                 </div>
-                <h1 className='text-[#00134D] font-[600] text-[18px] leading-tight mb-2'>{header}</h1>
-                <p className='text-[#898384] font-normal text-[16px] leading-tight'>{text}</p>
+                <h1 className='text-[#00134D] font-[600] sm:text-[18px] text-[5vw] leading-tight mb-2'>{header}</h1>
+                <p className='text-[#898384] font-normal sm:text-[16px] text-[3.5vw] leading-tight'>{text}</p>
               </div>
             ))}
           </div>
@@ -333,11 +335,11 @@ export default function Home() {
       </section>
 
       {/* Verification */}
-      <div className="mt-10 px-32">
+      <div className="mt-10 sm:px-32 px-5">
         {userState && userState?.verified ? <VerifiedUserBadge /> : <UnverifiedUserBadge />}
       </div>
 
-      <div className='mt-20 w-full px-24'>
+      <div className='mt-20 w-full sm:px-24 px-5'>
         {propertyForSale?.length > 0 && (
           <div>
             <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Sale</h1>
