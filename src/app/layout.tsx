@@ -1,26 +1,10 @@
 "use client"
 
 import AppProvider from '@/providers/AppProvider';
-import type { Metadata } from 'next';
 import Footer from './components/Footer/Footer';
-import Navbar from './components/Navbar/Navbar';
-import SubNavbar from './components/Navbar/SubNavbar';
 import '@/services/firebase/firebase.service';
 import './globals.css';
-import { NextUIProvider } from '@nextui-org/react';
 import 'rsuite/dist/rsuite.min.css';
-
-import { useEffect, useRef } from 'react';
-
-const googleTranslateElementInit = () => {
-  new (window as any).google.translate.TranslateElement(
-    {
-      pageLanguage: "en",
-      autoDisplay: false
-    },
-    "google_translate_element"
-  );
-};
 
 // export const metadata: Metadata = {
 //   title: 'Distress Sale',
@@ -28,33 +12,13 @@ const googleTranslateElementInit = () => {
 // };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // useEffect(() => {
-  //   const addScript = document.createElement("script");
-  //   addScript.setAttribute(
-  //     "src",
-  //     "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-  //   );
-  //   document.body.appendChild(addScript);
-  //   (window as any).googleTranslateElementInit = googleTranslateElementInit;
-
-  //   // Clean up function to remove the script when component unmounts
-  //   return () => {
-  //     document.body.removeChild(addScript);
-  //     delete (window as any).googleTranslateElementInit;
-  //   };
-  // }, []);
-
   return (
     <html lang="en">
-      <body className="max-w-[1450px] mx-auto" id="google_translate_element">
-        {/* <NextUIProvider> */}
+      <body className="max-w-[1450px] mx-auto">
           <AppProvider>
-            {/* <Navbar /> */}
-            {/* <SubNavbar /> */}
             {children}
             <Footer />
           </AppProvider>
-        {/* </NextUIProvider> */}
       </body>
     </html>
   );

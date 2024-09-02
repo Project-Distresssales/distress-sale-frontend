@@ -61,7 +61,7 @@ export default function SubNavbar() {
     ]
 
     return (
-        <div className="md:flex h-auto md:px-[80px] md:items-center w-full px-5 py-7">
+        <div className="md:flex h-auto md:px-[80px] md:items-center w-full px-5 py-5">
             {!isMobile ? (
                 <div className="flex justify-between items-center w-full">
                     {data.map((item, i) => (

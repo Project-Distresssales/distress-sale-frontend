@@ -12,10 +12,10 @@ export default function VerifiedUserBadge() {
             <div className="md:px-[35px] px-[30px] bg-[#D8E1FD] flex justify-center items-center rounded-l-[10px]">
                 <Image src={Assets.verifyUser} alt="" width={!isMobile ? 35 : 35} height={!isMobile ? 35 : 35} />
             </div>
-            <div className="w-full bg-[#00134d] px-5 flex md:flex-row flex-col justify-between md:items-center items-start space-y-5 md:space-y-0 rounded-r-[10px] py-5">
+            <div className="w-full bg-[#D8E1FD] px-5 flex md:flex-row flex-col justify-between md:items-center items-start space-y-5 md:space-y-0 rounded-r-[10px] py-5">
                 <div className='space-y-2'>
-                    <p className="text-white md:text-[18px] text-[3.5vw] font-[700]">Verified User</p>
-                    <p className='text-white md:text-[14px] text-[2.8vw] font-[500] md:w-[500px] w-full'>You are now qualified for Ad Posting and This will also Increase your online presence and help you reach a wider audience.</p>
+                    <p className="text-[#00134D] md:text-[18px] text-[3.5vw] font-[700]">Verified User</p>
+                    <p className='text-[#00134D] md:text-[14px] text-[2.8vw] font-[500] md:w-[500px] w-full'>You are now qualified for Ad Posting and This will also Increase your online presence and help you reach a wider audience.</p>
                 </div>
                 <div>
                 <svg width="35" height="35" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

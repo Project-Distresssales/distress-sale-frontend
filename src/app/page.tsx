@@ -19,6 +19,8 @@ import useRequest from '@/services/request/request.service';
 import UnverifiedUserBadge from './components/Verification/UnverifiedUserBadge';
 import VerifiedUserBadge from './components/Verification/VerifiedUserBadge';
 import Image from 'next/image';
+import NewNavbar from './components/Navbar/NewNavbar';
+import AltNavbar from './components/Navbar/AltNavbar';
 
 export default function Home() {
   const { isMobile } = useAppTheme();
@@ -32,23 +34,25 @@ export default function Home() {
 
   const services = [
     {
-      header: 'Listings',
-      text: 'Distress Sales allows users post classified ads. You can buy, sell, and advertise properties and products with ease.',
-      buttonText: 'Check Market Insights',
-      iconPath: Assets.listingWhite,
+      header: '90 Days Return',
+      text: 'If goods have problems, Lorem Ipsum is dummy text',
+      iconPath: '/icons/truck-2.svg',
     },
     {
-      header: 'Market Insights',
-      text: 'Gain valuable market insights by exploring accurate market prices, ensuring informed decision-making and the best deals.',
-      buttonText: 'Post Ad',
-      iconPath: Assets.insightWhite,
+      header: 'Free Returns',
+      text: 'For all orders over $50, Lorem Ipsum is dummy text',
+      iconPath: '/icons/return-2.svg',
     },
     {
-      header: 'Diverse Categories',
-      text: 'There are wide variety of categories to choose from, offering an extensive selection of exclusive deals to explore.',
-      buttonText: 'Explore',
-      iconPath: Assets.categoryWhite,
+      header: 'Secured payment',
+      text: '100% secure payment, Lorem Ipsum is dummy text',
+      iconPath: '/icons/payment.svg',
     },
+    {
+      header: 'Customer Support',
+      text: '24x7 customer support, Lorem Ipsum is dummy text',
+      iconPath: '/icons/support.svg',
+    }
   ];
 
   // Searched categories
@@ -254,9 +258,11 @@ export default function Home() {
 
   return (
     <FadeIn>
+
       {!isMobile ? (
         <>
-          <Navbar />
+          <NewNavbar />
+          <AltNavbar />
           <SubNavbar />
         </>
       ) : (
@@ -293,175 +299,93 @@ export default function Home() {
           <SubNavbar />
         </>
       )}
-      <div className="w-full h-auto pb-32">
-        <div className="md:px-8 px-5">
-          <div className="w-full rounded-[30px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center px-5">
-            <img
-              src='https://thumbs.wbm.im/pw/small/bf59350a1ef942353cea5b17691045b1.jpg'
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover rounded-[30px]"
-            />
 
-            <div className="h-auto text-center z-10">
-              <div className="w-full">
-                {!isMobile ? (
-                  <h1 className="md:text-[2.5vw] text-[4vw] text-white font-[700] md:leading-[50px]">
-                    The Ultimate Affordable Marketplace <br /> for Buying, Renting & Selling
-                  </h1>
-                ) : (
-                  <h1 className="text-[4.5vw] text-white font-[700] leading-tight">
-                    The Ultimate Affordable Marketplace for Buying, Renting & Selling
-                  </h1>
-                )}
-                <p className="text-white md:text-[1.3vw] text-[3.5vw] w-[80%] md:w-full mx-auto font-[700] mt-8">
-                  Explore the Best Deals: Discover, Connect, Transact
-                </p>
-              </div>
-
-              <div className="md:mt-20 mt-10 relative">
-                <SearchAndFilter
-                  setSearchResult={setResults}
-                  setQuery={setQuery}
-                  query={query}
-                  data={data}
-                  selectedCategory={selectedCategory}
-                  setSelectedCategory={setSelectedCategory}
-                />
-                {query.length > 0 && (
-                  <div
-                    className="z-20 mt-2 w-full rounded-[8px] h-[300px] overflow-auto bg-white absolute"
-                    style={{ boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px' }}
-                  >
-                    {results &&
-                      results?.map((item, i) => (
-                        <div key={i} className="w-full h-[50px] border-b flex justify-between items-center px-5">
-                          <div className="space-y-1">
-                            <p className="font-[500] md:text-[16px]">{item.name}</p>
-                          </div>
-                        </div>
-                      ))}
-
-                    {!results && (
-                      <div className="flex justify-center items-center">
-                        <p className="">No Search Result Found...</p>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
+      {/* Hero */}
+      <section>
+        <div className="mx-auto pl-24 pr-36 pb-14 lg:flex gap-5">
+          <div className="text-center lg:text-left w-full mt-10">
+            <h1 className="text-[#00134D] font-[700] text-[60px] leading-tight nunito">The Ultimate Affordable Marketplace for Buying, Renting & Selling
+            </h1>
+            <p className="text-[18px] font-normal text-[#898384] mt-2">Explore the Best Deals: Discover, Connect, Transact.</p>
+            <button type="button" className="py-4 px-12 bg-secondary rounded-[12px] text-white mt-10">Explore</button>
           </div>
-
-          <div className="md:px-[80px] md:py-[100px] px-0 py-10">
-            {/* Services */}
-            <div className="grid md:grid-cols-3 grid-cols-1 md:gap-[30px] gap-[50px] mt-16">
-              {services?.map((service: any, i) => (
-                <ServiceCard
-                  key={i}
-                  header={service.header}
-                  text={service.text}
-                  buttonText={service.buttonText}
-                  icon={service.iconPath}
-                />
-              ))}
+          <div className='relative'>
+            <div className='bg-[#f2f5fe] w-[350px] h-full rounded-full'>
+              <img src='/images/hero-new.png' className='w-full h-full bg-cover bg-no-repeat' />
             </div>
-
-            {/* Popular Search category */}
-            <div className="mt-24">
-              <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular Categories</h1>
-              <div className="md:mt-14 mt-7 md:flex md:justify-between grid grid-cols-2 gap-x-5 gap-y-10">
-                {popularCategories?.map((category, i) => (
-                  <SearchCategory key={i} header={category.header} item={category.items} />
-                ))}
-              </div>
-              {/* <div className="border-[0.2px] my-14 w-full border-[#EAECF0]" />
-                <div className="md:flex md:justify-between grid grid-cols-2 gap-x-5 gap-y-10">
-                  {popularCategories2?.map((category, i) => (
-                    <SearchCategory key={i} header={category.header} item={category.items} />
-                  ))}
-                </div> */}
-            </div>
-
-            {/* Verification */}
-            <div className="mt-20">
-              {userState && userState?.verified ? <VerifiedUserBadge /> : <UnverifiedUserBadge />}
-            </div>
-
-            {/* Popular property sales */}
-            <div className="mt-20 w-full">
-              {propertyForSale?.length > 0 && (
-                <div>
-                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Sale</h1>
-                  <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
-                    {propertyForSale?.map((product, i) => (
-                      <ProductCard key={i} product={product} />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {automobile?.length > 0 && (
-                <div className="mt-16">
-                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">
-                    Popular in Used Cars for Sale
-                  </h1>
-                  <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
-                    {automobile?.map((product, i) => (
-                      <ProductCard key={i} product={product} />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* <div className="mt-16">
-                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Listings</h1>
-                  <div className='grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7'>
-                    {automobile.map((product, i) => (
-                      <ProductCard key={i} product={product} />
-                    ))}
-                  </div>
-                </div> */}
-
-              {propertyForRent?.length > 0 && (
-                <div className="mt-16">
-                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Rent</h1>
-                  <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
-                    {propertyForRent?.map((product, i) => (
-                      <ProductCard key={i} product={product} />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {commercial?.length > 0 && (
-                <div className="mt-16">
-                  <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Commercial</h1>
-                  <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
-                    {commercial?.map((product, i) => (
-                      <ProductCard key={i} product={product} />
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <section className="bg-gray-100 rounded-[16px] mt-24">
-              <div className="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
-                  <div className="max-w-lg">
-                    <h2 className="text-[5.5vw] font-extrabold text-gray-900 md:text-4xl">About Us</h2>
-                    <p className="mt-4 text-gray-600 md:text-lg text-[3.5vw]">An online market place where people who need to quickly sell their properties, cars, businesses, Jewelries and other assets within 48 hours finds buyers who are looking for opportunities to buy properties, cars, businesses, Jewelries and other assets at a
-                      very cheap price that is below the open market prices.</p>
-                  </div>
-                  <div className="mt-12 md:mt-0">
-                    <img src="https://images.unsplash.com/photo-1531973576160-7125cd663d86" alt="About Us Image" className="object-cover rounded-lg shadow-md" />
-                  </div>
-                </div>
-              </div>
-            </section>
           </div>
         </div>
+
+        {/* Services */}
+        <div className='px-32 -mt-[70px]'>
+          <div className='w-full h-auto rounded-[22px] service-glass-bg grid grid-cols-4 divide-x py-10'>
+            {services.map(({ header, text, iconPath }, index) => (
+              <div key={index} className='w-full h-auto py-5 px-7 flex flex-col justify-center items-center text-center'>
+                <div className='w-[40px] h-[40px] rounded-[12px] bg-[#D4DEFF] mb-5 flex justify-center items-center'>
+                  <img src={iconPath} width={20} height={20} />
+                </div>
+                <h1 className='text-[#00134D] font-[600] text-[18px] leading-tight mb-2'>{header}</h1>
+                <p className='text-[#898384] font-normal text-[16px] leading-tight'>{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Verification */}
+      <div className="mt-10 px-32">
+        {userState && userState?.verified ? <VerifiedUserBadge /> : <UnverifiedUserBadge />}
       </div>
+
+      <div className='mt-20 w-full px-24'>
+        {propertyForSale?.length > 0 && (
+          <div>
+            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Sale</h1>
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:mt-10 mt-7">
+              {propertyForSale?.map((product, i) => (
+                <ProductCard key={i} product={product} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {automobile?.length > 0 && (
+          <div className="mt-16">
+            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">
+              Popular in Used Cars for Sale
+            </h1>
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
+              {automobile?.map((product, i) => (
+                <ProductCard key={i} product={product} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {propertyForRent?.length > 0 && (
+          <div className="mt-16">
+            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Rent</h1>
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
+              {propertyForRent?.map((product, i) => (
+                <ProductCard key={i} product={product} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {commercial?.length > 0 && (
+          <div className="mt-16">
+            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Commercial</h1>
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
+              {commercial?.map((product, i) => (
+                <ProductCard key={i} product={product} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className='my-20'/>
 
       {/* Auth Signup  */}
       <SignupModal
