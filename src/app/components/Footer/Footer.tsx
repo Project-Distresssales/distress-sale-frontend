@@ -14,7 +14,7 @@ export default function Footer() {
     }
 
     return (
-        <footer className="w-full bg-[#ccd0db] p-4 px-[80px] py-20 items-center justify-between">
+        <footer className="w-full bg-[#ccd0db] p-4 sm:px-[80px] px-5 sm:py-20 py-10 items-center justify-between">
             <div className="mx-auto max-w-screen-xl space-y-8 px-4 pt-7 sm:px-6 lg:space-y-16 lg:px-8 mt-10">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                     <div>
