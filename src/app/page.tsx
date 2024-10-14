@@ -304,11 +304,11 @@ export default function Home() {
 
       {/* Hero */}
       <section>
-        <div className="mx-auto sm:pl-24 sm:pr-36 pr-5 pl-5 sm:pb-14 lg:flex gap-5">
+        <div className="mx-auto sm:pl-10 sm:pr-36 pr-5 pl-5 sm:pb-14 lg:flex gap-5">
           <div className="text-center lg:text-left w-full mt-10">
-            <h1 className="text-[#00134D] font-[700] sm:text-[60px] text-[7vw] leading-tight nunito">The Ultimate Affordable Marketplace for Buying, Renting & Selling
+            <h1 className="text-[#00134D] font-[600] sm:text-[55px] text-[7vw] leading-tight nunito">The Ultimate Affordable Marketplace for Buying, Renting & Selling
             </h1>
-            <p className="sm:text-[18px] text-[4vw] font-normal text-[#898384] mt-2">Explore the Best Deals: Discover, Connect, Transact.</p>
+            <p className="sm:text-[18px] text-[4vw] font-normal text-[#F4AD0E] mt-2">Explore the Best Deals: Discover, Connect, Transact.</p>
             <button type="button" className="py-4 px-12 bg-secondary rounded-[12px] text-white mt-10">Explore</button>
           </div>
           <div className='relative mt-14 sm:mt-0 flex justify-center items-center'>
@@ -319,7 +319,7 @@ export default function Home() {
         </div>
 
         {/* Services */}
-        <div className='sm:px-32 px-5 sm:-mt-[70px] -mt-[20px]'>
+        <div className='sm:px-24 px-5 sm:-mt-[70px] -mt-[20px]'>
           <div className='w-full h-auto rounded-[22px] service-glass-bg grid sm:grid-cols-4 grid-cols-1 sm:divide-x sm:divide-y-0 divide-y sm:py-10 py-7 px-7 sm:px-0 overflow-auto'>
             {services.map(({ header, text, iconPath }, index) => (
               <div key={index} className='w-full h-auto sm:py-5 py-7 px-7 flex flex-col justify-center items-center text-center'>
