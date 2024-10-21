@@ -2,27 +2,22 @@
 
 import React, { useEffect, useState } from 'react';
 import Assets from '@/constants/assets.constant';
-import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter';
-import ServiceCard from './components/ServiceCard/ServiceCard';
-import SearchCategory from './components/SearchCategory/SearchCategory';
-import ProductCard from './components/Card/ProductCard';
-import useAppTheme from '@/hooks/theme.hook';
-import MobileNavbar from './components/Navbar/MovileNavbar';
-import Navbar from './components/Navbar/Navbar';
-import SubNavbar from './components/Navbar/SubNavbar';
-import { FadeIn } from './components/Transitions/Transitions';
 import API, { algoliaClient } from '@/constants/api.constant';
 import useGlobalState from '@/hooks/globalstate.hook';
-import LoginModal from './components/Auth/Login/Login';
-import SignupModal from './components/Auth/SIgnup/Signup';
+import useAppTheme from '@/hooks/theme.hook';
 import useRequest from '@/services/request/request.service';
-import UnverifiedUserBadge from './components/Verification/UnverifiedUserBadge';
-import VerifiedUserBadge from './components/Verification/VerifiedUserBadge';
-import Image from 'next/image';
-import NewNavbar from './components/Navbar/NewNavbar';
-import AltNavbar from './components/Navbar/AltNavbar';
+import LoginModal from '../components/Auth/Login/Login';
+import SignupModal from '../components/Auth/SIgnup/Signup';
+import ProductCard from '../components/Card/ProductCard';
+import AltNavbar from '../components/Navbar/AltNavbar';
+import MobileNavbar from '../components/Navbar/MovileNavbar';
+import NewNavbar from '../components/Navbar/NewNavbar';
+import SubNavbar from '../components/Navbar/SubNavbar';
+import { FadeIn } from '../components/Transitions/Transitions';
+import UnverifiedUserBadge from '../components/Verification/UnverifiedUserBadge';
+import VerifiedUserBadge from '../components/Verification/VerifiedUserBadge';
 
-export default function LandingPage() {
+export default function Home() {
   const { isMobile } = useAppTheme();
   const { logout, isAuthenticated } = useGlobalState();
   const { makeRequest: makeUserRequest, isLoading: isLoadingUser } = useRequest();
@@ -52,7 +47,7 @@ export default function LandingPage() {
       header: 'Customer Support',
       text: '24x7 customer support, Lorem Ipsum is dummy text',
       iconPath: '/icons/support.svg',
-    }
+    },
   ];
 
   // Searched categories
@@ -254,11 +249,8 @@ export default function LandingPage() {
     fetchUser();
   }, []);
 
-
-
   return (
     <FadeIn>
-
       {!isMobile ? (
         <>
           <NewNavbar />
@@ -269,7 +261,7 @@ export default function LandingPage() {
         <>
           <MobileNavbar sideBar={sideBar} setSideBar={setSideBar} />
           <AltNavbar />
-          
+
           {/* Drop Down */}
           {sideBar && (
             <FadeIn>
@@ -303,46 +295,43 @@ export default function LandingPage() {
       )}
 
       {/* Hero */}
-      <section>
-        <div className="mx-auto sm:pl-10 sm:pr-36 pr-5 pl-5 sm:pb-14 lg:flex gap-5">
-          <div className="text-center lg:text-left w-full mt-10">
-            <h1 className="text-[#00134D] font-[600] sm:text-[55px] text-[7vw] leading-tight nunito">The Ultimate Affordable Marketplace for Buying, Renting & Selling
-            </h1>
-            <p className="sm:text-[18px] text-[4vw] font-normal text-[#F4AD0E] mt-2">Explore the Best Deals: Discover, Connect, Transact.</p>
-            <button type="button" className="py-4 px-12 bg-secondary rounded-[12px] text-white mt-10">Explore</button>
-          </div>
-          <div className='relative mt-14 sm:mt-0 flex justify-center items-center'>
-            <div className='bg-[#f2f5fe] sm:w-[350px] sm:h-full rounded-full'>
-              <img src='/images/hero-new.png' className='sm:w-full sm:h-full bg-cover bg-no-repeat' />
+      <div className="sm:px-10">
+        <div className="w-full rounded-[40px] h-auto bg-[#FDF1D7] py-10 pl-10 pr-14 relative">
+          <img src="/icons/distresssales-logo.svg" width={180} height={180} />
+          <div className="flex justify-between items-center mt-7">
+            <div>
+              <h1 className="text-[#00134D] text-[40px] font-[700] leading-tight">
+                Get Your Dream Home on <br />{' '}
+                <span>
+                  Distress<span className="text-[#F4AD0E]">sales</span>
+                </span>
+              </h1>
+              <p className="text-[26px] font-[600] text-[#00134D] mt-5">At up to 50% off Market Price</p>
+              <button className="px-[32px] py-[14px] rounded-[12px] font-medium leading-none bg-[#00134D] text-white text-[15px] mt-10">
+                Get in touch
+              </button>
+            </div>
+            <div className='flex flex-col justify-center items-center gap-5'>
+                <div className='rounded-full w-[250px] h-[250px] bg-[#Fbdb9a]'></div>
+                <div className='text-center'>
+                    <p className='text-[#726C6C] text-[16px] font-medium leading-none line-through'>AED 1,000,000.00</p>
+                    <h1 className='text-[#00134D] text-[24px] font-[600] leading-tight'>AED 300,000.00</h1>
+                </div>
+                <img src='/icons/home.svg' width={350} className='absolute right-0 top-[90px]' />
             </div>
           </div>
         </div>
-
-        {/* Services */}
-        <div className='sm:px-24 px-5 sm:-mt-[70px] -mt-[20px]'>
-          <div className='w-full h-auto rounded-[22px] service-glass-bg grid sm:grid-cols-4 grid-cols-1 sm:divide-x sm:divide-y-0 divide-y sm:py-10 py-7 px-7 sm:px-0 overflow-auto'>
-            {services.map(({ header, text, iconPath }, index) => (
-              <div key={index} className='w-full h-auto sm:py-5 py-7 px-7 flex flex-col justify-center items-center text-center'>
-                <div className='w-[40px] h-[40px] rounded-[12px] bg-[#D4DEFF] mb-5 flex justify-center items-center'>
-                  <img src={iconPath} width={20} height={20} />
-                </div>
-                <h1 className='text-[#00134D] font-[600] sm:text-[18px] text-[5vw] leading-tight mb-2'>{header}</h1>
-                <p className='text-[#898384] font-normal sm:text-[16px] text-[3.5vw] leading-tight'>{text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      </div>
 
       {/* Verification */}
       <div className="mt-10 sm:px-32 px-5">
         {userState && userState?.verified ? <VerifiedUserBadge /> : <UnverifiedUserBadge />}
       </div>
 
-      <div className='mt-20 w-full sm:px-24 px-5'>
+      <div className="mt-20 w-full sm:px-24 px-5">
         {propertyForSale?.length > 0 && (
           <div>
-            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Sale</h1>
+            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Property for Sale</h1>
             <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:mt-10 mt-7">
               {propertyForSale?.map((product, i) => (
                 <ProductCard key={i} product={product} />
@@ -353,9 +342,7 @@ export default function LandingPage() {
 
         {automobile?.length > 0 && (
           <div className="mt-16">
-            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">
-              Popular in Used Cars for Sale
-            </h1>
+            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Cars for Sale</h1>
             <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
               {automobile?.map((product, i) => (
                 <ProductCard key={i} product={product} />
@@ -366,7 +353,7 @@ export default function LandingPage() {
 
         {propertyForRent?.length > 0 && (
           <div className="mt-16">
-            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Rent</h1>
+            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Property for Rent</h1>
             <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
               {propertyForRent?.map((product, i) => (
                 <ProductCard key={i} product={product} />
@@ -386,26 +373,6 @@ export default function LandingPage() {
           </div>
         )}
       </div>
-
-      <div className='my-20'/>
-
-      {/* Auth Signup  */}
-      <SignupModal
-        open={openRegisterModal}
-        onClose={handleRegisterModalClose}
-        handleLoginModalOpen={handleLoginModalOpen}
-        next={() => {
-          handleVerificationModalOpen();
-        }}
-      />
-
-      {/* Auth Login Modal */}
-      <LoginModal
-        open={openLoginModal}
-        onClose={handleLoginModalClose}
-        handleForgotPasswordModal={handleForgotPasswordModal}
-        handleRegisterModalOpen={handleRegisterModalOpen}
-      />
     </FadeIn>
   );
 }

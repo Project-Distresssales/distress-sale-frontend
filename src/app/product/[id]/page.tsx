@@ -16,11 +16,42 @@ import Assets from '@/constants/assets.constant';
 import VerifiedBadge from '@/app/components/VerifiedBadge/VerifiedBadge';
 import ShareProduct from '@/app/components/ShareProduct/ShareProduct';
 import { InfinitySpin, RotatingTriangles } from 'react-loader-spinner';
+import AltNavbar from '@/app/components/Navbar/AltNavbar';
+import NewNavbar from '@/app/components/Navbar/NewNavbar';
+import { ButtonBase, IconButton } from '@mui/material';
 
 export default function ProductPage() {
   const { id } = useParams();
   const { isMobile } = useAppTheme();
   const [product, setProduct] = useState<any>([]);
+  const [activeTab, setActiveTab] = useState('description');
+
+  const tabs = [
+    {
+      key: 'description',
+      label: 'Description',
+      borderRadius: '6px',
+    },
+    {
+      key: 'additional-information',
+      label: 'Additional information',
+      borderRadius: '6px',
+    },
+    {
+      key: 'specification',
+      label: 'Specification',
+      borderRadius: '6px',
+    },
+    {
+      key: 'review',
+      label: 'Review',
+      borderRadius: '6px',
+    },
+  ];
+
+  const handleTabClick = (key: React.SetStateAction<string>) => {
+    setActiveTab(key);
+  };
 
   const { isLoading, makeRequest } = useRequest();
 
@@ -94,16 +125,60 @@ export default function ProductPage() {
     },
   ];
 
+  const features = [
+    {
+      title: 'Brand',
+      data: 'Apple',
+    },
+    {
+      title: 'Category',
+      data: 'Electronics',
+    },
+    {
+      title: 'Condition',
+      data: 'Fairly',
+    },
+    {
+      title: 'Availability',
+      data: 'In Stock',
+    },
+  ];
+
+
+  const descriptionFeatures = [
+    {
+      title: 'Free 1 Year Warranty',
+      icon: ''
+    },
+    {
+      title: 'Free Shipping & Fasted Delivery',
+      icon: ''
+    },
+    {
+      title: '100% Money-back guarantee',
+      icon: ''
+    },
+    {
+      title: '24/7 Customer support',
+      icon: ''
+    },
+    {
+      title: 'Secure payment method',
+      icon: ''
+    },
+  ]
+
   return (
     <FadeIn>
       {!isMobile ? (
         <>
-          <Navbar />
-          <SubNavbar />
+          <NewNavbar />
+          <AltNavbar />
         </>
       ) : (
         <>
-          <MobileNavbar />
+          {/* <MobileNavbar sideBar={sideBar} setSideBar={setSideBar} /> */}
+          <AltNavbar />
         </>
       )}
 
@@ -113,7 +188,135 @@ export default function ProductPage() {
         </div>
       ) : (
         <>
-          <div className="bg-white flex flex-col items-stretch pb-12 md:px-8 w-full">
+          <div className="w-full h-auto p-10">
+            <div className="flex h-auto gap-16">
+              <div className="">
+                <div className="h-[400px] rounded-[12px] bg-[#FDF1D7] min-w-[450px]"></div>
+                <div className="grid grid-cols-3 gap-3 mt-3">
+                  <div className="rounded-[12px] bg-[#FDF1D7] w-full h-[90px]"></div>
+                  <div className="rounded-[12px] bg-[#FDF1D7] w-full h-[90px]"></div>
+                  <div className="rounded-[12px] bg-[#FDF1D7] w-full h-[90px]"></div>
+                </div>
+              </div>
+              <div className="w-full">
+                <p className="text-[24px] text-[#191C1F] font-[400]">
+                  2020 Apple MacBook Pro with Apple M1 Chip (13-inch, 8GB RAM, 256GB SSD Storage) - Space Gray
+                </p>
+                <div className="grid grid-cols-2 gap-x-14 gap-y-1 mt-5">
+                  {features.map((feature, i) => (
+                    <p className="text-[14px] font-[400] text-gray-400 leading-none" key={i}>
+                      {feature.title}: <span className="text-black">{feature.data}</span>
+                    </p>
+                  ))}
+                </div>
+                <div className="mt-5">
+                  <div className="flex gap-3 items-center">
+                    <h1 className="text-[#00134D] text-[24px] font-[700] leading-tight">AED190,000.00</h1>
+                    <div className="bg-[#F8C85E] py-[5px] px-[10px] rounded-[2px] flex justify-center items-center">
+                      <p className="leading-none text-[#191C1F] text-[14px] font-[500]">20% OFF</p>
+                    </div>
+                  </div>
+                  <p className="text-[#9F9C9C] text-[14px] font-[400]">Market Price: 260,000.00</p>
+                </div>
+                <p className="mt-7 text-[16px] font-[400] text-[#191C1F] w-[400px]">
+                  2020 Apple MacBook Pro with Apple M1 Chip (13-inch, 8GB RAM, 256GB SSD Storage) Space Gray
+                </p>
+                <button className="bg-[#00134D] rounded-[12px] w-full py-[16px] text-white leading-none mt-10 text-[14px] font-[400]">
+                  Request call back
+                </button>
+
+                <div className="flex items-center justify-between mt-5">
+                  <div className="flex gap-1 justify-center items-center">
+                    <IconButton>
+                      <svg width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M10.5 17.25C10.5 17.25 1.125 12 1.125 5.62501C1.125 4.49803 1.51546 3.40585 2.22996 2.53431C2.94445 1.66277 3.93884 1.0657 5.04393 0.844677C6.14903 0.623658 7.29657 0.792346 8.29131 1.32204C9.28605 1.85174 10.0665 2.70972 10.5 3.75001C10.9335 2.70972 11.7139 1.85174 12.7087 1.32204C13.7034 0.792346 14.851 0.623658 15.9561 0.844677C17.0612 1.0657 18.0555 1.66277 18.77 2.53431C19.4845 3.40585 19.875 4.49803 19.875 5.62501C19.875 12 10.5 17.25 10.5 17.25Z"
+                          stroke="#475156"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </IconButton>
+                    <p className="text-[14px] font-[400] text-[#475156] leading-none">Add to Wishlist</p>
+                  </div>
+
+                  <div className="flex gap-1 justify-center items-center">
+                    <p className="text-[14px] font-[400] text-[#475156] leading-none">Share product:</p>
+                    <div className="flex items-center">
+                      <IconButton>
+                        <img src="/icons/facebook.svg" width={15} height={15} />
+                      </IconButton>
+                      <IconButton>
+                        <img src="/icons/x.svg" width={15} height={15} />
+                      </IconButton>
+                      <IconButton>
+                        <img src="/icons/instagram.svg" width={15} height={15} />
+                      </IconButton>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-5 border border-[#E3E3E3] rounded-[8px] w-full h-auto p-5">
+                  <p className="text-[14px] font-[400] text-[#0A0A0B]">100% Guarantee Safe Checkout</p>
+                  <img src="/icons/payment-method.svg" className="mt-3" />
+                </div>
+              </div>
+            </div>
+
+            {/* Tab */}
+            <div className="text-[14px] mx-auto flex items-center justify-center gap-1 bg-[#FBFBFC] w-fit rounded-[6px] mt-20">
+              {tabs.map((tab, index) => (
+                <ButtonBase key={index} onClick={() => handleTabClick(tab.key)} className="rounded-[6px]">
+                  <div
+                    className={`py-2 px-3 cursor-pointer transform transition duration-500 ease-in-out`}
+                    style={{
+                      backgroundColor: activeTab === tab.key ? '#F0F2F5' : '#FBFBFC',
+                      color: activeTab === tab.key ? '#0F1625' : '#687588',
+                      borderRadius: tab.borderRadius,
+                      fontWeight: activeTab === tab.key ? '500' : '500',
+                      // border:
+                      //   activeTab === tab.key
+                      //     ? "0.5px solid #E4E8EC"
+                      //     : "0.5px solid transparent",
+                    }}
+                  >
+                    <p className="leading-none">{tab.label}</p>
+                  </div>
+                </ButtonBase>
+              ))}
+            </div>
+
+            {/* Tab Content */}
+            <div className='mt-7 flex justify-between gap-32 divide-x'>
+              <div>
+                <p className='text-[16px] font-[600] text-[#0A0A0B]'>Description</p>
+                <p className='text-[14px] font-[400] text-[#726C6C]'>
+                The most powerful MacBook Pro ever is here. With the blazing-fast M1 Pro or M1 Max chip — the first Apple silicon designed for pros — you get groundbreaking performance and amazing battery life. Add to that a stunning Liquid Retina XDR display, the best camera and audio ever in a Mac notebook, and all the ports you need. The first notebook of its kind, this MacBook Pro is a beast. M1 Pro takes the exceptional performance of the M1 architecture to a whole new level for pro users.
+                Even the most ambitious projects are easily handled with up to 10 CPU cores, up to 16 GPU cores, a 16‑core Neural Engine, and dedicated encode and decode media engines that support H.264, HEVC, and ProRes codecs.
+                Even the most ambitious projects are easily handled with up to 10 CPU cores, up to 16 GPU cores, a 16‑core Neural Engine, and dedicated encode and decode media engines that support H.264, HEVC, and ProRes codecs.
+                </p>
+              </div>
+              <div className='min-w-[300px] h-auto pl-7'>
+              <p className='text-[16px] font-[600] text-[#0A0A0B]'>Features</p>
+              <div className='mt-3 space-y-3'>
+                {descriptionFeatures.map((feature, i) => (
+                  <div className='flex gap-3 items-center'>
+                    <img src={feature.icon} width={20} height={20} />
+                    <p className='text-[14px] font-[400] text-[#0A0A0B] leading-none'>{feature.title}</p>
+                  </div>
+                ))}
+              </div>
+              </div>
+            </div>
+
+            {/* Related Product */}
+            <div className='mt-16'>
+              <h1 className='text-[#0A0A0B] text-[24px] font-[600]'>Related Product</h1>
+            </div>
+          </div>
+
+          {/* <div className="bg-white flex flex-col items-stretch pb-12 md:px-8 w-full">
             <div className="bg-gray-200 min-h-[1px] w-full" />
 
             <div className="flex md:flex-row flex-col w-full items-center justify-between md:px-7 px-5 mb-5 mt-7">
@@ -165,7 +368,7 @@ export default function ProductPage() {
                           />
                         ))}
                     </div>
-                    {/* Buttons */}
+                    {/* Buttons *
                     <div className="flex space-x-3 mt-10 md:mt-2">
                       {ownersContact.map((item, i) => (
                         <button
@@ -182,108 +385,8 @@ export default function ProductPage() {
                     </div>
                   </div>
 
-                  {/* <div className="flex items-stretch gap-2 mt-10">
-                <div className="justify-between items-center border border-[color:var(--primary-100,#D6DDFF)] bg-violet-200 flex gap-2.5 px-5 py-2 rounded-xl border-solid">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/bb6b21a6678bd5cd4c938099bbc37cdae7bc50d739381209178d8ed3ca46562f?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                    className="aspect-square object-contain object-center w-5 justify-center items-center overflow-hidden shrink-0 max-w-full my-auto"
-                  />
-                  <div className="text-blue-600 text-center text-base font-bold leading-7 tracking-normal self-stretch grow whitespace-nowrap">
-                    Favorites
-                  </div>
-                </div>
-                <div className="justify-between items-center border border-[color:var(--primary-100,#D6DDFF)] bg-violet-200 flex gap-2.5 px-5 py-2 rounded-xl border-solid">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/512ec4e2c1727e09c7f744a324918a09d06bff19a21a07f26cebe2ccbe80ef6e?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                    className="aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full my-auto"
-                  />
-                  <div className="text-blue-600 text-center text-base font-bold leading-7 tracking-normal self-stretch grow whitespace-nowrap">
-                    Share
-                  </div>
-                </div>
-              </div> */}
-
-                  {/* <div className="self-stretch mt-10 max-md:max-w-full">
-                  <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-                    <div className="flex flex-col items-stretch w-[68%] max-md:w-full max-md:ml-0">
-                      <div className="flex grow flex-col max-md:max-w-full max-md:mt-10">
-                        <div className="text-gray-900 text-lg font-bold leading-8 tracking-normal self-stretch whitespace-nowrap max-md:max-w-full">
-                          AED 3,190,000
-                        </div>
-                        <div className="text-slate-600 text-lg font-bold leading-8 tracking-normal self-stretch whitespace-nowrap mt-4 max-md:max-w-full">
-                          Shams Abu Dhabi, Al Reem Island
-                        </div>
-                        <div className="items-center flex gap-4 mt-4 self-start max-md:justify-center">
-                          <div className="items-stretch self-stretch flex justify-between gap-4">
-                            <div className="items-center flex justify-between gap-1.5">
-                              <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/bfcad89411b9c2f7003b73839163a073326e3c9ceabc2fedcaa1d3c0ad31a672?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                                className="aspect-square object-contain object-center w-[15px] overflow-hidden shrink-0 max-w-full my-auto"
-                              />
-                              <div className="text-slate-700 text-sm font-medium leading-7 tracking-normal self-stretch grow whitespace-nowrap">
-                                6 Beds
-                              </div>
-                            </div>
-                            <div className="items-center flex justify-between gap-1.5">
-                              <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/a18752a8748e4d53730d872469c4a7a8e5628c733fd6fe8a4ed2a4752ee58c60?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                                className="aspect-square object-contain object-center w-[15px] overflow-hidden shrink-0 max-w-full my-auto"
-                              />
-                              <div className="text-slate-700 text-sm font-medium leading-7 tracking-normal self-stretch grow whitespace-nowrap">
-                                6 Baths
-                              </div>
-                            </div>
-                          </div>
-                          <div className="bg-gray-200 w-px shrink-0 h-5 my-auto" />
-                          <div className="self-stretch flex justify-between gap-2.5 items-start">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/5048073fa31236be306b7b79a8243425d2368bacc0bbc4d7a153c97b1319163d?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                              className="aspect-square object-contain object-center w-6 justify-center items-center overflow-hidden shrink-0 max-w-full"
-                            />
-                            <div className="text-slate-700 text-sm font-medium leading-7 tracking-normal self-stretch grow whitespace-nowrap">
-                              {' '}
-                              4.896 sqft
-                            </div>
-                          </div>
-                        </div>
-                        <div className="text-gray-900 text-lg font-medium leading-8 tracking-normal self-stretch whitespace-nowrap mt-6 max-md:max-w-full">
-                          Luxurious Standalone Villa - Single Row & Spacious Villa with Pool
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-stretch w-[32%] ml-5 max-md:w-full max-md:ml-0">
-                      <div className="flex items-stretch gap-2 max-md:mt-10">
-                        <div className="justify-between items-center border border-[color:var(--primary-100,#D6DDFF)] bg-violet-200 flex gap-2.5 px-5 py-2 rounded-xl border-solid">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/bb6b21a6678bd5cd4c938099bbc37cdae7bc50d739381209178d8ed3ca46562f?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                            className="aspect-square object-contain object-center w-5 justify-center items-center overflow-hidden shrink-0 max-w-full my-auto"
-                          />
-                          <div className="text-blue-600 text-center text-base font-bold leading-7 tracking-normal self-stretch grow whitespace-nowrap">
-                            Favorites
-                          </div>
-                        </div>
-                        <div className="justify-between items-center border border-[color:var(--primary-100,#D6DDFF)] bg-violet-200 flex gap-2.5 px-5 py-2 rounded-xl border-solid">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/512ec4e2c1727e09c7f744a324918a09d06bff19a21a07f26cebe2ccbe80ef6e?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                            className="aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full my-auto"
-                          />
-                          <div className="text-blue-600 text-center text-base font-bold leading-7 tracking-normal self-stretch grow whitespace-nowrap">
-                            Share
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
-
-                  {/* Pricing and Details */}
+                  
+                  {/* Pricing and Details *
                   <div className="mt-7">
                     <h1 className="text-primary md:text-[25px] text-[5.5vw] font-[700]">
                       {currencyFormatter(product?.price, 'AED')}
@@ -307,7 +410,7 @@ export default function ProductPage() {
 
                     <div className="bg-gray-200 self-stretch shrink-0 h-px my-7 max-md:max-w-full" />
 
-                    {/* Property Info */}
+                    {/* Property Info *
                     <div className="text-gray-900 md:text-3xl text-[5vw] font-bold  whitespace-nowrap mt-14 max-md:max-w-full md:mt-10">
                       Property Information
                     </div>
@@ -422,93 +525,6 @@ export default function ProductPage() {
                     )}
                   </div>
 
-                  {/* <div className="text-gray-900 md:text-3xl text-[5vw] font-bold leading-10 tracking-normal self-stretch whitespace-nowrap mt-14 max-md:max-w-full max-md:mt-10">
-                Market Intelligence Insight
-              </div>
-              <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal self-stretch mt-6 max-md:max-w-full">
-                The open market price of the villa is calculated based on the current real estate market trends, recent
-                sales data of similar properties in the area, and various factors that influence property prices. Please
-                note that the exact open market price may vary, and it's recommended to conduct further research for
-                accurate pricing.
-              </div>{' '}
-              <div className="text-gray-900 md:text-lg text-[4.5vw] font-bold leading-7 tracking-normal self-stretch whitespace-nowrap mt-14 max-md:max-w-full max-md:mt-10">
-                Market Insights for the Villa Listing
-              </div>{' '}
-              <div className="self-stretch flex items-stretch justify-between gap-5 mt-4 pr-4 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
-                <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
-                  <ul>
-                    <li>Distress Sale Price: AED 3,190,000 </li>
-                  </ul>
-                </div>{' '}
-                <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal grow shrink basis-auto">
-                  <ul>
-                    <li>Average Price: AED 3,750,000</li>
-                  </ul>
-                </div>{' '}
-                <div className="text-slate-600 md:text-base text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
-                  <ul>
-                    <li>Estimated Market Price: AED 3,750,000</li>
-                  </ul>
-                </div>
-              </div>{' '} */}
-                  {/* <div className="self-stretch flex items-center justify-between gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
-                <div className="text-gray-900 text-xl font-bold leading-8 tracking-normal grow whitespace-nowrap my-auto">
-                  Price Comparison Chart
-                </div>{' '}
-                <div className="text-white text-center md:text-base text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap justify-center items-stretch border border-[color:var(--primary-600,#6F85FF)] bg-indigo-400 self-stretch grow px-9 py-2 rounded-md border-solid max-md:px-5">
-                  Compare Prices
-                </div>
-              </div>{' '}
-              <div className="self-stretch flex justify-between gap-5 mt-12 items-start max-md:max-w-full max-md:flex-wrap max-md:mt-10">
-                <div className="flex basis-[0%] flex-col">
-                  <div className="text-slate-600 text-xs font-medium leading-6 tracking-normal self-stretch whitespace-nowrap">
-                    AED 3,190,000{' '}
-                  </div>{' '}
-                  <div className="text-slate-600 text-xs font-medium leading-6 tracking-normal self-stretch whitespace-nowrap mt-16 max-md:mt-10">
-                    AED 3,190,000{' '}
-                  </div>{' '}
-                  <div className="text-slate-600 text-xs font-medium leading-6 tracking-normal self-stretch whitespace-nowrap mt-16 max-md:mt-10">
-                    AED 3,190,000{' '}
-                  </div>{' '}
-                  <div className="text-slate-600 text-xs font-medium leading-6 tracking-normal whitespace-nowrap mt-11 self-end max-md:mt-10">
-                    AED
-                  </div>
-                </div>{' '}
-                <div className="self-stretch flex grow basis-[0%] flex-col max-md:max-w-full">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/efa26759cb214a3709e9db098c45f1a92c6852611dde1f75b951c5f34a9e9c2d?apiKey=e18e06edddf74ddfbd2e9594d51fef98&"
-                    className="aspect-[3.11] object-contain object-center w-[584px] stroke-[3px] stroke-blue-600 overflow-hidden self-center max-w-full"
-                  />{' '}
-                  <div className="bg-gray-300 self-stretch shrink-0 h-px max-md:max-w-full" />{' '}
-                  <div className="bg-gray-300 self-stretch shrink-0 h-px mt-16 max-md:max-w-full max-md:mt-10" />{' '}
-                  <div className="self-stretch flex w-full items-stretch justify-between gap-5 mx-5 pr-20 max-md:flex-wrap max-md:mr-2.5 max-md:pr-5">
-                    <div className="flex basis-[0%] flex-col items-center">
-                      <div className="bg-gray-300 w-px shrink-0 h-2" />{' '}
-                      <div className="text-gray-900 text-sm leading-7 tracking-normal self-stretch whitespace-nowrap">
-                        Distress Sale
-                      </div>
-                    </div>{' '}
-                    <div className="flex grow basis-[0%] flex-col items-center">
-                      <div className="flex w-[212px] max-w-full items-stretch justify-between gap-5">
-                        <div className="bg-gray-300 shrink-0 h-2 flex-1" />{' '}
-                        <div className="bg-gray-300 shrink-0 h-2 flex-1" />
-                      </div>{' '}
-                      <div className="self-stretch flex items-stretch justify-between gap-5">
-                        <div className="text-gray-900 text-sm leading-7 tracking-normal whitespace-nowrap">
-                          Average Price
-                        </div>{' '}
-                        <div className="text-gray-900 text-sm leading-7 tracking-normal whitespace-nowrap">
-                          Estimated Market Price
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>{' '} */}
-                  {/* <div className="text-gray-900 text-3xl font-bold leading-10 tracking-normal self-stretch whitespace-nowrap mt-20 max-md:max-w-full max-md:mt-10">
-                Recommended for you
-              </div>{' '} */}
                 </div>
               </div>
 
@@ -654,7 +670,7 @@ export default function ProductPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </>
       )}
     </FadeIn>
