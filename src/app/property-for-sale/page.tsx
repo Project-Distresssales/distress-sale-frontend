@@ -15,6 +15,9 @@ import useAppTheme from '@/hooks/theme.hook';
 import Navbar from '../components/Navbar/Navbar';
 import { algoliaClient } from '@/constants/api.constant';
 import Assets from '@/constants/assets.constant';
+import AltNavbar from '../components/Navbar/AltNavbar';
+import NewNavbar from '../components/Navbar/NewNavbar';
+import { Checkbox, FormControlLabel, Radio } from '@mui/material';
 
 export default function PropertyForSale() {
   const { isMobile } = useAppTheme();
@@ -125,30 +128,6 @@ export default function PropertyForSale() {
   const featuredProperties = [
     {
       imagePath:
-        'https://s3-alpha-sig.figma.com/img/80ff/1c99/5cff561d073dea46d32c17510d8b3d7d?Expires=1691971200&Signature=XmPt61S4s1bRqZKly2AcIgIeaxj3auSC6emfacsV24x~wV7ltPs24O6ZaE0rErOm7zqtFB9GFVlX5kund2zhq3AtuZ6uHikHiy8~ePx3s8pYGHoA7KlVPzRUIP4o54qbQCfNHx6BRv7GerstPe91nZp51MaRbJ8RWe7FX4rkaMhtrOSiH9jsJjcOpir8F6RY9qZCxzXoVzctQI5-VtUHRwFasifuipkeFkNtHbjp2xf9X5k2HLL-xZKGnxSWXaGcRwcqa-yhiyBJUN8VQs~h5UdrAd68-UWOiXjJ5DLdL1OPddHqxtuBDGKDoaFpN8pT1DKJOM7~16ugf1QTvVTWcg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
-      header: 'AED 190,000',
-      description: 'Full Commercial Building with Offices & Showrooms',
-      feature: '13,650 Sqft',
-      location: 'Shams Abu Dhabi, Al Reem Island',
-    },
-    {
-      imagePath:
-        'https://s3-alpha-sig.figma.com/img/ba39/ff28/9b845e64eaed2709e7ae345695887e03?Expires=1691971200&Signature=PBTLZWVxkNVNB8kQNFI6wJMqRNY-vFBinbE9ooKSEzNnejrYCNq-HWGOdm6yX24htQdD7I-PyaisJVtKoapQLWLiepz6d8Nwvj5eUm3NdGW71rQtXEdwwgohlHY31hG-V55kYoosjfMJ~YSLu6itGb3brSlnN2dTeFGNnMFo8YDxgFtmt8MhmvS1gD3W1cpK9Qmx03r~I0JcUxMG73Bn9g6hzp4V8iW5TyKdIeBtgm3kgE95cibQi~FOxEBPchWQ0OG9ri58JwzyW80pkDCMF1AyQbR5Vvpt5Vmrw7FQS4O5sRMgXOQWqHbK3YduUeXKa3LndCFhoXJdFOQ5tQOYnw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
-      header: 'AED 190,000',
-      description: '10,000 Sq ft Open Yard Factory + Labor Accommodation',
-      feature: '500 KW Power',
-      location: 'Shams Abu Dhabi, Al Reem Island',
-    },
-    {
-      imagePath:
-        'https://s3-alpha-sig.figma.com/img/6acc/e143/171d5294d1c0f74f9fb6311f07c3ae64?Expires=1691971200&Signature=fEYOmn-uMKfaTtz2CRT9HcLF4B5I5jKLoXhKmUlxJLmfXuXR79v4AcsEIe1gNxA23nJIHZlKyfcG2lSEDWbwXRJNLIwLdPyS1d9I52C4d5qSwZLcEpwQPCs5n8kPew5~fAy-Gt3hCSHbzYJ9t38EnhRq3N4xIt0ezeB9jlquAcRy3j-NsBW3F1q8I23lYOZA4VQ5eMKiaHS5v6yW4aJakIoLHsBDgEfY6j3u2VgCSb5l8eeqMjuGTgwtlcB66sHjHF-oZc0WehzVHxQbeMVDw2U5wJ1LvoWo0eJMwdqQkbFtUgZbjZOt88zawIYCncxPfTwzd1ZERbDt9hOH~JJyyg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
-      header: 'AED 190,000',
-      description: 'Fully Furnished Spacious Office with All Amenities',
-      feature: '250 Sqft',
-      location: 'Shams Abu Dhabi, Al Reem Island',
-    },
-    {
-      imagePath:
         'https://s3-alpha-sig.figma.com/img/151a/b8a9/666b7ed4966d445deed45b3302b7fc86?Expires=1691971200&Signature=TKJHDsd8WzJmGRja7AS1OGNo9Dglr2t4IIsT3BA0jf5Jp-rf0ffVQ8UgRrz2iMeelT3co7s8t1a20BdpE9ikBGVv47Puq5vCpSlo3BvCjqHS3gILVr5CGSITDDGzB6VNaCZdwIlowG8PImw0z6LMlzjrP69a-0RKFQQURn1y3jW1d8XWIGi9IJdVLLFcGzQzKMrmnWKtIpyxgsC4QuokpEFzkkjMF15~bSRAQOiNiFhUq7e9WTq5vvimOHQqU8X1jFstGzMd7P5VWoSM0R~OLWBOHJNRafvce1BeEdo0-qiQowUgKeoWRRyafSdyaTUstakBQ8Kj-omeHZvVZ9ygLQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
       header: 'AED 190,000',
       description: 'Full Commercial Building with Offices & Showrooms',
@@ -177,22 +156,6 @@ export default function PropertyForSale() {
       header: 'AED 190,000',
       description: 'Full Commercial Building with Offices & Showrooms',
       feature: '13,650 Sqft',
-      location: 'Shams Abu Dhabi, Al Reem Island',
-    },
-    {
-      imagePath:
-        'https://s3-alpha-sig.figma.com/img/1ff3/3d1a/8fde6087db19e94a153f00b80b8411ae?Expires=1691971200&Signature=VM9uiMLwFq2T~fVcNZHzL9T4LCw8ls-P7y9NU0sr2FEr7WVEvBUUo9pcMsKdLMQz8Vc0XjLUWkRXb4VwQS~Yc09BHVkgtjMu6~c-KC3w1tPRoZ~-loLflJgZimwVWb-KOripy1wsLugRktqQSeW-PeH15IQEHH-2ISzUx-VFqbLY56BCFay9MWpuyc-xBt~8TzRESJKZea~oS-QNFa85f-A0rQ06Tqy2SG7Kx8jYLAmcE60915c8o-nxBhbIbQn1n17yL9Ktoe2R6bFLSsuqVUHgra65gpcQCf7DabCY5CAc9sTnWeve90SSuQzdElUO4nmAMbQkweDLIeNQVIqX8Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
-      header: 'AED 190,000',
-      description: '10,000 Sq ft Open Yard Factory + Labor Accommodation',
-      feature: '500 KW Power',
-      location: 'Shams Abu Dhabi, Al Reem Island',
-    },
-    {
-      imagePath:
-        'https://s3-alpha-sig.figma.com/img/47d9/e8aa/e5da3169061f9465b4854493c6a90b1c?Expires=1691971200&Signature=W2Rg021zE4UMaHAH2wNFpgZKc1~fbmbKAai1ebjqnbe4fQ2z6ND5IaqDLj8Dzy5b9gYEALdW00g3kFS5k58lVwBGnSR~n~TjC8DIu8aaM6u2djVftFH5pgOrmwx2XqeOibvwi2D4R1SJH9LzwmsZ8DlucL2CcqMszoXT-nFqfCeW9JhCM4LxpF1mjUYqqsFjKBN3GQNZNKS-W3kaYvH49ECJeLhH-SJEGRNlWDPthwzJ1eD0psOKv2NAwfQlCzYxEqvIwYlX8xb2pIo3dBEXKLMQo-sX7SqijvgqthZ-rwQmrE6gx5weNV-9M-wsjR0fbQSYw5ZAQz11KmSPDCEv3w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
-      header: 'AED 190,000',
-      description: 'Fully Furnished Spacious Office with All Amenities',
-      feature: '250 Sqft',
       location: 'Shams Abu Dhabi, Al Reem Island',
     },
   ];
@@ -261,20 +224,307 @@ export default function PropertyForSale() {
   const commercial = categoriesData['commercial'] || [];
   // const categories = categoriesData['categories'] || [];
 
+  const propertyType = [
+    {
+      title: 'Apartments for Sale',
+      active: true,
+    },
+    {
+      title: 'Commercial Building for Sale',
+      active: false,
+    },
+    {
+      title: 'Multiple Units for Sale',
+      active: false,
+    },
+    {
+      title: 'Land for Sale',
+      active: false,
+    },
+    {
+      title: 'Residential Building for Sale',
+      active: false,
+    },
+    {
+      title: 'Townhouse for Sale',
+      active: false,
+    },
+  ];
+
+  const purpose = [
+    {
+      title: 'Buy',
+      active: true,
+    },
+    {
+      title: 'Sell',
+      active: true,
+    },
+  ];
+
+  const priceRange = [
+    {
+      title: 'All Price',
+      active: true,
+    },
+    {
+      title: 'Under AED20',
+      active: false,
+    },
+    {
+      title: 'AED100 to AED300',
+      active: false,
+    },
+    {
+      title: 'AED300 to AED500',
+      active: false,
+    },
+    {
+      title: 'AED500 to AED1,000',
+      active: false,
+    },
+    {
+      title: 'AED1,000 to AED10,000',
+      active: false,
+    },
+  ];
+
+  const popularLocations = [
+    {
+      title: 'Dubai',
+      active: true,
+    },
+    {
+      title: 'Abu Dhabi',
+      active: false,
+    },
+    {
+      title: 'Al Ain',
+      active: false,
+    },
+    {
+      title: 'Ajman',
+      active: false,
+    },
+    {
+      title: 'Sharjah',
+      active: false,
+    },
+    {
+      title: 'Fujairah',
+      active: false,
+    },
+    {
+      title: 'Umm Al Quwain',
+      active: false,
+    },
+    {
+      title: 'Ras Al Khaimah',
+      active: false,
+    },
+  ];
+
+  const popularTags = [
+    {
+      title: 'Game',
+      active: true,
+    },
+    {
+      title: 'iPhone',
+      active: false,
+    },
+    {
+      title: 'TV',
+      active: false,
+    },
+    {
+      title: 'Asus Laptops',
+      active: false,
+    },
+    {
+      title: 'Macbook',
+      active: false,
+    },
+    {
+      title: 'SSD',
+      active: false,
+    },
+    {
+      title: 'Graphics Card',
+      active: false,
+    },
+    {
+      title: 'Microwave',
+      active: false,
+    },
+    {
+      title: 'Smart TV',
+      active: false,
+    },
+  ];
+
   return (
     <FadeIn>
       {!isMobile ? (
         <>
-          <Navbar />
+          <NewNavbar />
+          <AltNavbar />
           <SubNavbar />
         </>
       ) : (
         <>
-          <MobileNavbar />
-          <SubNavbar />
+          {/* <MobileNavbar sideBar={sideBar} setSideBar={setSideBar} /> */}
+          <AltNavbar />
         </>
       )}
-      <div>
+
+      <div className="px-16 pb-32">
+        <div className="rounded-[12px] w-full flex">
+          <div className="rounded-l-[12px] w-full p-7 h-[215px] bg-[#FDF1D7]">
+            <h1 className="text-[#0A0A0B] text-[18px] font-[700] leading-tight">Looking to Sell Your Apartment?</h1>
+            <p className="text-[#0A0A0B] font-[400] text-[16px] mt-2">
+              Create an advertisement to effectively reach a wider audience and establish connections with potential
+              buyers.
+            </p>
+            <button className="bg-[#00134D] rounded-[8px] px-20 py-[16px] text-white leading-none mt-7 text-[14px] font-[400]">
+              Post Ad
+            </button>
+          </div>
+          <div className="rounded-r-[12px] bg-green-200 w-full h-[215px]">
+            <img src="/images/pfs.jpeg" className="w-full h-full object-cover rounded-r-[12px]" />
+          </div>
+        </div>
+
+        {/* Popular Category */}
+        <div className="sm:mt-10 w-full">
+          <div>
+            <h1 className="text-[#101828] md:text-[2vw] text-[5vw] font-[700]">Popular Categories</h1>
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-[30px] mt-5">
+              {popularCategoryData?.map((product, i) => (
+                <CategoryCard key={i} product={product} />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Filter and Product */}
+        <h1 className='text-[28px] font-[700] text-[#00134D] mt-10'>Property for Sale</h1>
+        <div className="flex gap-10">
+          <div className="flex flex-col mt-5 divide-y w-[300px]">
+            {/* Filter */}
+            <div className="pb-3">
+              <p className="text-[#0A0A0B] text-[16px] font-[600]">Property Type</p>
+              <div className="mt-2">
+                {propertyType.map((item, i) => (
+                  <div key={i} className="">
+                    <FormControlLabel
+                      value={item.title}
+                      control={<Radio size="small" />}
+                      label={item.title}
+                      sx={{
+                        '.MuiFormControlLabel-label': {
+                          fontSize: '14px', // Custom font size for the label
+                          fontWeight: '400', // Custom font weight
+                          color: '#5A5555', // Custom text color
+                        },
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="py-3">
+              <p className="text-[#0A0A0B] text-[16px] font-[600]">Purpose</p>
+              <div className="mt-2">
+                {purpose.map((item, i) => (
+                  <div key={i} className="">
+                    <FormControlLabel
+                      value={item.title}
+                      control={<Radio size="small" />}
+                      label={item.title}
+                      sx={{
+                        '.MuiFormControlLabel-label': {
+                          fontSize: '14px', // Custom font size for the label
+                          fontWeight: '400', // Custom font weight
+                          color: '#5A5555', // Custom text color
+                        },
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="py-3">
+              <p className="text-[#0A0A0B] text-[16px] font-[600]">Price Range</p>
+              <div className="mt-2">
+                {priceRange.map((item, i) => (
+                  <div key={i} className="">
+                    <FormControlLabel
+                      value={item.title}
+                      control={<Radio size="small" />}
+                      label={item.title}
+                      sx={{
+                        '.MuiFormControlLabel-label': {
+                          fontSize: '14px', // Custom font size for the label
+                          fontWeight: '400', // Custom font weight
+                          color: '#5A5555', // Custom text color
+                        },
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="py-3">
+              <p className="text-[#0A0A0B] text-[16px] font-[600]">Popular Locations</p>
+              <div className="mt-2 grid grid-cols-2">
+                {popularLocations.map((item, i) => (
+                  <div key={i} className="">
+                    <FormControlLabel
+                      value={item.title}
+                      control={<Checkbox size="small" />}
+                      label={item.title}
+                      sx={{
+                        '.MuiFormControlLabel-label': {
+                          fontSize: '14px', // Custom font size for the label
+                          fontWeight: '400', // Custom font weight
+                          color: '#5A5555', // Custom text color
+                        },
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="py-3">
+              <p className="text-[#0A0A0B] text-[16px] font-[600]">Popular Tag</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {popularTags.map((item, i) => (
+                  <div
+                    key={i}
+                    className="px-[8px] py-[4px] cursor-pointer rounded-full flex justify-center items-center border bg-slate-50"
+                  >
+                    <p className="leading-none text-[12px] font-[400]">{item.title}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Filtered Products */}
+          <div className="grid grid-cols-2 gap-7 py-10">
+            {featuredProperties?.map((product, i) => (
+              <ProductCard key={i} product={product} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* <div>
         <div className="w-full h-auto pb-32">
           <div className="md:px-8 px-5">
             <div className="w-full rounded-[30px] h-auto md:py-[96px] py-10 hero-image-bg flex justify-center items-center px-5">
@@ -335,11 +585,11 @@ export default function PropertyForSale() {
 
             <div className="md:px-[80px] py-[100px]">
               {/* Services */}
-              {/* <div className="">
+      {/* <div className="">
                             <ServiceCard2 />
                         </div> */}
 
-              {/* Popular property sales */}
+      {/* Popular property sales *
               <div className="md:mt-20 w-full">
                 <div>
                   <h1 className="text-[#101828] md:text-[2vw] text-[5vw] font-[700]">Popular Sections</h1>
@@ -359,7 +609,7 @@ export default function PropertyForSale() {
                                 </div>
                             </div> */}
 
-                {/* Popular Search category */}
+      {/* Popular Search category *
                 {/* <div className="mt-24">
                                 <h1 className="text-[#101828] md:text-[2vw] text-[5vw] font-[700]">Recommended Searches</h1>
                                 <div className="md:mt-14 grid md:grid-cols-3 grid-cols-1 gap-[20px]">
@@ -367,12 +617,12 @@ export default function PropertyForSale() {
                                         <SearchCategory key={i} header={category.header} item={category.items} />
                                     ))}
                                 </div>
-                            </div> */}
+                            </div> *
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </FadeIn>
   );
 }

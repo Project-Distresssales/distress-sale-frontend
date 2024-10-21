@@ -23,7 +23,7 @@ export default function ProductCard({ product }: any) {
     <div>
       <div
         onClick={goToProduct}
-        className="bg-white w-full h-auto p-5 rounded-[10px] cursor-pointer relative"
+        className="bg-white min-w-full h-auto p-5 rounded-[10px] cursor-pointer relative"
         style={{
           boxShadow:
             '0px 8px 50px -4px rgba(16, 24, 40, 0.01), 0px 20px 50px -4px rgba(16, 24, 40, 0.03), 1px -4px 50px 4px rgba(16, 24, 40, 0.01), 0px -10px 50px 4px rgba(0, 0, 0, 0.03)',
