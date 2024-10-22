@@ -317,15 +317,6 @@ export default function ProductPage() {
           </div>
 
           {/* <div className="bg-white flex flex-col items-stretch pb-12 md:px-8 w-full">
-            <div className="bg-gray-200 min-h-[1px] w-full" />
-
-            <div className="flex md:flex-row flex-col w-full items-center justify-between md:px-7 px-5 mb-5 mt-7">
-              <h1 className="text-primary md:text-[22px] text-center text-[5vw] font-[700] leading-tight">{product && product?.name}</h1>
-              <div className="text-gray-900 md:text-sm text-[3.3vw] mt-7 md:mt-0 font-[500] leading-tight whitespace-nowrap">
-                Date Uploaded:{' '}
-                {product && product.createdAt ? format(new Date(product.createdAt), "do MMMM',' yyyy") : ''}
-              </div>
-            </div>
 
             <div className="w-full mb-32 md:max-w-full max-md:mb-10 flex">
               <div className="flex flex-col md:w-full">
@@ -416,9 +407,6 @@ export default function ProductPage() {
                     </div>
                     <div className="self-stretch flex w-full items-stretch justify-between gap-5 mt-6 pr-20 max-md:max-w-full max-md:flex-wrap max-md:pr-5">
                       <div className="items-stretch flex justify-between gap-2 rounded-md">
-                        <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
-                          Type:
-                        </div>
                         <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
                           {product?.propertyType}
                         </div>
