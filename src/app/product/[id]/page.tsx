@@ -301,7 +301,7 @@ export default function ProductPage() {
               <p className='text-[16px] font-[600] text-[#0A0A0B]'>Features</p>
               <div className='mt-3 space-y-3'>
                 {descriptionFeatures.map((feature, i) => (
-                  <div className='flex gap-3 items-center'>
+                  <div key={i} className='flex gap-3 items-center'>
                     <img src={feature.icon} width={20} height={20} />
                     <p className='text-[14px] font-[400] text-[#0A0A0B] leading-none'>{feature.title}</p>
                   </div>
