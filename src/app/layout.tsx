@@ -17,7 +17,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="max-w-[1450px] mx-auto">
           <AppProvider>
             {children}
-            <Footer />
           </AppProvider>
       </body>
     </html>

@@ -16,6 +16,7 @@ import SubNavbar from '../components/Navbar/SubNavbar';
 import { FadeIn } from '../components/Transitions/Transitions';
 import UnverifiedUserBadge from '../components/Verification/UnverifiedUserBadge';
 import VerifiedUserBadge from '../components/Verification/VerifiedUserBadge';
+import Footer from '../components/Footer/Footer';
 
 export default function Home() {
   const { isMobile } = useAppTheme();
@@ -373,6 +374,8 @@ export default function Home() {
           </div>
         )}
       </div>
+
+      <Footer />
     </FadeIn>
   );
 }

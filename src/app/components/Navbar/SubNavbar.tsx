@@ -51,7 +51,7 @@ export default function SubNavbar() {
         {
             title: 'Automobile',
             icon: Assets.automobile,
-            link: '/car-for-sale'
+            link: '/automobile'
         },
         // {
         //     title: 'Commercial',

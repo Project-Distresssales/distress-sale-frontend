@@ -3,6 +3,12 @@ import StepperControl from '../StepperControl';
 import { Breadcrumbs } from '@mui/material';
 import Link from 'next/link';
 import Pfs from '../../AdForm/Pfs';
+import { HouseIcon, CarIcon, BusinessBagIcon, TreeListIcon } from '../../Icons/Icons';
+import { CategoryButton } from './Step2';
+import useRequest from '@/services/request/request.service';
+import API from '@/constants/api.constant';
+import { catchAsync } from '@/helpers/api.helper';
+import { toast } from 'react-toastify';
 
 const features = [
   { id: 1, label: 'Security' },
@@ -51,6 +57,10 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
   const [location, setLocation] = useState<string>('');
   const [shortDesc, setShortDesc] = useState<string>('');
   const [fullDesc, setFullDesc] = useState<string>('');
+  const { isLoading, makeRequest } = useRequest();
+  const [sections, setSections] = useState<any[]>([]);
+  const [selectedSectionId, setSelectedSectionId] = useState<string | null>(null);
+  const [selectedSectionName, setSelectedSectionName] = useState<string>('');
 
   const handleInputChange = (key: string, value: string | number) => {
     switch (key) {
@@ -63,7 +73,7 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
       case 'price':
         setPrice(value as number | null);
         break;
-        case 'openMarketPrice':
+      case 'openMarketPrice':
         setOpenMarketPrice(value as number | null);
         break;
       case 'closingFee':
@@ -105,8 +115,6 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
     }
   };
 
-
-
   useEffect(() => {
     const dataToSave = {
       title,
@@ -127,43 +135,107 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
     };
 
     localStorage.setItem('pfsFormDataKey', JSON.stringify(dataToSave));
-  }, [title, tourUrl, price, openMarketPrice, closingFee, communityFee, bedroom, bathroom, size, readyDate, occupancyStatus, location, shortDesc, fullDesc]);
+  }, [
+    title,
+    tourUrl,
+    price,
+    openMarketPrice,
+    closingFee,
+    communityFee,
+    bedroom,
+    bathroom,
+    size,
+    readyDate,
+    occupancyStatus,
+    location,
+    shortDesc,
+    fullDesc,
+  ]);
 
   useEffect(() => {
     setShortDesc(localStorage.getItem('shortDesc') || '');
 
     const fetchDataFromLocalStorage = () => {
-        const storedData = localStorage.getItem('pfsFormDataKey');
-    
-        if (storedData) {
-            const parsedData = JSON.parse(storedData);
-            setBathroom(parsedData.bathroom);
-            setBedroom(parsedData.bedroom);
-            setClosingFee(parseFloat(parsedData.closingFee));
-            setOpenMarketPrice(parseFloat(parsedData.openMarketPrice));
-            setCommunityFee(parsedData.communityFee);
-            setFullDesc(parsedData.fullDesc || '');
-            setLocation(parsedData.location || '');
-            setOccupancyStatus(parsedData.occupancyStatus || '');
-            setPrice(parseFloat(parsedData.price));
-            setReadyDate(parsedData.readyDate || '');
-            // setReferenceId(parsedData.referenceId || '');
-            setSize(parsedData.size || '');
-            setTitle(parsedData.title || '');
-            setTourUrl(parsedData.tourUrl || '');
-        }
-    };
-    
-    
-    fetchDataFromLocalStorage();
-}, []);
+      const storedData = localStorage.getItem('pfsFormDataKey');
 
+      if (storedData) {
+        const parsedData = JSON.parse(storedData);
+        setBathroom(parsedData.bathroom);
+        setBedroom(parsedData.bedroom);
+        setClosingFee(parseFloat(parsedData.closingFee));
+        setOpenMarketPrice(parseFloat(parsedData.openMarketPrice));
+        setCommunityFee(parsedData.communityFee);
+        setFullDesc(parsedData.fullDesc || '');
+        setLocation(parsedData.location || '');
+        setOccupancyStatus(parsedData.occupancyStatus || '');
+        setPrice(parseFloat(parsedData.price));
+        setReadyDate(parsedData.readyDate || '');
+        // setReferenceId(parsedData.referenceId || '');
+        setSize(parsedData.size || '');
+        setTitle(parsedData.title || '');
+        setTourUrl(parsedData.tourUrl || '');
+      }
+    };
+
+    fetchDataFromLocalStorage();
+  }, []);
 
   useEffect(() => {
     const storedSectionName = localStorage.getItem('selectedSectionName');
     if (storedSectionName) {
       setStoredSectionName(storedSectionName);
     }
+  }, []);
+
+  useEffect(() => {
+    const storedSectionId = localStorage.getItem('selectedSectionId');
+    const storedSectionName = localStorage.getItem('selectedSectionName');
+    if (storedSectionId && storedSectionName) {
+      setSelectedSectionId(storedSectionId);
+      setSelectedSectionName(storedSectionName);
+    }
+  }, []);
+
+  const handleSelect = (sectionId, sectionName) => {
+    if (sectionId !== null) {
+      // Update state and store in localStorage
+      setSelectedSectionId(sectionId);
+      setSelectedSectionName(sectionName);
+      localStorage.setItem('selectedSectionId', sectionId);
+      localStorage.setItem('selectedSectionName', sectionName);
+    } else {
+      toast.error('Please select a benefit before continuing.');
+    }
+  };
+
+  const handleGetSections = async () => {
+    catchAsync(
+      async () => {
+        const res = await makeRequest({
+          method: 'GET',
+          url: API.sections,
+        });
+
+        const { message, data } = res.data;
+        setSections(data);
+      },
+      (error: any) => {
+        const res: any = error?.response;
+
+        const status = res?.status;
+        const data = res?.data;
+
+        if (status === 406) {
+          toast.error(data.message);
+        } else {
+          toast.error('Something went wrong! Pls try again!', {});
+        }
+      }
+    );
+  };
+
+  useEffect(() => {
+    handleGetSections();
   }, []);
 
   const breadcrumbs = [
@@ -179,8 +251,50 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
   ];
   return (
     <div>
-      <div>
-        {storedSectionName === 'Property for Sale' ? (
+      <h1 className="text-[24px] font-[700] text-[#00134D]">Product Information</h1>
+      <div className="mt-7">
+        <p className="text-[18px] font-[400] text-[#0A0A0B]">Product Section</p>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4 mt-2">
+          {sections?.map((category, index) => (
+            <CategoryButton
+              key={index}
+              text={category?.name}
+              icon={
+                category?.name === 'Property for sale' ? (
+                  <HouseIcon />
+                ) : category?.name === 'Automobile' ? (
+                  <CarIcon />
+                ) : category?.name === 'Listings' ? (
+                  <BusinessBagIcon />
+                ) : (
+                  <TreeListIcon />
+                )
+              }
+              selected={selectedSectionId === category?._id}
+              onClick={() => handleSelect(category?._id, category?.name)}
+            />
+          ))}
+        </div>
+
+        <Pfs
+          title={title}
+          tourUrl={tourUrl}
+          price={price}
+          openMarketPrice={openMarketPrice}
+          closingFee={closingFee}
+          communityFee={communityFee}
+          bedroom={bedroom}
+          bathroom={bathroom}
+          size={size}
+          readyDate={readyDate}
+          referenceId={''}
+          occupancyStatus={occupancyStatus}
+          location={location}
+          shortDesc={shortDesc}
+          fullDesc={fullDesc}
+          handleChange={handleInputChange}
+        />
+        {/* {storedSectionName === 'Property for Sale' ? (
           <Pfs
             title={title}
             tourUrl={tourUrl}
@@ -202,7 +316,7 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
         ) :
           (
             null
-          )}
+          )} */}
       </div>
       {currentStep !== steps.length && (
         <StepperControl handleClick={handleClick} currentStep={currentStep} steps={steps} />
@@ -252,7 +366,7 @@ const CheckboxList: FC<CheckboxListProps> = ({ features }) => {
   return (
     <div className="w-full flex flex-row ">
       <label className="font-medium whitespace-nowrap md:w-[169px] mr-6 opacity-0">Description</label>
-      <div className='grid grid-cols-5 gap-5  ' >
+      <div className="grid grid-cols-5 gap-5  ">
         {features.map((feature) => (
           <div key={feature.id} className="flex items-center gap-4">
             <input

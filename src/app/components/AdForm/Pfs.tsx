@@ -58,87 +58,99 @@ const Pfs: React.FC<PfsProps> = ({
 
   return (
     <div className=" flex flex-col">
-      <div className="flex flex-col gap-6 w-full justify-center items-center">
-        <h2 className="md:text-2xl text-[5vw] font-bold">Ad Details</h2>
-        <p className="font-medium text-[#667085] md:text-[16px] text-[3.5vw] text-center">
-          Provide as much accurate details and pictures as possible, and set the right price!
-        </p>
+      <div className="w-full grid grid-cols-2 gap-5">
+        <MyTextField
+          id="productName"
+          name="productName"
+          label="Product Name"
+          placeholder="Enter product name"
+          value={title}
+          onChange={(e: { target: { value: any } }) => handleChange('title', e.target.value)}
+          type="text"
+          error={false}
+        />
+        <MyTextField
+          id="productPrice"
+          name="productPrice"
+          label="Product Price"
+          placeholder="AED 100,000"
+          value={tourUrl}
+          onChange={(e: { target: { value: any } }) => handleChange('tourUrl', e.target.value)}
+          type="text"
+          error={false}
+        />
+        <MyTextField
+          id="location"
+          name="location"
+          label="Product Location"
+          placeholder="Enter product location"
+          value={location}
+          onChange={(e: { target: { value: any } }) => handleChange('location', e.target.value)}
+          type="text"
+          error={false}
+        />
+        <MyTextField
+          id="location"
+          name="location"
+          label="360 Tour URL"
+          placeholder="Insert URL"
+          value={location}
+          onChange={(e: { target: { value: any } }) => handleChange('location', e.target.value)}
+          type="text"
+          error={false}
+        />
+        <MyTextField
+          id="fullDesc"
+          name="fullDesc"
+          label="Product Description"
+          placeholder="Enter product location"
+          value={fullDesc}
+          onChange={(e: { target: { value: any } }) => handleChange('fullDesc', e.target.value)}
+          type="text"
+          error={false}
+          multiline
+          rows={4}
+        />
+        <MyTextField
+          id="shortDesc"
+          name="shortDesc"
+          label="Product Short Description"
+          placeholder="Enter product short description"
+          value={fullDesc}
+          onChange={(e: { target: { value: any } }) => handleChange('fullDesc', e.target.value)}
+          type="text"
+          error={false}
+          multiline
+          rows={4}
+          maxLength={50}
+        />
       </div>
-      {/* <Breadcrumbs className="" separator="›" aria-label="breadcrumb">
-      {breadcrumbs}
-    </Breadcrumbs> */}
 
-      <div className="flex flex-col gap-5 mt-7">
-        {/* First Row */}
-        <div className=" grid md:grid-cols-2 grid-cols-1 gap-6  w-full ">
-          <div className="w-full">
-            <MyTextField
-              id="title"
-              name="title"
-              label="Apartment Information"
-              placeholder="Insert Property Title"
-              value={title}
-              onChange={(e: { target: { value: any } }) => handleChange('title', e.target.value)}
-              type="text"
-              error={false}
-            />
-          </div>
-          <div className="w-full">
-            {/* <p className="font-medium">360 Tour URL</p> */}
-            <div className="w-full">
-              <MyTextField
-                id="url"
-                name="url"
-                label="360 Tour URL"
-                placeholder="Insert a Video URL"
-                value={tourUrl}
-                onChange={(e: { target: { value: any } }) => handleChange('tourUrl', e.target.value)}
-                type="url"
-                error={false}
-              />
-              {/* <p className="text-xs">
-                <Link href="#" className="text-[#415EFF] hover:underline">
-                  Learn more
-                </Link>
-                &#160; about our accepted 360 Tour
-              </p> */}
-            </div>
-          </div>
-          
-        </div>
-        {/* Second Row */}
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-6  w-full">
-        <div className="w-full">
-            {/* <p className="font-medium">Price</p> */}
-            <MyTextField
-              id="price"
-              name="price"
-              label="Price"
-              placeholder="What is the Asking Price"
-              value={price}
-              onChange={(e: { target: { value: number } }) => handleChange('price', e.target.value)}
-              type="number"
-              error={false}
-            />
-          </div>
-          <div className="w-full flex items-center gap-6">
-            {/* <picture className="font-medium">Property Reference ID</picture> */}
-            <MyTextField
-              id="openMarketPrice"
-              name="openMarketPrice"
-              label="Open market price"
-              placeholder="What is the Open Market Price"
-              value={openMarketPrice}
-              onChange={(e: { target: { value: any } }) => handleChange('openMarketPrice', e.target.value)}
-              type="number"
-              error={false}
-            />
-          </div>
+      {/* <div className="mt-5">
+        <MyTextField
+          id="fullDesc"
+          name="fullDesc"
+          label="Product Description"
+          placeholder="Enter product location"
+          value={fullDesc}
+          onChange={(e: { target: { value: any } }) => handleChange('fullDesc', e.target.value)}
+          type="text"
+          error={false}
+          multiline
+          rows={4}
+        />
+      </div> */}
+
+      {/* Product Image */}
+      <div className="mt-5 mb-10">
+        <h3 className="text-[3.5vw] sm:text-[14px] font-[400] mb-[3px] text-[#0A0A0B]">Product Images</h3>
+        <div className=" rounded-[12px] w-full border border-dashed h-[200px] border-[#5A5555] bg-[#FAFAFA] flex justify-center items-center flex-col">
+          <p>Browse Or Desktop</p>
         </div>
       </div>
+
       {/* Upload Photos */}
-
-      <div className="flex md:flex-row flex-col md:space-x-7 space-y-5 md:space-y-0 justify-center my-16">
+      {/* <div className="flex md:flex-row flex-col md:space-x-7 space-y-5 md:space-y-0 justify-center my-16">
         <div
           onClick={modalHandler}
           className="border border-dashed cursor-pointer self-center border-[#415EFF] rounded-md gap-2 text-sm font-medium text-[#415EFF]  py-3 max-w-[403px] relative w-full text-center flex items-center justify-center"
@@ -175,10 +187,10 @@ const Pfs: React.FC<PfsProps> = ({
           </svg>
           Upload Property Documents
         </div>
-      </div>
+      </div> */}
 
       {/* Display uploaded images */}
-      <div className="grid grid-cols-3 gap-2">
+      {/* <div className="grid grid-cols-3 gap-2">
         {urls.map((imageUrl, index) => (
           <img
             className="w-[120px] h-[120px] object-cover"
@@ -187,150 +199,7 @@ const Pfs: React.FC<PfsProps> = ({
             alt={`Uploaded Image ${index + 1}`}
           />
         ))}
-      </div>
-
-      <div className="flex flex-col gap-5">
-        {/* 4th Row */}
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-6  w-full">
-          <div className="w-full flex items-center gap-6">
-            <MyTextField
-              id="bathroom"
-              name="bathroom"
-              label="Bathroom"
-              placeholder="How many Bathrooms are available"
-              value={bathroom}
-              onChange={(e: { target: { value: number } }) => handleChange('bathroom', e.target.value)}
-              type="number"
-              error={false}
-            />
-          </div>
-          <div className="w-full flex items-center gap-6">
-            <MyTextField
-              id="bedroom"
-              name="bedroom"
-              label="Bedroom"
-              placeholder="How many Bedrooms are available"
-              value={bedroom}
-              onChange={(e: { target: { value: number } }) => handleChange('bedroom', e.target.value)}
-              type="number"
-              error={false}
-            />
-          </div>
-        </div>
-
-        {/* 5th Row */}
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-6  w-full">
-        <div className="w-full flex items-center gap-6">
-            <MyTextField
-              id="closingFee"
-              name="closingFee"
-              label="Closing Fee"
-              placeholder="What's the Closing Fee?"
-              value={closingFee}
-              onChange={(e: { target: { value: number } }) => handleChange('closingFee', e.target.value)}
-              type="number"
-              error={false}
-            />
-          </div>
-          <div className="w-full flex items-center gap-6">
-            {/* <p className="font-medium">Community Fee</p> */}
-            <MyTextField
-              id="communityFee"
-              name="communityFee"
-              label="Community Fee"
-              placeholder="What is the Community Fee?"
-              value={communityFee}
-              onChange={(e: { target: { value: any } }) => handleChange('communityFee', e.target.value)}
-              type="text"
-              error={false}
-            />
-          </div>
-        </div>
-
-        {/* 6th Row */}
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-6  w-full">
-        <div className="w-full">
-            <MyTextField
-              id="size"
-              name="size"
-              label="Size"
-              placeholder="What is the Size of the property in (Sqft)?"
-              value={size}
-              onChange={(e: { target: { value: any } }) => handleChange('size', e.target.value)}
-              type="text"
-              error={false}
-            />
-          </div>
-          <div className="w-full flex items-center gap-6">
-            <MyTextField
-              id="readyOn"
-              name="readyOn"
-              label="Ready On"
-              placeholder=""
-              value={readyDate}
-              onChange={(e: { target: { value: any } }) => handleChange('readyDate', e.target.value)}
-              type="date"
-              error={false}
-              // min={new Date().toISOString().split('T')[0]}
-            />
-          </div>
-        </div>
-
-        {/* 7th Row */}
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-6  w-full">
-          <div className="w-full flex items-center gap-6">
-            {/* <p className="font-medium">Occupation Status</p> */}
-            <MyTextField
-              id="occupancyStatus"
-              name="occupancyStatus"
-              label="Occupation Status"
-              placeholder="Is this Property Vacant or Occupied?"
-              type="text"
-              error={false}
-              value={occupancyStatus}
-              onChange={(e: { target: { value: any } }) => handleChange('occupancyStatus', e.target.value)}
-              select
-            >
-              {propertyStatus.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </MyTextField>
-          </div>
-          <div className="w-full flex items-center gap-6">
-            {/* <p className="font-medium">Property Location</p> */}
-            <MyTextField
-              id="location"
-              name="location"
-              label="Property Location"
-              placeholder="Where is your property located at?"
-              value={location}
-              onChange={(e: { target: { value: any } }) => handleChange('location', e.target.value)}
-              type="text"
-              error={false}
-            />
-          </div>
-        </div>
-
-        {/* 8th Row Text-Area */}
-        <div className="flex flex-col gap-6 w-full">
-          <div className="w-full flex items-center gap-6">
-            {/* <p className="font-medium">Description</p> */}
-            <MyTextField
-              id="fullDesc"
-              name="fullDesc"
-              label="Description"
-              placeholder="Describe your property in full"
-              value={fullDesc}
-              onChange={(e: { target: { value: any } }) => handleChange('fullDesc', e.target.value)}
-              type="text"
-              error={false}
-              multiple
-            />
-          </div>
-        </div>
-      </div>
+      </div> */}
 
       <UploadModal showmodal={isModal} setIsModal={setIsModal} />
       <DocumentUploadModal showmodal={isDocumentModal} setIsModal={setIsDocumentModal} />

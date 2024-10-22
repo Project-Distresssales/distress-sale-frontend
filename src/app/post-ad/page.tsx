@@ -17,6 +17,8 @@ import useAppTheme from '@/hooks/theme.hook';
 import MobileNavbar from '../components/Navbar/MovileNavbar';
 import Navbar from '../components/Navbar/Navbar';
 import SubNavbar from '../components/Navbar/SubNavbar';
+import NewNavbar from '../components/Navbar/NewNavbar';
+import AltNavbar from '../components/Navbar/AltNavbar';
 
 const PostAd = () => {
   const { isLoading, makeRequest } = useRequest();
@@ -55,7 +57,7 @@ const PostAd = () => {
   }, []);
 
 
-  const steps = ['Select Package', 'List Item', 'Describe Ad', 'Choose Ad Category', 'Ad Details', 'Contact Details'];
+  const steps = ['Select Package', 'Product Information', ' Product Category', 'Contact Details'];
 
   const displayStep = ({ currentStep, handleClick, steps }) => {
     switch (currentStep) {
@@ -68,8 +70,8 @@ const PostAd = () => {
       case 2:
         return (
           <FadeInFromRight>
-            <Step2 handleClick={handleClick} currentStep={currentStep} steps={steps} />
-          </FadeInFromRight>
+          <Step5 handleClick={handleClick} currentStep={currentStep} steps={steps} />
+        </FadeInFromRight>
         );
       case 3:
         return (
@@ -84,18 +86,18 @@ const PostAd = () => {
             <Step4 handleClick={handleClick} currentStep={currentStep} steps={steps} />
           </FadeInFromRight>
         );
-      case 5:
-        return (
-          <FadeInFromRight>
-            <Step5 handleClick={handleClick} currentStep={currentStep} steps={steps} />
-          </FadeInFromRight>
-        );
-      case 6:
-        return (
-          <FadeInFromRight>
-            <Step6 handleClick={handleClick} currentStep={currentStep} steps={steps} />
-          </FadeInFromRight>
-        );
+      // case 5:
+      //   return (
+      //     <FadeInFromRight>
+      //       <Step5 handleClick={handleClick} currentStep={currentStep} steps={steps} />
+      //     </FadeInFromRight>
+      //   );
+      // case 6:
+      //   return (
+      //     <FadeInFromRight>
+      //       <Step6 handleClick={handleClick} currentStep={currentStep} steps={steps} />
+      //     </FadeInFromRight>
+      //   );
       default:
     }
   };
@@ -111,9 +113,10 @@ const PostAd = () => {
     <FadeIn>
       {!isMobile ? (
         <>
-          <Navbar />
-          <SubNavbar />
-        </>
+        <NewNavbar />
+        <AltNavbar />
+        <SubNavbar />
+      </>
       ) : (
         <>
           <MobileNavbar />
@@ -123,12 +126,12 @@ const PostAd = () => {
       <div className="flex flex-col items-stretch px-5 py-14 pb-16 max-w-[1000px] mx-auto">
         <div className="flex flex-col gap-6  w-full justify-center items-center">
           <h2 className="md:text-2xl text-[5.5vw] font-bold  ">Post Ad</h2>
-          <p className="font-medium text-[#667085] md:text-[16px] text-[4vw]">Post an ad in just 6 simple steps</p>
+          <p className="font-medium text-[#667085] md:text-[16px] text-[4vw]">Post an ad in just 4 simple steps</p>
         </div>
         <div className="pb-2 w-full mx-auto ">
           {/* Stepper */}
           <div className="horizontal mx-auto mt-5">
-            <div className="mb-20">
+            <div className="mb-10">
               <Stepper steps={steps} currentStep={currentStep} />
             </div>
 

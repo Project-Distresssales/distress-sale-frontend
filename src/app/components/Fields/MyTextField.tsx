@@ -15,10 +15,9 @@ const StyledTextField = styled(TextField)({
     'background': '#FFF',
     'borderRadius': '8px',
     'transition': '.6s',
-    'color': '#080808',
+    'color': '#0A0A0B',
     'fontSize': '14px',
     'fontWeight': '500',
-    'fontFamily': 'Satoshi',
 
     '& fieldset': {
       borderColor: '#E3E3E3',
@@ -137,7 +136,7 @@ const MyTextField = ({
       }}
     >
       {label && (
-        <h3 className='text-[3.5vw] sm:text-[14px] font-[400] mb-[5px]'>
+        <h3 className='text-[3.5vw] sm:text-[14px] mb-[5px] font-[400] text-[#0A0A0B] leading-tight'>
           <span className='capitalize'>{label}</span>{' '}
           {optional && (
             <span className='text-lightGrey3 text-[14px] font-thin'>

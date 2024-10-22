@@ -271,3 +271,10 @@ backdrop-filter: blur(7.2px);
 -webkit-backdrop-filter: blur(7.2px);
 box-shadow: 0 8px 50px rgba(212, 222, 254, 0.2);
 }
+
+.auth-glass {
+  /* From https://css.glass */
+  border-radius: 12px;
+  background: linear-gradient(148deg, rgba(0, 0, 0, 0.16) 24.31%, rgba(255, 255, 255, 0.50) 127.58%);
+  backdrop-filter: blur(6px);
+}

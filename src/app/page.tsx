@@ -21,6 +21,7 @@ import VerifiedUserBadge from './components/Verification/VerifiedUserBadge';
 import Image from 'next/image';
 import NewNavbar from './components/Navbar/NewNavbar';
 import AltNavbar from './components/Navbar/AltNavbar';
+import Footer from './components/Footer/Footer';
 
 export default function LandingPage() {
   const { isMobile } = useAppTheme();
@@ -406,6 +407,9 @@ export default function LandingPage() {
         handleForgotPasswordModal={handleForgotPasswordModal}
         handleRegisterModalOpen={handleRegisterModalOpen}
       />
+
+
+      <Footer />
     </FadeIn>
   );
 }

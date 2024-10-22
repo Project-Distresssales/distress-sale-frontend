@@ -1,7 +1,8 @@
-"use client"
+'use client';
 import React, { FC, useEffect, useState } from 'react';
 import MyTextField from '../../Fields/MyTextField';
 import StepperControl from '../StepperControl';
+import { MenuItem } from '@mui/material';
 
 interface Step3Props {
   handleClick: () => void;
@@ -24,27 +25,325 @@ const Step3: FC<Step3Props> = ({ handleClick, currentStep, steps }) => {
     localStorage.setItem('shortDesc', shortDesc);
   }, [shortDesc]);
 
+  const productCategory = ['Beach Towels'];
+
+
+  const popularTags = [
+    {
+      title: 'Game',
+      active: true,
+    },
+    {
+      title: 'iPhone',
+      active: false,
+    },
+    {
+      title: 'TV',
+      active: false,
+    },
+    {
+      title: 'Asus Laptops',
+      active: false,
+    },
+    {
+      title: 'Macbook',
+      active: false,
+    },
+    {
+      title: 'SSD',
+      active: false,
+    },
+    {
+      title: 'Graphics Card',
+      active: false,
+    },
+    {
+      title: 'Microwave',
+      active: false,
+    },
+    {
+      title: 'Smart TV',
+      active: false,
+    },
+  ];
+
   return (
-    <div className="flex flex-col gap-16 items-center justify-center w-full ">
-      <div className="flex flex-col gap-6 w-full justify-center items-center">
-        <h2 className="md:text-2xl text-[5vw] font-bold">Describe your Ad</h2>
-        <p className="font-medium text-[#667085] md:text-[16px] text-[4vw] text-center">Make your description short, informative and attractive</p>
-      </div>
-      <div className="md:w-[500px] w-full flex flex-col gap-8 items-center justify-center ">
+    <div className="w-full">
+      <h1 className="text-[24px] font-[700] text-[#00134D]">Product Category</h1>
+
+      <div>
         <MyTextField
-          id='description'
-          name='description'
-          label=''
-          placeholder='e.g 10 Bedroom available in Dubai'
+          id="productCategory"
+          name="productCategory"
+          label="Product Category"
+          placeholder=""
+          type="text"
+          value={''}
+          onChange={undefined}
+          select
+          required
+        >
+          {productCategory.map((category, i) => (
+            <MenuItem key={i} value={category}>
+              {category}
+            </MenuItem>
+          ))}
+        </MyTextField>
+      </div>
+
+      <div className="mt-10 w-full">
+        <p className="text-[18px] font-[400] text-[#0A0A0B]">Ad Specification</p>
+        <div className="mt-2 grid w-full grid-cols-3 gap-x-5 gap-y-5">
+          <MyTextField
+            id="material"
+            name="material"
+            label="Material"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+            select
+            required
+          >
+            {productCategory.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </MyTextField>
+          <MyTextField
+            id="ProductionTechnique"
+            name="ProductionTechnique"
+            label="Production Technique"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+            select
+            required
+          >
+            {productCategory.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </MyTextField>
+          <MyTextField
+            id="productCategory"
+            name="productCategory"
+            label="Product Category"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+            select
+            required
+          >
+            {productCategory.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </MyTextField>
+          <MyTextField
+            id="productCategory"
+            name="productCategory"
+            label="Product Category"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+            select
+            required
+          >
+            {productCategory.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </MyTextField>
+          <MyTextField
+            id="productCategory"
+            name="productCategory"
+            label="Product Category"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+            select
+            required
+          >
+            {productCategory.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </MyTextField>
+          <MyTextField
+            id="productCategory"
+            name="productCategory"
+            label="Product Category"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+            select
+            required
+          >
+            {productCategory.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </MyTextField>
+          <MyTextField
+            id="productCategory"
+            name="productCategory"
+            label="Product Category"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+            select
+            required
+          >
+            {productCategory.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </MyTextField>
+          <MyTextField
+            id="productCategory"
+            name="productCategory"
+            label="Product Category"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+            select
+            required
+          >
+            {productCategory.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </MyTextField>
+          <MyTextField
+            id="productCategory"
+            name="productCategory"
+            label="Product Category"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+            select
+            required
+          >
+            {productCategory.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </MyTextField>
+        </div>
+      </div>
+
+      <div className="mt-10 w-full">
+        <p className="text-[18px] font-[400] text-[#0A0A0B]">Additional Information</p>
+        <div className="mt-2 grid w-full grid-cols-3 gap-x-5 gap-y-5">
+          <MyTextField
+            id="title"
+            name="title"
+            label="Title"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+            select
+            required
+          >
+            {productCategory.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </MyTextField>
+          <MyTextField
+            id="landlordName"
+            name="landlordName"
+            label="Landlord Name"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+          />
+          <MyTextField
+            id="propertyStatus"
+            name="propertyStatus"
+            label="Property Status"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+            select
+          >
+            {productCategory.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </MyTextField>
+          <MyTextField
+            id="buildingName"
+            name="building Name"
+            label="Building Name"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+          />
+          <MyTextField id="deed" name="deed" label="Deed" placeholder="" type="text" value={''} onChange={undefined} />
+          <MyTextField
+            id="neighborhood"
+            name="neighborhood"
+            label="Neighborhood"
+            placeholder=""
+            type="text"
+            value={''}
+            onChange={undefined}
+          />
+        </div>
+      </div>
+
+      <div className="mt-10 w-full">
+        <p className="text-[18px] font-[400] text-[#0A0A0B]">Product Tags</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {popularTags.map((item, i) => (
+            <div
+              key={i}
+              className="px-[8px] py-[4px] cursor-pointer rounded-full flex justify-center items-center border bg-slate-50"
+            >
+              <p className="leading-none text-[12px] font-[400]">{item.title}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="w-full flex flex-col gap-8 items-center justify-center mt-16">
+        {/* <MyTextField
+          id="description"
+          name="description"
+          label=""
+          placeholder="e.g 10 Bedroom available in Dubai"
           value={shortDesc}
           onChange={handleDescriptionChange}
           maxLength={50}
-          type='text'
+          type="text"
           error={false}
-        />
-        <div className="md:text-sm text-[3.5vw] text-gray-500">
-          {50 - shortDesc.length} characters remaining
-        </div>
+        /> */}
+        {/* <div className="md:text-sm text-[3.5vw] text-gray-500">{50 - shortDesc.length} characters remaining</div> */}
         {currentStep !== steps.length && (
           <StepperControl handleClick={handleClick} currentStep={currentStep} steps={steps} />
         )}

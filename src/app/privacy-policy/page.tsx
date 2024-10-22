@@ -7,6 +7,9 @@ import { profileLogoutAction } from '../../store/profile.slice';
 import MobileNavbar from '../components/Navbar/MovileNavbar';
 import Navbar from '../components/Navbar/Navbar';
 import { FadeIn } from '../components/Transitions/Transitions';
+import NewNavbar from '../components/Navbar/NewNavbar';
+import SubNavbar from '../components/Navbar/SubNavbar';
+import AltNavbar from '../components/Navbar/AltNavbar';
 
 const PrivacyPolicy = () => {
   const { isMobile } = useAppTheme();
@@ -15,13 +18,14 @@ const PrivacyPolicy = () => {
     <FadeIn>
       {!isMobile ? (
         <>
-          <Navbar />
-          {/* <SubNavbar /> */}
-        </>
+        <NewNavbar />
+        <AltNavbar />
+        <SubNavbar />
+      </>
       ) : (
         <>
           <MobileNavbar />
-          {/* <SubNavbar /> */}
+          <SubNavbar />
         </>
       )}
 
