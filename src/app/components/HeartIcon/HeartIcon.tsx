@@ -8,8 +8,8 @@ export default function HeartIcon({ selected, setSelected }: { selected: boolean
     return (
         <ButtonBase
           sx={{
-            width: '40px',
-            height: '40px',
+            width: '30px',
+            height: '30px',
             bottom: '0',
             backgroundColor: '#fff',
             border: 'none',

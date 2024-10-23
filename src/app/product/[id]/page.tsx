@@ -182,12 +182,7 @@ export default function ProductPage() {
         </>
       )}
 
-      {isLoading ? (
-        <div className="w-full h-[500px] flex justify-center items-center">
-          <Image src={Assets.paymentProcessing} alt="" width={100} height={100} />
-        </div>
-      ) : (
-        <>
+<>
           <div className="w-full h-auto p-10">
             <div className="flex h-auto gap-16">
               <div className="">
@@ -660,7 +655,14 @@ export default function ProductPage() {
             </div>
           </div> */}
         </>
-      )}
+
+      {/* {!isLoading ? (
+        <div className="w-full h-[500px] flex justify-center items-center">
+          <Image src={Assets.paymentProcessing} alt="" width={100} height={100} />
+        </div>
+      ) : (
+        
+      )} */}
     </FadeIn>
   );
 }

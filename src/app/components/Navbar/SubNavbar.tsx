@@ -10,7 +10,7 @@ export function SubButton({ title, icon, onClick }: { title: string; icon: any; 
     return (
         <div className="flex items-center space-x-2 py-7 px-5 cursor-pointer" onClick={onClick}>
             <Image src={icon} alt="" width={20} height={20} />
-            <p className='text-[#475467] text-[16px] font-[500]'>{title}</p>
+            <p className='text-[#0A0A0B] text-[16px] font-[400] leading-none'>{title}</p>
         </div>
     );
 }
@@ -35,29 +35,29 @@ export default function SubNavbar() {
     const data = [
         {
             title: 'Property for Sale',
-            icon: Assets.pfs,
+            icon: '/icons/pfs.svg',
             link: '/property-for-sale'
-        },
-        //  {
-        //     title: 'Listings',
-        //     icon: Assets.listingBlue,
-        //     link: '/listings'
-        // },
-         {
-            title: 'Property for Rent',
-            icon: Assets.pfr,
-            link: '/property-for-rent'
         },
         {
             title: 'Automobile',
-            icon: Assets.automobile,
+            icon: '/icons/car.svg',
             link: '/automobile'
         },
-        // {
-        //     title: 'Commercial',
-        //     icon: Assets.commercialBlue,
-        //     link: '/commercial'
-        // },
+         {
+            title: 'Listings',
+            icon: '/icons/listing.svg',
+            link: '/listings'
+        },
+         {
+            title: 'Property for Rent',
+            icon: '/icons/pfr.svg',
+            link: '/property-for-rent'
+        },
+        {
+            title: 'Commercial',
+            icon: '/icons/comm.svg',
+            link: '/commercial'
+        },
     ]
 
     return (

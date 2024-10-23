@@ -88,57 +88,95 @@ export default function NewNavbar() {
   const handleVerificationModalOpenClose = () => {
     setVerificationModalOpen(false);
   };
-  
-  
+
+  const navs = [
+    {
+      title: 'Home',
+      href: '/',
+    },
+    {
+      title: 'About Us',
+      href: '/',
+    },
+    {
+      title: "FAQ's",
+      href: '/',
+    },
+  ];
+
   return (
-    <nav className="flex flex-wrap items-center justify-between px-4 py-2 bg-white">
+    <nav className="flex items-center justify-between gap-5 px-4 py-2 bg-white">
       <Link href="/">
         <img src="/icons/distresssales-logo.svg" width={200} height={200} />
       </Link>
 
-      <div className="flex md:hidden">
-        <button id="hamburger">
-          <img
-            className="toggle block"
-            src="https://img.icons8.com/fluent-systems-regular/2x/menu-squared-2.png"
-            width="40"
-            height="40"
-          />
-          <img
-            className="toggle hidden"
-            src="https://img.icons8.com/fluent-systems-regular/2x/close-window.png"
-            width="40"
-            height="40"
-          />
-        </button>
-      </div>
-      <div className=" toggle hidden w-full md:w-auto md:flex text-right text-bold mt-5 md:mt-0 md:border-none">
-        <Link
-          href="#home"
-          className="block md:inline-block px-3 py-3 md:border-none text-[#00134D] hover:text-[#00134D]"
-        >
-          Home
-        </Link>
-        <Link
-          href="#aboutus"
-          className="block md:inline-block px-3 py-3 md:border-none text-[#00134D] hover:text-[#00134D]"
-        >
-          About us
-        </Link>
-        <Link
-          href="#contactUs"
-          className="block md:inline-block px-3 py-3 md:border-none text-[#00134D] hover:text-[#00134D]"
-        >
-          FAQ's
-        </Link>
-      </div>
+      <div className="flex items-center gap-10">
+        {/* Search Bar */}
+        <div className="mx-auto">
+          <div className="relative flex items-center w-[350px] h-12 rounded-[10px] border-[0.5px] border-[#00134D] bg-white overflow-hidden">
+            <div className="grid place-items-center h-full w-12 text-[#726C6C] poppins-font">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 20 20"
+                stroke="#00134D"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
 
-      <div className="toggle w-full text-end hidden md:flex md:w-auto px-2 py-2 md:rounded">
-        <div className="flex-shrink-0 flex px-2 py-3 items-center space-x-8 flex-1 justify-end justify-self-end ">
-          <Link href='/auth/signin' className="text-gray-700 hover:text- text-sm font-medium hover:text-gray-700">Login</Link>
-          <button className="text-white bg-[#00134D] inline-flex items-center justify-center px-3 py-2 border border-transparent text-sm font-medium rounded-md">
-            Sign up
+            <input
+              className="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
+              type="text"
+              id="search"
+              placeholder="Search anything.."
+            />
+          </div>
+        </div>
+
+        <div className="flex md:hidden">
+          <button id="hamburger">
+            <img
+              className="toggle block"
+              src="https://img.icons8.com/fluent-systems-regular/2x/menu-squared-2.png"
+              width="40"
+              height="40"
+            />
+            <img
+              className="toggle hidden"
+              src="https://img.icons8.com/fluent-systems-regular/2x/close-window.png"
+              width="40"
+              height="40"
+            />
           </button>
+        </div>
+        <div className="toggle hidden w-full md:w-auto md:flex gap-7 text-right text-bold mt-5 md:mt-0 md:border-none">
+          {navs.map((nav, i) => (
+            <Link
+              key={i}
+              href={nav.href}
+              className="block md:inline-block md:border-none text-[#0A0A0B] hover:text-[#0A0A0B] poppins-font text-[16px] font-[400]"
+            >
+              {nav.title}
+            </Link>
+          ))}
+        </div>
+
+        <div className="toggle w-full text-end hidden md:flex md:w-auto px-2 py-2 md:rounded">
+          <div className="flex-shrink-0 flex px-2 py-3 items-center space-x-8 flex-1 justify-end justify-self-end ">
+          <button className="text-[#FAFAFA] bg-[#00134D] inline-flex items-center justify-center px-7 py-3 border border-transparent text-sm font-[600] rounded-[12px]">
+              Register
+            </button>
+            <button className="text-[#00134D] text-sm font-[600] border border-[#00134D] rounded-[12px] px-7 py-3">
+              Login
+            </button>
+          </div>
         </div>
       </div>
     </nav>
