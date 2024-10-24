@@ -115,42 +115,35 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
     }
   };
 
+  const [formData, setFormData] = useState({
+    title: '',
+    price: '',
+    location: '',
+    tourUrl: '',
+    fullDesc: '',
+    shortDesc: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   useEffect(() => {
     const dataToSave = {
-      title,
-      tourUrl,
-      price,
-      openMarketPrice,
-      closingFee,
-      communityFee,
-      bedroom,
-      bathroom,
-      size,
-      readyDate,
-      // referenceId,
-      occupancyStatus,
-      location,
-      shortDesc,
-      fullDesc,
+      title: formData.title,
+      tourUrl: formData.tourUrl,
+      price: formData.price,
+      location: formData.location,
+      shortDesc: formData.shortDesc,
+      fullDesc: formData.fullDesc,
     };
 
     localStorage.setItem('pfsFormDataKey', JSON.stringify(dataToSave));
-  }, [
-    title,
-    tourUrl,
-    price,
-    openMarketPrice,
-    closingFee,
-    communityFee,
-    bedroom,
-    bathroom,
-    size,
-    readyDate,
-    occupancyStatus,
-    location,
-    shortDesc,
-    fullDesc,
-  ]);
+  }, [formData]);
 
   useEffect(() => {
     setShortDesc(localStorage.getItem('shortDesc') || '');
@@ -277,22 +270,13 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
         </div>
 
         <Pfs
-          title={title}
-          tourUrl={tourUrl}
-          price={price}
-          openMarketPrice={openMarketPrice}
-          closingFee={closingFee}
-          communityFee={communityFee}
-          bedroom={bedroom}
-          bathroom={bathroom}
-          size={size}
-          readyDate={readyDate}
-          referenceId={''}
-          occupancyStatus={occupancyStatus}
-          location={location}
-          shortDesc={shortDesc}
-          fullDesc={fullDesc}
-          handleChange={handleInputChange}
+          title={formData.title}
+          tourUrl={formData.tourUrl}
+          price={formData.price}
+          location={formData.location}
+          shortDesc={formData.shortDesc}
+          fullDesc={formData.fullDesc}
+          handleChange={handleChange}
         />
         {/* {storedSectionName === 'Property for Sale' ? (
           <Pfs

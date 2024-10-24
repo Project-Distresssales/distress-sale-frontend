@@ -9,44 +9,18 @@ interface PfsProps {
   title: string;
   tourUrl: string;
   price: number | any;
-  openMarketPrice: number | any;
-  closingFee: number | any;
-  communityFee: number | any;
-  bedroom: number | any;
-  bathroom: number | any;
-  size: string;
-  readyDate: string;
-  referenceId: string;
-  occupancyStatus: string;
   location: string;
   shortDesc: string;
   fullDesc: string;
   handleChange: any;
 }
 
-const Pfs: React.FC<PfsProps> = ({
-  title,
-  tourUrl,
-  price,
-  openMarketPrice,
-  closingFee,
-  communityFee,
-  bedroom,
-  bathroom,
-  size,
-  readyDate,
-  referenceId,
-  occupancyStatus,
-  location,
-  fullDesc,
-  handleChange,
-}) => {
+const Pfs: React.FC<PfsProps> = ({ title, tourUrl, price, location, fullDesc, shortDesc, handleChange }) => {
   const propertyStatus = ['Vacant', 'Occupied'];
   const [isModal, setIsModal] = useState(false);
   const [isDocumentModal, setIsDocumentModal] = useState(false);
   const [documentImages, setDocumentImages] = useState<any[]>([]);
   const [images, setImages] = useState<any[]>([]);
-  const [urls, setUrls] = useState<string[]>([]);
 
   const modalHandler = () => {
     setIsModal(!isModal);
@@ -55,6 +29,21 @@ const Pfs: React.FC<PfsProps> = ({
   const modalHandlerDocument = () => {
     setIsDocumentModal(!isDocumentModal);
   };
+
+  const [urls, setUrls] = useState([]);
+
+  // Load URLs from localStorage when component mounts
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const savedUrls = localStorage.getItem('uploadedImageUrls');
+      if (savedUrls) {
+        setUrls(JSON.parse(savedUrls));
+      }
+    }, 2000); // 2000ms = 2 seconds
+
+    // Clean up interval when component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <div className=" flex flex-col">
@@ -65,7 +54,7 @@ const Pfs: React.FC<PfsProps> = ({
           label="Product Name"
           placeholder="Enter product name"
           value={title}
-          onChange={(e: { target: { value: any } }) => handleChange('title', e.target.value)}
+          onChange={handleChange}
           type="text"
           error={false}
         />
@@ -75,7 +64,7 @@ const Pfs: React.FC<PfsProps> = ({
           label="Product Price"
           placeholder="AED 100,000"
           value={tourUrl}
-          onChange={(e: { target: { value: any } }) => handleChange('tourUrl', e.target.value)}
+          onChange={handleChange}
           type="text"
           error={false}
         />
@@ -85,17 +74,17 @@ const Pfs: React.FC<PfsProps> = ({
           label="Product Location"
           placeholder="Enter product location"
           value={location}
-          onChange={(e: { target: { value: any } }) => handleChange('location', e.target.value)}
+          onChange={handleChange}
           type="text"
           error={false}
         />
         <MyTextField
-          id="location"
-          name="location"
+          id="tourUrl"
+          name="tourUrl"
           label="360 Tour URL"
           placeholder="Insert URL"
-          value={location}
-          onChange={(e: { target: { value: any } }) => handleChange('location', e.target.value)}
+          value={tourUrl}
+          onChange={handleChange}
           type="text"
           error={false}
         />
@@ -105,7 +94,7 @@ const Pfs: React.FC<PfsProps> = ({
           label="Product Description"
           placeholder="Enter product location"
           value={fullDesc}
-          onChange={(e: { target: { value: any } }) => handleChange('fullDesc', e.target.value)}
+          onChange={handleChange}
           type="text"
           error={false}
           multiline
@@ -116,8 +105,8 @@ const Pfs: React.FC<PfsProps> = ({
           name="shortDesc"
           label="Product Short Description"
           placeholder="Enter product short description"
-          value={fullDesc}
-          onChange={(e: { target: { value: any } }) => handleChange('fullDesc', e.target.value)}
+          value={shortDesc}
+          onChange={handleChange}
           type="text"
           error={false}
           multiline
@@ -142,11 +131,20 @@ const Pfs: React.FC<PfsProps> = ({
       </div> */}
 
       {/* Product Image */}
-      <div className="mt-5 mb-10">
+      <div onClick={modalHandler} className="mt-5 mb-10">
         <h3 className="text-[3.5vw] sm:text-[14px] font-[400] mb-[3px] text-[#0A0A0B]">Product Images</h3>
         <div className=" rounded-[12px] w-full border border-dashed h-[200px] border-[#5A5555] bg-[#FAFAFA] flex justify-center items-center flex-col">
           <p>Browse Or Desktop</p>
         </div>
+      </div>
+
+      {/* Display uploaded images */}
+      <div className="flex flex-wrap gap-5 mx-auto">
+        {urls.map((url) => (
+          <div className="relative" key={url}>
+            <img className="w-[100px] h-[100px] rounded-[16px] object-cover" src={url} alt={`Uploaded Image`} />
+          </div>
+        ))}
       </div>
 
       {/* Upload Photos */}
