@@ -305,16 +305,16 @@ export default function LandingPage() {
 
       {/* Hero */}
       <section>
-        <div className="mx-auto sm:pl-10 sm:pr-36 pr-5 pl-5 sm:pb-14 lg:flex gap-5">
+        <div className="mx-auto sm:pl-10 sm:pr-10 pr-5 pl-5 sm:pb-14 lg:flex gap-5">
           <div className="text-center lg:text-left w-full mt-10">
-            <h1 className="text-[#00134D] font-[600] sm:text-[55px] text-[7vw] leading-tight nunito">The Ultimate Affordable Marketplace for Buying, Renting & Selling
+            <h1 className="text-[#00134D] font-[700] sm:text-[4.5vw] text-[7vw] leading-tight nunito">The Ultimate Affordable Marketplace for Buying, Renting & Selling
             </h1>
-            <p className="sm:text-[18px] text-[4vw] font-normal text-[#F4AD0E] mt-2">Explore the Best Deals: Discover, Connect, Transact.</p>
-            <button type="button" className="py-4 px-12 bg-secondary rounded-[12px] text-white mt-10">Explore</button>
+            <p className="sm:text-[24px] text-[4vw] font-normal text-[#F4AD0E] mt-2 poppins">Explore the Best Deals: Discover, Connect, Transact.</p>
+            <button type="button" className="py-[18px] px-[74px] bg-[#00134D] rounded-[5px] text-[#FAFAFA] text-[16px] font-[400] mt-7">Explore</button>
           </div>
           <div className='relative mt-14 sm:mt-0 flex justify-center items-center'>
-            <div className='bg-[#f2f5fe] sm:w-[350px] sm:h-full rounded-full'>
-              <img src='/images/hero-new.png' className='sm:w-full sm:h-full bg-cover bg-no-repeat' />
+            <div className='bg-[#FDF1D7] sm:w-[450px] sm:h-[450px] rounded-full'>
+              <img src='https://s3-alpha-sig.figma.com/img/bf2a/d435/9392b890b037163c79ea73637972f706?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ZclIUhMCjYpQGQ9fTF1-Tor9UnKlxyx~3KogKtHDedxyTS5RPuLyE6GYbeKSNqS73vAWtk-Tf1DWydzzenM9zbjhYXBNe1Zh1nheOxIE4-ajCzDNBtxE~s8DcwH2h9xYum0X~6uXH7IEiYte18IeTca7yFe~6mNDQKeEAgvddpuzTLQ4T44hgB2J8PepXvNqMcUzIlKhrmyRu006ibpgGdqyH0Bx1pfcmR40D8WBBfrD2iZCTwYx6j9ULuM0EDGBwSNCehmqYvN6yGXWx3EG45-x6W0wfKz6alQJdm-1V~DsX1u0EZVhYB8cXQUz4IGV0sxQ-fEhDbouhC-PywZ6lw__' className='sm:w-full sm:h-full bg-cover bg-no-repeat' />
             </div>
           </div>
         </div>
@@ -340,11 +340,11 @@ export default function LandingPage() {
         {userState && userState?.verified ? <VerifiedUserBadge /> : <UnverifiedUserBadge />}
       </div>
 
-      <div className='mt-20 w-full sm:px-24 px-5'>
+      <div className='mt-20 w-full sm:px-10 px-5'>
         {propertyForSale?.length > 0 && (
           <div>
-            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Property for Sale</h1>
-            <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:mt-10 mt-7">
+            <h1 className="text-[#00134D] md:text-[24px] text-[4.5vw] font-[700] leading-none">Popular in Property for Sale</h1>
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:mt-10 mt-5">
               {propertyForSale?.map((product, i) => (
                 <ProductCard key={i} product={product} />
               ))}

@@ -1,6 +1,6 @@
-"use client"
+'use client';
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/Card/ProductCard';
 import CategoryCard from '../components/CategoryCard/CategoryCard';
 import useAppTheme from '@/hooks/theme.hook';
@@ -11,206 +11,136 @@ import { Checkbox, FormControlLabel, Radio } from '@mui/material';
 import AltNavbar from '../components/Navbar/AltNavbar';
 import NewNavbar from '../components/Navbar/NewNavbar';
 import Footer from '../components/Footer/Footer';
+import FilterProduct from '../components/FilterProduct/FilterProduct';
+import { useRouter } from 'next/navigation';
 
 export default function CarsForSale() {
-    const { isMobile } = useAppTheme();
+  const { isMobile } = useAppTheme();
+  const router = useRouter();
 
-    // Searched categories
-    const recommendedSearch = [
-        {
-            header: "Popular Cars in UAE",
-            items: [
-                {
-                    text: 'Chevrolet',
-                    link: '',
-                },
-                {
-                    text: 'BMW',
-                    link: '',
-                },
-                {
-                    text: 'Ford Mustand',
-                    link: '',
-                },
-                {
-                    text: 'Nissan Patrol',
-                    link: '',
-                },
-                {
-                    text: 'Toyota HIlux',
-                    link: '',
-                },
-            ]
-        },
-        {
-            header: "Used Cars for Sale in UAE",
-            items: [
-                {
-                    text: 'Used Dodge Charger 2022',
-                    link: '',
-                },
-                {
-                    text: 'Used Nissan Altima 2018',
-                    link: '',
-                },
-                {
-                    text: 'Used Chevrolet Captiva 2023',
-                    link: '',
-                },
-                {
-                    text: 'Used Car for Sale in Dubai',
-                    link: '',
-                },
-                {
-                    text: 'Used Car for Sale in Abu Dhabi',
-                    link: '',
-                },
-            ]
-        },
-        {
-            header: "Popular Car Brands",
-            items: [
-                {
-                    text: 'Ford',
-                    link: '',
-                },
-                {
-                    text: 'Mitsubishi',
-                    link: '',
-                },
-                {
-                    text: 'Hyundai',
-                    link: '',
-                },
-                {
-                    text: 'Toyota',
-                    link: '',
-                },
-                {
-                    text: 'Nissan',
-                    link: '',
-                },
-            ]
-        }
-    ];
+  
 
-    // Popular Categories
-    const popularCategoryData = [
-        {
-            imagePath: "/images/car-1.jpeg",
-            header: "Used Cars for Sale",
-        },
-        {
-            imagePath: "/images/car-2.jpeg",
-            header: "Car Models",
-        },
-        {
-            imagePath: "/images/car-3.jpeg",
-            header: "Motorbikes",
-        },
-        {
-            imagePath: "/images/car-4.jpeg",
-            header: "Car Accessories",
-        },
-        {
-            imagePath: "/images/car-5.jpeg",
-            header: "Car Parts",
-        },
-        {
-            imagePath: "/images/car-6.jpeg",
-            header: "Heavy Vehicles",
-        }
-    ];
+  // Popular Categories
+  const popularCategoryData = [
+    {
+      imagePath: '/images/car-1.jpeg',
+      header: 'Used Cars for Sale',
+    },
+    {
+      imagePath: '/images/car-2.jpeg',
+      header: 'Car Models',
+    },
+    {
+      imagePath: '/images/car-3.jpeg',
+      header: 'Motorbikes',
+    },
+    {
+      imagePath: '/images/car-4.jpeg',
+      header: 'Car Accessories',
+    },
+    {
+      imagePath: '/images/car-5.jpeg',
+      header: 'Car Parts',
+    },
+    {
+      imagePath: '/images/car-6.jpeg',
+      header: 'Heavy Vehicles',
+    },
+  ];
 
+  // Featured Properties
+  const featuredProperties = [
+    {
+      imagePath:
+        'https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      header: 'AED 3000',
+      description: 'Used Chevrolet Camaro Coupe ZL1 2021',
+      feature: 'Automatic •  40,000 Km',
+      location: 'Shams Abu Dhabi, Al Reem Island',
+    },
+    {
+      imagePath:
+        'https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      header: 'AED 20,000',
+      description: 'Used Chevrolet Camaro Coupe ZL1 2021',
+      feature: 'Automatic •  40,000 Km',
+      location: 'Shams Abu Dhabi, Al Reem Island',
+    },
+    {
+      imagePath:
+        'https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      header: 'AED 190,000',
+      description: 'Used Chevrolet Camaro Coupe ZL1 2021',
+      feature: 'Automatic •  40,000 Km',
+      location: 'Shams Abu Dhabi, Al Reem Island',
+    },
+    {
+      imagePath:
+        'https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      header: 'AED 30,000',
+      description: 'Used Chevrolet Camaro Coupe ZL1 2021',
+      feature: 'Automatic •  40,000 Km',
+      location: 'Shams Abu Dhabi, Al Reem Island',
+    },
+  ];
 
-    // Featured Properties
-    const featuredProperties = [
-        {
-            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            header: "AED 3000",
-            description: "Used Chevrolet Camaro Coupe ZL1 2021",
-            feature: "Automatic •  40,000 Km",
-            location: "Shams Abu Dhabi, Al Reem Island"
-        },
-        {
-            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            header: "AED 20,000",
-            description: "Used Chevrolet Camaro Coupe ZL1 2021",
-            feature: "Automatic •  40,000 Km",
-            location: "Shams Abu Dhabi, Al Reem Island"
-        },
-        {
-            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            header: "AED 190,000",
-            description: "Used Chevrolet Camaro Coupe ZL1 2021",
-            feature: "Automatic •  40,000 Km",
-            location: "Shams Abu Dhabi, Al Reem Island"
-        },
-        {
-            imagePath: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            header: "AED 30,000",
-            description: "Used Chevrolet Camaro Coupe ZL1 2021",
-            feature: "Automatic •  40,000 Km",
-            location: "Shams Abu Dhabi, Al Reem Island"
-        },
-    ];
+  // Blue card
+  const blueCardData = [
+    {
+      title: 'Cars',
+      data: 0,
+    },
+    {
+      title: 'Number Plates',
+      data: 0,
+    },
+    {
+      title: 'Auto Accessories & Parts',
+      data: 0,
+    },
+    {
+      title: 'Motorcycles',
+      data: 0,
+    },
+    {
+      title: 'Boats',
+      data: 0,
+    },
+    {
+      title: 'Heavy Vehicles',
+      data: 0,
+    },
+  ];
 
+  // Testimonies
+  const testimonies = [
+    {
+      image:
+        'https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      title:
+        'I found myself in need of a quick car sale due to a sudden move for work. SwiftCarDeals made it so easy. Their online system was user-friendly, and within hours of submitting my information, I had an offer. The next day, they picked up my car and handed me a check. The whole experience was efficient and stress-free, exactly what I needed during a hectic time. Highly recommend for anyone needing to sell fast.',
+      name: 'Rachel Gray',
+    },
+    {
+      image:
+        'https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      title: `“Distress Sale has been a game-changer for me. The speed and excitement of the process keep me coming back every day. I've had countless successful deals, and it's become an essential part of my life. Thank you, Distress Sale, for making car buying so fast and enjoyable!"`,
+      name: 'Richard Davison',
+    },
+    {
+      image:
+        'https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      title: `"I've been hooked on Distress Sale and it's been an incredible journey. I've lost count of how many cars I've bought and sold through the platform. The excitement of planning and finding my next dream car keeps me logging on every day. Fast and fun – that's what Distress Sale is all about!"`,
+      name: 'Nell May',
+    },
+  ];
 
-    // Blue card
-    const blueCardData = [
-        {
-            title: "Cars",
-            data: 0,
-        },
-        {
-            title: "Number Plates",
-            data: 0,
-        },
-        {
-            title: "Auto Accessories & Parts",
-            data: 0,
-        },
-        {
-            title: "Motorcycles",
-            data: 0,
-        },
-        {
-            title: "Boats",
-            data: 0,
-        },
-        {
-            title: "Heavy Vehicles",
-            data: 0,
-        },
-    ];
+  // Tab switcher
+  const [activeTab, setActiveTab] = useState('buy');
 
-
-    // Testimonies
-    const testimonies = [
-        {
-            image: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            title: "I found myself in need of a quick car sale due to a sudden move for work. SwiftCarDeals made it so easy. Their online system was user-friendly, and within hours of submitting my information, I had an offer. The next day, they picked up my car and handed me a check. The whole experience was efficient and stress-free, exactly what I needed during a hectic time. Highly recommend for anyone needing to sell fast.",
-            name: 'Rachel Gray'
-        },
-        {
-            image: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            title: `“Distress Sale has been a game-changer for me. The speed and excitement of the process keep me coming back every day. I've had countless successful deals, and it's become an essential part of my life. Thank you, Distress Sale, for making car buying so fast and enjoyable!"`,
-            name: 'Richard Davison'
-        },
-        {
-            image: "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            title: `"I've been hooked on Distress Sale and it's been an incredible journey. I've lost count of how many cars I've bought and sold through the platform. The excitement of planning and finding my next dream car keeps me logging on every day. Fast and fun – that's what Distress Sale is all about!"`,
-            name: 'Nell May'
-        },
-    ]
-
-
-    // Tab switcher
-    const [activeTab, setActiveTab] = useState('buy');
-
-    const handleTabClick = (tab: React.SetStateAction<string>) => {
-        setActiveTab(tab);
-    };
+  const handleTabClick = (tab: React.SetStateAction<string>) => {
+    setActiveTab(tab);
+  };
 
   // Agolia Search Result
   const [query, setQuery] = useState<string | any>('');
@@ -268,8 +198,6 @@ export default function CarsForSale() {
   const automobile = categoriesData['automobile'] || [];
   const commercial = categoriesData['commercial'] || [];
   // const categories = categoriesData['categories'] || [];
-
-
 
   const propertyType = [
     {
@@ -410,10 +338,8 @@ export default function CarsForSale() {
     },
   ];
 
-  
-
-    return (
-      <FadeIn>
+  return (
+    <FadeIn>
       {!isMobile ? (
         <>
           <NewNavbar />
@@ -427,7 +353,7 @@ export default function CarsForSale() {
         </>
       )}
 
-      <div className="px-16 pb-32">
+      <div className="pl-16 pb-32 mt-3">
         <div className="rounded-[12px] w-full flex">
           <div className="rounded-l-[12px] w-full p-7 h-[215px] bg-[#FDF1D7]">
             <h1 className="text-[#0A0A0B] text-[18px] font-[700] leading-tight">Looking to Buy or Rent a car?</h1>
@@ -435,7 +361,10 @@ export default function CarsForSale() {
               Create an advertisement to effectively reach a wider audience and establish connections with potential
               buyers.
             </p>
-            <button className="bg-[#00134D] rounded-[8px] px-20 py-[16px] text-white leading-none mt-7 text-[14px] font-[400]">
+            <button
+              onClick={() => router.push('/post-ad')}
+              className="bg-[#00134D] rounded-[8px] px-20 py-[16px] text-white leading-none mt-7 text-[14px] font-[400]"
+            >
               Post Ad
             </button>
           </div>
@@ -459,114 +388,13 @@ export default function CarsForSale() {
         {/* Filter and Product */}
         <h1 className="text-[28px] font-[700] text-[#00134D] mt-10">Featured cars</h1>
         <div className="flex gap-10">
-          <div className="flex flex-col mt-5 divide-y w-[300px]">
-            {/* Filter */}
-            <div className="pb-3">
-              <p className="text-[#0A0A0B] text-[16px] font-[600]">Property Type</p>
-              <div className="mt-2">
-                {propertyType.map((item, i) => (
-                  <div key={i} className="">
-                    <FormControlLabel
-                      value={item.title}
-                      control={<Radio size="small" />}
-                      label={item.title}
-                      sx={{
-                        '.MuiFormControlLabel-label': {
-                          fontSize: '14px', // Custom font size for the label
-                          fontWeight: '400', // Custom font weight
-                          color: '#5A5555', // Custom text color
-                        },
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="py-3">
-              <p className="text-[#0A0A0B] text-[16px] font-[600]">Purpose</p>
-              <div className="mt-2">
-                {purpose.map((item, i) => (
-                  <div key={i} className="">
-                    <FormControlLabel
-                      value={item.title}
-                      control={<Radio size="small" />}
-                      label={item.title}
-                      sx={{
-                        '.MuiFormControlLabel-label': {
-                          fontSize: '14px', // Custom font size for the label
-                          fontWeight: '400', // Custom font weight
-                          color: '#5A5555', // Custom text color
-                        },
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="py-3">
-              <p className="text-[#0A0A0B] text-[16px] font-[600]">Price Range</p>
-              <div className="mt-2">
-                {priceRange.map((item, i) => (
-                  <div key={i} className="">
-                    <FormControlLabel
-                      value={item.title}
-                      control={<Radio size="small" />}
-                      label={item.title}
-                      sx={{
-                        '.MuiFormControlLabel-label': {
-                          fontSize: '14px', // Custom font size for the label
-                          fontWeight: '400', // Custom font weight
-                          color: '#5A5555', // Custom text color
-                        },
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="py-3">
-              <p className="text-[#0A0A0B] text-[16px] font-[600]">Popular Locations</p>
-              <div className="mt-2 grid grid-cols-2">
-                {popularLocations.map((item, i) => (
-                  <div key={i} className="">
-                    <FormControlLabel
-                      value={item.title}
-                      control={<Checkbox size="small" />}
-                      label={item.title}
-                      sx={{
-                        '.MuiFormControlLabel-label': {
-                          fontSize: '14px', // Custom font size for the label
-                          fontWeight: '400', // Custom font weight
-                          color: '#5A5555', // Custom text color
-                        },
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="py-3">
-              <p className="text-[#0A0A0B] text-[16px] font-[600]">Popular Tag</p>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {popularTags.map((item, i) => (
-                  <div
-                    key={i}
-                    className="px-[8px] py-[4px] cursor-pointer rounded-full flex justify-center items-center border bg-slate-50"
-                  >
-                    <p className="leading-none text-[12px] font-[400]">{item.title}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="mt-5">
+            <FilterProduct />
           </div>
 
           {/* Filtered Products */}
-          <div className="grid grid-cols-2 gap-7 py-10">
-            {featuredProperties?.map((product, i) => (
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-10 md:mt-10 mt-5">
+            {automobile?.map((product, i) => (
               <ProductCard key={i} product={product} />
             ))}
           </div>
@@ -575,5 +403,5 @@ export default function CarsForSale() {
 
       <Footer />
     </FadeIn>
-    )
+  );
 }

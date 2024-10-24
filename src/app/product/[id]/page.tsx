@@ -3,7 +3,7 @@
 import MobileNavbar from '@/app/components/Navbar/MovileNavbar';
 import Navbar from '@/app/components/Navbar/Navbar';
 import SubNavbar from '@/app/components/Navbar/SubNavbar';
-import API from '@/constants/api.constant';
+import API, { algoliaClient } from '@/constants/api.constant';
 import { currencyFormatter, sliceText } from '@/helpers';
 import useAppTheme from '@/hooks/theme.hook';
 import useRequest from '@/services/request/request.service';
@@ -19,12 +19,16 @@ import { InfinitySpin, RotatingTriangles } from 'react-loader-spinner';
 import AltNavbar from '@/app/components/Navbar/AltNavbar';
 import NewNavbar from '@/app/components/Navbar/NewNavbar';
 import { ButtonBase, IconButton } from '@mui/material';
+import ProductCard from '@/app/components/Card/ProductCard';
+import { AppModal } from '@/app/components/Modals/Modals';
 
 export default function ProductPage() {
   const { id } = useParams();
   const { isMobile } = useAppTheme();
   const [product, setProduct] = useState<any>([]);
   const [activeTab, setActiveTab] = useState('description');
+  const [fetchResults, setFetchResults] = useState<any>([]);
+  const [callModal, setCallModal] = useState(false);
 
   const tabs = [
     {
@@ -100,73 +104,118 @@ export default function ProductPage() {
     setSelectedImage(imageURL);
   };
 
-  // Contact
-  const ownersContact = [
-    {
-      icon: Assets.call,
-      title: 'Call',
-      link: `tel:${product?.ownerContact?.phoneNumber}`,
-      bgColor: '#D6DDFF',
-      textColor: '#415EFF',
-    },
-    {
-      icon: Assets.sms,
-      title: 'Email',
-      link: `mailto:${product?.ownerContact?.email}`,
-      bgColor: '#FFDDCF',
-      textColor: '#7A2E0E',
-    },
-    {
-      icon: Assets.whatsapp,
-      title: 'Whatsapp',
-      link: `https://wa.me/${product?.ownerContact?.whatsAppNumber}`,
-      bgColor: '#EAFFF2',
-      textColor: '',
-    },
-  ];
 
   const features = [
     {
-      title: 'Brand',
-      data: 'Apple',
+      title: 'Type',
+      data: product?.adType,
     },
     {
-      title: 'Category',
-      data: 'Electronics',
+      title: 'Purpose',
+      data: product?.purpose,
     },
     {
-      title: 'Condition',
-      data: 'Fairly',
+      title: 'Size',
+      data: product?.size,
     },
     {
-      title: 'Availability',
-      data: 'In Stock',
+      title: 'status',
+      data: product?.status,
     },
   ];
-
 
   const descriptionFeatures = [
     {
       title: 'Free 1 Year Warranty',
-      icon: ''
+      icon: '',
     },
     {
       title: 'Free Shipping & Fasted Delivery',
-      icon: ''
+      icon: '',
     },
     {
       title: '100% Money-back guarantee',
-      icon: ''
+      icon: '',
     },
     {
       title: '24/7 Customer support',
-      icon: ''
+      icon: '',
     },
     {
       title: 'Secure payment method',
-      icon: ''
+      icon: '',
     },
-  ]
+  ];
+
+  // Get All Page Data or ads
+  const handleSearch = async (indexName) => {
+    try {
+      const hitsPerPage = 100;
+      const algoliaIndex = algoliaClient.initIndex(indexName);
+      const { hits } = await algoliaIndex.search('', {
+        // Empty query
+        hitsPerPage: hitsPerPage,
+      });
+      return { category: indexName, hits };
+    } catch (error) {
+      console.error(`Error searching Algolia for ${indexName}:`, error);
+      return { category: indexName, hits: [] };
+    }
+  };
+
+  useEffect(() => {
+    const searchClients = async () => {
+      const categories = ['categories', 'automobile', 'commercial', 'property_for_sale_ads', 'property_for_rent_ads'];
+      const searchPromises = categories.map((category) => handleSearch(category));
+
+      try {
+        const results = await Promise.all(searchPromises);
+        setFetchResults(results);
+      } catch (error) {
+        console.error('Error in parallel search:', error);
+      }
+    };
+
+    searchClients();
+  }, []);
+
+  // Map specific properties outside of the component
+  const categoriesData = {};
+
+  fetchResults.forEach(({ category, hits }) => {
+    categoriesData[category] = hits || [];
+  });
+
+  // Access individual arrays
+  const propertyForSale = categoriesData['property_for_sale_ads'] || [];
+  const propertyForRent = categoriesData['property_for_rent_ads'] || [];
+  const automobile = categoriesData['automobile'] || [];
+  const commercial = categoriesData['commercial'] || [];
+  // const categories = categoriesData['categories'] || [];
+
+  const contactButtons = [
+    {
+      title: 'Call',
+      icon: '/icons/call.svg',
+      color: '#415EFF',
+      bgColor: '#D6DDFF',
+      action: () => window.location.href = `tel:${product?.ownerContact?.phoneNumber}`,
+    },
+    {
+      title: 'Email',
+      icon: '/icons/sms.svg',
+      color: '#7A2E0E',
+      bgColor: '#FFDDCF',
+      action: () => window.location.href = `mailto:${product?.ownerContact?.email}`,
+    },
+    {
+      title: 'Whatsapp',
+      icon: '/icons/whatsapp.svg',
+      color: '#1DAD18',
+      bgColor: '#EAFFF2',
+      action: () => window.open(`https://wa.me/${product?.ownerContact?.whatsAppNumber}`, '_blank'),
+    },
+  ];
 
   return (
     <FadeIn>
@@ -182,51 +231,64 @@ export default function ProductPage() {
         </>
       )}
 
-      {isLoading ? (
-        <div className="w-full h-[500px] flex justify-center items-center">
-          <Image src={Assets.paymentProcessing} alt="" width={100} height={100} />
-        </div>
-      ) : (
-        <>
-          <div className="w-full h-auto p-10">
-            <div className="flex h-auto gap-16">
-              <div className="">
-                <div className="h-[400px] rounded-[12px] bg-[#FDF1D7] min-w-[450px]"></div>
-                <div className="grid grid-cols-3 gap-3 mt-3">
-                  <div className="rounded-[12px] bg-[#FDF1D7] w-full h-[90px]"></div>
-                  <div className="rounded-[12px] bg-[#FDF1D7] w-full h-[90px]"></div>
-                  <div className="rounded-[12px] bg-[#FDF1D7] w-full h-[90px]"></div>
-                </div>
+      <>
+        <div className="w-full h-auto p-10">
+          <div className="flex h-auto gap-16">
+            <div className="">
+              <div className="h-[400px] rounded-[12px] bg-[#FDF1D7] min-w-[450px]">
+                <img
+                  loading="lazy"
+                  src={selectedImage}
+                  className="h-full w-full object-cover object-center inset-0 rounded-[12px]"
+                />
               </div>
-              <div className="w-full">
-                <p className="text-[24px] text-[#191C1F] font-[400]">
-                  2020 Apple MacBook Pro with Apple M1 Chip (13-inch, 8GB RAM, 256GB SSD Storage) - Space Gray
-                </p>
-                <div className="grid grid-cols-2 gap-x-14 gap-y-1 mt-5">
-                  {features.map((feature, i) => (
-                    <p className="text-[14px] font-[400] text-gray-400 leading-none" key={i}>
-                      {feature.title}: <span className="text-black">{feature.data}</span>
-                    </p>
+              <div className="flex flex-wrap gap-2 mt-3">
+                {product &&
+                  product?.imageURLs &&
+                  product?.imageURLs.map((imageURL, index) => (
+                    <img
+                      key={index}
+                      src={imageURL}
+                      alt={`Thumbnail ${index + 1}`}
+                      className="md:w-[100px] md:h-[100px] w-[70px] h-[70px] rounded-[8px] border-2 border-[#F8C85E] object-cover"
+                      onClick={() => handleThumbnailClick(imageURL)}
+                    />
                   ))}
-                </div>
-                <div className="mt-5">
-                  <div className="flex gap-3 items-center">
-                    <h1 className="text-[#00134D] text-[24px] font-[700] leading-tight">AED190,000.00</h1>
-                    <div className="bg-[#F8C85E] py-[5px] px-[10px] rounded-[2px] flex justify-center items-center">
-                      <p className="leading-none text-[#191C1F] text-[14px] font-[500]">20% OFF</p>
-                    </div>
+              </div>
+            </div>
+            <div className="w-full">
+              <p className="text-[24px] text-[#191C1F] font-[400]">{product?.name}</p>
+              <div className="grid grid-cols-2 gap-x-14 gap-y-1 mt-5">
+                {features.map((feature, i) => (
+                  <p className="text-[14px] font-[400] text-gray-400 leading-none" key={i}>
+                    {feature.title}: <span className="text-black">{feature.data}</span>
+                  </p>
+                ))}
+              </div>
+              <div className="mt-5">
+                <div className="flex gap-3 items-center">
+                  <h1 className="text-[#00134D] text-[24px] font-[700] leading-tight">
+                    {' '}
+                    {currencyFormatter(product?.price, 'AED')}
+                  </h1>
+                  <div className="bg-[#F8C85E] py-[5px] px-[10px] rounded-[2px] flex justify-center items-center">
+                    <p className="leading-none text-[#191C1F] text-[14px] font-[500]">20% OFF</p>
                   </div>
-                  <p className="text-[#9F9C9C] text-[14px] font-[400]">Market Price: 260,000.00</p>
                 </div>
-                <p className="mt-7 text-[16px] font-[400] text-[#191C1F] w-[400px]">
-                  2020 Apple MacBook Pro with Apple M1 Chip (13-inch, 8GB RAM, 256GB SSD Storage) Space Gray
+                <p className="text-[#9F9C9C] text-[14px] font-[400]">
+                  Market Price: {currencyFormatter(product?.closingFee, 'AED')}
                 </p>
-                <button className="bg-[#00134D] rounded-[12px] w-full py-[16px] text-white leading-none mt-10 text-[14px] font-[400]">
-                  Request call back
-                </button>
+              </div>
+              <p className="mt-7 text-[16px] font-[400] text-[#191C1F] w-[400px]">{product?.shortDescription}</p>
+              <button
+                onClick={() => setCallModal(true)}
+                className="bg-[#00134D] rounded-[12px] w-full py-[16px] text-white leading-none mt-10 text-[14px] font-[400]"
+              >
+                Request call back
+              </button>
 
-                <div className="flex items-center justify-between mt-5">
-                  <div className="flex gap-1 justify-center items-center">
+              <div className="flex items-center justify-between mt-5">
+                {/* <div className="flex gap-1 justify-center items-center">
                     <IconButton>
                       <svg width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -239,93 +301,149 @@ export default function ProductPage() {
                       </svg>
                     </IconButton>
                     <p className="text-[14px] font-[400] text-[#475156] leading-none">Add to Wishlist</p>
-                  </div>
+                  </div> */}
 
-                  <div className="flex gap-1 justify-center items-center">
-                    <p className="text-[14px] font-[400] text-[#475156] leading-none">Share product:</p>
-                    <div className="flex items-center">
-                      <IconButton>
-                        <img src="/icons/facebook.svg" width={15} height={15} />
-                      </IconButton>
-                      <IconButton>
-                        <img src="/icons/x.svg" width={15} height={15} />
-                      </IconButton>
-                      <IconButton>
-                        <img src="/icons/instagram.svg" width={15} height={15} />
-                      </IconButton>
-                    </div>
+                <div className="flex gap-1 justify-center items-center">
+                  <p className="text-[14px] font-[400] text-[#475156] leading-none">Share product:</p>
+                  <div className="flex items-center">
+                    <IconButton>
+                      <img src="/icons/facebook.svg" width={15} height={15} />
+                    </IconButton>
+                    <IconButton>
+                      <img src="/icons/x.svg" width={15} height={15} />
+                    </IconButton>
+                    <IconButton>
+                      <img src="/icons/instagram.svg" width={15} height={15} />
+                    </IconButton>
                   </div>
                 </div>
-
-                <div className="mt-5 border border-[#E3E3E3] rounded-[8px] w-full h-auto p-5">
-                  <p className="text-[14px] font-[400] text-[#0A0A0B]">100% Guarantee Safe Checkout</p>
-                  <img src="/icons/payment-method.svg" className="mt-3" />
-                </div>
               </div>
-            </div>
 
-            {/* Tab */}
-            <div className="text-[14px] mx-auto flex items-center justify-center gap-1 bg-[#FBFBFC] w-fit rounded-[6px] mt-20">
-              {tabs.map((tab, index) => (
-                <ButtonBase key={index} onClick={() => handleTabClick(tab.key)} className="rounded-[6px]">
-                  <div
-                    className={`py-2 px-3 cursor-pointer transform transition duration-500 ease-in-out`}
-                    style={{
-                      backgroundColor: activeTab === tab.key ? '#F0F2F5' : '#FBFBFC',
-                      color: activeTab === tab.key ? '#0F1625' : '#687588',
-                      borderRadius: tab.borderRadius,
-                      fontWeight: activeTab === tab.key ? '500' : '500',
-                      // border:
-                      //   activeTab === tab.key
-                      //     ? "0.5px solid #E4E8EC"
-                      //     : "0.5px solid transparent",
-                    }}
-                  >
-                    <p className="leading-none">{tab.label}</p>
-                  </div>
-                </ButtonBase>
-              ))}
-            </div>
-
-            {/* Tab Content */}
-            <div className='mt-7 flex justify-between gap-32 divide-x'>
-              <div>
-                <p className='text-[16px] font-[600] text-[#0A0A0B]'>Description</p>
-                <p className='text-[14px] font-[400] text-[#726C6C]'>
-                The most powerful MacBook Pro ever is here. With the blazing-fast M1 Pro or M1 Max chip — the first Apple silicon designed for pros — you get groundbreaking performance and amazing battery life. Add to that a stunning Liquid Retina XDR display, the best camera and audio ever in a Mac notebook, and all the ports you need. The first notebook of its kind, this MacBook Pro is a beast. M1 Pro takes the exceptional performance of the M1 architecture to a whole new level for pro users.
-                Even the most ambitious projects are easily handled with up to 10 CPU cores, up to 16 GPU cores, a 16‑core Neural Engine, and dedicated encode and decode media engines that support H.264, HEVC, and ProRes codecs.
-                Even the most ambitious projects are easily handled with up to 10 CPU cores, up to 16 GPU cores, a 16‑core Neural Engine, and dedicated encode and decode media engines that support H.264, HEVC, and ProRes codecs.
-                </p>
+              <div className="mt-5 border border-[#E3E3E3] rounded-[8px] w-full h-auto p-5">
+                <p className="text-[14px] font-[400] text-[#0A0A0B]">100% Guarantee Safe Checkout</p>
+                <img src="/icons/payment-method.svg" className="mt-3" />
               </div>
-              <div className='min-w-[300px] h-auto pl-7'>
-              <p className='text-[16px] font-[600] text-[#0A0A0B]'>Features</p>
-              <div className='mt-3 space-y-3'>
-                {descriptionFeatures.map((feature, i) => (
-                  <div key={i} className='flex gap-3 items-center'>
-                    <img src={feature.icon} width={20} height={20} />
-                    <p className='text-[14px] font-[400] text-[#0A0A0B] leading-none'>{feature.title}</p>
-                  </div>
-                ))}
-              </div>
-              </div>
-            </div>
-
-            {/* Related Product */}
-            <div className='mt-16'>
-              <h1 className='text-[#0A0A0B] text-[24px] font-[600]'>Related Product</h1>
             </div>
           </div>
 
-          {/* <div className="bg-white flex flex-col items-stretch pb-12 md:px-8 w-full">
-            <div className="bg-gray-200 min-h-[1px] w-full" />
+          {/* Tab */}
+          <div className="text-[14px] mx-auto flex items-center justify-center gap-1 bg-[#FBFBFC] w-fit rounded-[6px] mt-20">
+            {tabs.map((tab, index) => (
+              <ButtonBase key={index} onClick={() => handleTabClick(tab.key)} className="rounded-[6px]">
+                <div
+                  className={`py-2 px-3 cursor-pointer transform transition duration-500 ease-in-out`}
+                  style={{
+                    backgroundColor: activeTab === tab.key ? '#F0F2F5' : '#FBFBFC',
+                    color: activeTab === tab.key ? '#0F1625' : '#687588',
+                    borderRadius: tab.borderRadius,
+                    fontWeight: activeTab === tab.key ? '500' : '500',
+                    // border:
+                    //   activeTab === tab.key
+                    //     ? "0.5px solid #E4E8EC"
+                    //     : "0.5px solid transparent",
+                  }}
+                >
+                  <p className="leading-none">{tab.label}</p>
+                </div>
+              </ButtonBase>
+            ))}
+          </div>
 
-            <div className="flex md:flex-row flex-col w-full items-center justify-between md:px-7 px-5 mb-5 mt-7">
-              <h1 className="text-primary md:text-[22px] text-center text-[5vw] font-[700] leading-tight">{product && product?.name}</h1>
-              <div className="text-gray-900 md:text-sm text-[3.3vw] mt-7 md:mt-0 font-[500] leading-tight whitespace-nowrap">
-                Date Uploaded:{' '}
-                {product && product.createdAt ? format(new Date(product.createdAt), "do MMMM',' yyyy") : ''}
+          {/* Tab Content */}
+          <div className="mt-7 flex justify-between gap-32 divide-x">
+            <div>
+              <p className="text-[16px] font-[600] text-[#0A0A0B]">Description</p>
+              <p className="text-[14px] font-[400] text-[#726C6C]">{product?.fullDescription}</p>
+            </div>
+            <div className="min-w-[300px] h-auto pl-7">
+              <p className="text-[16px] font-[600] text-[#0A0A0B]">Features</p>
+              <div className="mt-3 space-y-3">
+                {descriptionFeatures.map((feature, i) => (
+                  <div key={i} className="flex gap-3 items-center">
+                    <img src={feature.icon} width={20} height={20} />
+                    <p className="text-[14px] font-[400] text-[#0A0A0B] leading-none">{feature.title}</p>
+                  </div>
+                ))}
               </div>
             </div>
+          </div>
+
+          {/* Related Product */}
+          <div className="mt-16">
+            <h1 className="text-[#0A0A0B] text-[24px] font-[600]">Related Product</h1>
+            <div className="mt-5">
+              {product?.adType === 'Property' ? (
+                <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:mt-10 mt-5">
+                  {propertyForSale?.map((product, i) => (
+                    <ProductCard key={i} product={product} />
+                  ))}
+                </div>
+              ) : (
+                ''
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Modal */}
+        <AppModal
+          open={callModal}
+          handleClose={() => setCallModal(false)}
+          style={{
+            backgroundColor: '#fff',
+            padding: !isMobile ? '30px' : '20px',
+            position: 'relative',
+            height: 'auto',
+            width: !isMobile ? '660px' : '90%',
+          }}
+        >
+          <div className="w-full flex flex-col items-center justify-center">
+            <h1 className="text-[32px] font-[700] text-[#0A0A0B] poppins-font leading-none">Request Call Back</h1>
+            <p className="text-[#726C6C] font-[400] text-[16px] leading-none mt-2">
+              Book a session with our agents to buy this item.
+            </p>
+            <img src="/icons/calling.svg" width={200} height={50} className="mt-5" />
+            <p className="mt-2 w-[350px] text-center text-[16px] font-[400] text-[#0A0A0B] leading-tight poppins-font">
+              Book a session with us to get the item{' '}
+              <span className="font-[700]">Distress Sale - LUK-N5-9YH-99.0-MIL</span> when calling us.
+            </p>
+            <button
+              onClick={() => setCallModal(true)}
+              className="bg-[#00134D] flex items-center gap-3 rounded-[12px] w-full py-[16px] text-white leading-none mt-7 justify-center text-[16px] font-[600]"
+            >
+              <img src="/icons/calendly.svg" width={35} height={35} />
+              <span>Book call on Calendly</span>
+            </button>
+            <div className="my-7 w-full flex items-center">
+              <div className="w-full border border-[#EAECF0]" />
+              <p className="leading-none px-7 text-[14px] font-[#9F9C9C] text-[#9F9C9C]">OR</p>
+              <div className="w-full border border-[#EAECF0]" />
+            </div>
+
+            <div className="flex gap-2 w-full">
+              {contactButtons.map((contact, i) => (
+                <button
+                  key={i}
+                  style={{ backgroundColor: contact.bgColor }}
+                  className="justify-center items-center flex gap-2.5 w-full py-3 rounded-lg"
+                  onClick={contact.action}
+                >
+                  <img
+                    src={contact.icon}
+                    width={20}
+                    height={20}
+                    alt={`${contact.title} icon`}
+                  />
+                  <p style={{ color: contact.color }} className="leading-none text-center text-base font-medium">
+                    {contact.title}
+                  </p>
+                </button>
+              ))}
+            </div>
+          </div>
+        </AppModal>
+
+        {/* <div className="bg-white flex flex-col items-stretch pb-12 md:px-8 w-full">
 
             <div className="w-full mb-32 md:max-w-full max-md:mb-10 flex">
               <div className="flex flex-col md:w-full">
@@ -416,9 +534,6 @@ export default function ProductPage() {
                     </div>
                     <div className="self-stretch flex w-full items-stretch justify-between gap-5 mt-6 pr-20 max-md:max-w-full max-md:flex-wrap max-md:pr-5">
                       <div className="items-stretch flex justify-between gap-2 rounded-md">
-                        <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-medium leading-7 tracking-normal whitespace-nowrap">
-                          Type:
-                        </div>
                         <div className="text-slate-600 md:text-[15px] text-[3.5vw] font-bold leading-7 tracking-normal whitespace-nowrap">
                           {product?.propertyType}
                         </div>
@@ -671,8 +786,15 @@ export default function ProductPage() {
               </div>
             </div>
           </div> */}
-        </>
-      )}
+      </>
+
+      {/* {!isLoading ? (
+        <div className="w-full h-[500px] flex justify-center items-center">
+          <Image src={Assets.paymentProcessing} alt="" width={100} height={100} />
+        </div>
+      ) : (
+        
+      )} */}
     </FadeIn>
   );
 }

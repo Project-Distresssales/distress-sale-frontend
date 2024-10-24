@@ -48,54 +48,44 @@ const SignupModal = ({
     router.push('/login');
   };
 
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [referralCode, setReferralCode] = useState<string>('');
-  const [phone, setPhone] = useState<string>('');
-
-  const handleFirstNameChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-    setFirstName(event.target.value);
-  };
-  const handleLastNameChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-    setLastName(event.target.value);
-  };
-
-  const handleEmailChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-    setEmail(event.target.value);
-  };
-  const handlePasswordChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-    setPassword(event.target.value);
-  };
-  const handleConfirmPasswordChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-    setConfirmPassword(event.target.value);
-  };
-  const handleReferralCodeChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-    setReferralCode(event.target.value);
-  };
-  const handlePhoneChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-    setPhone(event.target.value);
-  };
 
   // Validation rules for the name and email inputs
-  const isFirstNameValid = firstName.length >= 3;
-  const isLastNameValid = lastName.length >= 3;
-  const isEmailValid = email.length > 5 && email.includes('@');
-  const isPhoneValid = phone.length > 5;
-  const isPassword = password.length > 5;
-  const isConfirmPassword = confirmPassword.length > 5;
-  const isPasswordMatch = password === confirmPassword;
+  // const isFirstNameValid = firstName.length >= 3;
+  // const isLastNameValid = lastName.length >= 3;
+  // const isEmailValid = email.length > 5 && email.includes('@');
+  // const isPhoneValid = phone.length > 5;
+  // const isPassword = password.length > 5;
+  // const isConfirmPassword = confirmPassword.length > 5;
+  // const isPasswordMatch = password === confirmPassword;
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    referralCode: "",
+    phone: ""
+  });
+
+
+  // Handle form field changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const payload = {
-    first_name: firstName,
-    last_name: lastName,
-    email: email,
-    password: password,
-    confirm_password: confirmPassword,
-    referral_code: referralCode,
-    phoneNumber: phone,
+    first_name: formData.firstName,
+    last_name: formData.lastName,
+    email: formData.email,
+    password: formData.password,
+    confirm_password: formData.confirmPassword,
+    referral_code: formData.referralCode,
+    phoneNumber: formData.phone,
   };
 
   const onSubmit = async (e: { preventDefault: () => void }) => {
@@ -147,17 +137,19 @@ const SignupModal = ({
         <div className="space-y-2 mt-7 w-full">
           <div className="flex gap-3">
             <TextField
-              id="firstName"
+              id="first_name"
+              name="firstName"
               type="text"
               label="First Name"
               placeholder="Enter your first name"
               withBackground={false}
               error={''}
-              value={firstName}
-              onChange={handleFirstNameChange}
+              value={formData.firstName}
+              onChange={handleChange}
             />
             <TextField
               id="lastName"
+              name="lastName"
               type="text"
               label="Last Name"
               placeholder="Enter your last name"
@@ -165,34 +157,36 @@ const SignupModal = ({
               withBackground={false}
               readOnly={false}
               error={''}
-              value={lastName}
-              onChange={handleLastNameChange}
+              value={formData.lastName}
+              onChange={handleChange}
             />
           </div>
 
           <div className="flex gap-3">
             <TextField
               id="email"
+              name="email"
               type="email"
               label="Email"
               placeholder="Enter your email address"
               withBackground={false}
               readOnly={false}
               error={''}
-              value={email}
-              onChange={handleEmailChange}
+              value={formData.email}
+              onChange={handleChange}
             />
 
             <TextField
               id="phone"
+              name="phone"
               type="text"
               label="Phone"
               placeholder="Enter your phone"
               withBackground={false}
               readOnly={false}
               error={''}
-              value={phone}
-              onChange={handlePhoneChange}
+              value={formData.phone}
+              onChange={handleChange}
             />
           </div>
 
@@ -206,11 +200,11 @@ const SignupModal = ({
               withBackground={false}
               readOnly={false}
               error={''}
-              value={password}
-              onChange={handlePasswordChange}
-            />
+              value={formData.password}
+              onChange={handleChange} name='password'           />
             <TextField
               id="confirmPassword"
+              name="confirmPassword"
               type="password"
               label="Re-type Password"
               placeholder="Re-type password"
@@ -218,8 +212,8 @@ const SignupModal = ({
               withBackground={false}
               readOnly={false}
               error={''}
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
+              value={formData.confirmPassword}
+              onChange={handleChange}
             />
           </div>
         </div>
@@ -229,14 +223,14 @@ const SignupModal = ({
       flex justify-center items-center rounded-[8px] py-3.5 text-white font-[500] 
     md:text-[16px] text-[3.2vw] bg-secondary w-full`}
             type="submit"
-            disabled={
-              !isFirstNameValid ||
-              !isLastNameValid ||
-              !isEmailValid ||
-              !isPassword ||
-              !isConfirmPassword ||
-              !isPasswordMatch
-            }
+            // disabled={
+            //   !isFirstNameValid ||
+            //   !isLastNameValid ||
+            //   !isEmailValid ||
+            //   !isPassword ||
+            //   !isConfirmPassword ||
+            //   !isPasswordMatch
+            // }
           >
             {isLoading ? <CircularProgress size={16} sx={{ color: 'white' }} /> : 'Create Account'}
           </button>
