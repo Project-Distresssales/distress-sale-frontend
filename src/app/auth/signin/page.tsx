@@ -43,7 +43,7 @@ export default function SignIn() {
     })
       .then((res) => {
         const { status, data }: any = res.data;
-
+        router.push('/');
         dispatch(profileLoginAction(data));
       })
       .catch((error: any) => {

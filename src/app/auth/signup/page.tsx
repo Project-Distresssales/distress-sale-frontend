@@ -46,7 +46,8 @@ export default function SignUp() {
     })
       .then((res) => {
         const { status, data }: any = res.data;
-
+        toast('Registration successful!');
+        router.push('/');
         dispatch(profileLoginAction(data));
       })
       .catch((error: any) => {
@@ -151,8 +152,8 @@ export default function SignUp() {
 
           <div className="grid grid-cols-2 gap-5">
             <MyTextField
-              id="firstName"
-              name="firstName"
+              id="first_name"
+              name="first_name"
               label="First Name"
               placeholder="Enter first name"
               value={formData.first_name}
@@ -160,8 +161,8 @@ export default function SignUp() {
               onChange={handleChange}
             />
             <MyTextField
-              id="lastName"
-              name="lastName"
+              id="last_name"
+              name="last_name"
               label="Last Name"
               placeholder="Enter last name"
               value={formData.last_name}
@@ -178,12 +179,12 @@ export default function SignUp() {
               onChange={handleChange}
             />
             <MyTextField
-              id="phone"
-              name="phone"
+              id="phoneNumber"
+              name="phoneNumber"
               label="Phone Number"
               placeholder="Enter phone number"
               value={formData.phoneNumber}
-              type="tel"
+              type="number"
               onChange={handleChange}
             />
 
@@ -197,8 +198,8 @@ export default function SignUp() {
               onChange={handleChange}
             />
             <MyTextField
-              id="confirmPassword"
-              name="confirmPassword"
+              id="confirm_password"
+              name="confirm_password"
               label="Confirm Password"
               placeholder="Enter password"
               value={formData.confirm_password}

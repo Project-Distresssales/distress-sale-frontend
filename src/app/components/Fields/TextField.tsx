@@ -12,6 +12,7 @@ interface TextFieldProps
   obscured?: boolean;
   error?: string;
   withBackground: boolean;
+  name: string;
 }
 
 export default function TextField({
@@ -24,6 +25,7 @@ export default function TextField({
   obscured = false,
   withBackground,
   error,
+  name,
   ...others
 }: TextFieldProps) {
   const [viewPassword, setViewPassword] = useState<boolean>(false);
@@ -44,6 +46,7 @@ export default function TextField({
           id={id}
           value={value}
           onChange={onChange}
+          name={name}
           className={`${
             withBackground ? 'bg-white' : 'bg-transparent'
           } border border-[#DDE2E5] text-gray-900 md:text-[14px] font-medium text-[3.7vw] rounded-[8px] outline-none w-full px-4 py-3 `}
