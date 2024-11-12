@@ -246,7 +246,7 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
     <div>
       <h1 className="text-[24px] font-[700] text-[#00134D]">Product Information</h1>
       <div className="mt-7">
-        <p className="text-[18px] font-[400] text-[#0A0A0B]">Product Section</p>
+        {/* <p className="text-[18px] font-[400] text-[#0A0A0B]">Product Section</p>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4 mt-2">
           {sections?.map((category, index) => (
             <CategoryButton
@@ -267,7 +267,7 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
               onClick={() => handleSelect(category?._id, category?.name)}
             />
           ))}
-        </div>
+        </div> */}
 
         <Pfs
           title={formData.title}

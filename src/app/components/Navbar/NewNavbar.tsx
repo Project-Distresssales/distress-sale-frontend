@@ -1,12 +1,26 @@
 import useGlobalState from '@/hooks/globalstate.hook';
-import { ButtonBase } from '@mui/material';
+import { ButtonBase, CircularProgress, IconButton, TextField } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import SignupModal from '../Auth/SIgnup/Signup';
+import LoginModal from '../Auth/Login/Login';
+import API from '@/constants/api.constant';
+import { isEmpty } from '@/helpers';
+import useAppTheme from '@/hooks/theme.hook';
+import useRequest from '@/services/request/request.service';
+import { VoidCallback } from '@/utils/types';
+import { AxiosError } from 'axios';
+import { useFormik } from 'formik';
+import { IoReturnUpBack } from 'react-icons/io5';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { AppModal } from '../Modals/Modals';
 
 export default function NewNavbar() {
   const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
+  const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState<boolean>(false);
   const [openMenuModal, setOpenMenuModal] = useState<boolean>(false);
   const { profile: user, isAuthenticated, logout } = useGlobalState();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -59,7 +73,9 @@ export default function NewNavbar() {
   const handleRegisterModal = () => {
     setOpenRegisterModal(!openRegisterModal);
   };
-
+  const handleForgotPasswordModalClose = () => {
+    setOpenForgotPasswordModal(false);
+  };
   const handleRegisterModalClose = () => {
     setOpenRegisterModal(false);
   };
@@ -110,6 +126,7 @@ export default function NewNavbar() {
   ];
 
   return (
+    <>
     <nav className="flex items-center justify-between gap-5 px-4 py-2 bg-white">
       <Link href="/">
         <img src="/icons/distresssales-logo.svg" width={200} height={200} />
@@ -248,10 +265,10 @@ export default function NewNavbar() {
 
             <div className="toggle w-full text-end hidden md:flex md:w-auto px-2 py-2 md:rounded">
               <div className="flex-shrink-0 flex px-2 py-3 items-center space-x-8 flex-1 justify-end justify-self-end ">
-                <button className="text-[#FAFAFA] bg-[#00134D] inline-flex items-center justify-center px-7 py-3 border border-transparent text-sm font-[600] rounded-[12px]">
+                <button onClick={handleRegisterModal} className="text-[#FAFAFA] bg-[#00134D] inline-flex items-center justify-center px-7 py-3 border border-transparent text-sm font-[600] rounded-[12px]">
                   Register
                 </button>
-                <button className="text-[#00134D] text-sm font-[600] border border-[#00134D] rounded-[12px] px-7 py-3">
+                <button onClick={handleLoginModal} className="text-[#00134D] text-sm font-[600] border border-[#00134D] rounded-[12px] px-7 py-3">
                   Login
                 </button>
               </div>
@@ -260,5 +277,220 @@ export default function NewNavbar() {
         )}
       </div>
     </nav>
+
+     {/* Auth Signup  */}
+     <SignupModal
+     open={openRegisterModal}
+     onClose={handleRegisterModalClose}
+     handleLoginModalOpen={handleLoginModalOpen}
+     next={() => {
+       handleVerificationModalOpen();
+     }}
+   />
+
+   {/* Auth Login Modal */}
+   <LoginModal
+     open={openLoginModal}
+     onClose={handleLoginModalClose}
+     handleForgotPasswordModal={handleForgotPasswordModal}
+     handleRegisterModalOpen={handleRegisterModalOpen}
+   />
+
+   {/* Auth Forgot-Password Modal */}
+   <ForgotPasswordModal
+     open={openForgotPasswordModal}
+     onClose={handleForgotPasswordModalClose}
+     handleLoginModalOpen={handleLoginModalOpen}
+   />
+
+   {/* verify email */}
+   <RegistrationCompleteModal open={verificationModalOpen} onClose={handleVerificationModalOpenClose} />
+    </>
   );
 }
+
+
+const ForgotPasswordModal = ({
+  open,
+  onClose,
+  handleLoginModalOpen,
+}: {
+  open: boolean;
+  onClose: () => void;
+  handleLoginModalOpen: VoidCallback;
+}) => {
+  const { isMobile } = useAppTheme();
+  const { makeRequest, isLoading, data } = useRequest();
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const onSubmit = async (values) => {
+    makeRequest({
+      url: API.requestResetPassword,
+      data: values,
+      method: 'POST',
+    })
+      .then((res) => {
+        const { status, data, message }: any = res.data;
+        toast.success(message);
+        onClose();
+        // next();
+        // navigate(`/auth/verification?code=${data.code}`);
+        // setOpenSnackBar(true);
+        // setTimeout(() => {
+        //   openSnackBar && navigate(`/auth/verification?code=${data.code}`);
+        // }, 3000);
+      })
+      .catch((error: AxiosError) => {
+        const res: any = error?.response;
+
+        const status = res?.status;
+        const data = res?.data;
+
+        if (status === 406) {
+          toast.error(data.message);
+        } else if (status === 400) {
+          setErrors(data.data);
+        } else {
+          toast.error('Something went wrong! Pls try again!', {});
+        }
+      });
+  };
+
+  const [form, setForm] = useState({
+    email: '',
+  });
+
+  const { values, handleSubmit, handleChange, errors, setErrors, getFieldProps } = useFormik({
+    initialValues: form,
+    enableReinitialize: true,
+    validateOnChange: true,
+    onSubmit,
+  });
+
+  const { email } = values;
+
+  const iDisabled = isEmpty(email);
+
+  return (
+    <AppModal
+      open={open}
+      handleClose={onClose}
+      style={{
+        backgroundColor: '#fff',
+        padding: !isMobile ? '30px' : '20px',
+        position: 'relative',
+        height: 'auto',
+        width: '400px',
+      }}
+    >
+      <IconButton
+        onClick={() => {
+          onClose();
+          handleLoginModalOpen();
+        }}
+        className="absolute top-2 left-2"
+      >
+        <IoReturnUpBack style={{ fontSize: '20px', fontWeight: '700' }} />
+      </IconButton>
+
+      <div className="w-full">
+        {/* <Image src={Assets.arrowRight} alt="" width={20} height={20} /> */}
+        <div className="items-center">
+          <div className="flex justify-center w-full">
+            <h1 className="text-[#101828] font-[700] md:text-[22px] text-[5vw] text-center leading-tight">
+              Forgot Password
+            </h1>
+          </div>
+        </div>
+        <form className="mt-7" onSubmit={handleSubmit}>
+          <TextField
+            id="email"
+            type="email"
+            label="Email"
+            placeholder="Enter your email address"
+            obscured={false}
+            withBackground={false}
+            {...getFieldProps('email')}
+          />
+          <div className="mt-10">
+            <button
+              className={`
+      flex justify-center items-center rounded-[8px] py-3.5 text-white font-[500] 
+    md:text-[16px] text-[3.2vw] bg-secondary w-full`}
+              type="submit"
+              disabled={iDisabled}
+            >
+              {isLoading ? <CircularProgress size={16} sx={{ color: 'white' }} /> : 'Proceed'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </AppModal>
+  );
+};
+
+const RegistrationCompleteModal = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  return (
+    <AppModal
+      open={open}
+      handleClose={onClose}
+      style={{
+        backgroundColor: '#fff',
+        padding: '30px 20px 30px 20px',
+        position: 'relative',
+        height: 'auto',
+        width: '400px',
+      }}
+    >
+      <div className="w-full absolute right-0 top-0">
+        <IconButton onClick={onClose}>
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12.2267 19.7732L19.7733 12.2266"
+              stroke="#101828"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M19.7733 19.7732L12.2267 12.2266"
+              stroke="#101828"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </IconButton>
+      </div>
+
+      <div className="w-full space-y-4 flex flex-col justify-center items-center">
+        <div>
+          <svg width="51" height="50" viewBox="0 0 51 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M25.5 45.8334C36.9584 45.8334 46.3334 36.4584 46.3334 25.0001C46.3334 13.5417 36.9584 4.16675 25.5 4.16675C14.0417 4.16675 4.66669 13.5417 4.66669 25.0001C4.66669 36.4584 14.0417 45.8334 25.5 45.8334Z"
+              stroke="#308652"
+              stroke-width="4"
+              stroke-linecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M16.6458 25.0001L22.5416 30.8959L34.3541 19.1042"
+              stroke="#308652"
+              stroke-width="4"
+              stroke-linecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <h1 className="text-[#101828] font-[700] text-[20px] text-center leading-tight">
+          Email sent, Check your inbox!
+        </h1>
+
+        <p className="text-center text-[14px] font-[500] text-[#101828] px-7">
+          Should the email address you provided, you will receive a link to Verify your Email
+        </p>
+      </div>
+    </AppModal>
+  );
+};

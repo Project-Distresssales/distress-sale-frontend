@@ -35,12 +35,12 @@ export default function LandingPage() {
 
   const services = [
     {
-      header: '90 Days Return',
+      header: 'Fast Deliveries',
       text: 'If goods have problems, Lorem Ipsum is dummy text',
       iconPath: '/icons/truck-2.svg',
     },
     {
-      header: 'Free Returns',
+      header: 'Discounted Prices',
       text: 'For all orders over $50, Lorem Ipsum is dummy text',
       iconPath: '/icons/return-2.svg',
     },
@@ -314,7 +314,7 @@ export default function LandingPage() {
           </div>
           <div className='relative mt-14 sm:mt-0 flex justify-center items-center'>
             <div className='bg-[#FDF1D7] sm:w-[450px] sm:h-[450px] rounded-full'>
-              <img src='https://s3-alpha-sig.figma.com/img/bf2a/d435/9392b890b037163c79ea73637972f706?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ZclIUhMCjYpQGQ9fTF1-Tor9UnKlxyx~3KogKtHDedxyTS5RPuLyE6GYbeKSNqS73vAWtk-Tf1DWydzzenM9zbjhYXBNe1Zh1nheOxIE4-ajCzDNBtxE~s8DcwH2h9xYum0X~6uXH7IEiYte18IeTca7yFe~6mNDQKeEAgvddpuzTLQ4T44hgB2J8PepXvNqMcUzIlKhrmyRu006ibpgGdqyH0Bx1pfcmR40D8WBBfrD2iZCTwYx6j9ULuM0EDGBwSNCehmqYvN6yGXWx3EG45-x6W0wfKz6alQJdm-1V~DsX1u0EZVhYB8cXQUz4IGV0sxQ-fEhDbouhC-PywZ6lw__' className='sm:w-full sm:h-full bg-cover bg-no-repeat' />
+              <img src='/images/hero-1.svg' className='sm:w-full sm:h-full bg-cover bg-no-repeat' />
             </div>
           </div>
         </div>

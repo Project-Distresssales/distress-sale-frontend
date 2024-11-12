@@ -15,13 +15,45 @@ interface PfsProps {
   handleChange: any;
 }
 
+const currencyOptions = [
+  { code: 'USD', symbol: '$', rate: 1 }, // Base currency
+  { code: 'AED', symbol: 'AED', rate: 3.67 }, // Example exchange rate
+];
+
 const Pfs: React.FC<PfsProps> = ({ title, tourUrl, price, location, fullDesc, shortDesc, handleChange }) => {
   const propertyStatus = ['Vacant', 'Occupied'];
   const [isModal, setIsModal] = useState(false);
   const [isDocumentModal, setIsDocumentModal] = useState(false);
   const [documentImages, setDocumentImages] = useState<any[]>([]);
   const [images, setImages] = useState<any[]>([]);
+  const [currency, setCurrency] = useState(currencyOptions[0]); // Default to USD
+  const [amount, setAmount] = useState('');
+  const [convertedAmount, setConvertedAmount] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  const handleCurrencyChange = (newCurrency) => {
+    setCurrency(newCurrency);
+    convertAmount(amount, newCurrency.rate);
+  };
+
+  const handleAmountChange = (e) => {
+    const inputAmount = e.target.value.replace(/[^0-9.]/g, ''); // Only allow numbers and dot
+    setAmount(inputAmount);
+    convertAmount(inputAmount, currency.rate);
+  };
+
+  const convertAmount = (inputAmount, rate) => {
+    const converted = inputAmount ? (inputAmount * rate).toFixed(2) : '';
+    const formattedAmount = converted ? formatCurrency(converted) : '';
+    setConvertedAmount(formattedAmount);
+  };
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(amount);
+  };
   const modalHandler = () => {
     setIsModal(!isModal);
   };
@@ -49,8 +81,8 @@ const Pfs: React.FC<PfsProps> = ({ title, tourUrl, price, location, fullDesc, sh
     <div className=" flex flex-col">
       <div className="w-full grid grid-cols-2 gap-5">
         <MyTextField
-          id="productName"
-          name="productName"
+          id="title"
+          name="title"
           label="Product Name"
           placeholder="Enter product name"
           value={title}
@@ -58,16 +90,52 @@ const Pfs: React.FC<PfsProps> = ({ title, tourUrl, price, location, fullDesc, sh
           type="text"
           error={false}
         />
-        <MyTextField
-          id="productPrice"
-          name="productPrice"
+        <div>
+          <h3 className="text-[3.5vw] sm:text-[14px] mb-[5px] font-[400] text-[#0A0A0B] leading-tight">
+            <span className="capitalize">price</span>
+          </h3>
+          <div className="flex items-center border border-[#E3E3E3] rounded-[8px] p-2">
+            <div className="relative">
+              <button onClick={() => setDropdownOpen(!dropdownOpen)} className="bg-gray-200 px-3 py-1 rounded-l-md">
+                {currency.code}
+              </button>
+              {dropdownOpen && (
+                <div className="absolute z-10 left-0 mt-1 bg-white border rounded shadow-lg">
+                  {currencyOptions.map((curr) => (
+                    <button
+                      key={curr.code}
+                      onClick={() => handleCurrencyChange(curr)}
+                      className="block px-4 py-2 text-left w-full hover:bg-gray-100"
+                    >
+                      {curr.code}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <input
+              type="text"
+              value={amount}
+              onChange={handleAmountChange}
+              className="flex-1 px-3 py-2 outline-none"
+              placeholder="Enter amount"
+            />
+            <span className="ml-3">
+              {currency.symbol}
+              {convertedAmount}
+            </span>
+          </div>
+        </div>
+        {/* <MyTextField
+          id="price"
+          name="price"
           label="Product Price"
           placeholder="AED 100,000"
-          value={tourUrl}
+          value={price}
           onChange={handleChange}
           type="text"
           error={false}
-        />
+        /> */}
         <MyTextField
           id="location"
           name="location"
