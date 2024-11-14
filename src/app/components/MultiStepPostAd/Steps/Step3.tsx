@@ -3,6 +3,10 @@ import React, { FC, useEffect, useState } from 'react';
 import MyTextField from '../../Fields/MyTextField';
 import StepperControl from '../StepperControl';
 import { MenuItem } from '@mui/material';
+import API from '@/constants/api.constant';
+import { catchAsync } from '@/helpers/api.helper';
+import useRequest from '@/services/request/request.service';
+import { toast } from 'react-toastify';
 
 interface Step3Props {
   handleClick: () => void;
@@ -11,8 +15,12 @@ interface Step3Props {
 }
 
 const Step3: FC<Step3Props> = ({ handleClick, currentStep, steps }) => {
+  const [baseCategory, setBaseCategory] = useState<any>([]);
+  const [selectedCategory, setSelectedCategory] = useState<any | null>(null);
+  const [subCategories, setSubCategories] = useState<any>([]);
+  const [selectedSubCategory, setSelectedSubCategory] = useState<any>(null);
   const [shortDesc, setShortDesc] = useState<string>('');
-
+  const { isLoading, makeRequest } = useRequest();
   const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     if (inputValue.length <= 50) {
@@ -26,7 +34,6 @@ const Step3: FC<Step3Props> = ({ handleClick, currentStep, steps }) => {
   }, [shortDesc]);
 
   const productCategory = ['Beach Towels'];
-
 
   const popularTags = [
     {
@@ -67,28 +74,111 @@ const Step3: FC<Step3Props> = ({ handleClick, currentStep, steps }) => {
     },
   ];
 
+  const handleGetBaseCat = async () => {
+    catchAsync(
+      async () => {
+        const res = await makeRequest({
+          method: 'GET',
+          url: API.getBaseCategory,
+        });
+
+        const { message, data } = res.data;
+        setBaseCategory(data);
+      },
+      (error: any) => {
+        const res: any = error?.response;
+
+        const status = res?.status;
+        const data = res?.data;
+
+        if (status === 406) {
+          toast.error(data.message);
+        } else {
+          toast.error('Something went wrong! Pls try again!', {});
+        }
+      }
+    );
+  };
+
+  useEffect(() => {
+    handleGetBaseCat();
+
+    // Load saved selections from localStorage (if any)
+    const savedCategory = localStorage.getItem('selectedBaseCategory');
+    const savedSubCategory = localStorage.getItem('selectedSubCategory');
+    if (savedCategory) {
+      const category = JSON.parse(savedCategory);
+      setSelectedCategory(category);
+      setSubCategories(category.subCategories || []);
+    }
+    if (savedSubCategory) {
+      setSelectedSubCategory(JSON.parse(savedSubCategory));
+    }
+  }, []);
+
+  const handleCategoryChange = (event) => {
+    const categoryName = event.target.value;
+    const category = baseCategory.find((cat) => cat.name === categoryName);
+    setSelectedCategory(category);
+    setSubCategories(category?.subCategories || []);
+    setSelectedSubCategory(null); // Reset subcategory when base category changes
+
+    // Save selected base category to localStorage
+    localStorage.setItem('selectedBaseCategory', JSON.stringify(category));
+  };
+
+  const handleSubCategoryChange = (event) => {
+    const subCategoryName = event.target.value;
+    const subCategory = subCategories.find((sub) => sub.name === subCategoryName);
+    setSelectedSubCategory(subCategory);
+
+    // Save selected subcategory to localStorage
+    localStorage.setItem('selectedSubCategory', JSON.stringify(subCategory));
+  };
+
   return (
     <div className="w-full">
       <h1 className="text-[24px] font-[700] text-[#00134D]">Product Category</h1>
 
-      <div>
+      <div className="flex gap-5">
         <MyTextField
           id="productCategory"
           name="productCategory"
           label="Product Category"
           placeholder=""
           type="text"
-          value={''}
-          onChange={undefined}
+          value={selectedCategory?.name || ''}
+          onChange={handleCategoryChange}
           select
           required
         >
-          {productCategory.map((category, i) => (
-            <MenuItem key={i} value={category}>
-              {category}
+          {baseCategory.map((category, i) => (
+            <MenuItem key={i} value={category.name}>
+              {category.name}
             </MenuItem>
           ))}
         </MyTextField>
+
+        {subCategories.length > 0 && (
+          <MyTextField
+            id="subCategory"
+            name="subCategory"
+            label="Subcategory"
+            placeholder=""
+            type="text"
+            value={selectedSubCategory?.name || ''}
+            onChange={handleSubCategoryChange}
+            select
+            required
+            fullWidth
+          >
+            {subCategories.map((subCategory) => (
+              <MenuItem key={subCategory._id} value={subCategory.name}>
+                {subCategory.name}
+              </MenuItem>
+            ))}
+          </MyTextField>
+        )}
       </div>
 
       <div className="mt-10 w-full">

@@ -1,11 +1,11 @@
 import useGlobalState from '@/hooks/globalstate.hook';
-import { ButtonBase, CircularProgress, IconButton, TextField } from '@mui/material';
+import { ButtonBase, CircularProgress, ClickAwayListener, IconButton, Menu, MenuItem, TextField } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import SignupModal from '../Auth/SIgnup/Signup';
 import LoginModal from '../Auth/Login/Login';
-import API from '@/constants/api.constant';
+import API, { algoliaClient } from '@/constants/api.constant';
 import { isEmpty } from '@/helpers';
 import useAppTheme from '@/hooks/theme.hook';
 import useRequest from '@/services/request/request.service';
@@ -16,6 +16,19 @@ import { IoReturnUpBack } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { AppModal } from '../Modals/Modals';
+import MyTextField from '../Fields/MyTextField';
+
+// Define the type for search results
+interface SearchResult {
+  category: string;
+  hits: Array<{
+    objectID: string;
+    _highlightResult?: object;
+    _snippetResult?: object;
+    _rankingInfo?: object;
+    _distinctSeqID?: number;
+  }>;
+}
 
 export default function NewNavbar() {
   const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
@@ -27,6 +40,17 @@ export default function NewNavbar() {
   const [notification, setNotification] = useState([]);
   const [favorite, setFavorite] = useState([]);
   const router = useRouter();
+
+  const options = [
+    { title: 'My Profile', to: '/profile' },
+    // { title: 'My Public Profile', to: '/profile' },
+    { title: 'Get Verified', to: '/profile' },
+    { title: 'My Ads', to: '/profile' },
+    // { title: 'Favorites', to: '/profile' },
+    // { title: 'Searches', to: '/profile' },
+    { title: 'Account Settings', to: '/profile' },
+    // { title: 'Sign Out', to: '#' },
+  ];
 
   // Scroll Animation
   const [scrollStyle, setScrollStyle] = useState<boolean>(false);
@@ -125,92 +149,225 @@ export default function NewNavbar() {
     },
   ];
 
+  const authModal = () =>
+    openMenuModal && (
+      <ClickAwayListener
+        onClickAway={() => {
+          handleCloseSmallModal();
+        }}
+      >
+        <div
+          className="flex items-center p-[7px] rounded-[5px] w-[15vw] mx-auto absolute top-11 z-50 bg-white border-[1px]"
+          style={{
+            boxShadow: '0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08)',
+          }}
+        >
+          <button
+            className="rounded-[5px] py-[10px] text-[1.1vw] w-full font-[500] text-[#101828]"
+            onClick={handleLoginModal}
+          >
+            Log in
+          </button>
+
+          <svg
+            width="1"
+            // height="25"
+            className="h-[30px]"
+            viewBox="0 0 1 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
+            <line x1="0.5" y1="25" x2="0.5" stroke="#EAECF0" />
+          </svg>
+
+          <button
+            className="rounded-[5px] py-[10px] text-[1.1vw] w-full font-[500] text-[#101828]"
+            onClick={handleRegisterModal}
+          >
+            Register
+          </button>
+        </div>
+      </ClickAwayListener>
+    );
+
+  // Agolia Search Result
+  const [query, setQuery] = useState<string>('');
+  const [results, setResults] = useState<any[]>([]);
+  const [fetchResults, setFetchResults] = useState<SearchResult[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const data = [
+    'General',
+    'Automobile',
+    'Property for Sale',
+    'Property for Rent',
+  ].map((item) => ({ label: item, value: item }));
+
+  // Algolia search
+  const handleSearch = async (indexName: string) => {
+    try {
+      const hitsPerPage = 100;
+      const algoliaIndex = algoliaClient.initIndex(indexName);
+      const { hits } = await algoliaIndex.search(query, { hitsPerPage });
+      return { category: indexName, hits };
+    } catch (error) {
+      console.error(`Error searching Algolia for ${indexName}:`, error);
+      return { category: indexName, hits: [] };
+    }
+  };
+
+  useEffect(() => {
+    const searchClients = async () => {
+      if (query) {
+        const categories = [
+          'categories',
+          'automobile',
+          'commercial',
+          'property_for_sale_ads',
+          'property_for_rent_ads',
+        ];
+        const searchPromises = categories.map((category) =>
+          handleSearch(category)
+        );
+
+        try {
+          const results = await Promise.all(searchPromises);
+          setFetchResults(results);
+
+          // Flatten the hits from all categories into a single array for dropdown display
+          const allHits = results.flatMap(result => result.hits);
+          setResults(allHits);
+        } catch (error) {
+          console.error('Error in parallel search:', error);
+        }
+      } else {
+        setResults([]);
+      }
+    };
+
+    searchClients();
+  }, [query]);
+
+  // Organize search results
+  const categoriesData = {};
+  fetchResults.forEach(({ category, hits }) => {
+    categoriesData[category] = hits || [];
+  });
+
+  // Dropdown results rendering
+  const hasResults = results && results.length > 0;
+
   return (
     <>
-    <nav className="flex items-center justify-between gap-5 px-4 py-2 bg-white">
-      <Link href="/">
-        <img src="/icons/distresssales-logo.svg" width={200} height={200} />
-      </Link>
+      <nav className="flex items-center justify-between gap-5 px-4 py-2 bg-white">
+        <Link href="/">
+          <img src="/icons/distresssales-logo.svg" width={200} height={200} />
+        </Link>
 
-      <div className="flex items-center gap-10">
-        {/* Search Bar */}
-        <div className="mx-auto">
-          <div className="relative flex items-center w-[350px] h-12 rounded-[10px] border-[0.5px] border-[#00134D] bg-white overflow-hidden">
-            <div className="grid place-items-center h-full w-12 text-[#726C6C] poppins-font">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 20 20"
-                stroke="#00134D"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
-
-            <input
-              className="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
-              type="text"
-              id="search"
-              placeholder="Search anything.."
-            />
+        <div className="flex items-center gap-10">
+          {/* Search Bar */}
+          <div className="relative mx-auto">
+      {isAuthenticated && (
+        <div className="relative flex items-center w-[350px] h-12 rounded-[10px] border border-gray-300 bg-white overflow-hidden">
+          <div className="grid place-items-center h-full w-12 text-gray-600">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="#00134D"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
           </div>
+          <input
+            className="peer h-full w-full outline-none text-sm text-gray-700 pr-2 pl-4"
+            type="text"
+            id="search"
+            placeholder="Search anything..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
         </div>
+      )}
 
-        {isAuthenticated ? (
-          <div className="flex items-center gap-10 my-2">
-            <div className="flex items-center gap-7">
-              <ButtonBase
-                sx={{
-                  borderRadius: '100%',
-                  '&:active': {
-                    backgroundColor: '#FEF0F0', // Change to your desired color
-                  },
-                }}
+      {/* Dropdown */}
+      {query && (
+        <div className="absolute z-50 w-[350px] max-h-60 overflow-y-auto bg-white shadow-lg border rounded-md mt-2">
+          {hasResults ? (
+            results.map((item, index) => (
+              <div
+                key={index}
+                className="px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 cursor-pointer"
               >
-                <div className="w-[40px] h-[40px] rounded-full flex justify-center items-center">
-                  <img src="/icons/bell.svg" alt="Notification-bell" className="relative" width={20} height={20} />
-                  {notification.length > 0 && (
-                    <img src="/icons/red-dot.svg" className="absolute right-[10px] top-2" width={10} height={10} />
-                  )}
-                </div>
-              </ButtonBase>
-              <ButtonBase
-                sx={{
-                  borderRadius: '100%',
-                  '&:active': {
-                    backgroundColor: '#FEF0F0', // Change to your desired color
-                  },
-                }}
-              >
-                <div className="w-[40px] h-[40px] rounded-full flex justify-center items-center">
-                  <img src="/icons/fav.svg" alt="Favorite" className="relative" width={20} height={20} />
-                  {favorite.length > 0 && (
-                    <img src="/icons/red-dot.svg" className="absolute right-[10px] top-2" width={10} height={10} />
-                  )}
-                </div>
-              </ButtonBase>
-            </div>
-            <div className="border-[0.2px] border-[#B5B3B3] rounded-[20px] py-[8px] px-[8px] flex gap-3 items-center">
-              <div className="h-10 w-10">
-                <img
-                  className="h-full w-full rounded-full object-cover object-center"
-                  src={
-                    user?.profileImage ||
-                    `https://ui-avatars.com/api/?name=${user?.firstName}+${user?.lastName}&rounded=true&size=128`
-                  }
-                  alt=""
-                />
+                {item.name}
               </div>
-              <p className="text-[14px] font-[400] text-[#0A0A0B] leading-none">
-                {user?.firstName + ' ' + user?.lastName}
-              </p>
-              <svg
+            ))
+          ) : (
+            <div className="px-4 py-2 text-sm text-gray-500">No results found</div>
+          )}
+        </div>
+      )}
+    </div>
+
+          {isAuthenticated ? (
+            <div className="flex items-center gap-10 my-2">
+              {/* <div className="flex items-center gap-7">
+                <ButtonBase
+                  sx={{
+                    borderRadius: '100%',
+                    '&:active': {
+                      backgroundColor: '#FEF0F0', // Change to your desired color
+                    },
+                  }}
+                >
+                  <div className="w-[40px] h-[40px] rounded-full flex justify-center items-center">
+                    <img src="/icons/bell.svg" alt="Notification-bell" className="relative" width={20} height={20} />
+                    {notification.length > 0 && (
+                      <img src="/icons/red-dot.svg" className="absolute right-[10px] top-2" width={10} height={10} />
+                    )}
+                  </div>
+                </ButtonBase>
+                <ButtonBase
+                  sx={{
+                    borderRadius: '100%',
+                    '&:active': {
+                      backgroundColor: '#FEF0F0', // Change to your desired color
+                    },
+                  }}
+                >
+                  <div className="w-[40px] h-[40px] rounded-full flex justify-center items-center">
+                    <img src="/icons/fav.svg" alt="Favorite" className="relative" width={20} height={20} />
+                    {favorite.length > 0 && (
+                      <img src="/icons/red-dot.svg" className="absolute right-[10px] top-2" width={10} height={10} />
+                    )}
+                  </div>
+                </ButtonBase>
+              </div> */}
+              <div
+                className="border-[0.2px] border-[#B5B3B3] rounded-[20px] py-[8px] px-[8px] flex gap-3 items-center cursor-pointer"
+                onClick={handleOpenSmallModal}
+              >
+                <div className="h-10 w-10">
+                  <img
+                    className="h-full w-full rounded-full object-cover object-center"
+                    src={
+                      user?.profileImage ||
+                      `https://ui-avatars.com/api/?name=${user?.firstName}+${user?.lastName}&rounded=true&size=128`
+                    }
+                    alt=""
+                  />
+                </div>
+                <p className="text-[14px] font-[400] text-[#0A0A0B] leading-none">
+                  {user?.firstName + ' ' + user?.lastName}
+                </p>
+                <svg
                   className={`transition duration-300 ${openMenuModal ? 'rotate-180' : ''}`}
                   width="15"
                   height="16"
@@ -227,88 +384,142 @@ export default function NewNavbar() {
                     strokeLinejoin="round"
                   />
                 </svg>
-            </div>
-            <button onClick={() => router.push('/post-ad')} className="text-[#FAFAFA] bg-[#00134D] flex items-center px-7 py-3 text-sm font-[600] rounded-[12px] poppins-font gap-3">
-              <img src="/icons/add.svg" width={15} />
-              <span>Post AD</span>
-            </button>
-          </div>
-        ) : (
-          <>
-            <div className="flex md:hidden">
-              <button id="hamburger">
-                <img
-                  className="toggle block"
-                  src="https://img.icons8.com/fluent-systems-regular/2x/menu-squared-2.png"
-                  width="40"
-                  height="40"
-                />
-                <img
-                  className="toggle hidden"
-                  src="https://img.icons8.com/fluent-systems-regular/2x/close-window.png"
-                  width="40"
-                  height="40"
-                />
+              </div>
+              <button
+                onClick={() => router.push('/post-ad')}
+                className="text-[#FAFAFA] bg-[#00134D] flex items-center px-7 py-3 text-sm font-[600] rounded-[12px] poppins-font gap-3"
+              >
+                <img src="/icons/add.svg" width={15} />
+                <span>Post AD</span>
               </button>
             </div>
-            <div className="toggle hidden w-full md:w-auto md:flex gap-7 text-right text-bold mt-5 md:mt-0 md:border-none">
-              {navs.map((nav, i) => (
-                <Link
-                  key={i}
-                  href={nav.href}
-                  className="block md:inline-block md:border-none text-[#0A0A0B] hover:text-[#0A0A0B] poppins-font text-[16px] font-[400]"
-                >
-                  {nav.title}
-                </Link>
-              ))}
-            </div>
-
-            <div className="toggle w-full text-end hidden md:flex md:w-auto px-2 py-2 md:rounded">
-              <div className="flex-shrink-0 flex px-2 py-3 items-center space-x-8 flex-1 justify-end justify-self-end ">
-                <button onClick={handleRegisterModal} className="text-[#FAFAFA] bg-[#00134D] inline-flex items-center justify-center px-7 py-3 border border-transparent text-sm font-[600] rounded-[12px]">
-                  Register
-                </button>
-                <button onClick={handleLoginModal} className="text-[#00134D] text-sm font-[600] border border-[#00134D] rounded-[12px] px-7 py-3">
-                  Login
+          ) : (
+            <>
+              <div className="flex md:hidden">
+                <button id="hamburger">
+                  <img
+                    className="toggle block"
+                    src="https://img.icons8.com/fluent-systems-regular/2x/menu-squared-2.png"
+                    width="40"
+                    height="40"
+                  />
+                  <img
+                    className="toggle hidden"
+                    src="https://img.icons8.com/fluent-systems-regular/2x/close-window.png"
+                    width="40"
+                    height="40"
+                  />
                 </button>
               </div>
+              <div className="toggle hidden w-full md:w-auto md:flex gap-7 text-right text-bold mt-5 md:mt-0 md:border-none">
+                {navs.map((nav, i) => (
+                  <Link
+                    key={i}
+                    href={nav.href}
+                    className="block md:inline-block md:border-none text-[#0A0A0B] hover:text-[#0A0A0B] poppins-font text-[16px] font-[400]"
+                  >
+                    {nav.title}
+                  </Link>
+                ))}
+              </div>
+
+              <div className="toggle w-full text-end hidden md:flex md:w-auto px-2 py-2 md:rounded">
+                <div className="flex-shrink-0 flex px-2 py-3 items-center space-x-8 flex-1 justify-end justify-self-end ">
+                  <button
+                    onClick={handleRegisterModal}
+                    className="text-[#FAFAFA] bg-[#00134D] inline-flex items-center justify-center px-7 py-3 border border-transparent text-sm font-[600] rounded-[12px]"
+                  >
+                    Register
+                  </button>
+                  <button
+                    onClick={handleLoginModal}
+                    className="text-[#00134D] text-sm font-[600] border border-[#00134D] rounded-[12px] px-7 py-3"
+                  >
+                    Login
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </nav>
+
+      <div className="flex items-center space-x-3 ml-5 cursor-pointer relative z-50">
+        {isAuthenticated ? (
+          <Menu id="city-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleCloseSmallModal()}>
+            {options.map((city) => (
+              <Link
+                key={city.title}
+                href={city.to}
+                className="text-secondary hover:text-secondary no-underline hover:no-underline"
+              >
+                <MenuItem onClick={() => handleCloseSmallModal(city.title)}>
+                  <div className="flex w-full gap-5 text-[14px] font-[500] underline-none">
+                    {city.title}
+
+                    {city.title === 'Get Verified' && (
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M6.98334 10.0001L8.99167 12.0167L13.0167 7.9834"
+                          stroke="#308652"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M8.95834 2.0416C9.53334 1.54993 10.475 1.54993 11.0583 2.0416L12.375 3.17493C12.625 3.3916 13.0917 3.5666 13.425 3.5666H14.8417C15.725 3.5666 16.45 4.2916 16.45 5.17493V6.5916C16.45 6.9166 16.625 7.3916 16.8417 7.6416L17.975 8.95827C18.4667 9.53327 18.4667 10.4749 17.975 11.0583L16.8417 12.3749C16.625 12.6249 16.45 13.0916 16.45 13.4249V14.8416C16.45 15.7249 15.725 16.4499 14.8417 16.4499H13.425C13.1 16.4499 12.625 16.6249 12.375 16.8416L11.0583 17.9749C10.4833 18.4666 9.54167 18.4666 8.95834 17.9749L7.64167 16.8416C7.39167 16.6249 6.925 16.4499 6.59167 16.4499H5.15C4.26667 16.4499 3.54167 15.7249 3.54167 14.8416V13.4166C3.54167 13.0916 3.36667 12.6249 3.15834 12.3749L2.03334 11.0499C1.55 10.4749 1.55 9.5416 2.03334 8.9666L3.15834 7.6416C3.36667 7.3916 3.54167 6.92494 3.54167 6.59994V5.1666C3.54167 4.28327 4.26667 3.55827 5.15 3.55827H6.59167C6.91667 3.55827 7.39167 3.38327 7.64167 3.1666L8.95834 2.0416Z"
+                          stroke="#308652"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                </MenuItem>
+              </Link>
+            ))}
+            <div className="w-full py-2 px-4 flex justify-start items-center cursor-pointer hover:bg-red-50">
+              <p className="text-red-500" onClick={logout}>
+                Logout
+              </p>
             </div>
-          </>
+          </Menu>
+        ) : (
+          authModal()
         )}
       </div>
-    </nav>
 
-     {/* Auth Signup  */}
-     <SignupModal
-     open={openRegisterModal}
-     onClose={handleRegisterModalClose}
-     handleLoginModalOpen={handleLoginModalOpen}
-     next={() => {
-       handleVerificationModalOpen();
-     }}
-   />
+      {/* Auth Signup  */}
+      <SignupModal
+        open={openRegisterModal}
+        onClose={handleRegisterModalClose}
+        handleLoginModalOpen={handleLoginModalOpen}
+        next={() => {
+          handleVerificationModalOpen();
+        }}
+      />
 
-   {/* Auth Login Modal */}
-   <LoginModal
-     open={openLoginModal}
-     onClose={handleLoginModalClose}
-     handleForgotPasswordModal={handleForgotPasswordModal}
-     handleRegisterModalOpen={handleRegisterModalOpen}
-   />
+      {/* Auth Login Modal */}
+      <LoginModal
+        open={openLoginModal}
+        onClose={handleLoginModalClose}
+        handleForgotPasswordModal={handleForgotPasswordModal}
+        handleRegisterModalOpen={handleRegisterModalOpen}
+      />
 
-   {/* Auth Forgot-Password Modal */}
-   <ForgotPasswordModal
-     open={openForgotPasswordModal}
-     onClose={handleForgotPasswordModalClose}
-     handleLoginModalOpen={handleLoginModalOpen}
-   />
+      {/* Auth Forgot-Password Modal */}
+      <ForgotPasswordModal
+        open={openForgotPasswordModal}
+        onClose={handleForgotPasswordModalClose}
+        handleLoginModalOpen={handleLoginModalOpen}
+      />
 
-   {/* verify email */}
-   <RegistrationCompleteModal open={verificationModalOpen} onClose={handleVerificationModalOpenClose} />
+      {/* verify email */}
+      <RegistrationCompleteModal open={verificationModalOpen} onClose={handleVerificationModalOpenClose} />
     </>
   );
 }
-
 
 const ForgotPasswordModal = ({
   open,
@@ -404,13 +615,11 @@ const ForgotPasswordModal = ({
           </div>
         </div>
         <form className="mt-7" onSubmit={handleSubmit}>
-          <TextField
+          <MyTextField
             id="email"
             type="email"
             label="Email"
             placeholder="Enter your email address"
-            obscured={false}
-            withBackground={false}
             {...getFieldProps('email')}
           />
           <div className="mt-10">
