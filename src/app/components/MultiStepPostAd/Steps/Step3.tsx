@@ -19,6 +19,7 @@ const Step3: FC<Step3Props> = ({ handleClick, currentStep, steps }) => {
   const [selectedCategory, setSelectedCategory] = useState<any | null>(null);
   const [subCategories, setSubCategories] = useState<any>([]);
   const [selectedSubCategory, setSelectedSubCategory] = useState<any>(null);
+  const [formValues, setFormValues] = useState({});
   const [shortDesc, setShortDesc] = useState<string>('');
   const { isLoading, makeRequest } = useRequest();
   const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -136,6 +137,19 @@ const Step3: FC<Step3Props> = ({ handleClick, currentStep, steps }) => {
     localStorage.setItem('selectedSubCategory', JSON.stringify(subCategory));
   };
 
+  // Handle form field change and save to localStorage
+  const handleFieldChange = (fieldName, value) => {
+    // Update form values state
+    const updatedFormValues = {
+      ...formValues,
+      [fieldName]: value,
+    };
+    setFormValues(updatedFormValues);
+
+    // Save form values to localStorage
+    localStorage.setItem('formValues', JSON.stringify(updatedFormValues));
+  };
+
   return (
     <div className="w-full">
       <h1 className="text-[24px] font-[700] text-[#00134D]">Product Category</h1>
@@ -183,231 +197,34 @@ const Step3: FC<Step3Props> = ({ handleClick, currentStep, steps }) => {
 
       <div className="mt-10 w-full">
         <p className="text-[18px] font-[400] text-[#0A0A0B]">Ad Specification</p>
-        <div className="mt-2 grid w-full grid-cols-3 gap-x-5 gap-y-5">
-          <MyTextField
-            id="material"
-            name="material"
-            label="Material"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-            select
-            required
-          >
-            {productCategory.map((category, i) => (
-              <MenuItem key={i} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </MyTextField>
-          <MyTextField
-            id="ProductionTechnique"
-            name="ProductionTechnique"
-            label="Production Technique"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-            select
-            required
-          >
-            {productCategory.map((category, i) => (
-              <MenuItem key={i} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </MyTextField>
-          <MyTextField
-            id="productCategory"
-            name="productCategory"
-            label="Product Category"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-            select
-            required
-          >
-            {productCategory.map((category, i) => (
-              <MenuItem key={i} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </MyTextField>
-          <MyTextField
-            id="productCategory"
-            name="productCategory"
-            label="Product Category"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-            select
-            required
-          >
-            {productCategory.map((category, i) => (
-              <MenuItem key={i} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </MyTextField>
-          <MyTextField
-            id="productCategory"
-            name="productCategory"
-            label="Product Category"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-            select
-            required
-          >
-            {productCategory.map((category, i) => (
-              <MenuItem key={i} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </MyTextField>
-          <MyTextField
-            id="productCategory"
-            name="productCategory"
-            label="Product Category"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-            select
-            required
-          >
-            {productCategory.map((category, i) => (
-              <MenuItem key={i} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </MyTextField>
-          <MyTextField
-            id="productCategory"
-            name="productCategory"
-            label="Product Category"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-            select
-            required
-          >
-            {productCategory.map((category, i) => (
-              <MenuItem key={i} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </MyTextField>
-          <MyTextField
-            id="productCategory"
-            name="productCategory"
-            label="Product Category"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-            select
-            required
-          >
-            {productCategory.map((category, i) => (
-              <MenuItem key={i} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </MyTextField>
-          <MyTextField
-            id="productCategory"
-            name="productCategory"
-            label="Product Category"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-            select
-            required
-          >
-            {productCategory.map((category, i) => (
-              <MenuItem key={i} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </MyTextField>
+        <div className="mt-5">
+          {/* Render Form Fields Based on Selected Subcategory's formData */}
+          {selectedSubCategory && selectedSubCategory.formData.length > 0 && (
+            <form className='grid w-full grid-cols-3 gap-5'>
+              {selectedSubCategory.formData.map((field) => (
+                <MyTextField
+                  key={field.fieldName}
+                  id={field.fieldName}
+                  name={field.fieldName}
+                  label={field.displayText}
+                  placeholder=""
+                  type={field.fieldDataType === 'string' ? 'text' : field.fieldDataType}
+                  required={field.required}
+                  value={formValues[field.fieldName] || ''}
+                  onChange={(e) => handleFieldChange(field.fieldName, e.target.value)}
+                />
+              ))}
+            </form>
+          )}
+
+          {/* Display message if no form fields are available */}
+          {selectedSubCategory && selectedSubCategory.formData.length === 0 && (
+            <p>No form fields available for this subcategory.</p>
+          )}
         </div>
       </div>
 
-      <div className="mt-10 w-full">
-        <p className="text-[18px] font-[400] text-[#0A0A0B]">Additional Information</p>
-        <div className="mt-2 grid w-full grid-cols-3 gap-x-5 gap-y-5">
-          <MyTextField
-            id="title"
-            name="title"
-            label="Title"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-            select
-            required
-          >
-            {productCategory.map((category, i) => (
-              <MenuItem key={i} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </MyTextField>
-          <MyTextField
-            id="landlordName"
-            name="landlordName"
-            label="Landlord Name"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-          />
-          <MyTextField
-            id="propertyStatus"
-            name="propertyStatus"
-            label="Property Status"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-            select
-          >
-            {productCategory.map((category, i) => (
-              <MenuItem key={i} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </MyTextField>
-          <MyTextField
-            id="buildingName"
-            name="building Name"
-            label="Building Name"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-          />
-          <MyTextField id="deed" name="deed" label="Deed" placeholder="" type="text" value={''} onChange={undefined} />
-          <MyTextField
-            id="neighborhood"
-            name="neighborhood"
-            label="Neighborhood"
-            placeholder=""
-            type="text"
-            value={''}
-            onChange={undefined}
-          />
-        </div>
-      </div>
-
-      <div className="mt-10 w-full">
+      {/* <div className="mt-10 w-full">
         <p className="text-[18px] font-[400] text-[#0A0A0B]">Product Tags</p>
         <div className="mt-2 flex flex-wrap gap-2">
           {popularTags.map((item, i) => (
@@ -419,7 +236,7 @@ const Step3: FC<Step3Props> = ({ handleClick, currentStep, steps }) => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       <div className="w-full flex flex-col gap-8 items-center justify-center mt-16">
         {/* <MyTextField
