@@ -15,7 +15,27 @@ interface PfsProps {
   handleChange: any;
 }
 
-const Pfs: React.FC<PfsProps> = ({ title, tourUrl, price, location, fullDesc, shortDesc, handleChange }) => {
+const Pfs: React.FC<any> = ({
+  title,
+  tourUrl,
+  price,
+  location,
+  fullDesc,
+  shortDesc,
+  handleChange,
+  currencyOptions,
+  currency,
+  amount,
+  marketAmount,
+  convertedAmount,
+  dropdownOpen,
+  setDropdownOpen,
+  handleCurrencyChange,
+  handleAmountChange,
+  convertAmount,
+  handleMarketAmountChange,
+  convertedMarketAmount,
+}) => {
   const propertyStatus = ['Vacant', 'Occupied'];
   const [isModal, setIsModal] = useState(false);
   const [isDocumentModal, setIsDocumentModal] = useState(false);
@@ -31,26 +51,31 @@ const Pfs: React.FC<PfsProps> = ({ title, tourUrl, price, location, fullDesc, sh
   };
 
   const [urls, setUrls] = useState([]);
+  const [documentUrls, setDocumentUrls] = useState<any>([]);
 
   // Load URLs from localStorage when component mounts
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    const updateUrls = () => {
       const savedUrls = localStorage.getItem('uploadedImageUrls');
-      if (savedUrls) {
-        setUrls(JSON.parse(savedUrls));
-      }
-    }, 2000); // 2000ms = 2 seconds
-
+      const savedDocumentUrls = localStorage.getItem('uploadedDocumentNames');
+      
+      if (savedUrls) setUrls(JSON.parse(savedUrls) || []);
+      if (savedDocumentUrls) setDocumentUrls(JSON.parse(savedDocumentUrls) || []);
+    };
+  
+    const intervalId = setInterval(updateUrls, 2000);
+  
     // Clean up interval when component unmounts
     return () => clearInterval(intervalId);
   }, []);
+  
 
   return (
-    <div className=" flex flex-col">
-      <div className="w-full grid grid-cols-2 gap-5">
+    <div className=" flex flex-col mb-16">
+      <div className="w-full grid grid-cols-2 gap-5 mb-4">
         <MyTextField
-          id="productName"
-          name="productName"
+          id="title"
+          name="title"
           label="Product Name"
           placeholder="Enter product name"
           value={title}
@@ -58,17 +83,7 @@ const Pfs: React.FC<PfsProps> = ({ title, tourUrl, price, location, fullDesc, sh
           type="text"
           error={false}
         />
-        <MyTextField
-          id="productPrice"
-          name="productPrice"
-          label="Product Price"
-          placeholder="AED 100,000"
-          value={tourUrl}
-          onChange={handleChange}
-          type="text"
-          error={false}
-        />
-        <MyTextField
+                <MyTextField
           id="location"
           name="location"
           label="Product Location"
@@ -78,6 +93,80 @@ const Pfs: React.FC<PfsProps> = ({ title, tourUrl, price, location, fullDesc, sh
           type="text"
           error={false}
         />
+        <div>
+          <h3 className="text-[3.5vw] sm:text-[14px] mb-[5px] font-[400] text-[#0A0A0B] leading-tight">
+            <span className="capitalize">Price</span>
+          </h3>
+          <div className="flex items-center border border-[#E3E3E3] rounded-[8px] p-2">
+            <div className="relative">
+              <button onClick={() => setDropdownOpen(!dropdownOpen)} className="bg-gray-200 px-3 py-1 rounded-l-md">
+                {currency.code}
+              </button>
+              {dropdownOpen && (
+                <div className="absolute z-10 left-0 mt-1 bg-white border rounded shadow-lg">
+                  {currencyOptions.map((curr) => (
+                    <button
+                      key={curr.code}
+                      onClick={() => handleCurrencyChange(curr)}
+                      className="block px-4 py-2 text-left w-full hover:bg-gray-100"
+                    >
+                      {curr.code}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <input
+              type="text"
+              value={amount}
+              onChange={handleAmountChange}
+              className="flex-1 px-3 py-2 outline-none"
+              placeholder="Enter amount"
+            />
+            <span className="ml-3">
+              {currency.symbol}
+              {convertedAmount}
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-[3.5vw] sm:text-[14px] mb-[5px] font-[400] text-[#0A0A0B] leading-tight">
+            <span className="capitalize">Open Market Price</span>
+          </h3>
+          <div className="flex items-center border border-[#E3E3E3] rounded-[8px] p-2">
+            <div className="relative">
+              <button onClick={() => setDropdownOpen(!dropdownOpen)} className="bg-gray-200 px-3 py-1 rounded-l-md">
+                {currency.code}
+              </button>
+              {dropdownOpen && (
+                <div className="absolute z-10 left-0 mt-1 bg-white border rounded shadow-lg">
+                  {currencyOptions.map((curr) => (
+                    <button
+                      key={curr.code}
+                      onClick={() => handleCurrencyChange(curr)}
+                      className="block px-4 py-2 text-left w-full hover:bg-gray-100"
+                    >
+                      {curr.code}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <input
+              type="text"
+              value={marketAmount}
+              onChange={handleMarketAmountChange}
+              className="flex-1 px-3 py-2 outline-none"
+              placeholder="Enter amount"
+            />
+            <span className="ml-3">
+              {currency.symbol}
+              {convertedMarketAmount}
+            </span>
+          </div>
+        </div>
+
         <MyTextField
           id="tourUrl"
           name="tourUrl"
@@ -89,6 +178,59 @@ const Pfs: React.FC<PfsProps> = ({ title, tourUrl, price, location, fullDesc, sh
           error={false}
         />
         <MyTextField
+          id="shortDesc"
+          name="shortDesc"
+          label="Product Short Description"
+          placeholder="Enter product short description"
+          value={shortDesc}
+          onChange={handleChange}
+          type="text"
+          error={false}
+          maxLength={50}
+        />
+
+        {/* Product Image */}
+        <div>
+          <div onClick={modalHandler} className="">
+            <h3 className="text-[3.5vw] sm:text-[14px] font-[400] mb-[3px] text-[#0A0A0B]">Product Images</h3>
+            <div className=" rounded-[12px] w-full border border-dashed h-[150px] border-[#5A5555] bg-[#FAFAFA] flex justify-center items-center flex-col">
+              <p>Browse Or Desktop</p>
+            </div>
+          </div>
+
+          {/* Display uploaded images */}
+          <div className="flex flex-wrap gap-2 mx-auto mt-2">
+            {urls.map((url) => (
+              <div className="relative" key={url}>
+                <img className="w-[70px] h-[70px] rounded-[8px] object-cover" src={url} alt={`Uploaded Image`} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Product Document */}
+        <div>
+          <div onClick={modalHandlerDocument} className="">
+            <h3 className="text-[3.5vw] sm:text-[14px] font-[400] mb-[3px] text-[#0A0A0B]">Product Documents</h3>
+            <div className=" rounded-[12px] w-full border border-dashed h-[150px] border-[#5A5555] bg-[#FAFAFA] flex justify-center items-center flex-col">
+              <p>Browse Or Desktop</p>
+            </div>
+          </div>
+
+          {/* Display uploaded doc */}
+          <div className="flex flex-wrap gap-2 mx-auto mt-2">
+            {documentUrls.map((url) => (
+              <div className='border rounded-full p-2 flex justify-center items-center'>
+                <p className='leading-none font-[500] text-[14px]'>{url}</p>
+              </div>
+              // <div className="relative" key={url}>
+              //   <img className="w-[70px] h-[70px] rounded-[12px] object-cover" src={url} alt={`Uploaded Doc`} />
+              // </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <MyTextField
           id="fullDesc"
           name="fullDesc"
           label="Product Description"
@@ -100,20 +242,6 @@ const Pfs: React.FC<PfsProps> = ({ title, tourUrl, price, location, fullDesc, sh
           multiline
           rows={4}
         />
-        <MyTextField
-          id="shortDesc"
-          name="shortDesc"
-          label="Product Short Description"
-          placeholder="Enter product short description"
-          value={shortDesc}
-          onChange={handleChange}
-          type="text"
-          error={false}
-          multiline
-          rows={4}
-          maxLength={50}
-        />
-      </div>
 
       {/* <div className="mt-5">
         <MyTextField
@@ -129,23 +257,6 @@ const Pfs: React.FC<PfsProps> = ({ title, tourUrl, price, location, fullDesc, sh
           rows={4}
         />
       </div> */}
-
-      {/* Product Image */}
-      <div onClick={modalHandler} className="mt-5 mb-10">
-        <h3 className="text-[3.5vw] sm:text-[14px] font-[400] mb-[3px] text-[#0A0A0B]">Product Images</h3>
-        <div className=" rounded-[12px] w-full border border-dashed h-[200px] border-[#5A5555] bg-[#FAFAFA] flex justify-center items-center flex-col">
-          <p>Browse Or Desktop</p>
-        </div>
-      </div>
-
-      {/* Display uploaded images */}
-      <div className="flex flex-wrap gap-5 mx-auto">
-        {urls.map((url) => (
-          <div className="relative" key={url}>
-            <img className="w-[100px] h-[100px] rounded-[16px] object-cover" src={url} alt={`Uploaded Image`} />
-          </div>
-        ))}
-      </div>
 
       {/* Upload Photos */}
       {/* <div className="flex md:flex-row flex-col md:space-x-7 space-y-5 md:space-y-0 justify-center my-16">

@@ -20,7 +20,6 @@ import toast from 'react-hot-toast';
 import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 
 export default function Safety() {
-  const router = useRouter();
   const { isMobile } = useAppTheme();
   const { isLoading, makeRequest } = useRequest();
   const [isAgreed, setIsAgreed] = useState<boolean>(false);
@@ -31,9 +30,9 @@ export default function Safety() {
   const [packageId, setPackageId] = useState<string>('');
   const [sectionId, setSectionId] = useState<string>('');
   const [sectionName, setSectionName] = useState<string>('');
-  const [subCategoryId, setSubCategoryId] = useState<string>('');
+  const [subCategory, setSubCategory] = useState<any>({});
   const [subCategoryName, setSubCategoryName] = useState<string>('');
-  const [altCategoryId, setAltCategoryId] = useState<string>('');
+  const [baseCategory, setBaseCategory] = useState<any>({});
   const [altCategoryName, setAltCategoryName] = useState<string>('');
   const [shortDesc, setShortDesc] = useState<string>('');
   const [bathroom, setBathroom] = useState<number>(0);
@@ -52,6 +51,7 @@ export default function Safety() {
   const [tourUrl, setTourUrl] = useState('');
   const [adImageUrl, setAdImageUrl] = useState<string[]>([]);
   const [adDocumentUrl, setAdDocumentUrl] = useState<string[]>([]);
+  const [formValues, setFormValues] = useState({});
 
   // Get Stored Post Ad data from Local storage
   useEffect(() => {
@@ -59,12 +59,8 @@ export default function Safety() {
     setEmail(localStorage.getItem('email') || '');
     setPhoneNumber(localStorage.getItem('phoneNumber') || '');
     setPackageId(localStorage.getItem('selectedPackageId') || '');
-    setSectionId(localStorage.getItem('selectedSectionId') || '');
-    setSectionName(localStorage.getItem('selectedSectionName') || '');
-    setSubCategoryId(localStorage.getItem('selectedSubCategoryId') || '');
-    setSubCategoryName(localStorage.getItem('selectedSubCategoryName') || '');
-    setAltCategoryId(localStorage.getItem('selectedAltCategoryId') || '');
-    setAltCategoryName(localStorage.getItem('selectedAltCategoryName') || '');
+    // setSubCategory(localStorage.getItem('selectedSubCategory') || {});
+    // setBaseCategory(localStorage.getItem('selectedBaseCategory') || {});
     setShortDesc(localStorage.getItem('shortDesc') || '');
     const savedUrls = localStorage.getItem('uploadedImageUrls');
     const savedDocumentUrls = localStorage.getItem('uploadedDocumentUrls');
@@ -76,24 +72,32 @@ export default function Safety() {
     }
 
     const fetchDataFromLocalStorage = () => {
-      const storedData = localStorage.getItem('pfsFormDataKey');
+      const storedData = localStorage.getItem('productInformation');
 
       if (storedData) {
         const parsedData = JSON.parse(storedData);
-        setBathroom(parsedData.bathroom || '');
-        setBedroom(parsedData.bedroom || '');
-        setClosingFee(parseFloat(parsedData.closingFee || ''));
-        setCommunityFee(parsedData.communityFee || '');
         setFullDesc(parsedData.fullDesc || '');
+        setShortDesc(parsedData.fullDesc || '');
         setLocation(parsedData.location || '');
-        setOccupancyStatus(parsedData.occupancyStatus || '');
         setPrice(parseFloat(parsedData.price || ''));
         setOpenMarketPrice(parseFloat(parsedData.openMarketPrice || ''));
-        setReadyDate(parsedData.readyDate || '');
-        setReferenceId(parsedData.referenceId || '');
-        setSize(parsedData.size || '');
         setTitle(parsedData.title || '');
         setTourUrl(parsedData.tourUrl || '');
+      }
+
+      const savedFormValues = localStorage.getItem('formValues');
+      if (savedFormValues) {
+        setFormValues(JSON.parse(savedFormValues));
+      }
+
+      const savedSubCategory = localStorage.getItem('selectedSubCategory');
+      if (savedSubCategory) {
+        setSubCategory(JSON.parse(savedSubCategory));
+      }
+
+      const savedBaseCategory = localStorage.getItem('selectedBaseCategory');
+      if (savedBaseCategory) {
+        setBaseCategory(JSON.parse(savedBaseCategory));
       }
     };
 
@@ -111,73 +115,35 @@ export default function Safety() {
     setIsAgreed(event.target.checked);
   };
 
+  console.log(baseCategory, 'baseCategory')
+
   // Check if all necessary data is available before constructing the body
   const isDataAvailable =
-    title &&
-    price &&
-    openMarketPrice &&
-    name &&
-    email &&
-    phoneNumber &&
-    packageId &&
-    sectionId &&
-    subCategoryId &&
-    altCategoryId;
+    title && price && openMarketPrice && name && email && phoneNumber && packageId && subCategory && baseCategory;
   const body = isDataAvailable
     ? {
         name: title,
         packageID: packageId,
-        sectionID: sectionId,
-        categoryIDs: [altCategoryId, subCategoryId],
+        categoryIDs: [baseCategory?._id, subCategory?._id],
         shortDesc: shortDesc,
         fullDesc: fullDesc,
         location: location,
-        country: 'UNITED ARAB EMIRATE',
         price: price,
         openMarketPrice: openMarketPrice,
-        closingFee: closingFee,
         imageURLs: adImageUrl,
         adDocuments: adDocumentUrl,
-        videoURLs: [tourUrl],
-        ownerContact: {
+        view360URLs: [tourUrl],
+        contact: {
           name,
           email,
           phoneNumber,
           whatsAppNumber: phoneNumber,
         },
-        metadata: {
-          purpose: sectionName === 'Property for Sale' ? 'Sale' : 'Rent',
-          isPosterPropertyAgent: true,
-          isPosterPropertyLandlord: false,
-          propertyType: altCategoryName,
-          ...(sectionName === 'Property for Rent' ? { bedrooms: 4 } : {}),
-          size: size,
-          // amenities: [],
-        },
+        formValues,
       }
     : null;
 
   // Create Post Ad
-  const clearLocalStorageData = () => {
-    const localStorageKeys = [
-      'name',
-      'email',
-      'phoneNumber',
-      'selectedPackageId',
-      'selectedSectionId',
-      'selectedSectionName',
-      'selectedSubCategoryId',
-      'selectedSubCategoryName',
-      'selectedAltCategoryId',
-      'selectedAltCategoryName',
-      'shortDesc',
-      'pfsFormDataKey',
-    ];
-
-    localStorageKeys.forEach((key) => {
-      localStorage.removeItem(key);
-    });
-  };
 
   const createAd = async () => {
     try {

@@ -23,8 +23,9 @@ export const API = {
   packages: '/api/v1/misc/packages/get',
   sections: '/api/v1/misc/sections/get',
   categories: '/api/v1/admin/categories',
+  getBaseCategory: '/api/v1/misc/categories/base/get',
 
-  createAd: '/api/v1/tag/create',
+  createAd: '/api/v1/ad/create',
 
   // uploads
   uploads: '/uploads',
@@ -36,7 +37,7 @@ export const API = {
   verifyUser: '/api/v1/user/verify-me',
 
   getProduct: '/api/v1/tag/property-for-sale',
-  confirmPayment: '/api/v1/tag/confirm-payment',
+  confirmPayment: '/api/v1/ad/confirm-payment',
 };
 
 export default API;

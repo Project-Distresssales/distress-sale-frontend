@@ -18,6 +18,7 @@ import Image from "next/image";
 const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
   const [documents, setFiles] = useState<any>(null);
   const [urls, setUrls] = useState<string[]>([]);
+  const [urlNames, setUrlNames] = useState<string[]>([]);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [buttonText, setButtonText] = useState("Click to Upload");
@@ -44,6 +45,7 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
 
   const uploadImages = async () => {
     const uploadedUrls: string[] = [];
+    const uploadedUrlNames: string[] = [];
 
     if (!documents || documents.length === 0) {
       console.error('No documents selected for upload.');
@@ -65,9 +67,11 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
 
         const result = response.data;
         uploadedUrls.push(result.secure_url);
+        uploadedUrlNames.push(result.original_filename);
       }
 
       setUrls((prevUrls) => [...prevUrls, ...uploadedUrls]);
+      setUrlNames((prevNames) => [...prevNames, ...uploadedUrlNames]);
       toast.success('Document Uploaded Successfully!');
       // setButtonText("Proceed");
     } catch (error) {
@@ -83,6 +87,7 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
   const saveImages = () => {
     if (uploadProgress === 100) {
       localStorage.setItem('uploadedDocumentUrls', JSON.stringify(urls));
+      localStorage.setItem('uploadedDocumentNames', JSON.stringify(urlNames));
     } else {
       uploadImages();
     }
@@ -93,7 +98,7 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
       saveImages();
     } else {
       setIsModal(false);
-      toast.success('Document Saved Successfuly!');
+      toast.success('Document Saved Successful!');
     }
   }
 
@@ -125,7 +130,8 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
   // Save URLs to local storage when uploads complete
   useEffect(() => {
     localStorage.setItem('uploadedDocumentUrls', JSON.stringify(urls));
-  }, [urls]);
+    localStorage.setItem('uploadedDocumentNames', JSON.stringify(urlNames));
+  }, [urls, urlNames]);
 
 
   return (
@@ -222,7 +228,7 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
                           <img
                             src="data:image/svg+xml,%3Csvg width='41' height='40' viewBox='0 0 41 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0)' fill='%23506683'%3E%3Cpath d='M15.576 16.527a2.748 2.748 0 100-5.497 2.748 2.748 0 000 5.497z'/%3E%3Cpath d='M38.134 23.893a8.462 8.462 0 00-4.733-2.252V7.671c0-1.488-.61-2.824-1.565-3.816a5.333 5.333 0 00-3.817-1.565H5.882c-1.489 0-2.825.61-3.817 1.565A5.333 5.333 0 00.5 7.672V30.458c0 1.489.61 2.824 1.565 3.817a5.333 5.333 0 003.817 1.565h21.412c1.412 1.145 3.168 1.87 5.114 1.87a8.074 8.074 0 005.726-2.367 8.074 8.074 0 002.366-5.725 8.074 8.074 0 00-2.366-5.725zM2.523 7.672c0-.916.382-1.756.992-2.329a3.35 3.35 0 012.367-.992h22.137a3.35 3.35 0 012.367.992c.61.611.992 1.45.992 2.367v11.908l-5.649-5.649a1.025 1.025 0 00-1.45 0l-8.512 8.55-5.763-5.801a1.025 1.025 0 00-1.45 0l-6.031 6.106V7.672zm3.32 26.221v-.076a3.349 3.349 0 01-2.366-.993 3.483 3.483 0 01-.954-2.366v-4.733l6.756-6.794 5.763 5.764c.382.381 1.03.381 1.45 0l8.512-8.55 5.572 5.61-.343.115c-.153.038-.306.076-.496.153-.153.038-.306.114-.458.152-.115.039-.191.077-.306.153-.152.076-.267.115-.381.191l-.573.344c-.114.076-.19.114-.305.19-.077.039-.115.077-.191.115a4.604 4.604 0 00-.916.801 8.074 8.074 0 00-2.366 5.726c0 .572.076 1.107.19 1.679.038.153.077.267.115.42.114.381.229.763.381 1.145v.038c.153.305.306.649.497.916H5.844zm30.802 0a5.965 5.965 0 01-4.275 1.756 6.02 6.02 0 01-4.16-1.68c-.153-.152-.305-.343-.458-.496-.115-.114-.23-.267-.344-.381-.152-.191-.267-.42-.381-.65-.077-.152-.153-.267-.23-.42a3.224 3.224 0 01-.19-.648c-.038-.153-.115-.343-.153-.496a6.32 6.32 0 01-.114-1.222c0-1.679.687-3.168 1.755-4.274 1.07-1.107 2.596-1.756 4.275-1.756 1.68 0 3.168.687 4.275 1.756a5.966 5.966 0 011.756 4.274c0 1.642-.687 3.13-1.756 4.237z'/%3E%3Cpath d='M33.095 25.534a1.333 1.333 0 00-.343-.229c-.115-.038-.23-.076-.344-.076h-.076c-.115 0-.23.038-.344.076a.902.902 0 00-.343.23L29.278 27.9c-.381.381-.381 1.03 0 1.45.382.382 1.031.382 1.45 0l.611-.61v4.198c0 .572.459 1.03 1.031 1.03.573 0 1.03-.458 1.03-1.03V28.74l.611.61c.382.382 1.03.382 1.45 0 .382-.381.382-1.03 0-1.45l-2.366-2.367z'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0'%3E%3Crect width='40' height='40' fill='%23fff' transform='translate(.5)'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E"
                             alt="upload"
-                            className="mx-auto w-full"
+                            className="mx-auto w-[100px]"
                           />
                         </div>
                         <p className="font-sf text-blue-dark text-center mb-2">

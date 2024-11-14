@@ -34,6 +34,11 @@ const features = [
   { id: 21, label: 'Study' },
 ];
 
+const currencyOptions = [
+  { code: 'USD', symbol: '$', rate: 1 }, // Base currency
+  { code: 'AED', symbol: 'AED', rate: 3.67 }, // Example exchange rate
+];
+
 interface Step5Props {
   handleClick: () => void;
   currentStep: number;
@@ -61,63 +66,54 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
   const [sections, setSections] = useState<any[]>([]);
   const [selectedSectionId, setSelectedSectionId] = useState<string | null>(null);
   const [selectedSectionName, setSelectedSectionName] = useState<string>('');
+  const [currency, setCurrency] = useState(currencyOptions[0]); // Default to USD
+  const [amount, setAmount] = useState('');
+  const [marketAmount, setMarketAmount] = useState('');
+  const [convertedAmount, setConvertedAmount] = useState('');
+  const [convertedMarketAmount, setConvertedMarketAmount] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleInputChange = (key: string, value: string | number) => {
-    switch (key) {
-      case 'title':
-        setTitle(value as string);
-        break;
-      case 'tourUrl':
-        setTourUrl(value as string);
-        break;
-      case 'price':
-        setPrice(value as number | null);
-        break;
-      case 'openMarketPrice':
-        setOpenMarketPrice(value as number | null);
-        break;
-      case 'closingFee':
-        setClosingFee(value as number | null);
-        break;
-      case 'communityFee':
-        setCommunityFee(value as number | null);
-        break;
-      case 'bedroom':
-        setBedroom(value as number | null);
-        break;
-      case 'bathroom':
-        setBathroom(value as number | null);
-        break;
-      case 'size':
-        setSize(value as string);
-        break;
-      case 'readyDate':
-        setReadyDate(value as string);
-        break;
-      // case 'referenceId':
-      //   setReferenceId(value as string);
-      //   break;
-      case 'occupancyStatus':
-        setOccupancyStatus(value as string);
-        break;
-      case 'location':
-        setLocation(value as string);
-        break;
-      case 'shortDesc':
-        setShortDesc(value as string);
-        break;
-      case 'fullDesc':
-        setFullDesc(value as string);
-        break;
-      default:
-        // Handle unexpected key
-        break;
-    }
+  const handleCurrencyChange = (newCurrency) => {
+    setCurrency(newCurrency);
+    convertAmount(amount, newCurrency.rate);
   };
+
+  const handleAmountChange = (e) => {
+    const inputAmount = e.target.value.replace(/[^0-9.]/g, ''); // Only allow numbers and dot
+    setAmount(inputAmount);
+    convertAmount(inputAmount, currency.rate);
+  };
+
+  const handleMarketAmountChange = (e) => {
+    const inputAmount = e.target.value.replace(/[^0-9.]/g, ''); // Only allow numbers and dot
+    setMarketAmount(inputAmount);
+    convertMarketAmount(inputAmount, currency.rate);
+  };
+
+  const convertAmount = (inputAmount, rate) => {
+    const converted = inputAmount ? (inputAmount * rate).toFixed(2) : '';
+    const formattedAmount = converted ? formatCurrency(converted) : '';
+    setConvertedAmount(formattedAmount);
+  };
+
+  const convertMarketAmount = (inputAmount, rate) => {
+    const converted = inputAmount ? (inputAmount * rate).toFixed(2) : '';
+    const formattedAmount = converted ? formatCurrency(converted) : '';
+    setConvertedMarketAmount(formattedAmount);
+  };
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(amount);
+  };
+
 
   const [formData, setFormData] = useState({
     title: '',
     price: '',
+    marketPrice: '',
     location: '',
     tourUrl: '',
     fullDesc: '',
@@ -136,35 +132,36 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
     const dataToSave = {
       title: formData.title,
       tourUrl: formData.tourUrl,
-      price: formData.price,
+      price: amount,
+      openMarketPrice: marketAmount,
       location: formData.location,
       shortDesc: formData.shortDesc,
       fullDesc: formData.fullDesc,
     };
 
-    localStorage.setItem('pfsFormDataKey', JSON.stringify(dataToSave));
-  }, [formData]);
+    localStorage.setItem('productInformation', JSON.stringify(dataToSave));
+  }, [formData, amount]);
 
   useEffect(() => {
     setShortDesc(localStorage.getItem('shortDesc') || '');
 
     const fetchDataFromLocalStorage = () => {
-      const storedData = localStorage.getItem('pfsFormDataKey');
+      const storedData = localStorage.getItem('productInformation');
 
       if (storedData) {
         const parsedData = JSON.parse(storedData);
-        setBathroom(parsedData.bathroom);
-        setBedroom(parsedData.bedroom);
-        setClosingFee(parseFloat(parsedData.closingFee));
+        // setBathroom(parsedData.bathroom);
+        // setBedroom(parsedData.bedroom);
+        // setClosingFee(parseFloat(parsedData.closingFee));
         setOpenMarketPrice(parseFloat(parsedData.openMarketPrice));
-        setCommunityFee(parsedData.communityFee);
+        // setCommunityFee(parsedData.communityFee);
         setFullDesc(parsedData.fullDesc || '');
         setLocation(parsedData.location || '');
-        setOccupancyStatus(parsedData.occupancyStatus || '');
+        // setOccupancyStatus(parsedData.occupancyStatus || '');
         setPrice(parseFloat(parsedData.price));
-        setReadyDate(parsedData.readyDate || '');
+        // setReadyDate(parsedData.readyDate || '');
         // setReferenceId(parsedData.referenceId || '');
-        setSize(parsedData.size || '');
+        // setSize(parsedData.size || '');
         setTitle(parsedData.title || '');
         setTourUrl(parsedData.tourUrl || '');
       }
@@ -246,7 +243,7 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
     <div>
       <h1 className="text-[24px] font-[700] text-[#00134D]">Product Information</h1>
       <div className="mt-7">
-        <p className="text-[18px] font-[400] text-[#0A0A0B]">Product Section</p>
+        {/* <p className="text-[18px] font-[400] text-[#0A0A0B]">Product Section</p>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4 mt-2">
           {sections?.map((category, index) => (
             <CategoryButton
@@ -267,7 +264,7 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
               onClick={() => handleSelect(category?._id, category?.name)}
             />
           ))}
-        </div>
+        </div> */}
 
         <Pfs
           title={formData.title}
@@ -277,6 +274,18 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
           shortDesc={formData.shortDesc}
           fullDesc={formData.fullDesc}
           handleChange={handleChange}
+          currencyOptions={currencyOptions}
+          currency={currency}
+          amount={amount}
+          marketAmount={marketAmount}
+          convertedAmount={convertedAmount}
+          dropdownOpen={dropdownOpen}
+          setDropdownOpen={setDropdownOpen}
+          handleCurrencyChange={handleCurrencyChange}
+          handleAmountChange={handleAmountChange}
+          convertAmount={convertAmount}
+          convertedMarketAmount={convertedMarketAmount}
+          handleMarketAmountChange={handleMarketAmountChange}
         />
         {/* {storedSectionName === 'Property for Sale' ? (
           <Pfs

@@ -208,7 +208,7 @@ export default function Navbar() {
         </div> */}
 
         {isAuthenticated ? (
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3 cursor-pointer" onClick={handleOpenSmallModal}>
             <div className="h-10 w-10">
               <img
                 className="h-full w-full rounded-full object-cover object-center"
@@ -282,8 +282,6 @@ export default function Navbar() {
 
         <div className="flex items-center space-x-7">
           <div className="flex items-center space-x-3 ml-5 cursor-pointer relative z-50">
-            
-
             {isAuthenticated ? (
               <Menu id="city-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleCloseSmallModal()}>
                 {options.map((city) => (

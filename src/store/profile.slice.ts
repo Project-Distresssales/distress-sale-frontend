@@ -55,7 +55,7 @@ export const profileSlice = createSlice({
     },
     profileLogoutAction: (state) => {
       localStorage.clear();
-      location.reload();
+      // location.reload();
       return {} as any;
   },
   
