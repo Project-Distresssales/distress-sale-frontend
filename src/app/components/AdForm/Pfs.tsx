@@ -219,8 +219,8 @@ const Pfs: React.FC<any> = ({
 
           {/* Display uploaded doc */}
           <div className="flex flex-wrap gap-2 mx-auto mt-2">
-            {documentUrls.map((url) => (
-              <div className='border rounded-full p-2 flex justify-center items-center'>
+            {documentUrls.map((url, i) => (
+              <div key={i} className='border rounded-full p-2 flex justify-center items-center'>
                 <p className='leading-none font-[500] text-[14px]'>{url}</p>
               </div>
               // <div className="relative" key={url}>
