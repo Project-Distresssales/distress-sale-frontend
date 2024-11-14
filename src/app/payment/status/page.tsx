@@ -47,7 +47,7 @@ export default function FlutterWavePaymentStatus() {
   
   return (
         <div>
-          {!isLoading && paymentMessage === 'Your payment has been processed successfully' ? (
+          {!isLoading && code === 200 ? (
             <PaymentSuccess />
           ) : !isLoading && paymentMessage === 'Payment Failed' ? (
             <PaymentError />
