@@ -320,7 +320,7 @@ export default function LandingPage() {
         </div>
 
         {/* Services */}
-        <div className='sm:px-24 px-5 sm:-mt-[70px] -mt-[20px]'>
+        {/* <div className='sm:px-24 px-5 sm:-mt-[70px] -mt-[20px]'>
           <div className='w-full h-auto rounded-[22px] service-glass-bg grid sm:grid-cols-4 grid-cols-1 sm:divide-x sm:divide-y-0 divide-y sm:py-10 py-7 px-7 sm:px-0 overflow-auto'>
             {services.map(({ header, text, iconPath }, index) => (
               <div key={index} className='w-full h-auto sm:py-5 py-7 px-7 flex flex-col justify-center items-center text-center'>
@@ -332,7 +332,7 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* Verification */}
