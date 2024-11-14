@@ -147,7 +147,7 @@ const Step3: FC<Step3Props> = ({ handleClick, currentStep, steps }) => {
     setFormValues(updatedFormValues);
 
     // Save form values to localStorage
-    localStorage.setItem('formValues', JSON.stringify(updatedFormValues));
+    localStorage.setItem('formData', JSON.stringify(updatedFormValues));
   };
 
   return (

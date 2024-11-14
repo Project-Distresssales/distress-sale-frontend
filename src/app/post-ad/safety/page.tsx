@@ -2,22 +2,17 @@
 import { AppModal } from '@/app/components/Modals/Modals';
 import AltNavbar from '@/app/components/Navbar/AltNavbar';
 import MobileNavbar from '@/app/components/Navbar/MovileNavbar';
-import Navbar from '@/app/components/Navbar/Navbar';
 import NewNavbar from '@/app/components/Navbar/NewNavbar';
 import SubNavbar from '@/app/components/Navbar/SubNavbar';
 import { FadeIn } from '@/app/components/Transitions/Transitions';
 import API from '@/constants/api.constant';
-import { catchAsync } from '@/helpers/api.helper';
 import useAppTheme from '@/hooks/theme.hook';
 import useRequest from '@/services/request/request.service';
 import { agreement, safetyMeasure } from '@/utils/data';
 import { ButtonBase } from '@mui/material';
-import axios, { AxiosError } from 'axios';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 
 export default function Safety() {
   const { isMobile } = useAppTheme();
@@ -51,7 +46,7 @@ export default function Safety() {
   const [tourUrl, setTourUrl] = useState('');
   const [adImageUrl, setAdImageUrl] = useState<string[]>([]);
   const [adDocumentUrl, setAdDocumentUrl] = useState<string[]>([]);
-  const [formValues, setFormValues] = useState({});
+  const [formData, setFormData] = useState({});
 
   // Get Stored Post Ad data from Local storage
   useEffect(() => {
@@ -85,9 +80,9 @@ export default function Safety() {
         setTourUrl(parsedData.tourUrl || '');
       }
 
-      const savedFormValues = localStorage.getItem('formValues');
-      if (savedFormValues) {
-        setFormValues(JSON.parse(savedFormValues));
+      const savedFormData = localStorage.getItem('formData');
+      if (savedFormData) {
+        setFormData(JSON.parse(savedFormData));
       }
 
       const savedSubCategory = localStorage.getItem('selectedSubCategory');
@@ -139,7 +134,7 @@ export default function Safety() {
           phoneNumber,
           whatsAppNumber: phoneNumber,
         },
-        formValues,
+        formData,
       }
     : null;
 
