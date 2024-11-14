@@ -197,12 +197,10 @@ export default function NewNavbar() {
   const [fetchResults, setFetchResults] = useState<SearchResult[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const data = [
-    'General',
-    'Automobile',
-    'Property for Sale',
-    'Property for Rent',
-  ].map((item) => ({ label: item, value: item }));
+  const data = ['General', 'Automobile', 'Property for Sale', 'Property for Rent'].map((item) => ({
+    label: item,
+    value: item,
+  }));
 
   // Algolia search
   const handleSearch = async (indexName: string) => {
@@ -220,23 +218,15 @@ export default function NewNavbar() {
   useEffect(() => {
     const searchClients = async () => {
       if (query) {
-        const categories = [
-          'categories',
-          'automobile',
-          'commercial',
-          'property_for_sale_ads',
-          'property_for_rent_ads',
-        ];
-        const searchPromises = categories.map((category) =>
-          handleSearch(category)
-        );
+        const categories = ['categories', 'automobile', 'commercial', 'property_for_sale_ads', 'property_for_rent_ads'];
+        const searchPromises = categories.map((category) => handleSearch(category));
 
         try {
           const results = await Promise.all(searchPromises);
           setFetchResults(results);
 
           // Flatten the hits from all categories into a single array for dropdown display
-          const allHits = results.flatMap(result => result.hits);
+          const allHits = results.flatMap((result) => result.hits);
           setResults(allHits);
         } catch (error) {
           console.error('Error in parallel search:', error);
@@ -258,6 +248,51 @@ export default function NewNavbar() {
   // Dropdown results rendering
   const hasResults = results && results.length > 0;
 
+  const handleItemClick = (item: any, type: string) => {
+    console.log('Clicked item type:', type);
+  
+    // Map categories directly to routes
+    const categoryRoutes: { [key: string]: string } = {
+      'automobile': '/automobile',
+      'Residential for Sale': '/property-for-sale',
+      'Residential for Rent': '/property-for-rent',
+      'commercial': '/commercial',
+    };
+  
+    // First check: route based on category type
+    if (categoryRoutes[type]) {
+      router.push(categoryRoutes[type]);
+      return;
+    }
+  
+    // Second check: route based on item name contains
+    const nameBasedRoutes: { [key: string]: string } = {
+      'commercial': '/commercial',
+      'car': '/automobile',
+      'race': '/automobile',
+      'truck': '/automobile',
+      'player': '/other',
+      'villa compound': '/commercial',
+      'rent': '/property-for-rent',
+      'sale': '/property-for-sale',
+      'plumber': '/other',
+      'penthouse': '/commercial',
+      'motor': '/automobile',
+      'parts': '/automobile',
+    };
+  
+    // Loop through each keyword and check if it is in the item name
+    for (const [keyword, route] of Object.entries(nameBasedRoutes)) {
+      if (item.name.toLowerCase().includes(keyword)) {
+        router.push(route);
+        return;
+      }
+    }
+  
+    // Default route for unmatched categories or item names
+    router.push('/others');
+  };
+
   return (
     <>
       <nav className="flex items-center justify-between gap-5 px-4 py-2 bg-white">
@@ -268,53 +303,57 @@ export default function NewNavbar() {
         <div className="flex items-center gap-10">
           {/* Search Bar */}
           <div className="relative mx-auto">
-      {isAuthenticated && (
-        <div className="relative flex items-center w-[350px] h-12 rounded-[10px] border border-gray-300 bg-white overflow-hidden">
-          <div className="grid place-items-center h-full w-12 text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="#00134D"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </div>
-          <input
-            className="peer h-full w-full outline-none text-sm text-gray-700 pr-2 pl-4"
-            type="text"
-            id="search"
-            placeholder="Search anything..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </div>
-      )}
-
-      {/* Dropdown */}
-      {query && (
-        <div className="absolute z-50 w-[350px] max-h-60 overflow-y-auto bg-white shadow-lg border rounded-md mt-2">
-          {hasResults ? (
-            results.map((item, index) => (
-              <div
-                key={index}
-                className="px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 cursor-pointer"
-              >
-                {item.name}
+            {isAuthenticated && (
+              <div className="relative flex items-center w-[350px] h-12 rounded-[10px] border border-gray-300 bg-white overflow-hidden">
+                <div className="grid place-items-center h-full w-12 text-gray-600">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="#00134D"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </div>
+                <input
+                  className="peer h-full w-full outline-none text-sm text-gray-700 pr-2 pl-4"
+                  type="text"
+                  id="search"
+                  placeholder="Search anything..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
               </div>
-            ))
-          ) : (
-            <div className="px-4 py-2 text-sm text-gray-500">No results found</div>
-          )}
-        </div>
-      )}
-    </div>
+            )}
+
+            {/* Dropdown */}
+            {query && (
+              <div className="absolute top-14 w-full bg-white border border-gray-300 rounded-md shadow-lg mt-1 z-10">
+                {results.length > 0 ? (
+                  results.map((result) => {
+                    console.log('Rendering result:', result); // Log result structure here
+                    return (
+                      <div
+                        key={result.objectID}
+                        className="p-2 hover:bg-gray-100 cursor-pointer"
+                        onClick={() => handleItemClick(result, result.propertyType || '')}
+                      >
+                        {result.name || 'Unnamed result'}
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="p-2 text-gray-500">No results found</div>
+                )}
+              </div>
+            )}
+          </div>
 
           {isAuthenticated ? (
             <div className="flex items-center gap-10 my-2">
