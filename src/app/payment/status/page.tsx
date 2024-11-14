@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react';
 
 export default function FlutterWavePaymentStatus() {
     const [paymentMessage, setPaymentMessage] = useState<string>('');
+    const [paymentCode, setPaymentCode] = useState<number>();
     const { isLoading, makeRequest } = useRequest();
     
     if (typeof window !== 'undefined') {
@@ -32,8 +33,9 @@ export default function FlutterWavePaymentStatus() {
                   url: `${API.confirmPayment}?status=${status}&tx_ref=${tx_ref}&transaction_id=${transaction_id}`,
                 });
         
-                const { message } = res?.data;
+                const { message, code } = res?.data;
                 setPaymentMessage(message);
+                setPaymentCode(code);
               } else {
                 console.error('Some or all query parameters are missing.');
               }
@@ -47,7 +49,7 @@ export default function FlutterWavePaymentStatus() {
   
   return (
         <div>
-          {!isLoading && code === 200 ? (
+          {!isLoading && paymentCode === 200 ? (
             <PaymentSuccess />
           ) : !isLoading && paymentMessage === 'Payment Failed' ? (
             <PaymentError />
