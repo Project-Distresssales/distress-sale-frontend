@@ -139,10 +139,10 @@ export default function NewNavbar() {
       title: 'Home',
       href: '/',
     },
-    {
-      title: 'About Us',
-      href: '/',
-    },
+    // {
+    //   title: 'About Us',
+    //   href: '/',
+    // },
     {
       title: "FAQ's",
       href: '/faq',
