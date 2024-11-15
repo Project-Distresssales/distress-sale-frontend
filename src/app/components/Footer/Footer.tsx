@@ -1,10 +1,7 @@
 'use client';
-import Assets from '@/constants/assets.constant';
-import useAppTheme from '@/hooks/theme.hook';
 import { IconButton } from '@mui/material';
-import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function Footer() {
   return (
@@ -34,28 +31,28 @@ export default function Footer() {
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <Link href="#" className="text-gray-700 hover:text-[#F4AD0E] transition no-underline hover:no-underline">
                     {' '}
                     About Us
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <Link href="/post-ad" className="text-gray-700 transition hover:text-[#F4AD0E] no-underline hover:no-underline">
                   Advertise with Us
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <Link href="#" className="text-gray-700 transition hover:text-[#F4AD0E] no-underline hover:no-underline">
                   Terms of Use
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <Link href="/privacy-policy" className="text-gray-700 transition hover:text-[#F4AD0E] no-underline hover:no-underline">
                   Privacy Policy
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -65,43 +62,43 @@ export default function Footer() {
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   Abu Dhabi
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   Dubai
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   Sharjah
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   Ajman
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   UAQ
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   Ras Al-Khaimah
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   Fujairah
                   </a>
                 </li>
@@ -113,43 +110,43 @@ export default function Footer() {
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   Egypt
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   Saudi Arabia
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   Qatar
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   Kuwait
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   Lebanon
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   Bahrain
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <a href="#" className="text-gray-700 transition hover:text-[#F4AD0E]">
                   Oman
                   </a>
                 </li>
@@ -160,22 +157,22 @@ export default function Footer() {
               <p className="font-medium text-gray-900">Support</p>
 
               <ul className="mt-6 space-y-4 text-sm">
-                <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                {/* <li>
+                  <Link href="#" className="text-gray-700 transition hover:text-[#F4AD0E] no-underline hover:no-underline">
                   Help
-                  </a>
-                </li>
+                  </Link>
+                </li> */}
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <Link href="#" className="text-gray-700 transition hover:text-[#F4AD0E] no-underline hover:no-underline">
                   Contact Us
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
+                  <Link href="/faq" className="text-gray-700 transition hover:text-[#F4AD0E] no-underline hover:no-underline">
                   FAQ
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

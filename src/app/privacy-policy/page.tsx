@@ -1,15 +1,11 @@
 "use client"
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 import useAppTheme from '../../hooks/theme.hook';
-import { useAppSelector } from '../../store';
-import { profileLogoutAction } from '../../store/profile.slice';
 import MobileNavbar from '../components/Navbar/MovileNavbar';
-import Navbar from '../components/Navbar/Navbar';
 import { FadeIn } from '../components/Transitions/Transitions';
 import NewNavbar from '../components/Navbar/NewNavbar';
 import SubNavbar from '../components/Navbar/SubNavbar';
-import AltNavbar from '../components/Navbar/AltNavbar';
 
 const PrivacyPolicy = () => {
   const { isMobile } = useAppTheme();
@@ -19,8 +15,10 @@ const PrivacyPolicy = () => {
       {!isMobile ? (
         <>
         <NewNavbar />
-        <AltNavbar />
+        {/* <AltNavbar /> */}
+        <div className='mt-5'>
         <SubNavbar />
+        </div>
       </>
       ) : (
         <>

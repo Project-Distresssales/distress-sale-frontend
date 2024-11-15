@@ -38,6 +38,7 @@ export const API = {
 
   getProduct: '/api/v1/tag/property-for-sale',
   confirmPayment: '/api/v1/ad/confirm-payment',
+  search: '/api/v1/ad/search',
 };
 
 export default API;
