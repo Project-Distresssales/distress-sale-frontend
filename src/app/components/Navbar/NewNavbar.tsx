@@ -145,7 +145,7 @@ export default function NewNavbar() {
     },
     {
       title: "FAQ's",
-      href: '/',
+      href: '/faq',
     },
   ];
 
@@ -295,7 +295,15 @@ export default function NewNavbar() {
 
   return (
     <>
-      <nav className="flex items-center justify-between gap-5 px-4 py-2 bg-white">
+      <nav 
+      className={
+        scrollStyle
+          ? 'sticky top-0 z-20 flex items-center justify-between gap-5 px-4 py-2 bg-white animate-fade-in-down'
+          : 'relative flex items-center justify-between gap-5 px-4 py-2 bg-white animate-fade-in-up'
+      }
+      style={{ boxShadow: '0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08' }}
+      // className="flex items-center justify-between gap-5 px-4 py-2 bg-white border-b"
+      >
         <Link href="/">
           <img src="/icons/distresssales-logo.svg" width={200} height={200} />
         </Link>
@@ -525,7 +533,7 @@ export default function NewNavbar() {
             </div>
           </Menu>
         ) : (
-          authModal()
+          null
         )}
       </div>
 

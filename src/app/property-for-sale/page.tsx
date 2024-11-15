@@ -226,17 +226,19 @@ export default function PropertyForSale() {
       {!isMobile ? (
         <>
           <NewNavbar />
-          <AltNavbar />
-          <SubNavbar />
+          {/* <AltNavbar /> */}
+          <div className="mt-5">
+            <SubNavbar />
+          </div>
         </>
       ) : (
         <>
           {/* <MobileNavbar sideBar={sideBar} setSideBar={setSideBar} /> */}
-          <AltNavbar />
+          <SubNavbar />
         </>
       )}
 
-      <div className="pl-16 pb-32 pt-5">
+      <div className="px-16 pb-32 pt-5">
         <div className="rounded-[12px] w-full flex">
           <div className="rounded-l-[12px] w-full p-7 h-[215px] bg-[#FDF1D7]">
             <h1 className="text-[#0A0A0B] text-[18px] font-[700] leading-tight">Looking to Sell Your Apartment?</h1>
@@ -271,16 +273,22 @@ export default function PropertyForSale() {
         {/* Filter and Product */}
         <h1 className="text-[28px] font-[700] text-[#00134D] mt-10">Property for Sale</h1>
         <div className="flex gap-10">
-          <div className="mt-5">
+          {/* <div className="mt-5">
             <FilterProduct />
-          </div>
+          </div> */}
 
           {/* Filtered Products */}
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-10 md:mt-10 mt-5">
-            {propertyForSale?.map((product, i) => (
-              <ProductCard key={i} product={product} />
-            ))}
-          </div>
+          {propertyForSale.length > 0 ? (
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:mt-10 mt-5">
+              {propertyForSale?.map((product, i) => (
+                <ProductCard key={i} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="w-full h-[300px] flex justify-center items-center">
+              <p className="text-[18px] text-gray-400 font-[500]">No Property Found!</p>
+            </div>
+          )}
         </div>
       </div>
 

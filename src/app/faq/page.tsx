@@ -10,6 +10,9 @@ import useAppTheme from '@/hooks/theme.hook';
 import Navbar from '../components/Navbar/Navbar';
 import SubNavbar from '../components/Navbar/SubNavbar';
 import MobileNavbar from '../components/Navbar/MovileNavbar';
+import AltNavbar from '../components/Navbar/AltNavbar';
+import NewNavbar from '../components/Navbar/NewNavbar';
+import Footer from '../components/Footer/Footer';
 
 export default function Faq() {
     const { isMobile } = useAppTheme();
@@ -59,17 +62,15 @@ export default function Faq() {
 
     return (
         <FadeIn>
-            {!isMobile ? (
-                <>
-                    <Navbar />
-                    {/* <SubNavbar /> */}
-                </>
-            ) : (
-                <>
-                    <MobileNavbar />
-                    {/* <SubNavbar /> */}
-                </>
-            )}
+             {!isMobile ? (
+        <>
+        <NewNavbar />
+      </>
+      ) : (
+        <>
+          <MobileNavbar />
+        </>
+      )}
             <div className="w-full h-auto pb-[200px] mt-10">
                 <div className="md:px-8 px-5">
                     <h1 className='text-center font-[700] md:text-[32px] text-[5.5vw]'>Frequently Ask Question</h1>
@@ -92,6 +93,8 @@ export default function Faq() {
                     </div>
                 </div>
             </div>
+
+            <Footer />
         </FadeIn>
     )
 }

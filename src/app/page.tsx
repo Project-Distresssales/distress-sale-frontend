@@ -53,7 +53,7 @@ export default function LandingPage() {
       header: 'Customer Support',
       text: '24x7 customer support, Lorem Ipsum is dummy text',
       iconPath: '/icons/support.svg',
-    }
+    },
   ];
 
   // Searched categories
@@ -255,22 +255,21 @@ export default function LandingPage() {
     fetchUser();
   }, []);
 
-
-
   return (
     <FadeIn>
-
       {!isMobile ? (
         <>
           <NewNavbar />
-          <AltNavbar />
-          <SubNavbar />
+          {/* <AltNavbar /> */}
+          <div className="mt-5">
+            <SubNavbar />
+          </div>
         </>
       ) : (
         <>
           <MobileNavbar sideBar={sideBar} setSideBar={setSideBar} />
           <AltNavbar />
-          
+
           {/* Drop Down */}
           {sideBar && (
             <FadeIn>
@@ -304,17 +303,25 @@ export default function LandingPage() {
       )}
 
       {/* Hero */}
-      <section>
+      <section className="mt-10">
         <div className="mx-auto sm:pl-10 sm:pr-10 pr-5 pl-5 sm:pb-14 lg:flex gap-5">
           <div className="text-center lg:text-left w-full mt-10">
-            <h1 className="text-[#00134D] font-[700] sm:text-[4.5vw] text-[7vw] leading-tight nunito">The Ultimate Affordable Marketplace for Buying, Renting & Selling
+            <h1 className="text-[#00134D] font-[700] sm:text-[4.5vw] text-[7vw] leading-tight nunito">
+              The Ultimate Affordable Marketplace for Buying, Renting & Selling
             </h1>
-            <p className="sm:text-[24px] text-[4vw] font-normal text-[#F4AD0E] mt-2 poppins">Explore the Best Deals: Discover, Connect, Transact.</p>
-            <button type="button" className="py-[18px] px-[74px] bg-[#00134D] rounded-[5px] text-[#FAFAFA] text-[16px] font-[400] mt-7">Explore</button>
+            <p className="sm:text-[24px] text-[4vw] font-normal text-[#F4AD0E] mt-2 poppins">
+              Explore the Best Deals: Discover, Connect, Transact.
+            </p>
+            <button
+              type="button"
+              className="py-[18px] px-[74px] bg-[#00134D] rounded-[5px] text-[#FAFAFA] text-[16px] font-[400] mt-7"
+            >
+              Explore
+            </button>
           </div>
-          <div className='relative mt-14 sm:mt-0 flex justify-center items-center'>
-            <div className='bg-[#FDF1D7] sm:w-[450px] sm:h-[450px] rounded-full'>
-              <img src='/images/hero-1.svg' className='sm:w-full sm:h-full bg-cover bg-no-repeat' />
+          <div className="relative mt-14 sm:mt-0 flex justify-center items-center">
+            <div className="bg-[#FDF1D7] sm:w-[450px] sm:h-[450px] rounded-full">
+              <img src="/images/hero-1.svg" className="sm:w-full sm:h-full bg-cover bg-no-repeat" />
             </div>
           </div>
         </div>
@@ -340,10 +347,12 @@ export default function LandingPage() {
         {userState && userState?.verified ? <VerifiedUserBadge /> : <UnverifiedUserBadge />}
       </div>
 
-      <div className='mt-20 w-full sm:px-10 px-5'>
+      <div className="mt-20 w-full sm:px-10 px-5">
         {propertyForSale?.length > 0 && (
           <div>
-            <h1 className="text-[#00134D] md:text-[24px] text-[4.5vw] font-[700] leading-none">Popular in Property for Sale</h1>
+            <h1 className="text-[#00134D] md:text-[24px] text-[4.5vw] font-[700] leading-none">
+              Popular in Property for Sale
+            </h1>
             <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:mt-10 mt-5">
               {propertyForSale?.map((product, i) => (
                 <ProductCard key={i} product={product} />
@@ -354,9 +363,7 @@ export default function LandingPage() {
 
         {automobile?.length > 0 && (
           <div className="mt-16">
-            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">
-              Popular in Used Cars for Sale
-            </h1>
+            <h1 className="text-[#101828] md:text-[2vw] text-[4.5vw] font-[700]">Popular in Used Cars for Sale</h1>
             <div className="grid md:grid-cols-3 grid-cols-1 gap-[20px] md:mt-14 mt-7">
               {automobile?.map((product, i) => (
                 <ProductCard key={i} product={product} />
@@ -388,7 +395,7 @@ export default function LandingPage() {
         )}
       </div>
 
-      <div className='my-20'/>
+      <div className="my-20" />
 
       {/* Auth Signup  */}
       <SignupModal
@@ -407,7 +414,6 @@ export default function LandingPage() {
         handleForgotPasswordModal={handleForgotPasswordModal}
         handleRegisterModalOpen={handleRegisterModalOpen}
       />
-
 
       <Footer />
     </FadeIn>
