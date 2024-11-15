@@ -27,7 +27,7 @@ const PostAd = () => {
     catchAsync(
       async () => {
         const res = await makeRequest({
-          method: "GET",
+          method: 'GET',
           url: API.packages,
         });
 
@@ -53,7 +53,6 @@ const PostAd = () => {
     handleGetPackages();
   }, []);
 
-
   const steps = ['Select Package', 'Product Information', ' Product Category', 'Contact Details'];
 
   const displayStep = ({ currentStep, handleClick, steps }) => {
@@ -67,8 +66,8 @@ const PostAd = () => {
       case 2:
         return (
           <FadeInFromRight>
-          <Step5 handleClick={handleClick} currentStep={currentStep} steps={steps} />
-        </FadeInFromRight>
+            <Step5 handleClick={handleClick} currentStep={currentStep} steps={steps} />
+          </FadeInFromRight>
         );
       case 3:
         return (
@@ -110,10 +109,11 @@ const PostAd = () => {
     <FadeIn>
       {!isMobile ? (
         <>
-        <NewNavbar />
-        <AltNavbar />
-        <SubNavbar />
-      </>
+          <NewNavbar />
+          {/* <div className="mt-5">
+            <SubNavbar />
+          </div> */}
+        </>
       ) : (
         <>
           <MobileNavbar />

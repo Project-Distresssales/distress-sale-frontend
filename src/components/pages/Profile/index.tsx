@@ -21,6 +21,7 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { RotatingLines } from 'react-loader-spinner'
+import NewNavbar from '@/app/components/Navbar/NewNavbar';
 
 export default function ProfilePage() {
   const { profile: user } = useGlobalState();
@@ -259,8 +260,8 @@ export default function ProfilePage() {
     <FadeIn>
       {!isMobile ? (
         <>
-          <Navbar />
-          <SubNavbar />
+          <NewNavbar />
+          {/* <SubNavbar /> */}
         </>
       ) : (
         <>

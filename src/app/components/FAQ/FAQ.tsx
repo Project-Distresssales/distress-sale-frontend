@@ -2,40 +2,48 @@ import { Disclosure } from '@headlessui/react';
 import React, { useState } from 'react';
 import { ArrowDownIcon, ArrowUpIcon } from '../Icons/Icons';
 
-export const FAQDATA = [
+export const faq = [
   {
-    title: 'How do I sell my property in UAE?',
-    desc: 'lorem ipsum just a dummy text in the disclosure section ',
+      header: 'Is it really possible to sell my asset within 48 hours?',
+      content: 'Absolutely, our platform specializes in rapid sales, meeting your urgent financial needs swiftly.'
   },
   {
-    title: 'How do I sell my property in UAE?',
-    desc: 'lorem ipsum just a dummy text in the disclosure section ',
+      header: "Aren't the assets sold here undervalued?",
+      content: 'You secure fast liquidation for cash, often finding buyers willing to pay a fair price swiftly.'
   },
   {
-    title: 'How much does it cost to advertise my Property on Distress Sale?',
-    desc: 'lorem ipsum just a dummy text in the disclosure section ',
+      header: "How do I know I'm getting a good deal?",
+      content: 'Our market place offers assets below market value, ensuring buyers and sellers get the best possible deals.'
   },
   {
-    title: 'Do I need to create an account to sell my Property on Distress Sale?',
-    desc: 'lorem ipsum just a dummy text in the disclosure section ',
+      header: 'Can I trust the quality of assets purchased here?',
+      content: 'Every asset is verified by us to ensure buyers invest in quality items, offering peace of mind.'
   },
   {
-    title: 'How do I update information on my Property for sale ad on Distress Sale?',
-    desc: 'lorem ipsum just a dummy text in the disclosure section ',
+      header: "What if I can't find a buyer in 48 hours?",
+      content: 'Our extensive network almost always guarantees a buyer within the timeframe, ensuring your assets move quickly.'
   },
   {
-    title: 'How long does it take to sell my Property in UAE?',
-    desc: 'lorem ipsum just a dummy text in the disclosure section ',
+      header: 'Are there any hidden fees involved?',
+      content: 'Our platform operates with full transparency, disclosing all fees upfront for a trustworthy transaction experience.'
   },
   {
-    title: 'How will Distress Sale help me sell my Property?',
-    desc: 'lorem ipsum just a dummy text in the disclosure section ',
+      header: 'Is my personal information safe with your platform?',
+      content: 'We prioritize privacy, using top security measures to protect your data and transaction details.'
   },
   {
-    title: 'My Property is sold, how do I remove my ad from Distress Sale?',
-    desc: 'lorem ipsum just a dummy text in the disclosure section ',
+      header: 'How much can I save buying assets here compared to the open market?',
+      content: 'Buyers report significant savings, acquiring assets at prices well below market value, enhancing financial flexibility.'
   },
-];
+  {
+      header: 'What if the asset I bought has issues?',
+      content: 'We facilitate a transparent buying process, allowing for inspection and ensuring satisfaction with your purchase.'
+  },
+  {
+      header: 'Why should I choose your platform over traditional methods?',
+      content: 'Our marketplace offers unparalleled speed, unmatched deals, and a diverse portfolio, optimizing both buying and selling processes.'
+  },
+]
 
 const FAQ = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +53,7 @@ const FAQ = () => {
   };
   return (
     <div className="flex flex-col w-full gap-2">
-      {FAQDATA.map((data, index) => (
+      {faq.map((data, index) => (
         <Disclosure key={index}>
           {({ open }) => (
             <>
@@ -55,7 +63,7 @@ const FAQ = () => {
                   flex items-center  justify-between w-full pr-4 py-3 text-left space-x-5`}
                 >
                   <span className="flex-1 flex items-center md:items-start  gap-2 font-medium md:text-sm text-[3.5vw] ">
-                    {data.title}
+                    {data.header}
                   </span>
                   <span className="flex justify-center items-center">
                     {open ? (
@@ -67,7 +75,7 @@ const FAQ = () => {
                   </span>
                 </Disclosure.Button>
                 <Disclosure.Panel className="md:leading-relaxed  px-4  flex flex-col py-3 text-sm ">
-                  <p>{data.desc} </p>
+                  <p>{data.content} </p>
                 </Disclosure.Panel>
               </div>
             </>
