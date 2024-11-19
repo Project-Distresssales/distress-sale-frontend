@@ -6,19 +6,20 @@ import CategoryCard from '../components/CategoryCard/CategoryCard';
 import useAppTheme from '@/hooks/theme.hook';
 import SubNavbar from '../components/Navbar/SubNavbar';
 import { FadeIn } from '../components/Transitions/Transitions';
-import { algoliaClient } from '@/constants/api.constant';
+import API, { algoliaClient } from '@/constants/api.constant';
 import { Checkbox, FormControlLabel, Radio } from '@mui/material';
 import AltNavbar from '../components/Navbar/AltNavbar';
 import NewNavbar from '../components/Navbar/NewNavbar';
 import Footer from '../components/Footer/Footer';
 import FilterProduct from '../components/FilterProduct/FilterProduct';
 import { useRouter } from 'next/navigation';
+import useRequest from '@/services/request/request.service';
+import ProductSkeleton from '../components/ProductSkeleton/ProductSkeleton';
 
 export default function CarsForSale() {
+  const { makeRequest, isLoading } = useRequest();
   const { isMobile } = useAppTheme();
   const router = useRouter();
-
-  
 
   // Popular Categories
   const popularCategoryData = [
@@ -338,6 +339,34 @@ export default function CarsForSale() {
     },
   ];
 
+  const [catErrorCode, setCatErrorCode] = useState<any>(null);
+  const [ads, setAds] = useState([]);
+
+  const getAds = async () => {
+    makeRequest({
+      url: API.search,
+      method: 'POST',
+      data: {
+        searchBy: 'automobile',
+        keyword: '',
+        recordsPerPage: 0,
+        pageNo: 0,
+      },
+    })
+      .then((res) => {
+        const { status, data, message }: any = res?.data;
+        setAds(data);
+      })
+      .catch((error: any) => {
+        // toast.error(error?.response?.data?.message);
+        setCatErrorCode(error?.response?.data?.code);
+      });
+  };
+
+  useEffect(() => {
+    getAds();
+  }, []);
+
   return (
     <FadeIn>
       {!isMobile ? (
@@ -395,15 +424,21 @@ export default function CarsForSale() {
           </div> */}
 
           {/* Filtered Products */}
-          {automobile.length > 0 ? (
-            <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:mt-10 mt-5">
-              {automobile?.map((product, i) => (
-                <ProductCard key={i} product={product} />
-              ))}
+          {catErrorCode === 400 ? (
+            <div className="w-full h-[200px] flex justify-center items-center">
+              <p className="text-[#726C6C] font-[400] text-[16px] leading-tight">No products found.</p>
             </div>
           ) : (
-            <div className="w-full h-[300px] flex justify-center items-center">
-              <p className="text-[18px] text-gray-400 font-[500]">No Product Found!</p>
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-7 md:mt-10 mt-5">
+              {isLoading ? (
+                <ProductSkeleton />
+              ) : (
+                <>
+                  {ads?.map((product, i) => (
+                    <ProductCard key={i} product={product} />
+                  ))}
+                </>
+              )}
             </div>
           )}
         </div>

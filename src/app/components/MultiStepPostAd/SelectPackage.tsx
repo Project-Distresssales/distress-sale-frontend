@@ -57,16 +57,8 @@ const SelectPackage = () => {
         setPackages(data);
       },
       (error: any) => {
-        const res: any = error?.response;
-
-        const status = res?.status;
-        const data = res?.data;
-
-        if (status === 406) {
-          toast.error(data.message);
-        } else {
-          toast.error('Something went wrong! Pls try again!', {});
-        }
+        // toast.error(error?.response?.data?.message);
+        console.error(error);
       }
     );
   };
@@ -104,21 +96,21 @@ const SelectPackage = () => {
               bannerText={
                 item?.name === 'Basic' ? (
                   <div className="absolute mb-6 ml-4 mx-auto text-center text-[#101828]">
-                    <p className="md:text-xl text-[5vw] font-[700] leading-tight">Free</p>
-                    <p className="md:text-[12px] text-[3.2vw] font-[500] leading-tight">For</p>
-                    <p className="md:text-[14px] text-[3.5vw] font-[700] leading-tight">{item?.activeFor} Days</p>
+                    <p className="md:text-xl text-[5vw] font-[700] leading-none">Free</p>
+                    <p className="md:text-[12px] text-[3.2vw] font-[500] leading-none">For</p>
+                    <p className="md:text-[14px] text-[3.5vw] font-[700] leading-none">{item?.activeFor} Days</p>
                   </div>
                 ) : item?.name === 'Super' ? (
                   <div className="absolute mb-6 ml-4 mx-auto text-center text-[#101828]">
-                    <p className="md:text-[12px] text-[3.2vw] font-[700]">Get</p>
-                    <p className="md:text-xl text-[5vw] font-[500]">20X</p>
-                    <p className="md:text-[14px] text-[3.5vw] font-[700]">more Offer</p>
+                    <p className="md:text-[12px] text-[3.2vw] font-[700] leading-none">Get</p>
+                    <p className="md:text-xl text-[5vw] font-[500] leading-none">20X</p>
+                    <p className="md:text-[14px] text-[3.5vw] font-[700] leading-none">more Offer</p>
                   </div>
                 ) : (
                   <div className="absolute mb-6 ml-4 mx-auto text-center text-[#101828]">
-                    <p className="md:text-[12px] text-[3.2vw] font-[700]">Get</p>
-                    <p className="md:text-xl text-[5vw] font-[500]">50X</p>
-                    <p className="md:text-[14px] text-[3.5vw] font-[700]">more Offer</p>
+                    <p className="md:text-[12px] text-[3.2vw] font-[700] leading-none">Get</p>
+                    <p className="md:text-xl text-[5vw] font-[500] leading-none">50X</p>
+                    <p className="md:text-[14px] text-[3.5vw] font-[700] leading-none">more Offer</p>
                   </div>
                 )
               }
