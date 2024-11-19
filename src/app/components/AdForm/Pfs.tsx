@@ -99,9 +99,9 @@ const Pfs: React.FC<any> = ({
           </h3>
           <div className="flex items-center border border-[#E3E3E3] rounded-[8px] p-2">
             <div className="relative">
-              <button onClick={() => setDropdownOpen(!dropdownOpen)} className="bg-gray-200 px-3 py-1 rounded-l-md">
-                {currency.code}
-              </button>
+              <div  className="bg-gray-200 px-3 py-1 rounded-l-md">
+                AED
+              </div>
               {dropdownOpen && (
                 <div className="absolute z-10 left-0 mt-1 bg-white border rounded shadow-lg">
                   {currencyOptions.map((curr) => (
@@ -124,7 +124,6 @@ const Pfs: React.FC<any> = ({
               placeholder="Enter amount"
             />
             <span className="ml-3">
-              {currency.symbol}
               {convertedAmount}
             </span>
           </div>
@@ -136,9 +135,9 @@ const Pfs: React.FC<any> = ({
           </h3>
           <div className="flex items-center border border-[#E3E3E3] rounded-[8px] p-2">
             <div className="relative">
-              <button onClick={() => setDropdownOpen(!dropdownOpen)} className="bg-gray-200 px-3 py-1 rounded-l-md">
-                {currency.code}
-              </button>
+            <div  className="bg-gray-200 px-3 py-1 rounded-l-md">
+                AED
+              </div>
               {dropdownOpen && (
                 <div className="absolute z-10 left-0 mt-1 bg-white border rounded shadow-lg">
                   {currencyOptions.map((curr) => (
@@ -161,7 +160,6 @@ const Pfs: React.FC<any> = ({
               placeholder="Enter amount"
             />
             <span className="ml-3">
-              {currency.symbol}
               {convertedMarketAmount}
             </span>
           </div>

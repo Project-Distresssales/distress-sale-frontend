@@ -6,7 +6,7 @@ import CategoryCard from '../components/CategoryCard/CategoryCard';
 import SubNavbar from '../components/Navbar/SubNavbar';
 import { FadeIn } from '../components/Transitions/Transitions';
 import useAppTheme from '@/hooks/theme.hook';
-import { algoliaClient } from '@/constants/api.constant';
+import API, { algoliaClient } from '@/constants/api.constant';
 import Assets from '@/constants/assets.constant';
 import AltNavbar from '../components/Navbar/AltNavbar';
 import NewNavbar from '../components/Navbar/NewNavbar';
@@ -14,8 +14,11 @@ import { Checkbox, FormControlLabel, Radio, Slider, SliderThumb, styled } from '
 import Footer from '../components/Footer/Footer';
 import { useRouter } from 'next/navigation';
 import FilterProduct from '../components/FilterProduct/FilterProduct';
+import useRequest from '@/services/request/request.service';
+import ProductSkeleton from '../components/ProductSkeleton/ProductSkeleton';
 
 export default function PropertyForSale() {
+  const { makeRequest, isLoading } = useRequest();
   const { isMobile } = useAppTheme();
   const router = useRouter();
   // Searched categories
@@ -221,6 +224,34 @@ export default function PropertyForSale() {
   const commercial = categoriesData['commercial'] || [];
   // const categories = categoriesData['categories'] || [];
 
+  const [catErrorCode, setCatErrorCode] = useState<any>(null);
+  const [ads, setAds] = useState([]);
+
+  const getAds = async () => {
+    makeRequest({
+      url: API.search,
+      method: 'POST',
+      data: {
+        searchBy: 'property-for-sale',
+        keyword: '',
+        recordsPerPage: 0,
+        pageNo: 0,
+      },
+    })
+      .then((res) => {
+        const { status, data, message }: any = res?.data;
+        setAds(data);
+      })
+      .catch((error: any) => {
+        // toast.error(error?.response?.data?.message);
+        setCatErrorCode(error?.response?.data?.code);
+      });
+  };
+
+  useEffect(() => {
+    getAds();
+  }, []);
+
   return (
     <FadeIn>
       {!isMobile ? (
@@ -278,16 +309,22 @@ export default function PropertyForSale() {
           </div> */}
 
           {/* Filtered Products */}
-          {propertyForSale.length > 0 ? (
-            <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:mt-10 mt-5">
-              {propertyForSale?.map((product, i) => (
-                <ProductCard key={i} product={product} />
-              ))}
+          {catErrorCode === 400 ? (
+            <div className="w-full h-[200px] flex justify-center items-center">
+              <p className="text-[#726C6C] font-[400] text-[16px] leading-tight">No products found.</p>
             </div>
           ) : (
-            <div className="w-full h-[300px] flex justify-center items-center">
-              <p className="text-[18px] text-gray-400 font-[500]">No Property Found!</p>
-            </div>
+              <div className="grid md:grid-cols-3 grid-cols-1 gap-7 md:mt-10 mt-5">
+                {isLoading ? (
+                  <ProductSkeleton />
+                ) : (
+                  <>
+                    {ads?.map((product, i) => (
+                      <ProductCard key={i} product={product} />
+                    ))}
+                  </>
+                )}
+              </div>
           )}
         </div>
       </div>

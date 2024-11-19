@@ -17,6 +17,7 @@ import NewNavbar from './components/Navbar/NewNavbar';
 import AltNavbar from './components/Navbar/AltNavbar';
 import Footer from './components/Footer/Footer';
 import toast from 'react-hot-toast';
+import ProductSkeleton from './components/ProductSkeleton/ProductSkeleton';
 
 export default function LandingPage() {
   const { isMobile } = useAppTheme();
@@ -28,6 +29,7 @@ export default function LandingPage() {
   const [userState, setUserState] = React.useState<any>([]);
   const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState<boolean>(false);
   const { makeRequest: makeGetAdsRequest, isLoading: isLoadingGetAds } = useRequest();
+  const [catErrorCode, setCatErrorCode] = useState<any>(null);
   const [ads, setAds] = useState([]);
 
   const getAds = async () => {
@@ -38,7 +40,7 @@ export default function LandingPage() {
         searchBy: '',
         keyword: '',
         recordsPerPage: 0,
-        pageNo: 0
+        pageNo: 0,
       },
     })
       .then((res) => {
@@ -46,14 +48,14 @@ export default function LandingPage() {
         setAds(data);
       })
       .catch((error: any) => {
-        toast.error(error?.response?.data?.message);
+        // toast.error(error?.response?.data?.message);
+        setCatErrorCode(error?.response?.data?.code);
       });
   };
 
   useEffect(() => {
     getAds();
   }, []);
-
 
   const services = [
     {
@@ -370,19 +372,28 @@ export default function LandingPage() {
       </div>
 
       <div className="mt-20 w-full sm:px-10 px-5">
-
-      {ads?.length > 0 && (
-          <div>
-            <h1 className="text-[#00134D] md:text-[24px] text-[4.5vw] font-[700] leading-none">
-              Featured Products
-            </h1>
-            <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:mt-10 mt-5">
-              {ads?.map((product, i) => (
-                <ProductCard key={i} product={product} />
-              ))}
+        <div>
+          <h1 className="text-[#00134D] md:text-[24px] text-[4.5vw] font-[700] leading-none">Featured Products</h1>
+          {catErrorCode === 400 ? (
+            <div className="w-full h-[200px] flex justify-center items-center">
+              <p className="text-[#726C6C] font-[400] text-[16px] leading-tight">No featured products found.</p>
             </div>
-          </div>
-        )}
+          ) : (
+            <div className="mt-5">
+              <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:mt-10 mt-5">
+                {isLoadingGetAds ? (
+                  <ProductSkeleton />
+                ) : (
+                  <>
+                    {ads?.map((product, i) => (
+                      <ProductCard key={i} product={product} />
+                    ))}
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* {propertyForSale?.length > 0 && (
           <div>
