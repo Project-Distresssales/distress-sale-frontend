@@ -408,7 +408,7 @@ const ForgotPasswordModal = ({
 
   const onSubmit = async (values) => {
     makeRequest({
-      url: API.requestResetPassword,
+      url: '',
       data: values,
       method: 'POST',
     })

@@ -14,8 +14,8 @@ export const API = {
   facebookLogin: '/api/v1/auth/external/facebook/url',
 
   // reset-pass
-  requestResetPassword: '/users/auth/reset-password/request',
-  resetPass: '/users/auth/reset-password',
+  forgotPassword: '/api/v1/auth/forgot-password',
+  resetPassword: '/api/v1/auth/reset-password',
   // verification
   // verifyUser: '/verification/verify',
 
