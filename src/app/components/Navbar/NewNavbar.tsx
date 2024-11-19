@@ -14,9 +14,9 @@ import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { IoReturnUpBack } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import { AppModal } from '../Modals/Modals';
 import MyTextField from '../Fields/MyTextField';
+import toast from 'react-hot-toast';
 
 // Define the type for search results
 interface SearchResult {
@@ -624,6 +624,10 @@ const ForgotPasswordModal = ({
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const [form, setForm] = useState({
+    email: '',
+  });
+
   const onSubmit = async (values) => {
     makeRequest({
       url: API.forgotPassword,
@@ -631,31 +635,19 @@ const ForgotPasswordModal = ({
       method: 'POST',
     })
       .then((res) => {
-        const { status, data, message }: any = res;
+        const { status, data, message }: any = res.data;
         toast.success(message);
+        resetForm();
         onClose();
       })
-      .catch((error: AxiosError) => {
-        const res: any = error?.response;
-
-        const status = res?.status;
-        const data = res?.data;
-
-        if (status === 406) {
-          toast.error(data.message);
-        } else if (status === 400) {
-          setErrors(data.data);
-        } else {
-          toast.error('Something went wrong! Pls try again!', {});
-        }
+      .catch((error: any) => {
+        toast.error(error?.response?.data?.message);
       });
   };
 
-  const [form, setForm] = useState({
-    email: '',
-  });
 
-  const { values, handleSubmit, handleChange, errors, setErrors, getFieldProps } = useFormik({
+
+  const { values, handleSubmit, handleChange, errors, setErrors, getFieldProps, resetForm } = useFormik({
     initialValues: form,
     enableReinitialize: true,
     validateOnChange: true,
