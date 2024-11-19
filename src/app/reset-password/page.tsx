@@ -1,22 +1,24 @@
 'use client';
 import TextField from '@/app/components/Fields/TextField';
 import API from '@/constants/api.constant';
-import { catchAsync } from '@/helpers/api.helper';
 import useRequest from '@/services/request/request.service';
-import { profileLoginAction } from '@/store/profile.slice';
 import { CircularProgress } from '@mui/material';
-import next from 'next';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 export default function ResetPassword() {
   const router = useRouter();
-//   const [token, setToken] = useState('');
-//   const [email, setEmail] = useState('');
   const { isLoading, makeRequest } = useRequest();
-  const searchParams = new URLSearchParams(window.location.search);
-  const token = searchParams.get('token');
+  const [token, setToken] = useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    // This code runs only on the client
+    const searchParams = new URLSearchParams(window.location.search);
+    setToken(searchParams.get('token'));
+    setEmail(searchParams.get('email'));
+  }, []);
 
   const [formData, setFormData] = useState({
     password: '',
