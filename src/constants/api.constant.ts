@@ -36,7 +36,7 @@ export const API = {
   updateUser: '/api/v1/user/update',
   verifyUser: '/api/v1/user/verify-me',
 
-  getProduct: '/api/v1/property-for-sale',
+  getProduct: '/api/v1/ad/single',
   confirmPayment: '/api/v1/ad/confirm-payment',
   search: '/api/v1/ad/search',
 };

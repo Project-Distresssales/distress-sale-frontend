@@ -41,6 +41,7 @@ export default function NewNavbar() {
   const [favorite, setFavorite] = useState([]);
   const router = useRouter();
 
+
   const options = [
     { title: 'My Profile', to: '/profile' },
     // { title: 'My Public Profile', to: '/profile' },
@@ -308,7 +309,7 @@ export default function NewNavbar() {
         <div className="flex items-center gap-10">
           {/* Search Bar */}
           <div className="relative mx-auto">
-            {isAuthenticated && (
+            {/* {isAuthenticated && (
               <div className="relative flex items-center w-[350px] h-12 rounded-[10px] border border-gray-300 bg-white overflow-hidden">
                 <div className="grid place-items-center h-full w-12 text-gray-600">
                   <svg
@@ -335,7 +336,7 @@ export default function NewNavbar() {
                   onChange={(e) => setQuery(e.target.value)}
                 />
               </div>
-            )}
+            )} */}
 
             {/* Dropdown */}
             {query && (
