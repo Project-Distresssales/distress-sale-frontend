@@ -25,7 +25,7 @@ import Footer from './components/Footer/Footer';
 
 export default function LandingPage() {
   const { isMobile } = useAppTheme();
-  const { logout, isAuthenticated } = useGlobalState();
+  const { logout, isAuthenticated, profile } = useGlobalState();
   const { makeRequest: makeUserRequest, isLoading: isLoadingUser } = useRequest();
   const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
@@ -344,7 +344,7 @@ export default function LandingPage() {
 
       {/* Verification */}
       <div className="mt-10 sm:px-32 px-5">
-        {userState && userState?.verified ? <VerifiedUserBadge /> : <UnverifiedUserBadge />}
+        {profile && profile?.verified ? <VerifiedUserBadge /> : <UnverifiedUserBadge />}
       </div>
 
       <div className="mt-20 w-full sm:px-10 px-5">

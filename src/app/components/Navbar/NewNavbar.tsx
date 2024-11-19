@@ -67,16 +67,13 @@ export default function NewNavbar() {
 
   // Auth Modal button
   const handleOpenSmallModal = (e) => {
+    if (!isAuthenticated) return; // Prevent opening if unauthenticated
     setAnchorEl(e.currentTarget);
     setOpenMenuModal(!openMenuModal);
   };
   const handleCloseSmallModal = (option?: string) => {
     setAnchorEl(null);
     setOpenMenuModal(false);
-
-    if (option == 'Sign Out') {
-      logout();
-    }
   };
 
   // Login Modal
@@ -111,7 +108,7 @@ export default function NewNavbar() {
 
   // Forgot Password Modal
   const handleForgotPasswordModal = () => {
-    // setOpenForgotPasswordModal(true);
+    setOpenForgotPasswordModal(true);
     setOpenLoginModal(false);
   };
 
@@ -250,37 +247,37 @@ export default function NewNavbar() {
 
   const handleItemClick = (item: any, type: string) => {
     console.log('Clicked item type:', type);
-  
+
     // Map categories directly to routes
     const categoryRoutes: { [key: string]: string } = {
-      'automobile': '/automobile',
+      automobile: '/automobile',
       'Residential for Sale': '/property-for-sale',
       'Residential for Rent': '/property-for-rent',
-      'commercial': '/commercial',
+      commercial: '/commercial',
     };
-  
+
     // First check: route based on category type
     if (categoryRoutes[type]) {
       router.push(categoryRoutes[type]);
       return;
     }
-  
+
     // Second check: route based on item name contains
     const nameBasedRoutes: { [key: string]: string } = {
-      'commercial': '/commercial',
-      'car': '/automobile',
-      'race': '/automobile',
-      'truck': '/automobile',
-      'player': '/other',
+      commercial: '/commercial',
+      car: '/automobile',
+      race: '/automobile',
+      truck: '/automobile',
+      player: '/other',
       'villa compound': '/commercial',
-      'rent': '/property-for-rent',
-      'sale': '/property-for-sale',
-      'plumber': '/other',
-      'penthouse': '/commercial',
-      'motor': '/automobile',
-      'parts': '/automobile',
+      rent: '/property-for-rent',
+      sale: '/property-for-sale',
+      plumber: '/other',
+      penthouse: '/commercial',
+      motor: '/automobile',
+      parts: '/automobile',
     };
-  
+
     // Loop through each keyword and check if it is in the item name
     for (const [keyword, route] of Object.entries(nameBasedRoutes)) {
       if (item.name.toLowerCase().includes(keyword)) {
@@ -288,21 +285,21 @@ export default function NewNavbar() {
         return;
       }
     }
-  
+
     // Default route for unmatched categories or item names
     router.push('/others');
   };
 
   return (
     <>
-      <nav 
-      className={
-        scrollStyle
-          ? 'sticky top-0 z-20 flex items-center justify-between gap-5 px-4 py-2 bg-white animate-fade-in-down'
-          : 'relative flex items-center justify-between gap-5 px-4 py-2 bg-white animate-fade-in-up'
-      }
-      style={{ boxShadow: '0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08' }}
-      // className="flex items-center justify-between gap-5 px-4 py-2 bg-white border-b"
+      <nav
+        className={
+          scrollStyle
+            ? 'sticky top-0 z-20 flex items-center justify-between gap-5 px-4 py-2 bg-white animate-fade-in-down'
+            : 'relative flex items-center justify-between gap-5 px-4 py-2 bg-white animate-fade-in-up'
+        }
+        style={{ boxShadow: '0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08' }}
+        // className="flex items-center justify-between gap-5 px-4 py-2 bg-white border-b"
       >
         <Link href="/">
           <img src="/icons/distresssales-logo.svg" width={200} height={200} />
@@ -492,7 +489,52 @@ export default function NewNavbar() {
       </nav>
 
       <div className="flex items-center space-x-3 ml-5 cursor-pointer relative z-50">
-        {isAuthenticated ? (
+        {openMenuModal && (
+          <Menu id="city-menu" anchorEl={anchorEl} open={openMenuModal} onClose={() => handleCloseSmallModal()}>
+            {options.map((city) => (
+              <Link
+                key={city.title}
+                href={city.to}
+                className="text-secondary hover:text-secondary no-underline hover:no-underline"
+              >
+                <MenuItem onClick={() => handleCloseSmallModal(city.title)}>
+                  <div className="flex w-full gap-5 text-[14px] font-[500] underline-none">
+                    {city.title}
+
+                    {city.title === 'Get Verified' && (
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M6.98334 10.0001L8.99167 12.0167L13.0167 7.9834"
+                          stroke="#308652"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M8.95834 2.0416C9.53334 1.54993 10.475 1.54993 11.0583 2.0416L12.375 3.17493C12.625 3.3916 13.0917 3.5666 13.425 3.5666H14.8417C15.725 3.5666 16.45 4.2916 16.45 5.17493V6.5916C16.45 6.9166 16.625 7.3916 16.8417 7.6416L17.975 8.95827C18.4667 9.53327 18.4667 10.4749 17.975 11.0583L16.8417 12.3749C16.625 12.6249 16.45 13.0916 16.45 13.4249V14.8416C16.45 15.7249 15.725 16.4499 14.8417 16.4499H13.425C13.1 16.4499 12.625 16.6249 12.375 16.8416L11.0583 17.9749C10.4833 18.4666 9.54167 18.4666 8.95834 17.9749L7.64167 16.8416C7.39167 16.6249 6.925 16.4499 6.59167 16.4499H5.15C4.26667 16.4499 3.54167 15.7249 3.54167 14.8416V13.4166C3.54167 13.0916 3.36667 12.6249 3.15834 12.3749L2.03334 11.0499C1.55 10.4749 1.55 9.5416 2.03334 8.9666L3.15834 7.6416C3.36667 7.3916 3.54167 6.92494 3.54167 6.59994V5.1666C3.54167 4.28327 4.26667 3.55827 5.15 3.55827H6.59167C6.91667 3.55827 7.39167 3.38327 7.64167 3.1666L8.95834 2.0416Z"
+                          stroke="#308652"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                </MenuItem>
+              </Link>
+            ))}
+            <div
+              className="w-full py-2 px-4 flex justify-start items-center cursor-pointer hover:bg-red-50"
+              onClick={() => {
+                logout();
+                handleCloseSmallModal();
+              }}
+            >
+              <p className="text-red-500">Logout</p>
+            </div>
+          </Menu>
+        )}
+        {/* {isAuthenticated ? (
           <Menu id="city-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleCloseSmallModal()}>
             {options.map((city) => (
               <Link
@@ -532,9 +574,7 @@ export default function NewNavbar() {
               </p>
             </div>
           </Menu>
-        ) : (
-          null
-        )}
+        ) : null} */}
       </div>
 
       {/* Auth Signup  */}
@@ -564,6 +604,8 @@ export default function NewNavbar() {
 
       {/* verify email */}
       <RegistrationCompleteModal open={verificationModalOpen} onClose={handleVerificationModalOpenClose} />
+
+      <RegistrationCompleteModal open={verificationModalOpen} onClose={handleVerificationModalOpenClose} />
     </>
   );
 }
@@ -584,20 +626,14 @@ const ForgotPasswordModal = ({
 
   const onSubmit = async (values) => {
     makeRequest({
-      url: API.requestResetPassword,
+      url: API.forgotPassword,
       data: values,
       method: 'POST',
     })
       .then((res) => {
-        const { status, data, message }: any = res.data;
+        const { status, data, message }: any = res;
         toast.success(message);
         onClose();
-        // next();
-        // navigate(`/auth/verification?code=${data.code}`);
-        // setOpenSnackBar(true);
-        // setTimeout(() => {
-        //   openSnackBar && navigate(`/auth/verification?code=${data.code}`);
-        // }, 3000);
       })
       .catch((error: AxiosError) => {
         const res: any = error?.response;
@@ -750,3 +786,4 @@ const RegistrationCompleteModal = ({ open, onClose }: { open: boolean; onClose: 
     </AppModal>
   );
 };
+
