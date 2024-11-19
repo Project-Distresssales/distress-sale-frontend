@@ -1,14 +1,9 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Assets from '@/constants/assets.constant';
-import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter';
-import ServiceCard from './components/ServiceCard/ServiceCard';
-import SearchCategory from './components/SearchCategory/SearchCategory';
 import ProductCard from './components/Card/ProductCard';
 import useAppTheme from '@/hooks/theme.hook';
 import MobileNavbar from './components/Navbar/MovileNavbar';
-import Navbar from './components/Navbar/Navbar';
 import SubNavbar from './components/Navbar/SubNavbar';
 import { FadeIn } from './components/Transitions/Transitions';
 import API, { algoliaClient } from '@/constants/api.constant';
@@ -18,10 +13,10 @@ import SignupModal from './components/Auth/SIgnup/Signup';
 import useRequest from '@/services/request/request.service';
 import UnverifiedUserBadge from './components/Verification/UnverifiedUserBadge';
 import VerifiedUserBadge from './components/Verification/VerifiedUserBadge';
-import Image from 'next/image';
 import NewNavbar from './components/Navbar/NewNavbar';
 import AltNavbar from './components/Navbar/AltNavbar';
 import Footer from './components/Footer/Footer';
+import toast from 'react-hot-toast';
 
 export default function LandingPage() {
   const { isMobile } = useAppTheme();
@@ -32,6 +27,33 @@ export default function LandingPage() {
   const [sideBar, setSideBar] = useState<boolean>(false);
   const [userState, setUserState] = React.useState<any>([]);
   const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState<boolean>(false);
+  const { makeRequest: makeGetAdsRequest, isLoading: isLoadingGetAds } = useRequest();
+  const [ads, setAds] = useState([]);
+
+  const getAds = async () => {
+    makeGetAdsRequest({
+      url: API.search,
+      method: 'POST',
+      data: {
+        searchBy: '',
+        keyword: '',
+        recordsPerPage: 0,
+        pageNo: 0
+      },
+    })
+      .then((res) => {
+        const { status, data, message }: any = res?.data;
+        setAds(data);
+      })
+      .catch((error: any) => {
+        toast.error(error?.response?.data?.message);
+      });
+  };
+
+  useEffect(() => {
+    getAds();
+  }, []);
+
 
   const services = [
     {
@@ -348,7 +370,21 @@ export default function LandingPage() {
       </div>
 
       <div className="mt-20 w-full sm:px-10 px-5">
-        {propertyForSale?.length > 0 && (
+
+      {ads?.length > 0 && (
+          <div>
+            <h1 className="text-[#00134D] md:text-[24px] text-[4.5vw] font-[700] leading-none">
+              Featured Products
+            </h1>
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:mt-10 mt-5">
+              {ads?.map((product, i) => (
+                <ProductCard key={i} product={product} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* {propertyForSale?.length > 0 && (
           <div>
             <h1 className="text-[#00134D] md:text-[24px] text-[4.5vw] font-[700] leading-none">
               Popular in Property for Sale
@@ -359,7 +395,7 @@ export default function LandingPage() {
               ))}
             </div>
           </div>
-        )}
+        )} */}
 
         {automobile?.length > 0 && (
           <div className="mt-16">

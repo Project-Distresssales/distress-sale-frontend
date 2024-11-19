@@ -16,7 +16,7 @@ export default function ProductCard({ product }: any) {
   };
 
   const goToProduct = () => {
-    router.push(`product/${product?.objectID}`);
+    router.push(`product/${product?._id}`);
   };
 
   return (
@@ -53,26 +53,49 @@ export default function ProductCard({ product }: any) {
               <h1 className="text-[#00134D] md:text-[18px] text-[4.7vw] font-[600] poppins-font leading-none">
                 {currencyFormatter(product.price, 'AED')}
               </h1>
-              <p className="text-[#9F9C9C] line-through font-[400] text-[14px] leading-none">260,000.00</p>
+              <p className="text-[#9F9C9C] line-through font-[400] text-[14px] leading-none">
+                {currencyFormatter(product.openMarketPrice, 'AED')}
+              </p>
             </div>
 
-            <div>
+            {/* <div>
               <HeartIcon selected={selected} setSelected={handleFavorite} />
-            </div>
+            </div> */}
           </div>
-          <div className='mt-3'>
-            <h1 className="text-[#0A0A0B] md:text-[16px] text-[4.5vw] font-[400] leading-none">{product?.name || '-----'}</h1>
-            {/* <p className="text-[#344054] md:text-[15px] text-[4vw] font-[500] mt-5'">
+          <div className="mt-5">
+            <h1 className="text-[#0A0A0B] md:text-[18px] text-[4.5vw] font-[400] leading-none mb-2">
+              {product?.name || '-----'}
+            </h1>
+            <p className="text-[#344054] md:text-[14px] text-[4vw] font-[500] mt-10'">
               {sliceText(35, product?.shortDescription)}
-            </p> */}
-            <div className="flex items-center space-x-2 text-[#898384] md:text-[14px] text-[3vw] mt-7 font-[400]">
+            </p>
+            {/* <div className="flex items-center space-x-2 text-[#898384] md:text-[14px] text-[3vw] mt-7 font-[400]">
               <p>4 Beds</p>
               <span>•</span>
               <p>5 Baths</p>
+            </div> */}
+            <div className="flex gap-1 items-center mt-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#6B7280"
+                width="24"
+                height="24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 21.75c3.75-4.5 6-8.25 6-11.25 0-3.75-3-6.75-6-6.75s-6 3-6 6.75c0 3 2.25 6.75 6 11.25z"
+                />
+                <circle cx="12" cy="10.5" r="2.25" stroke="#6B7280" stroke-width="1.5" fill="none" />
+              </svg>
+
+              <p className="text-[#0A0A0B] md:text-[14px] text-[3.5vw] font-[500] mt-2 leading-none poppins-font">
+                {sliceText(35, product.location)}
+              </p>
             </div>
-            <p className="text-[#0A0A0B] md:text-[16px] text-[3.5vw] font-[500] mt-2 leading-none poppins-font">
-              {sliceText(35, product.location)}
-            </p>
           </div>
         </div>
       </div>
