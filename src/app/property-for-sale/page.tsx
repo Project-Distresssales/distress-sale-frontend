@@ -338,12 +338,26 @@ export default function PropertyForSale() {
                   </>
                 )}
                 {isAuthenticated && (
-                  <div
-                    onClick={logout}
-                    className="rounded-[8px] bg-[#FCEEEF] p-4 text-[4.5vw] font-[500] text-[#BA242E]"
-                  >
-                    Logout
-                  </div>
+                  <>
+                    <div onClick={() => router.push('/profile')} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                      My profile
+                    </div>
+                    <div onClick={() => router.push('/profile')} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                     Get Verified
+                    </div>
+                    <div onClick={() => router.push('/profile')} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                      My Ads
+                    </div>
+                    <div onClick={() => router.push('/profile')} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                      Account Settings
+                    </div>
+                    <div
+                      onClick={logout}
+                      className="rounded-[8px] bg-[#FCEEEF] p-4 text-[4.5vw] font-[500] text-[#BA242E]"
+                    >
+                      Logout
+                    </div>
+                  </>
                 )}
               </div>
             </FadeIn>

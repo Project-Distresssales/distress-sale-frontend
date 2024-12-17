@@ -335,12 +335,38 @@ export default function PropertyForRent() {
                   </>
                 )}
                 {isAuthenticated && (
-                  <div
-                    onClick={logout}
-                    className="rounded-[8px] bg-[#FCEEEF] p-4 text-[4.5vw] font-[500] text-[#BA242E]"
-                  >
-                    Logout
-                  </div>
+                  <>
+                    <div
+                      onClick={() => router.push('/profile')}
+                      className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]"
+                    >
+                      My profile
+                    </div>
+                    <div
+                      onClick={() => router.push('/profile')}
+                      className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]"
+                    >
+                      Get Verified
+                    </div>
+                    <div
+                      onClick={() => router.push('/profile')}
+                      className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]"
+                    >
+                      My Ads
+                    </div>
+                    <div
+                      onClick={() => router.push('/profile')}
+                      className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]"
+                    >
+                      Account Settings
+                    </div>
+                    <div
+                      onClick={logout}
+                      className="rounded-[8px] bg-[#FCEEEF] p-4 text-[4.5vw] font-[500] text-[#BA242E]"
+                    >
+                      Logout
+                    </div>
+                  </>
                 )}
               </div>
             </FadeIn>
@@ -349,7 +375,7 @@ export default function PropertyForRent() {
       )}
 
       <div className="sm:px-16 px-5 pb-32 mt-3">
-      <div className="rounded-[12px] w-full flex flex-col sm:flex-row">
+        <div className="rounded-[12px] w-full flex flex-col sm:flex-row">
           <div className="sm:rounded-l-[12px] rounded-t-[12px] w-full sm:p-7 p-5 h-[215px] bg-[#FDF1D7]">
             <h1 className="text-[#0A0A0B] sm:text-[18px] text-[4.5vw] font-[700] leading-tight">
               Looking to Rent Your Apartment?
@@ -398,23 +424,23 @@ export default function PropertyForRent() {
               <p className="text-[#726C6C] font-[400] sm:text-[16px] text-[4vw] leading-tight">No products found.</p>
             </div>
           ) : (
-              <div className="grid md:grid-cols-3 grid-cols-1 gap-7 md:mt-10 mt-5">
-                {isLoading ? (
-                  <ProductSkeleton />
-                ) : (
-                  <>
-                    {ads?.map((product, i) => (
-                      <ProductCard key={i} product={product} />
-                    ))}
-                  </>
-                )}
-              </div>
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-7 md:mt-10 mt-5">
+              {isLoading ? (
+                <ProductSkeleton />
+              ) : (
+                <>
+                  {ads?.map((product, i) => (
+                    <ProductCard key={i} product={product} />
+                  ))}
+                </>
+              )}
+            </div>
           )}
         </div>
       </div>
 
-  {/* Auth Signup  */}
-  <SignupModal
+      {/* Auth Signup  */}
+      <SignupModal
         open={openRegisterModal}
         onClose={handleRegisterModalClose}
         handleLoginModalOpen={handleLoginModalOpen}
@@ -430,7 +456,6 @@ export default function PropertyForRent() {
         handleForgotPasswordModal={handleForgotPasswordModal}
         handleRegisterModalOpen={handleRegisterModalOpen}
       />
-
 
       <Footer />
     </FadeIn>

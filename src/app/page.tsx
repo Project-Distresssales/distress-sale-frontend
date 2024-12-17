@@ -343,9 +343,68 @@ export default function LandingPage() {
               Explore
             </button>
           </div>
+
+           {/* <div className="w-full md:w-1/2">
+              <div className="flex items-center space-x-3">
+                <div className="grid flex-shrink-0 grid-cols-1 gap-y-3">
+                  <div className="h-[200px] w-[140px] overflow-hidden rounded-b-full transform-all hover:scale-105 ease-in-out duration-500">
+                    <img
+                      src="https://cdn.pixabay.com/photo/2019/12/02/08/04/city-4667143_960_720.jpg"
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
+                  <div className="h-[200px] w-[140px] overflow-hidden rounded-t-full transform-all hover:scale-105 ease-in-out duration-500">
+                    <img
+                     src="https://images.pexels.com/photos/1261427/pexels-photo-1261427.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                      alt=""
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
+                </div>
+                <div className="grid flex-shrink-0 grid-cols-1 gap-y-3">
+                  <div className="h-[200px] w-[140px] overflow-hidden rounded-t-full transform-all hover:scale-105 ease-in-out duration-500">
+                    <img
+                       src="https://cdn.pixabay.com/photo/2019/12/02/08/04/city-4667143_960_720.jpg"
+                      alt=""
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
+                  <div className="h-[200px] w-[140px] overflow-hidden rounded-[20px] transform-all hover:scale-105 ease-in-out duration-500">
+                    <img
+                     src="https://cdn.pixabay.com/photo/2019/12/02/08/04/city-4667143_960_720.jpg"
+                      alt=""
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
+                  <div className="h-[200px] w-[140px] overflow-hidden rounded-b-full transform-all hover:scale-105 ease-in-out duration-500">
+                    <img
+                      src="https://cdn.pixabay.com/photo/2019/12/02/08/04/city-4667143_960_720.jpg"
+                      alt=""
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
+                </div>
+                <div className="grid flex-shrink-0 grid-cols-1 gap-y-3">
+                  <div className="h-[200px] w-[140px] overflow-hidden rounded-b-full transform-all hover:scale-105 ease-in-out duration-500">
+                    <img
+                       src="https://cdn.pixabay.com/photo/2019/12/02/08/04/city-4667143_960_720.jpg"
+                      alt=""
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
+                  <div className="h-[200px] w-[140px] overflow-hidden rounded-t-full transform-all hover:scale-105 ease-in-out duration-500">
+                    <img
+                     src="https://cdn.pixabay.com/photo/2019/12/02/08/04/city-4667143_960_720.jpg"
+                      alt=""
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
+                </div>
+              </div>
+          </div> */}
           <div className="relative mt-14 sm:mt-0 flex justify-center items-center">
-            <div className="bg-[#FDF1D7] sm:w-[450px] sm:h-[450px] rounded-full">
-              <img src="/images/hero-1.svg" className="sm:w-full sm:h-full h-[400px] bg-cover bg-no-repeat" />
+            <div className="bg-[#FDF1D7] sm:w-[450px] sm:h-[450px] w-full h-full rounded-full">
+              <img src="https://cdn.pixabay.com/photo/2015/09/14/17/31/dubai-939844_960_720.jpg" className="w-full h-full rounded-full bg-cover bg-no-repeat" />
             </div>
           </div>
         </div>
