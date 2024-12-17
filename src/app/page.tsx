@@ -345,7 +345,7 @@ export default function LandingPage() {
           </div>
           <div className="relative mt-14 sm:mt-0 flex justify-center items-center">
             <div className="bg-[#FDF1D7] sm:w-[450px] sm:h-[450px] rounded-full">
-              <img src="/images/hero-1.svg" className="sm:w-full sm:h-full bg-cover bg-no-repeat" />
+              <img src="/images/hero-1.svg" className="sm:w-full sm:h-full h-[400px] bg-cover bg-no-repeat" />
             </div>
           </div>
         </div>

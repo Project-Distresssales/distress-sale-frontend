@@ -16,11 +16,20 @@ import { useRouter } from 'next/navigation';
 import FilterProduct from '../components/FilterProduct/FilterProduct';
 import useRequest from '@/services/request/request.service';
 import ProductSkeleton from '../components/ProductSkeleton/ProductSkeleton';
+import useGlobalState from '@/hooks/globalstate.hook';
+import MobileNavbar from '../components/Navbar/MovileNavbar';
+import LoginModal from '../components/Auth/Login/Login';
+import SignupModal from '../components/Auth/SIgnup/Signup';
 
 export default function PropertyForRent() {
   const { makeRequest, isLoading } = useRequest();
   const { isMobile } = useAppTheme();
   const router = useRouter();
+  const [sideBar, setSideBar] = useState<boolean>(false);
+  const { logout, isAuthenticated, profile } = useGlobalState();
+  const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
+  const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
+  const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState<boolean>(false);
 
   // Searched categories
   const recommendedSearch = [
@@ -249,6 +258,50 @@ export default function PropertyForRent() {
     getAds();
   }, []);
 
+  // Login Modal
+  const handleLoginModal = () => {
+    setOpenLoginModal(!openLoginModal);
+    setSideBar(false);
+  };
+
+  const handleLoginModalClose = () => {
+    setOpenLoginModal(false);
+  };
+
+  const handleLoginModalOpen = () => {
+    setOpenLoginModal(true);
+    setOpenRegisterModal(false);
+    setSideBar(false);
+  };
+
+  // Register Modal
+  const handleRegisterModal = () => {
+    setOpenRegisterModal(!openRegisterModal);
+    setSideBar(false);
+  };
+
+  const handleRegisterModalClose = () => {
+    setOpenRegisterModal(false);
+  };
+
+  const handleRegisterModalOpen = () => {
+    setOpenLoginModal(false);
+    setOpenRegisterModal(true);
+    setSideBar(false);
+  };
+
+  // Forgot Password Modal
+  const handleForgotPasswordModal = () => {
+    setOpenForgotPasswordModal(true);
+    setOpenLoginModal(false);
+  };
+
+  const [verificationModalOpen, setVerificationModalOpen] = useState(false);
+
+  const handleVerificationModalOpen = () => {
+    setVerificationModalOpen(true);
+  };
+
   return (
     <FadeIn>
       {!isMobile ? (
@@ -261,16 +314,47 @@ export default function PropertyForRent() {
         </>
       ) : (
         <>
-          {/* <MobileNavbar sideBar={sideBar} setSideBar={setSideBar} /> */}
+          <MobileNavbar sideBar={sideBar} setSideBar={setSideBar} />
           <SubNavbar />
+
+          {/* Drop Down */}
+          {sideBar && (
+            <FadeIn>
+              <div className="md:hidden block w-[60%] h-auto bg-white shadow text-center rounded-[12px] absolute right-5 z-20 space-y-3 p-5 top-16">
+                {!isAuthenticated && (
+                  <>
+                    <div onClick={handleLoginModal} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                      Sign In
+                    </div>
+                    <div
+                      onClick={handleRegisterModal}
+                      className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]"
+                    >
+                      Sign Up
+                    </div>
+                  </>
+                )}
+                {isAuthenticated && (
+                  <div
+                    onClick={logout}
+                    className="rounded-[8px] bg-[#FCEEEF] p-4 text-[4.5vw] font-[500] text-[#BA242E]"
+                  >
+                    Logout
+                  </div>
+                )}
+              </div>
+            </FadeIn>
+          )}
         </>
       )}
 
-      <div className="px-16 pb-32 mt-3">
-        <div className="rounded-[12px] w-full flex">
-          <div className="rounded-l-[12px] w-full p-7 h-[215px] bg-[#FDF1D7]">
-            <h1 className="text-[#0A0A0B] text-[18px] font-[700] leading-tight">Looking to Rent Your Apartment?</h1>
-            <p className="text-[#0A0A0B] font-[400] text-[16px] mt-2">
+      <div className="sm:px-16 px-5 pb-32 mt-3">
+      <div className="rounded-[12px] w-full flex flex-col sm:flex-row">
+          <div className="sm:rounded-l-[12px] rounded-t-[12px] w-full sm:p-7 p-5 h-[215px] bg-[#FDF1D7]">
+            <h1 className="text-[#0A0A0B] sm:text-[18px] text-[4.5vw] font-[700] leading-tight">
+              Looking to Rent Your Apartment?
+            </h1>
+            <p className="text-[#0A0A0B] font-[400] sm:text-[16px] text-[3.5vw] mt-2">
               Create an advertisement to effectively reach a wider audience and establish connections with potential
               buyers.
             </p>
@@ -281,8 +365,11 @@ export default function PropertyForRent() {
               Post Ad
             </button>
           </div>
-          <div className="rounded-r-[12px] bg-green-200 w-full h-[215px]">
-            <img src="/images/pfs.jpeg" className="w-full h-full object-cover rounded-r-[12px]" />
+          <div className="sm:rounded-r-[12px] rounded-b-[12px] sm:rounded-b-[0px] bg-green-200 w-full sm:h-[215px] h-[100px]">
+            <img
+              src="/images/rent.jpg"
+              className="w-full h-full object-cover sm:rounded-r-[12px] rounded-b-[12px] sm:rounded-b-[0px]"
+            />
           </div>
         </div>
 
@@ -299,7 +386,7 @@ export default function PropertyForRent() {
         </div>
 
         {/* Filter and Product */}
-        <h1 className="text-[28px] font-[700] text-[#00134D] mt-10">Featured Properties</h1>
+        <h1 className="sm:text-[28px] text-[6vw] font-[700] text-[#00134D] mt-10">Featured Properties</h1>
         <div className="flex gap-10">
           {/* <div className="mt-5">
             <FilterProduct />
@@ -308,7 +395,7 @@ export default function PropertyForRent() {
           {/* Filtered Products */}
           {catErrorCode === 400 ? (
             <div className="w-full h-[200px] flex justify-center items-center">
-              <p className="text-[#726C6C] font-[400] text-[16px] leading-tight">No products found.</p>
+              <p className="text-[#726C6C] font-[400] sm:text-[16px] text-[4vw] leading-tight">No products found.</p>
             </div>
           ) : (
               <div className="grid md:grid-cols-3 grid-cols-1 gap-7 md:mt-10 mt-5">
@@ -325,6 +412,25 @@ export default function PropertyForRent() {
           )}
         </div>
       </div>
+
+  {/* Auth Signup  */}
+  <SignupModal
+        open={openRegisterModal}
+        onClose={handleRegisterModalClose}
+        handleLoginModalOpen={handleLoginModalOpen}
+        next={() => {
+          handleVerificationModalOpen();
+        }}
+      />
+
+      {/* Auth Login Modal */}
+      <LoginModal
+        open={openLoginModal}
+        onClose={handleLoginModalClose}
+        handleForgotPasswordModal={handleForgotPasswordModal}
+        handleRegisterModalOpen={handleRegisterModalOpen}
+      />
+
 
       <Footer />
     </FadeIn>
