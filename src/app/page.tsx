@@ -18,6 +18,7 @@ import AltNavbar from './components/Navbar/AltNavbar';
 import Footer from './components/Footer/Footer';
 import toast from 'react-hot-toast';
 import ProductSkeleton from './components/ProductSkeleton/ProductSkeleton';
+import { useRouter } from 'next/navigation';
 
 export default function LandingPage() {
   const { isMobile } = useAppTheme();
@@ -31,6 +32,7 @@ export default function LandingPage() {
   const { makeRequest: makeGetAdsRequest, isLoading: isLoadingGetAds } = useRequest();
   const [catErrorCode, setCatErrorCode] = useState<any>(null);
   const [ads, setAds] = useState([]);
+  const router = useRouter();
 
   const getAds = async () => {
     makeGetAdsRequest({
@@ -312,12 +314,38 @@ export default function LandingPage() {
                   </>
                 )}
                 {isAuthenticated && (
-                  <div
-                    onClick={logout}
-                    className="rounded-[8px] bg-[#FCEEEF] p-4 text-[4.5vw] font-[500] text-[#BA242E]"
-                  >
-                    Logout
-                  </div>
+                  <>
+                    <div
+                      onClick={() => router.push('/profile')}
+                      className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]"
+                    >
+                      My profile
+                    </div>
+                    <div
+                      onClick={() => router.push('/profile')}
+                      className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]"
+                    >
+                      Get Verified
+                    </div>
+                    <div
+                      onClick={() => router.push('/profile')}
+                      className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]"
+                    >
+                      My Ads
+                    </div>
+                    <div
+                      onClick={() => router.push('/profile')}
+                      className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]"
+                    >
+                      Account Settings
+                    </div>
+                    <div
+                      onClick={logout}
+                      className="rounded-[8px] bg-[#FCEEEF] p-4 text-[4.5vw] font-[500] text-[#BA242E]"
+                    >
+                      Logout
+                    </div>
+                  </>
                 )}
               </div>
             </FadeIn>
@@ -337,14 +365,14 @@ export default function LandingPage() {
               Explore the Best Deals: Discover, Connect, Transact.
             </p>
             <button
-              type="button"
+              onClick={() => router.push('/post-ad')}
               className="py-[18px] px-[74px] bg-[#00134D] rounded-[5px] text-[#FAFAFA] text-[16px] font-[400] mt-7"
             >
               Explore
             </button>
           </div>
 
-           {/* <div className="w-full md:w-1/2">
+          {/* <div className="w-full md:w-1/2">
               <div className="flex items-center space-x-3">
                 <div className="grid flex-shrink-0 grid-cols-1 gap-y-3">
                   <div className="h-[200px] w-[140px] overflow-hidden rounded-b-full transform-all hover:scale-105 ease-in-out duration-500">
@@ -404,7 +432,10 @@ export default function LandingPage() {
           </div> */}
           <div className="relative mt-14 sm:mt-0 flex justify-center items-center">
             <div className="bg-[#FDF1D7] sm:w-[450px] sm:h-[450px] w-full h-full rounded-full">
-              <img src="https://cdn.pixabay.com/photo/2015/09/14/17/31/dubai-939844_960_720.jpg" className="w-full h-full rounded-full bg-cover bg-no-repeat" />
+              <img
+                src="https://cdn.pixabay.com/photo/2015/09/14/17/31/dubai-939844_960_720.jpg"
+                className="w-full h-full rounded-full bg-cover bg-no-repeat"
+              />
             </div>
           </div>
         </div>
