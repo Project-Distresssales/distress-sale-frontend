@@ -16,12 +16,22 @@ import MobileNavbar from '../components/Navbar/MovileNavbar';
 import SubNavbar from '../components/Navbar/SubNavbar';
 import NewNavbar from '../components/Navbar/NewNavbar';
 import AltNavbar from '../components/Navbar/AltNavbar';
+import useGlobalState from '@/hooks/globalstate.hook';
+import { useRouter } from 'next/navigation';
+import LoginModal from '../components/Auth/Login/Login';
+import SignupModal from '../components/Auth/SIgnup/Signup';
 
 const PostAd = () => {
   const { isLoading, makeRequest } = useRequest();
   const [currentStep, setCurrentStep] = useState(1);
   const [packages, setPackages] = useState<any[]>([]);
   const { isMobile } = useAppTheme();
+  const [sideBar, setSideBar] = useState<boolean>(false);
+  const { logout, isAuthenticated, profile } = useGlobalState();
+  const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
+  const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
+  const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleGetPackages = async () => {
     catchAsync(
@@ -105,19 +115,108 @@ const PostAd = () => {
     newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
   };
 
+  // Login Modal
+  const handleLoginModal = () => {
+    setOpenLoginModal(!openLoginModal);
+    setSideBar(false);
+  };
+
+  const handleLoginModalClose = () => {
+    setOpenLoginModal(false);
+  };
+
+  const handleLoginModalOpen = () => {
+    setOpenLoginModal(true);
+    setOpenRegisterModal(false);
+    setSideBar(false);
+  };
+
+  // Register Modal
+  const handleRegisterModal = () => {
+    setOpenRegisterModal(!openRegisterModal);
+    setSideBar(false);
+  };
+
+  const handleRegisterModalClose = () => {
+    setOpenRegisterModal(false);
+  };
+
+  const handleRegisterModalOpen = () => {
+    setOpenLoginModal(false);
+    setOpenRegisterModal(true);
+    setSideBar(false);
+  };
+
+  // Forgot Password Modal
+  const handleForgotPasswordModal = () => {
+    setOpenForgotPasswordModal(true);
+    setOpenLoginModal(false);
+  };
+
+  const [verificationModalOpen, setVerificationModalOpen] = useState(false);
+
+  const handleVerificationModalOpen = () => {
+    setVerificationModalOpen(true);
+  };
+
+
   return (
     <FadeIn>
-      {!isMobile ? (
+       {!isMobile ? (
         <>
           <NewNavbar />
+          {/* <AltNavbar /> */}
           {/* <div className="mt-5">
             <SubNavbar />
           </div> */}
         </>
       ) : (
         <>
-          <MobileNavbar />
-          <SubNavbar />
+          <MobileNavbar sideBar={sideBar} setSideBar={setSideBar} />
+          {/* <SubNavbar /> */}
+
+          {/* Drop Down */}
+          {sideBar && (
+            <FadeIn>
+              <div className="md:hidden block w-[60%] h-auto bg-white shadow text-center rounded-[12px] absolute right-5 z-20 space-y-3 p-5 top-16">
+                {!isAuthenticated && (
+                  <>
+                    <div onClick={handleLoginModal} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                      Sign In
+                    </div>
+                    <div
+                      onClick={handleRegisterModal}
+                      className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]"
+                    >
+                      Sign Up
+                    </div>
+                  </>
+                )}
+                {isAuthenticated && (
+                  <>
+                    <div onClick={() => router.push('/')} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                      Home
+                    </div>
+                    <div onClick={() => router.push('/profile')} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                     Get Verified
+                    </div>
+                    <div onClick={() => router.push('/profile')} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                      My Ads
+                    </div>
+                    <div onClick={() => router.push('/profile')} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                      Account Settings
+                    </div>
+                    <div
+                      onClick={logout}
+                      className="rounded-[8px] bg-[#FCEEEF] p-4 text-[4.5vw] font-[500] text-[#BA242E]"
+                    >
+                      Logout
+                    </div>
+                  </>
+                )}
+              </div>
+            </FadeIn>
+          )}
         </>
       )}
       <div className="flex flex-col items-stretch px-5 py-14 pb-16 max-w-[1000px] mx-auto">
@@ -144,6 +243,24 @@ const PostAd = () => {
           </div>
         </div>
       </div>
+
+       {/* Auth Signup  */}
+       <SignupModal
+        open={openRegisterModal}
+        onClose={handleRegisterModalClose}
+        handleLoginModalOpen={handleLoginModalOpen}
+        next={() => {
+          handleVerificationModalOpen();
+        }}
+      />
+
+      {/* Auth Login Modal */}
+      <LoginModal
+        open={openLoginModal}
+        onClose={handleLoginModalClose}
+        handleForgotPasswordModal={handleForgotPasswordModal}
+        handleRegisterModalOpen={handleRegisterModalOpen}
+      />
     </FadeIn>
   );
 };

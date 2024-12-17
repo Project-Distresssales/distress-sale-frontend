@@ -241,7 +241,7 @@ const Step5: FC<Step5Props> = ({ handleClick, currentStep, steps }) => {
   ];
   return (
     <div>
-      <h1 className="text-[24px] font-[700] text-[#00134D]">Product Information</h1>
+      <h1 className="sm:text-[24px] text-[6vw] font-[700] text-[#00134D]">Product Information</h1>
       <div className="mt-7">
         {/* <p className="text-[18px] font-[400] text-[#0A0A0B]">Product Section</p>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-8 gap-x-4 mt-2">

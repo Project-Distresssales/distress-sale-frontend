@@ -152,9 +152,9 @@ const Step3: FC<Step3Props> = ({ handleClick, currentStep, steps }) => {
 
   return (
     <div className="w-full">
-      <h1 className="text-[24px] font-[700] text-[#00134D]">Product Category</h1>
+      <h1 className="sm:text-[24px] text-[6vw] font-[700] text-[#00134D]">Product Category</h1>
 
-      <div className="flex gap-5">
+      <div className="flex flex-col sm:flex-row gap-5 mt-7">
         <MyTextField
           id="productCategory"
           name="productCategory"
@@ -196,11 +196,14 @@ const Step3: FC<Step3Props> = ({ handleClick, currentStep, steps }) => {
       </div>
 
       <div className="mt-10 w-full">
-        <p className="text-[18px] font-[400] text-[#0A0A0B]">Ad Specification</p>
+        {selectedSubCategory && selectedSubCategory.formData.length > 0 && (
+          <p className="sm:text-[18px] text-[5vw] font-[400] text-[#0A0A0B]">Ad Specification</p>
+        )}
+
         <div className="mt-5">
           {/* Render Form Fields Based on Selected Subcategory's formData */}
           {selectedSubCategory && selectedSubCategory.formData.length > 0 && (
-            <form className='grid w-full grid-cols-3 gap-5'>
+            <form className="grid w-full sm:grid-cols-3 grid-cols-1 gap-5">
               {selectedSubCategory.formData.map((field) => (
                 <MyTextField
                   key={field.fieldName}
