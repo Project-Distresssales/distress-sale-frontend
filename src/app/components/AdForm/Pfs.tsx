@@ -72,7 +72,7 @@ const Pfs: React.FC<any> = ({
 
   return (
     <div className=" flex flex-col mb-16">
-      <div className="w-full grid grid-cols-2 gap-5 mb-4">
+      <div className="w-full grid sm:grid-cols-2 grid-cols-1 gap-5 mb-4">
         <MyTextField
           id="title"
           name="title"

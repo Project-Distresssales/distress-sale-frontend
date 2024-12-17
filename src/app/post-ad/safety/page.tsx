@@ -1,4 +1,6 @@
 'use client';
+import LoginModal from '@/app/components/Auth/Login/Login';
+import SignupModal from '@/app/components/Auth/SIgnup/Signup';
 import { AppModal } from '@/app/components/Modals/Modals';
 import AltNavbar from '@/app/components/Navbar/AltNavbar';
 import MobileNavbar from '@/app/components/Navbar/MovileNavbar';
@@ -6,11 +8,13 @@ import NewNavbar from '@/app/components/Navbar/NewNavbar';
 import SubNavbar from '@/app/components/Navbar/SubNavbar';
 import { FadeIn } from '@/app/components/Transitions/Transitions';
 import API from '@/constants/api.constant';
+import useGlobalState from '@/hooks/globalstate.hook';
 import useAppTheme from '@/hooks/theme.hook';
 import useRequest from '@/services/request/request.service';
 import { agreement, safetyMeasure } from '@/utils/data';
 import { ButtonBase } from '@mui/material';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -47,6 +51,12 @@ export default function Safety() {
   const [adImageUrl, setAdImageUrl] = useState<string[]>([]);
   const [adDocumentUrl, setAdDocumentUrl] = useState<string[]>([]);
   const [formData, setFormData] = useState({});
+  const [sideBar, setSideBar] = useState<boolean>(false);
+  const { logout, isAuthenticated, profile } = useGlobalState();
+  const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
+  const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
+  const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState<boolean>(false);
+  const router = useRouter();
 
   // Get Stored Post Ad data from Local storage
   useEffect(() => {
@@ -178,21 +188,110 @@ export default function Safety() {
     }
   };
 
+  // Login Modal
+  const handleLoginModal = () => {
+    setOpenLoginModal(!openLoginModal);
+    setSideBar(false);
+  };
+
+  const handleLoginModalClose = () => {
+    setOpenLoginModal(false);
+  };
+
+  const handleLoginModalOpen = () => {
+    setOpenLoginModal(true);
+    setOpenRegisterModal(false);
+    setSideBar(false);
+  };
+
+  // Register Modal
+  const handleRegisterModal = () => {
+    setOpenRegisterModal(!openRegisterModal);
+    setSideBar(false);
+  };
+
+  const handleRegisterModalClose = () => {
+    setOpenRegisterModal(false);
+  };
+
+  const handleRegisterModalOpen = () => {
+    setOpenLoginModal(false);
+    setOpenRegisterModal(true);
+    setSideBar(false);
+  };
+
+  // Forgot Password Modal
+  const handleForgotPasswordModal = () => {
+    setOpenForgotPasswordModal(true);
+    setOpenLoginModal(false);
+  };
+
+  const [verificationModalOpen, setVerificationModalOpen] = useState(false);
+
+  const handleVerificationModalOpen = () => {
+    setVerificationModalOpen(true);
+  };
+
   return (
     <FadeIn>
       {!isMobile ? (
         <>
           <NewNavbar />
-          <AltNavbar />
-          <SubNavbar />
+          {/* <AltNavbar /> */}
+          {/* <div className="mt-5">
+            <SubNavbar />
+          </div> */}
         </>
       ) : (
         <>
-          <MobileNavbar />
-          <SubNavbar />
+          <MobileNavbar sideBar={sideBar} setSideBar={setSideBar} />
+          {/* <SubNavbar /> */}
+
+          {/* Drop Down */}
+          {sideBar && (
+            <FadeIn>
+              <div className="md:hidden block w-[60%] h-auto bg-white shadow text-center rounded-[12px] absolute right-5 z-20 space-y-3 p-5 top-16">
+                {!isAuthenticated && (
+                  <>
+                    <div onClick={handleLoginModal} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                      Sign In
+                    </div>
+                    <div
+                      onClick={handleRegisterModal}
+                      className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]"
+                    >
+                      Sign Up
+                    </div>
+                  </>
+                )}
+                {isAuthenticated && (
+                  <>
+                    <div onClick={() => router.push('/')} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                      Home
+                    </div>
+                    <div onClick={() => router.push('/profile')} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                     Get Verified
+                    </div>
+                    <div onClick={() => router.push('/profile')} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                      My Ads
+                    </div>
+                    <div onClick={() => router.push('/profile')} className="rounded-[8px] bg-[#f7f7f7] p-4 text-[4.5vw] font-[500]">
+                      Account Settings
+                    </div>
+                    <div
+                      onClick={logout}
+                      className="rounded-[8px] bg-[#FCEEEF] p-4 text-[4.5vw] font-[500] text-[#BA242E]"
+                    >
+                      Logout
+                    </div>
+                  </>
+                )}
+              </div>
+            </FadeIn>
+          )}
         </>
       )}
-      <div className="h-auto pt-[60px] pb-[250px] mx:px-0 px-5">
+      <div className="h-auto pt-[50px] pb-[250px] mx:px-0 px-5">
         <div className="md:w-[600px] w-full flex justify-center items-center mx-auto">
           <div>
             <div className="text-center space-y-3">
@@ -309,6 +408,24 @@ export default function Safety() {
           </div>
         </div>
       </AppModal>
+
+       {/* Auth Signup  */}
+       <SignupModal
+        open={openRegisterModal}
+        onClose={handleRegisterModalClose}
+        handleLoginModalOpen={handleLoginModalOpen}
+        next={() => {
+          handleVerificationModalOpen();
+        }}
+      />
+
+      {/* Auth Login Modal */}
+      <LoginModal
+        open={openLoginModal}
+        onClose={handleLoginModalClose}
+        handleForgotPasswordModal={handleForgotPasswordModal}
+        handleRegisterModalOpen={handleRegisterModalOpen}
+      />
     </FadeIn>
   );
 }
