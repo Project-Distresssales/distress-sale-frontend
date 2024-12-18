@@ -1,19 +1,18 @@
 'use client';
 
-import { useCallback, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import API from "@/constants/api.constant";
-import { MdOutlineAddPhotoAlternate } from "react-icons/md";
-import { Backdrop, IconButton } from '@mui/material'
-import React from 'react'
-import axios, { AxiosProgressEvent } from "axios";
-import { ZoomInOut } from "../Transitions/Transitions";
-import { useDropzone } from "react-dropzone";
-import { sliceText } from "@/helpers";
-import Assets from "@/constants/assets.constant";
-import Image from "next/image";
-
+import { useCallback, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import API from '@/constants/api.constant';
+import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
+import { Backdrop, IconButton } from '@mui/material';
+import React from 'react';
+import axios, { AxiosProgressEvent } from 'axios';
+import { ZoomInOut } from '../Transitions/Transitions';
+import { useDropzone } from 'react-dropzone';
+import { sliceText } from '@/helpers';
+import Assets from '@/constants/assets.constant';
+import Image from 'next/image';
 
 const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
   const [documents, setFiles] = useState<any>(null);
@@ -21,27 +20,25 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
   const [urlNames, setUrlNames] = useState<string[]>([]);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
-  const [buttonText, setButtonText] = useState("Click to Upload");
+  const [buttonText, setButtonText] = useState('Click to Upload');
+  const [hasSelectedFile, setHasSelectedFile] = useState(false);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      'image/*': ['.jpeg', '.png', '.gif'],
+      'image/*': ['.jpeg', '.png'],
       'application/pdf': ['.pdf'],
       'text/plain': ['.txt'],
     },
     onDrop: (acceptedFiles: File[]) => {
+      setHasSelectedFile(acceptedFiles.length > 0);
       setFiles(acceptedFiles);
     },
   });
-  
 
   const handleProgress = (progressEvent: { loaded: number; total?: number | undefined }) => {
-    const percentage = Math.round(
-      (progressEvent.loaded * 100) / (progressEvent.total || 1),
-    );
+    const percentage = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1));
     setUploadProgress(percentage);
   };
-
 
   const uploadImages = async () => {
     const uploadedUrls: string[] = [];
@@ -80,7 +77,7 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
       setIsUploading(false);
       setFiles(null);
       setUploadProgress(0);
-      setButtonText("Proceed");
+      setButtonText('Proceed');
     }
   };
 
@@ -91,18 +88,16 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
     } else {
       uploadImages();
     }
-  }
+  };
 
   const handleButton = () => {
-    if(documents?.length > 0) {
+    if (documents?.length > 0) {
       saveImages();
     } else {
       setIsModal(false);
       toast.success('Document Saved Successful!');
     }
-  }
-
-
+  };
 
   const deleteFile = (name: any) => {
     let filtered: any[] = [];
@@ -117,6 +112,7 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
       setFiles(null);
       setUploadProgress(0);
       setIsUploading(false);
+      setHasSelectedFile(false);
     } else {
       setFiles(filtered);
       setUploadProgress(0);
@@ -125,6 +121,7 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
 
   const deleteImageFromUrls = (urlToDelete: string) => {
     setUrls((prevUrls) => prevUrls.filter((url) => url !== urlToDelete));
+    setHasSelectedFile(false);
   };
 
   // Save URLs to local storage when uploads complete
@@ -132,7 +129,6 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
     localStorage.setItem('uploadedDocumentUrls', JSON.stringify(urls));
     localStorage.setItem('uploadedDocumentNames', JSON.stringify(urlNames));
   }, [urls, urlNames]);
-
 
   return (
     <Backdrop
@@ -142,48 +138,62 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
         zIndex: 999,
       }}
     >
-      <ZoomInOut target={showmodal} className="fixed h-full top-0 left-0 right-0 md:w-full w-[90%] flex justify-center items-center mx-auto">
+      <ZoomInOut
+        target={showmodal}
+        className="fixed h-full top-0 left-0 right-0 md:w-full w-[90%] flex justify-center items-center mx-auto"
+      >
         <div className="relative flex flex-col items-center justify-center bg-white px-10 py-10 rounded-[8px] w-[700px] h-auto">
           <IconButton
             className="absolute top-0 right-0 m-3 text-gray-500 hover:text-gray-700 cursor-pointer p-4"
             onClick={() => setIsModal(false)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-              <path d="M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z" stroke="#506683" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z"
+                stroke="#506683"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
               <path d="M14 8L8 14" stroke="#506683" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               <path d="M8 8L14 14" stroke="#506683" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </IconButton>
-          <h1 className="text-black md:text-[30px] text-[5vw] font-bold roboto">
-            Upload Documents
-          </h1>
-          <div className="c-custom__upload mt-10 flex justify-center items-center">
+          <h1 className="text-black md:text-[30px] text-[5vw] font-bold roboto">Upload Documents</h1>
+          <div className="c-custom__upload mt-3 flex justify-center items-center">
             <div>
               {urls?.length > 0 ? (
                 <>
                   <div className="flex flex-wrap gap-5 mx-auto">
-                    <div {...getRootProps()} className={`border border-dashed ${isDragActive && 'border-[#2dc918]'} space-y-2 rounded-[16px] h-[100px] w-[100px] p-2 flex flex-col justify-center items-center cursor-pointer`}>
+                    <div
+                      {...getRootProps()}
+                      className={`border border-dashed ${
+                        isDragActive && 'border-[#2dc918]'
+                      } space-y-2 rounded-[16px] h-[100px] w-[100px] p-2 flex flex-col justify-center items-center cursor-pointer`}
+                    >
                       <MdOutlineAddPhotoAlternate style={{ fontSize: '20px' }} />
                       {isDragActive ? (
                         <p className="md:text-[14px] text-[3.5vw] font-[500]">Drop Here</p>
                       ) : (
                         <p className="md:text-[14px] text-[3.5vw] font-[500]">Add</p>
                       )}
-                      
-                      <input
-                        accept=".jpg, .jpeg, .png"
-                        {...getInputProps()}
-                        className="hidden"
-                      />
+
+                      <input accept=".jpg, .jpeg, .png" {...getInputProps()} className="hidden" />
                     </div>
                     {urls.map((url) => (
                       <div className="relative" key={url}>
                         <Image
-                        style={{border: `${url?.includes('.pdf') ? '1px solid #999' : 'transparent'}`}}
-                        width={1000}
-                        height={1000}
-                        className="w-[100px] h-[100px] rounded-[16px] object-cover" src={url?.includes('.pdf') ? Assets.pdfLogo : url} alt={`Uploaded Image`} />
-                        <IconButton className="absolute bottom-0 right-0 bg-white" onClick={() => deleteImageFromUrls(url)}>
+                          style={{ border: `${url?.includes('.pdf') ? '1px solid #999' : 'transparent'}` }}
+                          width={1000}
+                          height={1000}
+                          className="w-[100px] h-[100px] rounded-[16px] object-cover"
+                          src={url?.includes('.pdf') ? Assets.pdfLogo : url}
+                          alt={`Uploaded Image`}
+                        />
+                        <IconButton
+                          className="absolute bottom-0 right-0 bg-white"
+                          onClick={() => deleteImageFromUrls(url)}
+                        >
                           <img
                             src="data:image/svg+xml,%3Csvg viewBox='0 0 20 22' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 5a1 1 0 011-1h18a1 1 0 110 2H1a1 1 0 01-1-1z' fill='%23384A62'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 2a1 1 0 00-1 1v1h6V3a1 1 0 00-1-1H8zm7 2V3a3 3 0 00-3-3H8a3 3 0 00-3 3v1H3a1 1 0 00-1 1v14a3 3 0 003 3h10a3 3 0 003-3V5a1 1 0 00-1-1h-2zM4 6v13a1 1 0 001 1h10a1 1 0 001-1V6H4z' fill='%23384A62'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 9a1 1 0 011 1v6a1 1 0 11-2 0v-6a1 1 0 011-1zM12 9a1 1 0 011 1v6a1 1 0 11-2 0v-6a1 1 0 011-1z' fill='%23384A62'/%3E%3C/svg%3E"
                             alt=""
@@ -195,23 +205,26 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
                   </div>
                   {documents && (
                     <div className="border rounded-[16px] px-4 py-2 w-full h-auto mt-5 flex flex-wrap gap-2">
-                      {isUploading && <p className="font-[500] text-[12px] text-distressBlue">Uploading documents... ({uploadProgress}%)</p>}
-                      {documents && documents?.map((item: any, i: any) => (
-                        <div key={i} className="flex items-center">
-                          <p className="text-[12px] font-[500] mr-1">
-                            {sliceText(25, item?.name)}
-                          </p>
-                          {!isUploading && (
-                            <IconButton onClick={() => deleteFile(item?.name)}>
-                              <img
-                                src="data:image/svg+xml,%3Csvg viewBox='0 0 20 22' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 5a1 1 0 011-1h18a1 1 0 110 2H1a1 1 0 01-1-1z' fill='%23384A62'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 2a1 1 0 00-1 1v1h6V3a1 1 0 00-1-1H8zm7 2V3a3 3 0 00-3-3H8a3 3 0 00-3 3v1H3a1 1 0 00-1 1v14a3 3 0 003 3h10a3 3 0 003-3V5a1 1 0 00-1-1h-2zM4 6v13a1 1 0 001 1h10a1 1 0 001-1V6H4z' fill='%23384A62'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 9a1 1 0 011 1v6a1 1 0 11-2 0v-6a1 1 0 011-1zM12 9a1 1 0 011 1v6a1 1 0 11-2 0v-6a1 1 0 011-1z' fill='%23384A62'/%3E%3C/svg%3E"
-                                alt=""
-                                className="w-[12px] h-[12px]"
-                              />
-                            </IconButton>
-                          )}
-                        </div>
-                      ))}
+                      {isUploading && (
+                        <p className="font-[500] text-[12px] text-[#72BAA9]">
+                          Uploading documents... ({uploadProgress}%)
+                        </p>
+                      )}
+                      {documents &&
+                        documents?.map((item: any, i: any) => (
+                          <div key={i} className="flex items-center">
+                            <p className="text-[12px] font-[500] mr-1">{sliceText(25, item?.name)}</p>
+                            {!isUploading && (
+                              <IconButton onClick={() => deleteFile(item?.name)}>
+                                <img
+                                  src="data:image/svg+xml,%3Csvg viewBox='0 0 20 22' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 5a1 1 0 011-1h18a1 1 0 110 2H1a1 1 0 01-1-1z' fill='%23384A62'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 2a1 1 0 00-1 1v1h6V3a1 1 0 00-1-1H8zm7 2V3a3 3 0 00-3-3H8a3 3 0 00-3 3v1H3a1 1 0 00-1 1v14a3 3 0 003 3h10a3 3 0 003-3V5a1 1 0 00-1-1h-2zM4 6v13a1 1 0 001 1h10a1 1 0 001-1V6H4z' fill='%23384A62'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 9a1 1 0 011 1v6a1 1 0 11-2 0v-6a1 1 0 011-1zM12 9a1 1 0 011 1v6a1 1 0 11-2 0v-6a1 1 0 011-1z' fill='%23384A62'/%3E%3C/svg%3E"
+                                  alt=""
+                                  className="w-[12px] h-[12px]"
+                                />
+                              </IconButton>
+                            )}
+                          </div>
+                        ))}
                     </div>
                   )}
                 </>
@@ -233,39 +246,35 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
                         </div>
                         <p className="font-sf text-blue-dark text-center mb-2">
                           Drag and drop to upload <br /> or
-                          <span className="text-red-light cursor-pointer">
-                            {" "}
-                            click here
-                          </span>{" "}
-                          to select documents from your system
+                          <span className="text-red-light cursor-pointer"> click here</span> to select documents from
+                          your system
                         </p>
-                        <input
-                          accept=".jpg, .jpeg, .png"
-                          {...getInputProps()}
-                          className="hidden"
-                        />
+                        <input accept=".jpg, .jpeg, .png" {...getInputProps()} className="hidden" />
                       </div>
                     </div>
                   ) : (
                     <div className="c-modal--upload__status p-6">
                       <div className="border rounded-[16px] px-4 py-2 w-full h-auto mt-5 flex flex-wrap gap-2">
-                        {isUploading && <p className="font-[500] text-[12px] text-distressBlue">Uploading documents... ({uploadProgress}%)</p>}
-                        {documents && documents?.map((item: any, i: any) => (
-                          <div key={i} className="flex items-center">
-                            <p className="text-[12px] font-[500] mr-1">
-                              {sliceText(30, item?.name)}
-                            </p>
-                            {!isUploading && (
-                              <IconButton onClick={() => deleteFile(item?.name)}>
-                                <img
-                                  src="data:image/svg+xml,%3Csvg viewBox='0 0 20 22' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 5a1 1 0 011-1h18a1 1 0 110 2H1a1 1 0 01-1-1z' fill='%23384A62'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 2a1 1 0 00-1 1v1h6V3a1 1 0 00-1-1H8zm7 2V3a3 3 0 00-3-3H8a3 3 0 00-3 3v1H3a1 1 0 00-1 1v14a3 3 0 003 3h10a3 3 0 003-3V5a1 1 0 00-1-1h-2zM4 6v13a1 1 0 001 1h10a1 1 0 001-1V6H4z' fill='%23384A62'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 9a1 1 0 011 1v6a1 1 0 11-2 0v-6a1 1 0 011-1zM12 9a1 1 0 011 1v6a1 1 0 11-2 0v-6a1 1 0 011-1z' fill='%23384A62'/%3E%3C/svg%3E"
-                                  alt=""
-                                  className="w-[12px] h-[12px]"
-                                />
-                              </IconButton>
-                            )}
-                          </div>
-                        ))}
+                        {isUploading && (
+                          <p className="font-[500] text-[12px] text-[#72BAA9]">
+                            Uploading documents... ({uploadProgress}%)
+                          </p>
+                        )}
+                        {documents &&
+                          documents?.map((item: any, i: any) => (
+                            <div key={i} className="flex items-center">
+                              <p className="text-[12px] font-[500] mr-1">{sliceText(30, item?.name)}</p>
+                              {!isUploading && (
+                                <IconButton onClick={() => deleteFile(item?.name)}>
+                                  <img
+                                    src="data:image/svg+xml,%3Csvg viewBox='0 0 20 22' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 5a1 1 0 011-1h18a1 1 0 110 2H1a1 1 0 01-1-1z' fill='%23384A62'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 2a1 1 0 00-1 1v1h6V3a1 1 0 00-1-1H8zm7 2V3a3 3 0 00-3-3H8a3 3 0 00-3 3v1H3a1 1 0 00-1 1v14a3 3 0 003 3h10a3 3 0 003-3V5a1 1 0 00-1-1h-2zM4 6v13a1 1 0 001 1h10a1 1 0 001-1V6H4z' fill='%23384A62'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 9a1 1 0 011 1v6a1 1 0 11-2 0v-6a1 1 0 011-1zM12 9a1 1 0 011 1v6a1 1 0 11-2 0v-6a1 1 0 011-1z' fill='%23384A62'/%3E%3C/svg%3E"
+                                    alt=""
+                                    className="w-[12px] h-[12px]"
+                                  />
+                                </IconButton>
+                              )}
+                            </div>
+                          ))}
                       </div>
                     </div>
                   )}
@@ -274,24 +283,18 @@ const DocumentUploadModal = ({ showmodal, setIsModal }: any) => {
             </div>
           </div>
 
-
-
-          <button
-            className="text-white bg-distressBlue w-[60%] mx-auto flex justify-center items-center py-4 rounded-[8px] md:text-[16px] text-[4vw] mt-10 font-medium poppins text-center"
-            type="button"
-            onClick={handleButton}
-          >
-            {documents?.length > 0 ? 'Click to Upload' : buttonText}
-          </button>
+          {hasSelectedFile && (
+            <button
+              onClick={handleButton}
+              className="text-white bg-secondary w-[50%] mx-auto flex justify-center items-center py-3 rounded-[8px] md:text-[16px] text-[4vw] mt-5 font-medium poppins text-center"
+            >
+              {documents?.length > 0 ? 'Upload' : buttonText}
+            </button>
+          )}
         </div>
       </ZoomInOut>
-    </Backdrop >
+    </Backdrop>
   );
 };
 
 export default DocumentUploadModal;
-
-
-
-
-

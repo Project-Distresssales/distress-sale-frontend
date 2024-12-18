@@ -19,29 +19,17 @@ const HOWITWORKSSTEPS: HowItWorksStep[] = [
   {
     id: 2,
     img: Assets.penPaper,
-    title: 'List Property',
-    description: 'Choose the type of property you want to list',
-  },
-  {
-    id: 3,
-    img: Assets.categoryNewEach,
     title: 'Describe Ad',
     description: 'Input correct details for potential buyers to view',
   },
   {
-    id: 4,
+    id: 3,
     img: Assets.blueFolder,
     title: 'Choose Ad Category',
     description: 'Choose the right category for your Ad',
   },
   {
-    id: 5,
-    img: Assets.penPaperAds,
-    title: 'Ad Details',
-    description: 'Input correct details for potential buyers to view',
-  },
-  {
-    id: 6,
+    id: 4,
     img: Assets.handShareBrowser,
     title: 'Contact Details',
     description: 'Confirm your contact details to activate and post your ad',

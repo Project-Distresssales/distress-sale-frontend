@@ -19,12 +19,14 @@ const UploadModal = ({ showmodal, setIsModal }: any) => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [buttonText, setButtonText] = useState("Click to Upload");
+  const [hasSelectedFile, setHasSelectedFile] = useState(false);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      'image/*': ['.jpeg', '.png', '.gif'],
+      'image/*': ['.jpeg', '.png'],
     },
     onDrop: (acceptedFiles: File[]) => {
+      setHasSelectedFile(acceptedFiles.length > 0);
       setImages(acceptedFiles);
     },
   });
@@ -88,7 +90,7 @@ const UploadModal = ({ showmodal, setIsModal }: any) => {
       saveImages();
     } else {
       setIsModal(false);
-      toast.success('Images Saved Successfuly!');
+      toast.success('Images Saved Successful!');
     }
   }
 
@@ -107,6 +109,7 @@ const UploadModal = ({ showmodal, setIsModal }: any) => {
       setImages(null);
       setUploadProgress(0);
       setIsUploading(false);
+      setHasSelectedFile(false)
     } else {
       setImages(filtered);
       setUploadProgress(0);
@@ -115,6 +118,7 @@ const UploadModal = ({ showmodal, setIsModal }: any) => {
 
   const deleteImageFromUrls = (urlToDelete: string) => {
     setUrls((prevUrls) => prevUrls.filter((url) => url !== urlToDelete));
+    setHasSelectedFile(false);
   };
 
   // Save URLs to local storage when uploads complete
@@ -180,7 +184,7 @@ const UploadModal = ({ showmodal, setIsModal }: any) => {
                   </div>
                   {images && (
                     <div className="border rounded-[16px] px-4 py-2 w-full h-auto mt-5 flex flex-wrap gap-2">
-                      {isUploading && <p className="font-[500] text-[12px] text-distressBlue">Uploading images... ({uploadProgress}%)</p>}
+                      {isUploading && <p className="font-[500] text-[12px] text-[#72BAA9]">Uploading images... ({uploadProgress}%)</p>}
                       {images && images?.map((item: any, i: any) => (
                         <div key={i} className="flex items-center">
                           <p className="text-[12px] font-[500] mr-1">
@@ -234,7 +238,7 @@ const UploadModal = ({ showmodal, setIsModal }: any) => {
                   ) : (
                     <div className="c-modal--upload__status p-6">
                       <div className="border rounded-[16px] px-4 py-2 w-full h-auto mt-5 flex flex-wrap gap-2">
-                        {isUploading && <p className="font-[500] text-[12px] text-distressBlue">Uploading images... ({uploadProgress}%)</p>}
+                        {isUploading && <p className="font-[500] text-[12px] text-[#72BAA9]">Uploading images... ({uploadProgress}%)</p>}
                         {images && images?.map((item: any, i: any) => (
                           <div key={i} className="flex items-center">
                             <p className="text-[12px] font-[500] mr-1">
@@ -261,13 +265,11 @@ const UploadModal = ({ showmodal, setIsModal }: any) => {
 
 
 
-          <button
-            className="text-white bg-distressBlue w-[60%] mx-auto flex justify-center items-center py-4 rounded-[8px] md:text-[16px] text-[4vw] mt-5 font-medium poppins text-center"
-            type="button"
-            onClick={handleButton}
-          >
-            {images?.length > 0 ? 'Click to Upload' : buttonText}
-          </button>
+          {hasSelectedFile && (
+                <button onClick={handleButton} className="text-white bg-secondary w-[50%] mx-auto flex justify-center items-center py-3 rounded-[8px] md:text-[16px] text-[4vw] mt-5 font-medium poppins text-center">
+                   {images?.length > 0 ? 'Upload' : buttonText}
+                </button>
+              )}
         </div>
       </ZoomInOut>
     </Backdrop >

@@ -168,8 +168,8 @@ const Pfs: React.FC<any> = ({
         <MyTextField
           id="tourUrl"
           name="tourUrl"
-          label="360 Tour URL"
-          placeholder="Insert URL"
+          label="Video url / 360 Tour url"
+          placeholder="Insert a video URL"
           value={tourUrl}
           onChange={handleChange}
           type="text"
